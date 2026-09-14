@@ -80,9 +80,10 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   update(time: number, delta: number): void {
-    const leftDown = this.keys.left.isDown || this.keys.a.isDown;
-    const rightDown = this.keys.right.isDown || this.keys.d.isDown;
-    const restartJustPressed = Phaser.Input.Keyboard.JustDown(this.keys.r);
+    const override = debugInputOverride();
+    const leftDown = override.left ?? (this.keys.left.isDown || this.keys.a.isDown);
+    const rightDown = override.right ?? (this.keys.right.isDown || this.keys.d.isDown);
+    const restartJustPressed = override.restart || Phaser.Input.Keyboard.JustDown(this.keys.r);
 
     this.inputState.update(time, leftDown, rightDown, restartJustPressed);
 
@@ -94,6 +95,7 @@ export class PlaygroundScene extends Phaser.Scene {
 
     this.controller.update(time, delta);
     this.hud.update(this.controller, this.inputState, time);
+    publishDebugState(this.controller, this.inputState, time);
   }
 
   private createTestRoom(): { solids: Solid[]; platforms: Phaser.GameObjects.Rectangle[] } {
@@ -154,4 +156,48 @@ function label(scene: Phaser.Scene, x: number, y: number, text: string): void {
     })
     .setOrigin(0.5, 1)
     .setDepth(5);
+}
+
+type DebugInputOverride = {
+  left?: boolean;
+  right?: boolean;
+  restart?: boolean;
+};
+
+function debugInputOverride(): DebugInputOverride {
+  if (!PhysicsConfig.debug) {
+    return {};
+  }
+
+  const fromWindow = (window as Window & { __inputOverride?: DebugInputOverride }).__inputOverride ?? {};
+  const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+  const hold = hash.get("hold");
+
+  return {
+    left: fromWindow.left ?? (hold === "left" ? true : undefined),
+    right: fromWindow.right ?? (hold === "right" ? true : undefined),
+    restart: fromWindow.restart === true,
+  };
+}
+
+function publishDebugState(player: PlayerController, input: InputState, nowMs: number): void {
+  if (!PhysicsConfig.debug) {
+    return;
+  }
+
+  (window as Window & { __playground?: unknown }).__playground = {
+    vx: player.vx,
+    vy: player.vy,
+    grounded: player.grounded,
+    wallLeft: player.wallLeft,
+    wallRight: player.wallRight,
+    bounceType: player.lastBounceType,
+    visualState: player.visualState,
+    held: input.leftDown ? "LEFT" : input.rightDown ? "RIGHT" : "NONE",
+    lastInput: input.lastInputLabel,
+    inputDurationMs: input.inputDurationMs(nowMs),
+    landingBoostWindow: player.landingBoostWindowActive,
+    x: player.x,
+    y: player.y,
+  };
 }

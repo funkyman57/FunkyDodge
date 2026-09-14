@@ -46,6 +46,14 @@ export class PlayerController {
     return this.player.body.velocity.y;
   }
 
+  get x(): number {
+    return this.player.x;
+  }
+
+  get y(): number {
+    return this.player.y;
+  }
+
   setSolids(solids: SolidBody[]): void {
     this.solids = solids;
   }
