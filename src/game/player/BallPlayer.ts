@@ -6,7 +6,7 @@ export type BallVisualState = "NORMAL" | "BOOST" | "LOW" | "WALL";
 const BALL_COLORS: Record<BallVisualState, number> = {
   NORMAL: 0x4ecdc4,
   BOOST: 0xffe66d,
-  LOW: 0xa78bfa,
+  LOW: 0xc084fc,
   WALL: 0xff6b6b,
 };
 
