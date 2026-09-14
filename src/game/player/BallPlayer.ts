@@ -22,9 +22,12 @@ export class BallPlayer {
     this.sprite.setCircle(radius);
     this.sprite.setCollideWorldBounds(false);
     this.sprite.setBounce(0, 0);
+    this.sprite.setDrag(0, 0);
     this.sprite.setFriction(0, 0);
     this.sprite.setMaxVelocity(2000, 2500);
     this.sprite.setDepth(10);
+    this.body.setAllowGravity(true);
+    this.body.onWorldBounds = false;
 
     this.label = scene.add
       .text(this.sprite.x, this.sprite.y - radius - 14, "NORMAL", {
@@ -49,10 +52,10 @@ export class BallPlayer {
   }
 
   reset(): void {
-    this.sprite.setPosition(PhysicsConfig.spawnX, PhysicsConfig.spawnY);
+    this.body.reset(PhysicsConfig.spawnX, PhysicsConfig.spawnY);
     this.body.setVelocity(0, 0);
     this.body.setAcceleration(0, 0);
-    this.body.stop();
+    this.body.setAllowGravity(true);
     this.setVisualState("NORMAL");
   }
 

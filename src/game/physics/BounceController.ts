@@ -38,19 +38,19 @@ export function isLandingBoostEligible(
   nowMs: number,
   windowMs: number = PhysicsConfig.landingBoostWindowMs,
 ): boolean {
-  if (input.leftDown || input.rightDown) {
-    return true;
-  }
-
-  if (input.leftPressedAt !== null && nowMs - input.leftPressedAt <= windowMs) {
-    return true;
-  }
-
-  if (input.rightPressedAt !== null && nowMs - input.rightPressedAt <= windowMs) {
-    return true;
-  }
-
-  return false;
+  return wasActiveDuringWindow(
+    input.leftDown,
+    input.leftPressedAt,
+    input.leftReleasedAt,
+    nowMs,
+    windowMs,
+  ) || wasActiveDuringWindow(
+    input.rightDown,
+    input.rightPressedAt,
+    input.rightReleasedAt,
+    nowMs,
+    windowMs,
+  );
 }
 
 export function isWallJumpEligible(
@@ -104,6 +104,26 @@ export function resolveFloorBounce(input: BounceInput, nowMs: number): FloorBoun
     applyHorizontalBoost: false,
     boostDirection: 0,
   };
+}
+
+function wasActiveDuringWindow(
+  down: boolean,
+  pressedAt: number | null,
+  releasedAt: number | null,
+  nowMs: number,
+  windowMs: number,
+): boolean {
+  if (down) {
+    return true;
+  }
+
+  if (pressedAt === null) {
+    return false;
+  }
+
+  const downEnd = releasedAt !== null && releasedAt >= pressedAt ? releasedAt : nowMs;
+  const windowStart = nowMs - windowMs;
+  return downEnd >= windowStart && pressedAt <= nowMs;
 }
 
 function hasHorizontalIntent(

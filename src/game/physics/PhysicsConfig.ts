@@ -25,9 +25,12 @@ export const PhysicsConfig = {
 
   wallInputBufferMs: 120,
   wallJumpHorizontalVelocity: 320,
+  wallJumpVisualMs: 180,
+  contactSkin: 6,
+  fallingSpeedEpsilon: 40,
 
-  spawnX: 280,
-  spawnY: 180,
+  spawnX: 220,
+  spawnY: 160,
 
   ballRadius: 16,
 };

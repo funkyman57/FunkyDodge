@@ -48,6 +48,9 @@ export class PlaygroundScene extends Phaser.Scene {
     this.hud = new DebugHud(this);
 
     this.physics.add.collider(this.player.sprite, platforms);
+    this.game.canvas.setAttribute("tabindex", "0");
+    this.game.canvas.focus();
+    this.input.on("pointerdown", () => this.game.canvas.focus());
 
     this.keys = this.input.keyboard!.addKeys({
       left: Phaser.Input.Keyboard.KeyCodes.LEFT,
@@ -111,7 +114,7 @@ export class PlaygroundScene extends Phaser.Scene {
     const lowCeiling = addSolid(this, platforms, solids, 688, 404, 224, 20, LOW_CEILING);
     label(this, lowCeiling.x, lowCeiling.y - 18, "LOW CEILING");
 
-    const jumpWall = addSolid(this, platforms, solids, 508, 268, 20, 248, JUMP_WALL);
+    const jumpWall = addSolid(this, platforms, solids, 500, 258, 24, 258, JUMP_WALL);
     label(this, jumpWall.x, jumpWall.y - 18, "WALL JUMP");
 
     return { solids, platforms };

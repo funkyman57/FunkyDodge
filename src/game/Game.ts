@@ -20,6 +20,12 @@ export function createGame(parent: string | HTMLElement): Phaser.Game {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,
     },
+    callbacks: {
+      postBoot: (game) => {
+        game.canvas.setAttribute("tabindex", "0");
+        game.canvas.focus();
+      },
+    },
     scene: [PlaygroundScene],
   });
 }

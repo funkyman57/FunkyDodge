@@ -38,6 +38,7 @@ export class DebugHud {
         `Wall Left ${yesNo(player.wallLeft)}`,
         `Wall Right ${yesNo(player.wallRight)}`,
         `Last Input ${input.lastInputLabel}`,
+        `Held ${heldLabel(input)}`,
         `Bounce Type: ${player.lastBounceType}`,
         `Landing Boost Window ${windowLabel}`,
         `Input Duration ${Math.round(input.inputDurationMs(nowMs))}ms`,
@@ -51,4 +52,17 @@ export class DebugHud {
 
 function yesNo(value: boolean): string {
   return value ? "YES" : "NO";
+}
+
+function heldLabel(input: InputState): string {
+  if (input.leftDown && input.rightDown) {
+    return "LEFT+RIGHT";
+  }
+  if (input.leftDown) {
+    return "LEFT";
+  }
+  if (input.rightDown) {
+    return "RIGHT";
+  }
+  return "NONE";
 }

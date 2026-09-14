@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { InputState } from "../input/InputState";
 import {
   BounceType,
+  isLowBounceEligible,
   isWallJumpEligible,
   resolveFloorBounce,
 } from "../physics/BounceController";
@@ -28,6 +29,8 @@ export class PlayerController {
   private wallJumpConsumed = false;
   private boostUntilMs = 0;
   private lastWallJumpAt = 0;
+  private boostLatch = false;
+  private lowBounceLatch = false;
   private solids: SolidBody[] = [];
 
   constructor(
@@ -60,6 +63,8 @@ export class PlayerController {
     this.wallJumpConsumed = false;
     this.boostUntilMs = 0;
     this.lastWallJumpAt = 0;
+    this.boostLatch = false;
+    this.lowBounceLatch = false;
   }
 
   update(nowMs: number, deltaMs: number): void {
@@ -68,7 +73,7 @@ export class PlayerController {
 
     this.physicsWorldGravity();
     this.refreshContactFlags(body);
-    this.updateLandingBoostWindow(body);
+    this.updateLandingBoostWindow(body, nowMs);
     this.applyHorizontalControl(body, dt, nowMs);
     this.applyWallJump(nowMs);
     this.applyFloorBounce(nowMs);
@@ -81,9 +86,12 @@ export class PlayerController {
   }
 
   private refreshContactFlags(body: Phaser.Physics.Arcade.Body): void {
+    const geometricLeft = this.isTouchingWall(body, "left");
+    const geometricRight = this.isTouchingWall(body, "right");
+
     this.grounded = body.blocked.down || body.touching.down;
-    this.wallLeft = body.blocked.left || body.touching.left;
-    this.wallRight = body.blocked.right || body.touching.right;
+    this.wallLeft = body.blocked.left || body.touching.left || geometricLeft;
+    this.wallRight = body.blocked.right || body.touching.right || geometricRight;
 
     if (!this.wallLeft && !this.wallRight) {
       this.wallJumpConsumed = false;
@@ -94,9 +102,27 @@ export class PlayerController {
     }
   }
 
-  private updateLandingBoostWindow(body: Phaser.Physics.Arcade.Body): void {
+  private isTouchingWall(body: Phaser.Physics.Arcade.Body, side: "left" | "right"): boolean {
+    const skin = PhysicsConfig.contactSkin;
+    return this.solids.some((solid) => {
+      const verticallyOverlaps = body.bottom > solid.top + 8 && body.top < solid.bottom - 8;
+      if (!verticallyOverlaps) {
+        return false;
+      }
+
+      if (side === "left") {
+        const distance = body.left - solid.right;
+        return distance >= -skin && distance <= skin;
+      }
+
+      const distance = solid.left - body.right;
+      return distance >= -skin && distance <= skin;
+    });
+  }
+
+  private updateLandingBoostWindow(body: Phaser.Physics.Arcade.Body, nowMs: number): void {
     const distance = this.distanceToGround();
-    const falling = body.velocity.y > 40;
+    const falling = body.velocity.y > PhysicsConfig.fallingSpeedEpsilon;
 
     if (!falling || distance === Number.POSITIVE_INFINITY) {
       this.landingBoostWindowActive = false;
@@ -107,6 +133,17 @@ export class PlayerController {
     const timeToGroundMs = (distance / body.velocity.y) * 1000;
     this.landingBoostWindowMsRemaining = Math.max(0, PhysicsConfig.landingBoostWindowMs - timeToGroundMs);
     this.landingBoostWindowActive = timeToGroundMs <= PhysicsConfig.landingBoostWindowMs;
+
+    if (this.landingBoostWindowActive && (this.input.leftDown || this.input.rightDown)) {
+      this.boostLatch = true;
+    }
+    if (this.landingBoostWindowActive && isLowBounceEligible(this.input, nowMs)) {
+      this.lowBounceLatch = true;
+    }
+    if (!this.grounded && body.velocity.y < -PhysicsConfig.fallingSpeedEpsilon) {
+      this.boostLatch = false;
+      this.lowBounceLatch = false;
+    }
   }
 
   private applyHorizontalControl(body: Phaser.Physics.Arcade.Body, dt: number, nowMs: number): void {
@@ -129,6 +166,14 @@ export class PlayerController {
     const boostActive = nowMs < this.boostUntilMs;
     const maxSpeed = PhysicsConfig.maxHorizontalSpeed * (boostActive ? PhysicsConfig.landingBoostMultiplier : 1);
     vx = clamp(vx, -maxSpeed, maxSpeed);
+
+    if (this.wallLeft && vx < 0 && !this.input.rightDown) {
+      vx = 0;
+    }
+    if (this.wallRight && vx > 0 && !this.input.leftDown) {
+      vx = 0;
+    }
+
     body.setVelocityX(vx);
   }
 
@@ -150,6 +195,9 @@ export class PlayerController {
     }
 
     this.player.body.setVelocityX(direction * PhysicsConfig.wallJumpHorizontalVelocity);
+    this.player.body.blocked.left = false;
+    this.player.body.blocked.right = false;
+    this.player.body.x += direction * 3;
     this.wallJumpConsumed = true;
     this.lastWallJumpAt = nowMs;
     this.visualState = "WALL";
@@ -165,10 +213,35 @@ export class PlayerController {
       return;
     }
 
-    const result = resolveFloorBounce(this.input, nowMs);
+    let result = resolveFloorBounce(this.input, nowMs);
+    if (
+      result.type !== "LOW"
+      && this.lowBounceLatch
+      && !this.input.leftDown
+      && !this.input.rightDown
+    ) {
+      result = {
+        type: "LOW",
+        verticalVelocity: -PhysicsConfig.bounceVelocity * PhysicsConfig.lowBounceMultiplier,
+        applyHorizontalBoost: false,
+        boostDirection: 0,
+      };
+    } else if (result.type === "NORMAL" && this.boostLatch) {
+      const boostDirection = this.input.lastHorizontalDirection;
+      result = {
+        type: "BOOST",
+        verticalVelocity: -PhysicsConfig.bounceVelocity,
+        applyHorizontalBoost: boostDirection !== 0,
+        boostDirection,
+      };
+    }
+
     body.setVelocityY(result.verticalVelocity);
+    body.blocked.down = false;
     this.lastBounceType = result.type;
     this.bounceApplied = true;
+    this.boostLatch = false;
+    this.lowBounceLatch = false;
 
     if (result.applyHorizontalBoost) {
       this.applyLandingBoost(result.boostDirection, nowMs);
@@ -191,7 +264,7 @@ export class PlayerController {
   }
 
   private updateVisualState(nowMs: number): void {
-    if (nowMs - this.lastWallJumpAt < 180 || ((this.wallLeft || this.wallRight) && this.wallJumpConsumed)) {
+    if (nowMs - this.lastWallJumpAt < PhysicsConfig.wallJumpVisualMs || ((this.wallLeft || this.wallRight) && this.wallJumpConsumed)) {
       this.visualState = "WALL";
     } else if (this.lastBounceType === "BOOST" || nowMs < this.boostUntilMs) {
       this.visualState = "BOOST";
