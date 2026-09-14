@@ -1,6 +1,50 @@
 export type HorizontalDirection = -1 | 0 | 1;
 
-export class InputState {
+export type HorizontalInputSnapshot = {
+  leftDown: boolean;
+  rightDown: boolean;
+  leftPressedAt: number | null;
+  rightPressedAt: number | null;
+  leftReleasedAt: number | null;
+  rightReleasedAt: number | null;
+  lastHorizontalDirection: HorizontalDirection;
+};
+
+export type HorizontalPressInfo = {
+  direction: -1 | 1;
+  pressedAt: number;
+  ageMs: number;
+  held: boolean;
+};
+
+export function getFreshHorizontalPress(
+  input: HorizontalInputSnapshot,
+  nowMs: number,
+): HorizontalPressInfo | null {
+  const left = toPress(-1, input.leftPressedAt, input.leftDown, nowMs);
+  const right = toPress(1, input.rightPressedAt, input.rightDown, nowMs);
+
+  if (input.leftDown && !input.rightDown) {
+    return left;
+  }
+  if (input.rightDown && !input.leftDown) {
+    return right;
+  }
+  if (left && right) {
+    return left.pressedAt >= right.pressedAt ? left : right;
+  }
+  return left ?? right;
+}
+
+export function getHorizontalHoldDuration(input: HorizontalInputSnapshot, nowMs: number): number {
+  const press = getFreshHorizontalPress(input, nowMs);
+  if (press === null || !press.held) {
+    return 0;
+  }
+  return press.ageMs;
+}
+
+export class InputState implements HorizontalInputSnapshot {
   leftDown = false;
   rightDown = false;
   restartJustPressed = false;
@@ -46,13 +90,18 @@ export class InputState {
     }
   }
 
-  inputDurationMs(nowMs: number): number {
-    if (this.leftDown && this.leftPressedAt !== null && (!this.rightDown || this.leftPressedAt >= (this.rightPressedAt ?? -Infinity))) {
-      return Math.max(0, nowMs - this.leftPressedAt);
-    }
+  getFreshHorizontalPress(nowMs: number): HorizontalPressInfo | null {
+    return getFreshHorizontalPress(this, nowMs);
+  }
 
-    if (this.rightDown && this.rightPressedAt !== null) {
-      return Math.max(0, nowMs - this.rightPressedAt);
+  getHorizontalHoldDuration(nowMs: number): number {
+    return getHorizontalHoldDuration(this, nowMs);
+  }
+
+  inputDurationMs(nowMs: number): number {
+    const held = this.getHorizontalHoldDuration(nowMs);
+    if (held > 0) {
+      return held;
     }
 
     const leftTap = this.tapDuration(this.leftPressedAt, this.leftReleasedAt);
@@ -85,4 +134,21 @@ export class InputState {
     }
     return releasedAt - pressedAt;
   }
+}
+
+function toPress(
+  direction: -1 | 1,
+  pressedAt: number | null,
+  held: boolean,
+  nowMs: number,
+): HorizontalPressInfo | null {
+  if (pressedAt === null) {
+    return null;
+  }
+  return {
+    direction,
+    pressedAt,
+    ageMs: nowMs - pressedAt,
+    held,
+  };
 }

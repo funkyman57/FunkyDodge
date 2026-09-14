@@ -9,7 +9,9 @@ export const PhysicsConfig = {
   bounceVelocity: 620,
 
   horizontalAcceleration: 900,
-  airAcceleration: 650,
+  airAcceleration: 700,
+  airReverseAcceleration: 1800,
+  airReverseSpeedEpsilon: 24,
 
   maxHorizontalSpeed: 340,
 
@@ -19,12 +21,12 @@ export const PhysicsConfig = {
   landingBoostMultiplier: 1.25,
   landingBoostHoldMs: 200,
 
-  lowBounceWindowMs: 110,
+  lowBounceFreshPressWindowMs: 130,
   lowBounceMultiplier: 0.48,
-  lowBounceMaxTapMs: 90,
 
   wallInputBufferMs: 120,
   wallJumpHorizontalVelocity: 320,
+  wallJumpVerticalVelocity: 500,
   wallJumpVisualMs: 180,
   contactSkin: 6,
   fallingSpeedEpsilon: 40,

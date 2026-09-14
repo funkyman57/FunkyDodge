@@ -2,9 +2,11 @@ import Phaser from "phaser";
 import { InputState } from "../input/InputState";
 import {
   BounceType,
-  isLowBounceEligible,
   isWallJumpEligible,
+  LandingIntent,
   resolveFloorBounce,
+  resolveLandingIntent,
+  resolveMoveAcceleration,
 } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { BallPlayer, BallVisualState } from "./BallPlayer";
@@ -21,6 +23,8 @@ export class PlayerController {
   wallLeft = false;
   wallRight = false;
   lastBounceType: BounceType = "NORMAL";
+  landingIntent: LandingIntent = "NONE";
+  approachIntent: LandingIntent = "NONE";
   landingBoostWindowActive = false;
   landingBoostWindowMsRemaining = 0;
   visualState: BallVisualState = "NORMAL";
@@ -29,8 +33,6 @@ export class PlayerController {
   private wallJumpConsumed = false;
   private boostUntilMs = 0;
   private lastWallJumpAt = 0;
-  private boostLatch = false;
-  private lowBounceLatch = false;
   private solids: SolidBody[] = [];
 
   constructor(
@@ -64,6 +66,8 @@ export class PlayerController {
     this.wallLeft = false;
     this.wallRight = false;
     this.lastBounceType = "NORMAL";
+    this.landingIntent = "NONE";
+    this.approachIntent = "NONE";
     this.landingBoostWindowActive = false;
     this.landingBoostWindowMsRemaining = 0;
     this.visualState = "NORMAL";
@@ -71,8 +75,6 @@ export class PlayerController {
     this.wallJumpConsumed = false;
     this.boostUntilMs = 0;
     this.lastWallJumpAt = 0;
-    this.boostLatch = false;
-    this.lowBounceLatch = false;
   }
 
   update(nowMs: number, deltaMs: number): void {
@@ -81,7 +83,7 @@ export class PlayerController {
 
     this.physicsWorldGravity();
     this.refreshContactFlags(body);
-    this.updateLandingBoostWindow(body, nowMs);
+    this.updateApproachWindow(body, nowMs);
     this.applyHorizontalControl(body, dt, nowMs);
     this.applyWallJump(nowMs);
     this.applyFloorBounce(nowMs);
@@ -128,7 +130,9 @@ export class PlayerController {
     });
   }
 
-  private updateLandingBoostWindow(body: Phaser.Physics.Arcade.Body, nowMs: number): void {
+  private updateApproachWindow(body: Phaser.Physics.Arcade.Body, nowMs: number): void {
+    this.approachIntent = resolveLandingIntent(this.input, nowMs);
+
     const distance = this.distanceToGround();
     const falling = body.velocity.y > PhysicsConfig.fallingSpeedEpsilon;
 
@@ -141,21 +145,15 @@ export class PlayerController {
     const timeToGroundMs = (distance / body.velocity.y) * 1000;
     this.landingBoostWindowMsRemaining = Math.max(0, PhysicsConfig.landingBoostWindowMs - timeToGroundMs);
     this.landingBoostWindowActive = timeToGroundMs <= PhysicsConfig.landingBoostWindowMs;
-
-    if (this.landingBoostWindowActive && (this.input.leftDown || this.input.rightDown)) {
-      this.boostLatch = true;
-    }
-    if (this.landingBoostWindowActive && isLowBounceEligible(this.input, nowMs)) {
-      this.lowBounceLatch = true;
-    }
-    if (!this.grounded && body.velocity.y < -PhysicsConfig.fallingSpeedEpsilon) {
-      this.boostLatch = false;
-      this.lowBounceLatch = false;
-    }
   }
 
   private applyHorizontalControl(body: Phaser.Physics.Arcade.Body, dt: number, nowMs: number): void {
-    const accel = this.grounded ? PhysicsConfig.horizontalAcceleration : PhysicsConfig.airAcceleration;
+    const accel = resolveMoveAcceleration(
+      this.grounded,
+      body.velocity.x,
+      this.input.leftDown,
+      this.input.rightDown,
+    );
     let vx = body.velocity.x;
 
     if (this.input.leftDown && !this.input.rightDown) {
@@ -202,10 +200,13 @@ export class PlayerController {
       return;
     }
 
-    this.player.body.setVelocityX(direction * PhysicsConfig.wallJumpHorizontalVelocity);
-    this.player.body.blocked.left = false;
-    this.player.body.blocked.right = false;
-    this.player.body.x += direction * 3;
+    const body = this.player.body;
+    body.setVelocityX(direction * PhysicsConfig.wallJumpHorizontalVelocity);
+    body.setVelocityY(-PhysicsConfig.wallJumpVerticalVelocity);
+    body.blocked.left = false;
+    body.blocked.right = false;
+    body.blocked.down = false;
+    body.x += direction * 3;
     this.wallJumpConsumed = true;
     this.lastWallJumpAt = nowMs;
     this.visualState = "WALL";
@@ -221,35 +222,12 @@ export class PlayerController {
       return;
     }
 
-    let result = resolveFloorBounce(this.input, nowMs);
-    if (
-      result.type !== "LOW"
-      && this.lowBounceLatch
-      && !this.input.leftDown
-      && !this.input.rightDown
-    ) {
-      result = {
-        type: "LOW",
-        verticalVelocity: -PhysicsConfig.bounceVelocity * PhysicsConfig.lowBounceMultiplier,
-        applyHorizontalBoost: false,
-        boostDirection: 0,
-      };
-    } else if (result.type === "NORMAL" && this.boostLatch) {
-      const boostDirection = this.input.lastHorizontalDirection;
-      result = {
-        type: "BOOST",
-        verticalVelocity: -PhysicsConfig.bounceVelocity,
-        applyHorizontalBoost: boostDirection !== 0,
-        boostDirection,
-      };
-    }
-
+    const result = resolveFloorBounce(this.input, nowMs);
     body.setVelocityY(result.verticalVelocity);
     body.blocked.down = false;
     this.lastBounceType = result.type;
+    this.landingIntent = result.intent;
     this.bounceApplied = true;
-    this.boostLatch = false;
-    this.lowBounceLatch = false;
 
     if (result.applyHorizontalBoost) {
       this.applyLandingBoost(result.boostDirection, nowMs);

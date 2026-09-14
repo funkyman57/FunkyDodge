@@ -39,8 +39,11 @@ export class DebugHud {
         `Wall Right ${yesNo(player.wallRight)}`,
         `Last Input ${input.lastInputLabel}`,
         `Held ${heldLabel(input)}`,
+        `Hold Duration ${Math.round(input.getHorizontalHoldDuration(nowMs))}ms`,
         `Bounce Type: ${player.lastBounceType}`,
-        `Landing Boost Window ${windowLabel}`,
+        `Landing Intent: ${player.landingIntent}`,
+        `Approach Intent: ${player.approachIntent}`,
+        `Landing Window ${windowLabel}`,
         `Input Duration ${Math.round(input.inputDurationMs(nowMs))}ms`,
         player.lastBounceType === "BOOST" ? "LANDING BOOST" : "",
       ]
