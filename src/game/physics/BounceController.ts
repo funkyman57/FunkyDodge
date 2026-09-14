@@ -1,56 +1,56 @@
+import { getFreshHorizontalPress, type HorizontalInputSnapshot } from "../input/InputState";
 import { PhysicsConfig } from "./PhysicsConfig";
 
 export type BounceType = "NORMAL" | "LOW" | "BOOST";
-
-export type BounceInput = {
-  leftDown: boolean;
-  rightDown: boolean;
-  leftPressedAt: number | null;
-  rightPressedAt: number | null;
-  leftReleasedAt: number | null;
-  rightReleasedAt: number | null;
-  lastHorizontalDirection: -1 | 0 | 1;
-};
+export type LandingIntent = "FRESH_PRESS" | "HOLD" | "NONE";
+export type BounceInput = HorizontalInputSnapshot;
 
 export type FloorBounceResult = {
   type: BounceType;
+  intent: LandingIntent;
   verticalVelocity: number;
   applyHorizontalBoost: boolean;
   boostDirection: -1 | 0 | 1;
 };
 
+export function isFreshLandingPress(
+  input: BounceInput,
+  nowMs: number,
+  windowMs: number = PhysicsConfig.lowBounceFreshPressWindowMs,
+): boolean {
+  const press = getFreshHorizontalPress(input, nowMs);
+  return press !== null && press.ageMs <= windowMs;
+}
+
 export function isLowBounceEligible(
   input: BounceInput,
   nowMs: number,
-  windowMs: number = PhysicsConfig.lowBounceWindowMs,
-  maxTapMs: number = PhysicsConfig.lowBounceMaxTapMs,
+  windowMs: number = PhysicsConfig.lowBounceFreshPressWindowMs,
 ): boolean {
-  if (input.leftDown || input.rightDown) {
-    return false;
-  }
-
-  return wasShortTap(input.leftPressedAt, input.leftReleasedAt, nowMs, windowMs, maxTapMs)
-    || wasShortTap(input.rightPressedAt, input.rightReleasedAt, nowMs, windowMs, maxTapMs);
+  return isFreshLandingPress(input, nowMs, windowMs);
 }
 
 export function isLandingBoostEligible(
   input: BounceInput,
   nowMs: number,
-  windowMs: number = PhysicsConfig.landingBoostWindowMs,
+  windowMs: number = PhysicsConfig.lowBounceFreshPressWindowMs,
 ): boolean {
-  return wasActiveDuringWindow(
-    input.leftDown,
-    input.leftPressedAt,
-    input.leftReleasedAt,
-    nowMs,
-    windowMs,
-  ) || wasActiveDuringWindow(
-    input.rightDown,
-    input.rightPressedAt,
-    input.rightReleasedAt,
-    nowMs,
-    windowMs,
-  );
+  const press = getFreshHorizontalPress(input, nowMs);
+  return press !== null && press.held && press.ageMs > windowMs;
+}
+
+export function resolveLandingIntent(
+  input: BounceInput,
+  nowMs: number,
+  windowMs: number = PhysicsConfig.lowBounceFreshPressWindowMs,
+): LandingIntent {
+  if (isFreshLandingPress(input, nowMs, windowMs)) {
+    return "FRESH_PRESS";
+  }
+  if (isLandingBoostEligible(input, nowMs, windowMs)) {
+    return "HOLD";
+  }
+  return "NONE";
 }
 
 export function isWallJumpEligible(
@@ -78,20 +78,50 @@ export function isWallJumpEligible(
   return 0;
 }
 
+export function isAirReversing(vx: number, leftDown: boolean, rightDown: boolean): boolean {
+  const epsilon = PhysicsConfig.airReverseSpeedEpsilon;
+  if (leftDown && !rightDown && vx > epsilon) {
+    return true;
+  }
+  if (rightDown && !leftDown && vx < -epsilon) {
+    return true;
+  }
+  return false;
+}
+
+export function resolveMoveAcceleration(
+  grounded: boolean,
+  vx: number,
+  leftDown: boolean,
+  rightDown: boolean,
+): number {
+  if (grounded) {
+    return PhysicsConfig.horizontalAcceleration;
+  }
+  if (isAirReversing(vx, leftDown, rightDown)) {
+    return PhysicsConfig.airReverseAcceleration;
+  }
+  return PhysicsConfig.airAcceleration;
+}
+
 export function resolveFloorBounce(input: BounceInput, nowMs: number): FloorBounceResult {
-  if (isLowBounceEligible(input, nowMs)) {
+  const intent = resolveLandingIntent(input, nowMs);
+
+  if (intent === "FRESH_PRESS") {
     return {
       type: "LOW",
+      intent,
       verticalVelocity: -PhysicsConfig.bounceVelocity * PhysicsConfig.lowBounceMultiplier,
       applyHorizontalBoost: false,
       boostDirection: 0,
     };
   }
 
-  if (isLandingBoostEligible(input, nowMs)) {
+  if (intent === "HOLD") {
     const boostDirection = resolveBoostDirection(input);
     return {
       type: "BOOST",
+      intent,
       verticalVelocity: -PhysicsConfig.bounceVelocity,
       applyHorizontalBoost: boostDirection !== 0,
       boostDirection,
@@ -100,30 +130,11 @@ export function resolveFloorBounce(input: BounceInput, nowMs: number): FloorBoun
 
   return {
     type: "NORMAL",
+    intent,
     verticalVelocity: -PhysicsConfig.bounceVelocity,
     applyHorizontalBoost: false,
     boostDirection: 0,
   };
-}
-
-function wasActiveDuringWindow(
-  down: boolean,
-  pressedAt: number | null,
-  releasedAt: number | null,
-  nowMs: number,
-  windowMs: number,
-): boolean {
-  if (down) {
-    return true;
-  }
-
-  if (pressedAt === null) {
-    return false;
-  }
-
-  const downEnd = releasedAt !== null && releasedAt >= pressedAt ? releasedAt : nowMs;
-  const windowStart = nowMs - windowMs;
-  return downEnd >= windowStart && pressedAt <= nowMs;
 }
 
 function hasHorizontalIntent(
@@ -137,29 +148,6 @@ function hasHorizontalIntent(
   }
 
   return input.rightDown || (input.rightPressedAt !== null && nowMs - input.rightPressedAt <= bufferMs);
-}
-
-function wasShortTap(
-  pressedAt: number | null,
-  releasedAt: number | null,
-  nowMs: number,
-  windowMs: number,
-  maxTapMs: number,
-): boolean {
-  if (pressedAt === null || releasedAt === null || releasedAt < pressedAt) {
-    return false;
-  }
-
-  if (nowMs - releasedAt > windowMs) {
-    return false;
-  }
-
-  const duration = releasedAt - pressedAt;
-  if (duration > maxTapMs) {
-    return false;
-  }
-
-  return nowMs - pressedAt <= windowMs + maxTapMs;
 }
 
 function resolveBoostDirection(input: BounceInput): -1 | 0 | 1 {
