@@ -4,9 +4,9 @@ export const PhysicsConfig = {
   width: 960,
   height: 540,
 
-  gravity: 1100,
+  gravity: 1400,
 
-  bounceVelocity: 620,
+  bounceVelocity: 580,
 
   horizontalAcceleration: 1400,
   airAcceleration: 950,
@@ -28,7 +28,7 @@ export const PhysicsConfig = {
   landingBoostHoldMs: 200,
 
   lowBounceFreshPressWindowMs: 130,
-  lowBounceMultiplier: 0.48,
+  lowBounceMultiplier: 0.42,
 
   wallInputBufferMs: 120,
   wallJumpHorizontalVelocity: 320,

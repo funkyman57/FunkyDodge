@@ -166,6 +166,26 @@ export function resolveMovementState(
   return Math.abs(vx) > PhysicsConfig.airReverseSpeedEpsilon ? "DRAG" : "IDLE";
 }
 
+export function theoreticalBounceAirtimeSeconds(
+  launchSpeed: number,
+  gravity: number = PhysicsConfig.gravity,
+): number {
+  if (gravity <= 0) {
+    return 0;
+  }
+  return (2 * Math.abs(launchSpeed)) / gravity;
+}
+
+export function normalBounceAirtimeSeconds(): number {
+  return theoreticalBounceAirtimeSeconds(PhysicsConfig.bounceVelocity);
+}
+
+export function lowBounceAirtimeSeconds(): number {
+  return theoreticalBounceAirtimeSeconds(
+    PhysicsConfig.bounceVelocity * PhysicsConfig.lowBounceMultiplier,
+  );
+}
+
 export function resolveFloorBounce(input: BounceInput, nowMs: number): FloorBounceResult {
   const intent = resolveLandingIntent(input, nowMs);
 

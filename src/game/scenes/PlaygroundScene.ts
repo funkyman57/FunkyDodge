@@ -64,7 +64,7 @@ export class PlaygroundScene extends Phaser.Scene {
     this.add
       .text(PhysicsConfig.width - 16, 12, [
         "PHYSICS PLAYGROUND",
-        "PLAY-001B feel pass",
+        "PLAY-001C cadence pass",
         "A/D or arrows: move",
         "R: restart",
         "Fresh tap near land: LOW",

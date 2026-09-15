@@ -1,12 +1,14 @@
 # FunkyDodge
 
-Physics Playground (PLAY-000 / PLAY-001 / PLAY-001A / PLAY-001B experiment).
+Physics Playground (PLAY-000 / PLAY-001 / PLAY-001A / PLAY-001B / PLAY-001C cadence experiment).
 
 This is not a complete game. It is a playable experiment for one question:
 
 **Is controlling the bouncing ball fun?**
 
-PLAY-001B is a movement-feel pass. Tuning numbers in `PhysicsConfig.ts` are experimental playground values, not level-design law.
+PLAY-001C is a vertical-cadence pass. Tuning numbers in `PhysicsConfig.ts` are experimental playground values, not level-design law.
+
+Repeated LOW needs a fresh tap near each landing. Holding a direction is BOOST, not a bunny-hop chain.
 
 ## Run
 

@@ -10,11 +10,18 @@ import {
   resolveFloorBounce,
   resolveLandingIntent,
   resolveMoveAcceleration,
+  lowBounceAirtimeSeconds,
+  normalBounceAirtimeSeconds,
   resolvePressImpulse,
   resolveTakeoffVelocity,
   resolveWallJumpVelocity,
+  theoreticalBounceAirtimeSeconds,
 } from "./BounceController";
 import { PhysicsConfig } from "./PhysicsConfig";
+
+const PLAY_001B_GRAVITY = 1100;
+const PLAY_001B_BOUNCE_VELOCITY = 620;
+const PLAY_001B_LOW_MULTIPLIER = 0.48;
 
 function input(partial: Partial<BounceInput>): BounceInput {
   return {
@@ -174,6 +181,92 @@ test("BOOST-01: BOOST remains distinct from LOW and NORMAL", () => {
   assert.notEqual(boost.verticalVelocity, low.verticalVelocity);
   assert.notEqual(boost.applyHorizontalBoost, low.applyHorizontalBoost);
   assert.notEqual(boost.applyHorizontalBoost, normal.applyHorizontalBoost);
+});
+
+test("CADENCE-01: NORMAL bounce cycle is shorter than PLAY-001B baseline", () => {
+  const oldNormal = theoreticalBounceAirtimeSeconds(PLAY_001B_BOUNCE_VELOCITY, PLAY_001B_GRAVITY);
+  const nextNormal = normalBounceAirtimeSeconds();
+
+  assert.equal(oldNormal, 2 * PLAY_001B_BOUNCE_VELOCITY / PLAY_001B_GRAVITY);
+  assert.ok(nextNormal < oldNormal * 0.8);
+  assert.ok(nextNormal > oldNormal * 0.65);
+  assert.equal(nextNormal, theoreticalBounceAirtimeSeconds(PhysicsConfig.bounceVelocity));
+});
+
+test("CADENCE-02: LOW bounce cycle is substantially shorter than NORMAL", () => {
+  const oldLow = theoreticalBounceAirtimeSeconds(
+    PLAY_001B_BOUNCE_VELOCITY * PLAY_001B_LOW_MULTIPLIER,
+    PLAY_001B_GRAVITY,
+  );
+  const nextLow = lowBounceAirtimeSeconds();
+  const nextNormal = normalBounceAirtimeSeconds();
+
+  assert.ok(nextLow < oldLow);
+  assert.ok(nextLow < nextNormal * 0.5);
+  assert.ok(nextLow >= 0.3);
+  assert.ok(nextLow <= 0.4);
+  assert.ok(
+    nextLow * 1000 > PhysicsConfig.lowBounceFreshPressWindowMs,
+    "LOW airtime must outlast the fresh-press window so one tap cannot cover two landings",
+  );
+});
+
+test("LOW-RHYTHM-01: one fresh landing tap produces LOW", () => {
+  const now = 1000;
+  const tap = input({
+    rightDown: true,
+    rightPressedAt: now - 40,
+    lastHorizontalDirection: 1,
+  });
+  assert.equal(resolveFloorBounce(tap, now).type, "LOW");
+});
+
+test("LOW-RHYTHM-02: a continuously held direction does not create repeated LOW", () => {
+  const pressedAt = 600;
+  const held = input({
+    rightDown: true,
+    rightPressedAt: pressedAt,
+    lastHorizontalDirection: 1,
+  });
+
+  const firstLanding = 1000;
+  const secondLanding = firstLanding + Math.round(lowBounceAirtimeSeconds() * 1000);
+  const thirdLanding = secondLanding + Math.round(lowBounceAirtimeSeconds() * 1000);
+
+  assert.equal(resolveFloorBounce(held, firstLanding).type, "BOOST");
+  assert.equal(resolveFloorBounce(held, secondLanding).type, "BOOST");
+  assert.equal(resolveFloorBounce(held, thirdLanding).type, "BOOST");
+  assert.equal(isFreshLandingPress(held, secondLanding), false);
+});
+
+test("LOW-RHYTHM-03: separate fresh taps across landings can produce successive LOWs", () => {
+  const firstLanding = 1000;
+  const secondLanding = firstLanding + Math.round(lowBounceAirtimeSeconds() * 1000);
+
+  const firstTap = input({
+    rightDown: true,
+    rightPressedAt: firstLanding - 50,
+    lastHorizontalDirection: 1,
+  });
+  const secondTap = input({
+    rightDown: true,
+    rightPressedAt: secondLanding - 50,
+    lastHorizontalDirection: 1,
+  });
+
+  assert.equal(resolveFloorBounce(firstTap, firstLanding).type, "LOW");
+  assert.equal(resolveFloorBounce(secondTap, secondLanding).type, "LOW");
+  assert.equal(
+    resolveFloorBounce(
+      input({
+        rightDown: true,
+        rightPressedAt: firstLanding - 50,
+        lastHorizontalDirection: 1,
+      }),
+      secondLanding,
+    ).type,
+    "BOOST",
+  );
 });
 
 test("WALL-01: Wall Jump produces upward and away velocity", () => {
