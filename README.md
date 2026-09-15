@@ -42,4 +42,6 @@ You do not need to release before landing for LOW. Tap again each bounce for `í†
 - **Low Ceiling**: fresh taps near landing to Low Bounce under the purple slab
 - **Wall Jump**: touch the red wall and press the opposite direction â€” the ball should kick **up and away**
 
+Movement is impulse + acceleration + momentum. A tap should feel like a kick, not a slow fade-in.
+
 Tune feel in `src/game/physics/PhysicsConfig.ts`, then refresh.

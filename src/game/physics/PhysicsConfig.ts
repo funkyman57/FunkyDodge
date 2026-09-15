@@ -8,14 +8,20 @@ export const PhysicsConfig = {
 
   bounceVelocity: 620,
 
-  horizontalAcceleration: 900,
-  airAcceleration: 700,
-  airReverseAcceleration: 1800,
+  horizontalAcceleration: 1400,
+  airAcceleration: 950,
+  airReverseAcceleration: 2200,
   airReverseSpeedEpsilon: 24,
 
-  maxHorizontalSpeed: 340,
+  horizontalPressImpulse: 90,
+  airReversePressImpulse: 140,
+
+  maxHorizontalSpeed: 420,
 
   horizontalDrag: 500,
+
+  takeoffHorizontalVelocityMin: 180,
+  lowBounceHorizontalMultiplier: 1.15,
 
   landingBoostWindowMs: 120,
   landingBoostMultiplier: 1.25,

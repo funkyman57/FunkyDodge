@@ -10,6 +10,8 @@ import {
   resolveFloorBounce,
   resolveLandingIntent,
   resolveMoveAcceleration,
+  resolvePressImpulse,
+  resolveTakeoffVelocity,
 } from "./BounceController";
 import { PhysicsConfig } from "./PhysicsConfig";
 
@@ -98,6 +100,25 @@ test("air reverse uses stronger acceleration", () => {
   assert.equal(resolveMoveAcceleration(false, 300, true, false), PhysicsConfig.airReverseAcceleration);
   assert.equal(resolveMoveAcceleration(false, 300, false, true), PhysicsConfig.airAcceleration);
   assert.equal(resolveMoveAcceleration(true, 300, true, false), PhysicsConfig.horizontalAcceleration);
+});
+
+test("press impulse is one-shot and stronger when reversing", () => {
+  assert.equal(resolvePressImpulse(0, 0), 0);
+  assert.equal(resolvePressImpulse(0, 1), PhysicsConfig.horizontalPressImpulse);
+  assert.equal(resolvePressImpulse(0, -1), -PhysicsConfig.horizontalPressImpulse);
+  assert.equal(resolvePressImpulse(300, -1), -PhysicsConfig.airReversePressImpulse);
+  assert.equal(resolvePressImpulse(-300, 1), PhysicsConfig.airReversePressImpulse);
+  assert.equal(resolvePressImpulse(300, 1), PhysicsConfig.horizontalPressImpulse);
+});
+
+test("takeoff kick raises low speed but never reduces current speed", () => {
+  assert.equal(resolveTakeoffVelocity(40, 1, "NORMAL"), PhysicsConfig.takeoffHorizontalVelocityMin);
+  assert.equal(resolveTakeoffVelocity(250, 1, "NORMAL"), 250);
+  assert.equal(resolveTakeoffVelocity(40, -1, "NORMAL"), -PhysicsConfig.takeoffHorizontalVelocityMin);
+
+  const lowMin = PhysicsConfig.takeoffHorizontalVelocityMin * PhysicsConfig.lowBounceHorizontalMultiplier;
+  assert.equal(resolveTakeoffVelocity(40, 1, "LOW"), lowMin);
+  assert.ok(lowMin > PhysicsConfig.takeoffHorizontalVelocityMin);
 });
 
 test("wall jump only fires opposite the contacted wall", () => {

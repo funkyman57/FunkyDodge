@@ -3,6 +3,7 @@ import { PhysicsConfig } from "./PhysicsConfig";
 
 export type BounceType = "NORMAL" | "LOW" | "BOOST";
 export type LandingIntent = "FRESH_PRESS" | "HOLD" | "NONE";
+export type MovementState = "IDLE" | "DRAG" | "ACCEL" | "REVERSE" | "IMPULSE";
 export type BounceInput = HorizontalInputSnapshot;
 
 export type FloorBounceResult = {
@@ -102,6 +103,60 @@ export function resolveMoveAcceleration(
     return PhysicsConfig.airReverseAcceleration;
   }
   return PhysicsConfig.airAcceleration;
+}
+
+export function resolvePressImpulse(vx: number, pressDirection: -1 | 0 | 1): number {
+  if (pressDirection === 0) {
+    return 0;
+  }
+
+  const reversing = isAirReversing(vx, pressDirection === -1, pressDirection === 1);
+  const magnitude = reversing
+    ? PhysicsConfig.airReversePressImpulse
+    : PhysicsConfig.horizontalPressImpulse;
+  return pressDirection * magnitude;
+}
+
+export function resolveTakeoffDirection(input: BounceInput, nowMs: number, intent: LandingIntent): -1 | 0 | 1 {
+  if (intent === "NONE") {
+    return 0;
+  }
+
+  const press = getFreshHorizontalPress(input, nowMs);
+  if (press !== null) {
+    return press.direction;
+  }
+  return input.lastHorizontalDirection;
+}
+
+export function resolveTakeoffVelocity(
+  currentVx: number,
+  direction: -1 | 1,
+  bounceType: BounceType,
+): number {
+  let minimum = PhysicsConfig.takeoffHorizontalVelocityMin;
+  if (bounceType === "LOW") {
+    minimum *= PhysicsConfig.lowBounceHorizontalMultiplier;
+  }
+  return direction * Math.max(Math.abs(currentVx), minimum);
+}
+
+export function resolveMovementState(
+  vx: number,
+  leftDown: boolean,
+  rightDown: boolean,
+  appliedImpulse: number,
+): MovementState {
+  if (appliedImpulse !== 0) {
+    return "IMPULSE";
+  }
+  if (leftDown && !rightDown) {
+    return isAirReversing(vx, true, false) ? "REVERSE" : "ACCEL";
+  }
+  if (rightDown && !leftDown) {
+    return isAirReversing(vx, false, true) ? "REVERSE" : "ACCEL";
+  }
+  return Math.abs(vx) > PhysicsConfig.airReverseSpeedEpsilon ? "DRAG" : "IDLE";
 }
 
 export function resolveFloorBounce(input: BounceInput, nowMs: number): FloorBounceResult {

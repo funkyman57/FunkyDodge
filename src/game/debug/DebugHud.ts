@@ -26,25 +26,18 @@ export class DebugHud {
       return;
     }
 
-    const windowLabel = player.landingBoostWindowActive
-      ? `ON (${Math.round(player.landingBoostWindowMsRemaining)}ms)`
-      : "OFF";
-
     this.text.setText(
       [
         `vx ${player.vx.toFixed(1)}`,
         `vy ${player.vy.toFixed(1)}`,
-        `Grounded ${yesNo(player.grounded)}`,
-        `Wall Left ${yesNo(player.wallLeft)}`,
-        `Wall Right ${yesNo(player.wallRight)}`,
-        `Last Input ${input.lastInputLabel}`,
-        `Held ${heldLabel(input)}`,
-        `Hold Duration ${Math.round(input.getHorizontalHoldDuration(nowMs))}ms`,
+        `Fresh Press ${yesNo(player.freshPressThisFrame)}`,
+        `Press Impulse ${player.lastPressImpulse.toFixed(0)}`,
+        `Movement State ${player.movementState}`,
         `Bounce Type: ${player.lastBounceType}`,
         `Landing Intent: ${player.landingIntent}`,
-        `Approach Intent: ${player.approachIntent}`,
-        `Landing Window ${windowLabel}`,
-        `Input Duration ${Math.round(input.inputDurationMs(nowMs))}ms`,
+        `Grounded ${yesNo(player.grounded)}`,
+        `Wall L/R ${yesNo(player.wallLeft)}/${yesNo(player.wallRight)}`,
+        `Hold ${Math.round(input.getHorizontalHoldDuration(nowMs))}ms`,
         player.lastBounceType === "BOOST" ? "LANDING BOOST" : "",
       ]
         .filter(Boolean)
@@ -55,17 +48,4 @@ export class DebugHud {
 
 function yesNo(value: boolean): string {
   return value ? "YES" : "NO";
-}
-
-function heldLabel(input: InputState): string {
-  if (input.leftDown && input.rightDown) {
-    return "LEFT+RIGHT";
-  }
-  if (input.leftDown) {
-    return "LEFT";
-  }
-  if (input.rightDown) {
-    return "RIGHT";
-  }
-  return "NONE";
 }

@@ -4,9 +4,14 @@ import {
   BounceType,
   isWallJumpEligible,
   LandingIntent,
+  MovementState,
   resolveFloorBounce,
   resolveLandingIntent,
   resolveMoveAcceleration,
+  resolveMovementState,
+  resolvePressImpulse,
+  resolveTakeoffDirection,
+  resolveTakeoffVelocity,
 } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { BallPlayer, BallVisualState } from "./BallPlayer";
@@ -28,6 +33,9 @@ export class PlayerController {
   landingBoostWindowActive = false;
   landingBoostWindowMsRemaining = 0;
   visualState: BallVisualState = "NORMAL";
+  movementState: MovementState = "IDLE";
+  freshPressThisFrame = false;
+  lastPressImpulse = 0;
 
   private bounceApplied = false;
   private wallJumpConsumed = false;
@@ -71,6 +79,9 @@ export class PlayerController {
     this.landingBoostWindowActive = false;
     this.landingBoostWindowMsRemaining = 0;
     this.visualState = "NORMAL";
+    this.movementState = "IDLE";
+    this.freshPressThisFrame = false;
+    this.lastPressImpulse = 0;
     this.bounceApplied = false;
     this.wallJumpConsumed = false;
     this.boostUntilMs = 0;
@@ -148,13 +159,19 @@ export class PlayerController {
   }
 
   private applyHorizontalControl(body: Phaser.Physics.Arcade.Body, dt: number, nowMs: number): void {
+    const pressDirection = this.input.justPressedDirection();
+    const impulse = resolvePressImpulse(body.velocity.x, pressDirection);
+    this.freshPressThisFrame = pressDirection !== 0;
+    this.lastPressImpulse = impulse;
+
+    let vx = body.velocity.x + impulse;
+
     const accel = resolveMoveAcceleration(
       this.grounded,
-      body.velocity.x,
+      vx,
       this.input.leftDown,
       this.input.rightDown,
     );
-    let vx = body.velocity.x;
 
     if (this.input.leftDown && !this.input.rightDown) {
       vx -= accel * dt;
@@ -169,7 +186,7 @@ export class PlayerController {
       }
     }
 
-    const boostActive = nowMs < this.boostUntilMs;
+    const boostActive = nowMs < this.boostUntilMs || this.lastBounceType === "BOOST";
     const maxSpeed = PhysicsConfig.maxHorizontalSpeed * (boostActive ? PhysicsConfig.landingBoostMultiplier : 1);
     vx = clamp(vx, -maxSpeed, maxSpeed);
 
@@ -180,6 +197,7 @@ export class PlayerController {
       vx = 0;
     }
 
+    this.movementState = resolveMovementState(vx, this.input.leftDown, this.input.rightDown, impulse);
     body.setVelocityX(vx);
   }
 
@@ -228,6 +246,11 @@ export class PlayerController {
     this.lastBounceType = result.type;
     this.landingIntent = result.intent;
     this.bounceApplied = true;
+
+    const takeoffDirection = resolveTakeoffDirection(this.input, nowMs, result.intent);
+    if (takeoffDirection !== 0) {
+      body.setVelocityX(resolveTakeoffVelocity(body.velocity.x, takeoffDirection, result.type));
+    }
 
     if (result.applyHorizontalBoost) {
       this.applyLandingBoost(result.boostDirection, nowMs);

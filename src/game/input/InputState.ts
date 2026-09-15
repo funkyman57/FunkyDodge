@@ -47,6 +47,8 @@ export function getHorizontalHoldDuration(input: HorizontalInputSnapshot, nowMs:
 export class InputState implements HorizontalInputSnapshot {
   leftDown = false;
   rightDown = false;
+  leftJustPressed = false;
+  rightJustPressed = false;
   restartJustPressed = false;
 
   leftPressedAt: number | null = null;
@@ -57,10 +59,22 @@ export class InputState implements HorizontalInputSnapshot {
   lastHorizontalDirection: HorizontalDirection = 0;
   lastInputLabel = "NONE";
 
+  justPressedDirection(): -1 | 0 | 1 {
+    if (this.leftJustPressed && !this.rightDown) {
+      return -1;
+    }
+    if (this.rightJustPressed && !this.leftDown) {
+      return 1;
+    }
+    return 0;
+  }
+
   update(nowMs: number, leftDown: boolean, rightDown: boolean, restartJustPressed: boolean): void {
     this.restartJustPressed = restartJustPressed;
+    this.leftJustPressed = leftDown && !this.leftDown;
+    this.rightJustPressed = rightDown && !this.rightDown;
 
-    if (leftDown && !this.leftDown) {
+    if (this.leftJustPressed) {
       this.leftPressedAt = nowMs;
       this.lastInputLabel = "LEFT";
     }
@@ -68,7 +82,7 @@ export class InputState implements HorizontalInputSnapshot {
       this.leftReleasedAt = nowMs;
     }
 
-    if (rightDown && !this.rightDown) {
+    if (this.rightJustPressed) {
       this.rightPressedAt = nowMs;
       this.lastInputLabel = "RIGHT";
     }
@@ -119,6 +133,8 @@ export class InputState implements HorizontalInputSnapshot {
   reset(): void {
     this.leftDown = false;
     this.rightDown = false;
+    this.leftJustPressed = false;
+    this.rightJustPressed = false;
     this.restartJustPressed = false;
     this.leftPressedAt = null;
     this.rightPressedAt = null;
