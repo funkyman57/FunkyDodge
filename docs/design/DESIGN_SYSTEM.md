@@ -200,9 +200,43 @@ High-level world arc (labels are roles; questions stay canonical):
 | WLD-04 | TIME | When should I act? |
 | WLD-05 | UNDERSTANDING | What do I really know? |
 
-W4 and W5 remain high-level conceptual candidates. Do not author detailed W4/W5 rooms in DOC-002.
+W1–W5 room rows are **progression candidates** (60 slots, not a release count). Official lifecycle status stays `CANDIDATE`. Do not add `PROGRESSION CANDIDATE` to the lifecycle. Documentation is not validation.
 
-W1–W3 room rows are **progression candidates**. Official lifecycle status stays `CANDIDATE`. Do not add `PROGRESSION CANDIDATE` to the lifecycle. Documentation is not validation.
+### Cognitive Operation Variety
+
+> Adjacent rooms should not demand the same cognitive operation merely because their discoveries or gimmicks differ.
+
+Operations include trajectory construction, state preparation, route choice, momentum management, spatial detour, object reinterpretation, order reasoning, counting, waiting, prediction, synchronization, and alternate-solution formation.
+
+Different objects with the same reasoning feel redundant. The same object with different reasoning can stay distinct. This prevents late-game “actually, do the opposite” loops.
+
+Do **not** create a Pattern ID for this principle.
+
+### World difficulty rhythm
+
+Difficulty should not rise monotonically across all rooms.
+
+Each new World should temporarily reduce cognitive pressure while introducing its new concept (TEACH → APPLY → TEST → REINTERPRET → COMBINE → MASTERY, then the next World's TEACH).
+
+`W2-012 → W3-001` and `W3-012 → W4-001` (and the same for other world joins) should generally reset cognitive pressure.
+
+Progression is a **rising sawtooth**, not a continuous ramp. Cognitive Difficulty should still generally remain >= Execution Difficulty.
+
+### Reward rooms
+
+> A Reward room lets the player enjoy knowledge they have already earned without immediately demanding another major inference.
+
+Reward is not loot, currency, cutscene, or trivial filler. It can mean: “I learned this, and now the game lets me feel powerful/elegant using it.” APPLY / REWARD hybrids are allowed.
+
+Do not add rooms solely to hit a Reward quota. Candidate hybrids (guidance only): `LVL-W01-005`, `LVL-W02-002`, `LVL-W02-006`, `LVL-W03-005`, `LVL-W04-003`, `LVL-W05-010`.
+
+### Alternate solutions
+
+Where appropriate, mastery rooms may support multiple rule-consistent solutions without breaking progression or relying on exploits. This is a level-design quality principle, not a Knowledge Gate. Players may clear a multi-solution room after finding one valid path. Do not add a gate that requires discovering every solution.
+
+### Unused Interaction ≠ design debt
+
+The Interaction Library is possibility space. Progression selects by teaching/discovery value. Unused IDs (e.g. INT-018, INT-019, INT-024) may stay unused. Do not add rooms to cover them.
 
 ---
 
@@ -212,7 +246,9 @@ Do not specify platform distance, gap width, ceiling height, wall spacing, wind 
 
 These depend on PLAY-001B and later human playtesting.
 
-Use: `TBD — after PLAY-001B feel validation`.
+Use: `TBD — after PLAY-001B / relevant prototype validation`.
+
+Also do not establish canonical bounce counts, Timed Gate durations, or Delay durations.
 
 Progression constrains geometry later. Geometry must not prematurely constrain unvalidated physics.
 

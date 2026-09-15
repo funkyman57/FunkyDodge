@@ -27,6 +27,10 @@ Registration criteria — normally require at least three YES answers:
 
 PLAY-001B engine couplings (gravity cycle, landing-intent classification, press impulse then acceleration) stay in the movement rules. They are not extra Interaction IDs.
 
+> Unused Interaction ≠ Design Debt.
+
+The library is possibility space. Required W1–W5 progression need not cover every INT. INT-018, INT-019, and INT-024 (among others) may remain unused as challenge / alternate / expansion / experiment material. Do not add rooms to cover them.
+
 ---
 
 ## Schema

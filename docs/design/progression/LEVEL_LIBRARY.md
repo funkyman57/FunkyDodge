@@ -2,11 +2,11 @@
 
 Levels instantiate discoveries. They sequence into worlds.
 
-All W1–W3 rows are **progression candidates**. Official lifecycle status: `CANDIDATE`. Do not add a new lifecycle state. Documentation is not validation. Do not promote to EXPERIMENTAL / VALIDATED / CORE from this file.
+All W1–W5 rows are **progression candidates** (60 slots, not a ship count). Official lifecycle status: `CANDIDATE`. Do not add a new lifecycle state. Documentation is not validation. Do not promote to EXPERIMENTAL / VALIDATED / CORE from this file.
 
-**Do not implement these rooms.** PLAY-002 has not started. PLAY-001B feel validation is pending.
+**Do not implement these rooms.** PLAY-002 has not started. PLAY-001B feel validation is pending. Do not start W4 implementation.
 
-Geometry, spacing, force strength, friction coefficients, velocities, bounce heights, and timing windows: `TBD — after PLAY-001B feel validation`.
+Geometry, spacing, force strength, friction coefficients, velocities, bounce heights, counts, and timing windows: `TBD — after PLAY-001B / relevant prototype validation`.
 
 Knowledge Graphs and Gates: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Vocabulary: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Do not assign `PAT-001` merely because a room has an exit.
 
@@ -64,7 +64,7 @@ Difficulty target: Cognitive >= Execution (default, not an invariant).
 | LVL-W01-002 | I Can Bend It | TEACH |
 | LVL-W01-003 | Change Your Mind | TEST |
 | LVL-W01-004 | Stay Low | TEACH |
-| LVL-W01-005 | Low != Slow | APPLY |
+| LVL-W01-005 | Low != Slow | APPLY / REWARD candidate |
 | LVL-W01-006 | Hold It | TEACH |
 | LVL-W01-007 | Three Answers | TEST |
 | LVL-W01-008 | The Wall | TEACH |
@@ -80,11 +80,11 @@ Gimmicks: none.
 | ID | Title | Purpose |
 | --- | --- | --- |
 | LVL-W02-001 | Something Is Pushing Me | TEACH |
-| LVL-W02-002 | Ride the Wind | APPLY |
+| LVL-W02-002 | Ride the Wind | APPLY / REWARD candidate |
 | LVL-W02-003 | Fight the Wind | TEST |
 | LVL-W02-004 | Let It Stop You | SURPRISE / REINTERPRET |
 | LVL-W02-005 | Keep Moving | TEACH |
-| LVL-W02-006 | Store It | REINTERPRET |
+| LVL-W02-006 | Store It | REINTERPRET / REWARD candidate |
 | LVL-W02-007 | The Rough Patch | TEACH |
 | LVL-W02-008 | Stop on Purpose | SURPRISE |
 | LVL-W02-009 | Build It | TEST / SETUP |
@@ -102,7 +102,7 @@ Gimmicks: Wind, Ice, Rough only. No Spring.
 | LVL-W03-002 | State | APPLY |
 | LVL-W03-003 | Set It First | TEST |
 | LVL-W03-004 | Don't Open It | SURPRISE / REINTERPRET |
-| LVL-W03-005 | Use It, Then Open It | APPLY / ORDER |
+| LVL-W03-005 | Use It, Then Open It | APPLY / ORDER / REWARD candidate |
 | LVL-W03-006 | Opening Can Be Wrong | REINTERPRET |
 | LVL-W03-007 | Switch Again | REINTERPRET / APPLY |
 | LVL-W03-008 | Movement Before State | TEST |
@@ -112,6 +112,44 @@ Gimmicks: Wind, Ice, Rough only. No Spring.
 | LVL-W03-012 | The Door Is Not a Door | MASTERY / REINTERPRET |
 
 Gimmicks: Door, Switch only. No Moving Block / One-way Surface.
+
+### WLD-04 — 12
+
+| ID | Title | Purpose |
+| --- | --- | --- |
+| LVL-W04-001 | One, Two, Three | TEACH |
+| LVL-W04-002 | Count Your Steps | APPLY |
+| LVL-W04-003 | One More Bounce | REINTERPRET / APPLY / REWARD candidate |
+| LVL-W04-004 | Don't Move | REINTERPRET |
+| LVL-W04-005 | Open for a While | TEACH |
+| LVL-W04-006 | Which Bounce? | TEST |
+| LVL-W04-007 | Wait for the Window | REINTERPRET / SYNCHRONIZATION |
+| LVL-W04-008 | Not Yet | TEACH |
+| LVL-W04-009 | Leave Before It Happens | APPLY |
+| LVL-W04-010 | Set the Future | COMBINE |
+| LVL-W04-011 | Meet Me There | SYNCHRONIZATION / TEST |
+| LVL-W04-012 | The Right Time | MASTERY |
+
+Gimmicks: Bounce Counter, Timed Gate, Delayed Switch (or Switch+Delay). Planning, not twitch.
+
+### WLD-05 — 12
+
+| ID | Title | Purpose |
+| --- | --- | --- |
+| LVL-W05-001 | You Know This | RECALL |
+| LVL-W05-002 | Another Answer | APPLY / ALTERNATE SOLUTION |
+| LVL-W05-003 | Wrong Way | REINTERPRET |
+| LVL-W05-004 | Fall | REINTERPRET |
+| LVL-W05-005 | Give It Up | REINTERPRET |
+| LVL-W05-006 | Close It | REINTERPRET |
+| LVL-W05-007 | Too Early | REINTERPRET / TIME |
+| LVL-W05-008 | Waste a Bounce | REINTERPRET / RESOURCE ALLOCATION |
+| LVL-W05-009 | Three Old Things | COMBINE |
+| LVL-W05-010 | Same Room, New Rules? | REINTERPRET / APPLY / REWARD candidate |
+| LVL-W05-011 | Make Your Own Route | MASTERY / ALTERNATE SOLUTION |
+| LVL-W05-012 | What Do I Really Know? | FINAL MASTERY |
+
+Gimmicks: none new. New Rule target 0.
 
 ---
 
@@ -208,7 +246,7 @@ Do not mark Low Bounce `CORE`.
 | Field | Value |
 | --- | --- |
 | Status | CANDIDATE |
-| Purpose | APPLY |
+| Purpose | APPLY / REWARD candidate |
 | Knowledge | Repeated LOW; LOW + horizontal movement |
 | Discovery Target | DSC-006 seed. Do not declare DSC-006 realized until playtest supports the room. |
 | Rules Used | R-PLAYER-003; R-MOTION-001 |
@@ -396,7 +434,7 @@ Do not mark Wall Jump `CORE`.
 | Field | Value |
 | --- | --- |
 | Status | CANDIDATE |
-| Purpose | APPLY |
+| Purpose | APPLY / REWARD candidate |
 | Knowledge | Input and environmental force can reinforce |
 | Rules Used | R-PLAYER-002; R-FORCE-001 |
 | Interactions Used | INT-001; INT-017 |
@@ -475,7 +513,7 @@ Do not mark Wall Jump `CORE`.
 | Field | Value |
 | --- | --- |
 | Status | CANDIDATE |
-| Purpose | REINTERPRET |
+| Purpose | REINTERPRET / REWARD candidate |
 | Knowledge | Ice as momentum storage |
 | Discovery Target | DSC-003 |
 | Rules Used | R-CONTACT-003 low; R-FORCE-001; R-MOTION-001 |
@@ -693,7 +731,7 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | Field | Value |
 | --- | --- |
 | Status | CANDIDATE |
-| Purpose | APPLY / ORDER |
+| Purpose | APPLY / ORDER / REWARD candidate |
 | Knowledge | Both Door faces in one puzzle |
 | Conceptual sequence | Door CLOSED → use as surface → reach Switch → Door OPEN → pass |
 | Rules Used | R-STATE-001; R-SIGNAL-001; R-CONTACT-001 |
@@ -811,7 +849,8 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | Status | CANDIDATE |
 | Purpose | COMBINE |
 | Knowledge | Door solidity + Momentum. No new Gimmick. |
-| Discovery Target | DSC-015 |
+| Discovery Target | DSC-015. Weak seed only for DSC-016 (not realized here). |
+| DSC-016 seed | A Door collision/rebound may send the player a way that looks less immediately productive but sets a later trajectory. Do not declare DSC-016 realized in W3. |
 | Rules Used | R-MOTION-001; R-CONTACT-001; R-STATE-001 |
 | Interactions Used | INT-013; INT-021 |
 | Gimmicks Used | GIM-001 (and Switch only if already needed to set state) |
@@ -844,6 +883,465 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 
 ---
 
+## World 4
+
+Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY-001B / relevant prototype validation. Numeric counts in titles are illustrative, not canonical.
+
+### LVL-W04-001 — One, Two, Three
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | TEACH |
+| Knowledge | Bounce can be counted; Counter |
+| Discovery Target | opens DSC-011 |
+| Rules Used | R-PLAYER-001; R-STATE-003; R-INFO-001 |
+| Interactions Used | INT-005 |
+| Gimmicks Used | GIM-007 |
+| Puzzle Patterns Used | PAT-011 |
+| Expected realization | Bounce is not only movement. It is also a countable event. |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation. No canonical count. |
+| Gates | W4-GATE-1 |
+| Anti-Pattern Check | Structurally: ANTI-001 (visible count). Playtest: ANTI-018. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W04-002 — Count Your Steps
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | APPLY |
+| Knowledge | Count while moving. A direct route may produce the wrong future count/state. |
+| Rules Used | R-STATE-003; W1 movement |
+| Interactions Used | INT-005 |
+| Gimmicks Used | GIM-007 |
+| Puzzle Patterns Used | PAT-011; PAT-018 if the useful route is a detour |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W4-GATE-1 |
+| Anti-Pattern Check | Structurally: planning, not grind. Playtest: ANTI-006. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W04-003 — One More Bounce
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | REINTERPRET / APPLY / REWARD candidate |
+| Knowledge | An apparently extra Bounce is useful |
+| Discovery Target | DSC-011 (strong payoff candidate) |
+| Rules Used | R-STATE-003; R-PLAYER-001 |
+| Interactions Used | INT-005 |
+| Gimmicks Used | GIM-007 |
+| Puzzle Patterns Used | PAT-011; PAT-018 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W4-GATE-2 |
+| Anti-Pattern Check | Structurally: C-06. Playtest: ANTI-015. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W04-004 — Don't Move
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | REINTERPRET |
+| Knowledge | Waiting is an intentional choice. Auto Bounce means “wait” can be remaining in a safe/local cycle while World State approaches — not standing perfectly still. |
+| Discovery Target | DSC-012 |
+| Cognitive operation | Waiting (≠ W04-007 synchronization) |
+| Rules Used | R-STATE-002 and/or clocked world state; R-INFO-001 |
+| Interactions Used | INT-023 when a window is used |
+| Gimmicks Used | already-introduced temporal object if needed |
+| Puzzle Patterns Used | PAT-010 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W4-GATE-3 |
+| Anti-Pattern Check | Structurally: ANTI-004 (not a twitch freeze). Playtest. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W04-005 — Open for a While
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | TEACH |
+| Knowledge | Some World States are temporary. Learning goal: “This state does not last forever.” Not: “React quickly.” |
+| Rules Used | R-STATE-002; R-CONTACT-001; R-INFO-001 |
+| Interactions Used | INT-023 |
+| Gimmicks Used | GIM-008 |
+| Puzzle Patterns Used | PAT-010 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation. First window must be generous and readable. Duration not specified. |
+| Gates | W4-GATE-4 |
+| Anti-Pattern Check | Structurally: ANTI-003 / ANTI-004 / ANTI-012. Requires playtest. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W04-006 — Which Bounce?
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | TEST |
+| Knowledge | Timed State + LOW / NORMAL / BOOST. Planning, not input precision. |
+| Rules Used | R-STATE-002; R-PLAYER-003; R-PLAYER-004 |
+| Interactions Used | INT-023 |
+| Gimmicks Used | GIM-008 |
+| Puzzle Patterns Used | PAT-010 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W4-GATE-4 |
+| Anti-Pattern Check | Requires playtest: ANTI-003 / ANTI-006. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W04-007 — Wait for the Window
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | REINTERPRET / SYNCHRONIZATION |
+| Knowledge | Align Movement State with a predictable World State window |
+| Cognitive operation | Synchronization (≠ W04-004 waiting-as-action) |
+| Rules Used | R-STATE-002; W1/W2 movement |
+| Interactions Used | INT-023 |
+| Gimmicks Used | GIM-008 |
+| Puzzle Patterns Used | PAT-012 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W4-GATE-6 |
+| Anti-Pattern Check | Structurally: ANTI-012 telegraph. Playtest: ANTI-004. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W04-008 — Not Yet
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | TEACH |
+| Knowledge | Trigger → clear activation cue → predictable delay → state change |
+| Rules Used | R-SIGNAL-001; R-SIGNAL-002; R-INFO-001 |
+| Interactions Used | INT-027 |
+| Gimmicks Used | GIM-012 (or Switch+Delay variation — unresolved) |
+| Puzzle Patterns Used | PAT-020 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation. Delay duration not specified. |
+| Gates | W4-GATE-5 |
+| Anti-Pattern Check | Structurally: ANTI-001 / ANTI-012 if the chain is readable. Playtest. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W04-009 — Leave Before It Happens
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | APPLY |
+| Knowledge | Trigger now; occupy the predicted future World State (≠ W05-007 choose-when-to-trigger) |
+| Discovery Target | DSC-013 |
+| Rules Used | R-SIGNAL-002; W1 movement |
+| Interactions Used | INT-027 |
+| Gimmicks Used | GIM-012 or Switch+Delay |
+| Puzzle Patterns Used | PAT-020 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W4-GATE-5 |
+| Anti-Pattern Check | Structurally: C-06. Playtest: ANTI-004 / ANTI-006. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W04-010 — Set the Future
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | COMBINE |
+| Knowledge | After several future events, what state will exist? |
+| Rules Used | R-STATE-003; R-SIGNAL-001; R-STATE-001 |
+| Interactions Used | INT-025; INT-026 |
+| Gimmicks Used | GIM-007 plus Door/Switch if already taught |
+| Puzzle Patterns Used | PAT-011; PAT-008 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation. No exact counts. |
+| Anti-Pattern Check | Structurally: ANTI-018. Playtest: ANTI-011. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W04-011 — Meet Me There
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | SYNCHRONIZATION / TEST |
+| Knowledge | Future Movement State (position, velocity, trajectory, bounce) meets future World State (gate/door, counter, delay) |
+| Rules Used | Taught W1–W4 only |
+| Interactions Used | Existing INT-023 / INT-027 / INT-005 as needed. No new INT. |
+| Gimmicks Used | none new |
+| Puzzle Patterns Used | PAT-012 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation. Success must not be frame-perfect. |
+| Gates | W4-GATE-6 |
+| Anti-Pattern Check | **W4 scrutiny:** ANTI-003, ANTI-004, ANTI-012. Requires playtest. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W04-012 — The Right Time
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | MASTERY |
+| Knowledge | No new Rule. No new Gimmick. Movement State, World State, count, timed state, delay, waiting, sync. |
+| Discovery Target | DSC-011; DSC-012; DSC-013 |
+| Core question | When should I act so that the desired future states meet? |
+| Rules Used | Taught W1–W4 only |
+| Interactions Used | Existing temporal IDs only |
+| Gimmicks Used | none new |
+| Puzzle Patterns Used | PAT-012; PAT-020; PAT-008 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W4-GATE-6 |
+| Anti-Pattern Check | Structurally: ANTI-020. Playtest: ANTI-003 / ANTI-004 / ANTI-006 / ANTI-011. |
+| Playtest Findings | none |
+
+---
+
+## World 5
+
+New Rule 0. New Gimmick 0. Hidden mechanic 0. Adjacent rooms must use different cognitive operations ([WORLD_LIBRARY.md](WORLD_LIBRARY.md)).
+
+### LVL-W05-001 — You Know This
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | RECALL |
+| Knowledge | Familiar-looking problem. Old answer stays legal; another valid answer is visible through deeper understanding. |
+| Expected feeling | “The old answer wasn't wrong. It just wasn't the only answer.” |
+| Rules Used | Already taught |
+| Interactions Used | Existing only |
+| Gimmicks Used | none new |
+| Puzzle Patterns Used | PAT-022 possible |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W5-GATE-1 |
+| Anti-Pattern Check | Structurally: ANTI-002 (rules unchanged). Playtest: ANTI-015. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W05-002 — Another Answer
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | APPLY / ALTERNATE SOLUTION |
+| Knowledge | More than one rule-consistent solution. Players need not find every path. Validates system understanding, not memorization. |
+| Rules Used | Already taught |
+| Interactions Used | Existing only |
+| Gimmicks Used | none new |
+| Puzzle Patterns Used | PAT-022 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W5-GATE-1 (not a multi-solution checklist) |
+| Anti-Pattern Check | Structurally: ANTI-007 if alts are fake. Playtest: ANTI-019. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W05-003 — Wrong Way
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | REINTERPRET |
+| Cognitive operation | Spatial detour — WHERE to go first (≠ W05-004) |
+| Discovery Target | DSC-007 payoff |
+| Rules Used | Already taught |
+| Interactions Used | none new |
+| Gimmicks Used | none new |
+| Puzzle Patterns Used | PAT-018 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W5-GATE-2 |
+| Anti-Pattern Check | Structurally: ANTI-014 if the detour is hidden. Playtest. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W05-004 — Fall
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | REINTERPRET |
+| Cognitive operation | State transformation — WHAT state to create (≠ W05-003) |
+| Discovery Target | DSC-016 payoff (W3-011 was weak seed only) |
+| Fairness | Intentional setup distinguishable from death/failure via existing rules and readable space. No hidden information. |
+| Rules Used | Already taught PLAYER / CONTACT / STATE |
+| Interactions Used | Existing only |
+| Gimmicks Used | none new |
+| Puzzle Patterns Used | PAT-019 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W5-GATE-2 |
+| Anti-Pattern Check | **W5 scrutiny:** ANTI-001, ANTI-015, ANTI-019. Requires playtest. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W05-005 — Give It Up
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | REINTERPRET |
+| Cognitive operation | State sacrifice — WHAT valuable state to abandon (≠ “touch Rough again”) |
+| Discovery Target | DSC-009 reinforcement |
+| Rules Used | R-MOTION-001; friction only if it serves sacrifice-of-value, not a First-Face rerun |
+| Interactions Used | INT-015 if high friction is used |
+| Gimmicks Used | none new required |
+| Puzzle Patterns Used | PAT-005 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W5-GATE-3 |
+| Anti-Pattern Check | Structurally: ANTI-017 vs W02-008. Playtest. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W05-006 — Close It
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | REINTERPRET |
+| Cognitive operation | Object role selection |
+| Discovery Target | DSC-014 reinforcement |
+| Knowledge | OPEN appears beneficial; restore CLOSED because the solid is required. OPEN ≠ GOOD. CLOSED ≠ BAD. |
+| Rules Used | R-STATE-001; R-CONTACT-001 |
+| Interactions Used | INT-021; INT-022 |
+| Gimmicks Used | GIM-001; GIM-002 |
+| Puzzle Patterns Used | PAT-014 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W5-GATE-4 |
+| Anti-Pattern Check | Structurally: C-07. Playtest: ANTI-017 vs W03-006. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W05-007 — Too Early
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | REINTERPRET / TIME |
+| Cognitive operation | Trigger timing — WHEN to cause the future event (≠ W04-009 trigger-now-then-move) |
+| Knowledge | Immediate trigger makes the future state arrive too early. Delay the cause. |
+| Rules Used | R-SIGNAL-002; taught W4 time |
+| Interactions Used | INT-027 |
+| Gimmicks Used | none new |
+| Puzzle Patterns Used | PAT-020 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W5-GATE-5 |
+| Anti-Pattern Check | Structurally: ANTI-012. Playtest: ANTI-004. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W05-008 — Waste a Bounce
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | REINTERPRET / RESOURCE ALLOCATION |
+| Cognitive operation | Resource spending |
+| Discovery Target | DSC-011 reinforcement |
+| Knowledge | W4: bounce can be counted. W5: bounce count can be deliberately spent/allocated. Not a visible currency unless later justified. |
+| Rules Used | R-STATE-003 |
+| Interactions Used | INT-005 |
+| Gimmicks Used | GIM-007 if already in language |
+| Puzzle Patterns Used | PAT-021 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W5-GATE-5 |
+| Anti-Pattern Check | Structurally: ANTI-018. Playtest. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W05-009 — Three Old Things
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | COMBINE |
+| Discovery Target | DSC-015 |
+| Knowledge | 2–3 well-understood systems, new possibility. Example only (not mandatory): Wind → Momentum → Ice preserves → Closed Door redirects. Avoid Gimmick Flood. |
+| Rules Used | Already taught |
+| Interactions Used | Existing only (e.g. INT-016, INT-013). No new INT. |
+| Gimmicks Used | none new |
+| Puzzle Patterns Used | PAT-017 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Anti-Pattern Check | Structurally: ANTI-010 / ANTI-020. Playtest: ANTI-011. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W05-010 — Same Room, New Rules?
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | REINTERPRET / APPLY / REWARD candidate |
+| Knowledge | Evokes an earlier World structure. Rules do **not** change. Accumulated knowledge reveals a new approach. |
+| Expected feeling | “The game didn't change. I did.” |
+| Rules Used | Already taught — no replacements |
+| Interactions Used | Existing only |
+| Gimmicks Used | none new |
+| Puzzle Patterns Used | PAT-016 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Anti-Pattern Check | Structurally: ANTI-002. Playtest: ANTI-017. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W05-011 — Make Your Own Route
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | MASTERY / ALTERNATE SOLUTION |
+| Knowledge | Multiple rule-consistent approaches where practical (Momentum, LOW, Door rebound, timing — examples). Solution count not frozen. From following rules to using them. |
+| Rules Used | Already taught |
+| Interactions Used | Existing only |
+| Gimmicks Used | none new |
+| Puzzle Patterns Used | PAT-022 |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W5-GATE-6 |
+| Anti-Pattern Check | Structurally: ANTI-019. Playtest: ANTI-015. Not a “find all solutions” gate. |
+| Playtest Findings | none |
+
+---
+
+### LVL-W05-012 — What Do I Really Know?
+
+| Field | Value |
+| --- | --- |
+| Status | CANDIDATE |
+| Purpose | FINAL MASTERY |
+| Knowledge | No new Rule, Gimmick, or hidden mechanic. No new explanatory concept. Prefer ~4–5 deep concepts, not every gimmick. Combination TBD after prototype/playtest. |
+| Final questions | Where? How? What Movement State? What World State? When? What assumptions? What else is possible? |
+| Rules Used | Taught W1–W4 only |
+| Interactions Used | Existing only |
+| Gimmicks Used | none new |
+| Puzzle Patterns Used | PAT-017; PAT-022 possible |
+| Geometry | TBD — after PLAY-001B / relevant prototype validation |
+| Gates | W5-GATE-6 |
+| Anti-Pattern Check | Structurally: ANTI-010, ANTI-020. **W5 scrutiny:** ANTI-001, ANTI-015, ANTI-017, ANTI-019. Requires playtest. |
+| Playtest Findings | none |
+
+---
+
 ## Knowledge Gate count
 
 | World | Gates | Count |
@@ -851,6 +1349,11 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | W1 | W1-GATE-1 … W1-GATE-4 | 4 |
 | W2 | W2-GATE-1 … W2-GATE-6 | 6 |
 | W3 | W3-GATE-1 … W3-GATE-6 | 6 |
+| W4 | W4-GATE-1 … W4-GATE-6 | 6 |
+| W5 | W5-GATE-1 … W5-GATE-6 | 6 |
+| **Player total** | | **28** |
+
+No W5-GATE-7. Alternate-solution support is a level-design quality principle, not a gate.
 
 Gate definitions: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
 
@@ -859,6 +1362,6 @@ Gate definitions: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
 ## Shared constraints
 
 - Do not implement any room from this file.
-- Do not invent geometry or physics values.
+- Do not invent geometry, counts, durations, or physics values.
 - Do not invent new INT / DSC IDs.
-- W4 / W5 rooms are out of scope.
+- Do not start W4 implementation or PLAY-001B from this document.

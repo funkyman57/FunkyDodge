@@ -6,6 +6,10 @@ Puzzle Patterns describe the **thinking problem**, not merely the spatial object
 
 Do not assign `PAT-001` because a room ends by reaching an exit. Use `PAT-001` only when constructing a viable trajectory to the destination is itself the meaningful puzzle.
 
+Adjacent rooms should differ by **cognitive operation**, not only by Pattern/gimmick label. Do not invent Pattern IDs to make a table look diverse. See [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md).
+
+Where appropriate, mastery rooms may support multiple rule-consistent solutions (`PAT-022`) without a gate that requires finding every path.
+
 Levels instantiate patterns. A pattern without a discovery target is incomplete as a design record.
 
 ---

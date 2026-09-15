@@ -40,29 +40,36 @@ IDs are permanent: `WLD-01`.
 
 ---
 
-## W1–W3 accumulation
+## W1–W5 accumulation
 
 ```text
 W1 — CONTROL
-“I can manipulate my Movement State.”
+Where / how do I move?
         ↓
 W2 — MOMENTUM
-“The environment also changes my Movement State,
-and I can prepare/manage that state.”
+In what Movement State should I arrive?
         ↓
 W3 — POSSIBILITY
-“Object state changes which movement possibilities exist.”
+What should the World State be?
+        ↓
+W4 — TIME
+When should those states exist?
+        ↓
+W5 — UNDERSTANDING
+What assumptions am I making, and what else is possible?
 ```
 
-Knowledge accumulates; it is not replaced.
+W5 does not replace prior knowledge. It recombines and reinterprets W1–W4.
 
-Examples (no new INT IDs — compose existing ones):
+Examples (no new INT IDs):
 
 - W1: LOW
 - W2: LOW × Momentum; LOW × Wind (`INT-001`); LOW × Low Friction (`INT-003`)
-- W3: Movement State × Door State (`INT-021`); Momentum × Door (`INT-013` + closed solid); Wall Jump × Closed Door
+- W3: Movement State × Door State (`INT-021`); Momentum × Door (`INT-013` + closed solid)
+- W4: Bounce count (`INT-005`); Timed State (`INT-023`); Delay (`INT-027`)
+- W5: compose taught pairs only
 
-W4 TIME and W5 UNDERSTANDING stay high-level. No detailed rooms in this pass.
+Rhythm, Reward, Cognitive Operation Variety: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md).
 
 ---
 
@@ -70,12 +77,15 @@ W4 TIME and W5 UNDERSTANDING stay high-level. No detailed rooms in this pass.
 
 | World | Conceptual homes |
 | --- | --- |
-| W1 | DSC-005, DSC-006, DSC-010, DSC-017 |
-| W2 | DSC-002, DSC-003, DSC-004, DSC-007, DSC-008, DSC-009, DSC-017 reinforcement |
-| W3 | DSC-001, DSC-014, DSC-015, DSC-018 |
-| Later | DSC-011, DSC-012, DSC-013, DSC-016 |
+| W1 | DSC-005, DSC-006, DSC-010, DSC-017 (seed) |
+| W2 | DSC-002, DSC-003, DSC-004, DSC-007 (seed), DSC-008, DSC-009, DSC-017 (payoff/reinforcement) |
+| W3 | DSC-001, DSC-014, DSC-015, DSC-018, DSC-016 (weak seed only) |
+| W4 | DSC-011, DSC-012, DSC-013 |
+| W5 | DSC-007 payoff; DSC-016 payoff; DSC-009/011/012/013/014/015/018 reinforcement or recombination |
 
-Do not force every DSC into W1–W3. Do not lock a DSC to one world.
+Long-range: DSC-017 W1 seed → W2 payoff; DSC-007 W2 seed → W5 payoff; DSC-016 W3 seed → W5 payoff.
+
+Do not lock a DSC to one world. Discovery → Knowledge → Future Tool.
 
 ---
 
@@ -96,8 +106,8 @@ Do not open a world with mastery. Do not end a world with an untaught new gimmic
 | WLD-01 | CONTROL | HOW DO I MOVE? | CANDIDATE | 12 progression candidates |
 | WLD-02 | MOMENTUM | WHAT CHANGES MY MOTION? | CANDIDATE | 12 progression candidates |
 | WLD-03 | POSSIBILITY | WHAT CAN OBJECTS BECOME? | CANDIDATE | 12 progression candidates |
-| WLD-04 | TIME | WHEN SHOULD I ACT? | CANDIDATE | high-level only |
-| WLD-05 | UNDERSTANDING | WHAT DO I REALLY KNOW? | CANDIDATE | high-level only |
+| WLD-04 | TIME | WHEN SHOULD I ACT? | CANDIDATE | 12 progression candidates |
+| WLD-05 | UNDERSTANDING | WHAT DO I REALLY KNOW? | CANDIDATE | 12 progression candidates |
 
 ---
 
@@ -355,41 +365,213 @@ Rooms: `LVL-W03-001` … `LVL-W03-012`.
 
 ### WLD-04 — WHEN SHOULD I ACT?
 
-High-level conceptual candidate only. Role: TIME. No room list in this pass.
+| Field | Value |
+| --- | --- |
+| World ID | `WLD-04` |
+| Name | WHEN SHOULD I ACT? |
+| Role | TIME |
+| Status | CANDIDATE |
+| Core Question | When should I act? |
+| Core understanding | Reason about *when* a future state will exist, not only the current state. |
+| Time principle | Time is reasoned about, not reacted to. A timing window creates a planning decision before an execution challenge. |
+| Avoid | Frame-perfect windows; unexplained timers; sudden state changes; arbitrary timing; reaction-only gates; invisible countdown (ANTI-003, ANTI-004, ANTI-012) |
+| Rules Emphasized | R-STATE-003; R-STATE-002; R-SIGNAL-002; R-INFO-001 |
+| New Rule Budget | Bounce Counter, Timed Gate, Delayed Switch (or Switch+Delay variation). Three distinct questions: How many? How long? When later? |
+| Delayed Switch note | May later be a Switch variation, not a separate object family. **Do not resolve in DOC-003.** |
+| Major Discoveries | DSC-011, DSC-012, DSC-013 |
+| Mastery Test | LVL-W04-012 |
+| Transition to Next World | Future states can be planned. Next: what else is possible with known rules? |
+| Visual / Audio Identity | **Not locked.** Durations TBD — after PLAY-001B / relevant prototype validation. |
 
-Rules/gimmicks remain library candidates (`R-STATE-002`, `R-STATE-003`, `R-SIGNAL-002`; Timed Gate, Bounce Counter, Delayed Switch). Discoveries DSC-011, DSC-012, DSC-013 are later-world guidance.
+#### Knowledge Graph
 
-Do not freeze durations. Visual/audio **not locked**.
+```text
+WORLD STATE
+    |
+    v
+   TIME
+    |
+ +--+----------------+
+ |          |        |
+ v          v        v
+COUNT      WINDOW   DELAY
+ |          |        |
+ v          v        v
+HOW MANY? HOW LONG? WHEN LATER?
+ |          |        |
+ v          v        v
+BOUNCE    TIMED     FUTURE
+COUNTER   STATE     CONSEQUENCE
+ \          |        /
+  \         |       /
+   +--------+------+
+            |
+            v
+        PREDICTION
+            |
+            v
+      ACTION TIMING
+         /      \
+        v        v
+     ACT NOW    WAIT
+        \        /
+         \      /
+          v    v
+     SYNCHRONIZATION
+            |
+            v
+       TIME MASTERY
+```
+
+#### Knowledge Gates
+
+| Gate | Requirement | May be satisfied in |
+| --- | --- | --- |
+| W4-GATE-1 | Bounce is a countable event/resource | LVL-W04-001 / LVL-W04-002 |
+| W4-GATE-2 | Extra Bounce or detour to alter future state | LVL-W04-003 |
+| W4-GATE-3 | Waiting as intentional strategy | LVL-W04-004 |
+| W4-GATE-4 | Plan around a readable Timed State window | LVL-W04-005 / LVL-W04-006 |
+| W4-GATE-5 | Predict a delayed consequence | LVL-W04-008 / LVL-W04-009 |
+| W4-GATE-6 | Synchronize future Movement State and World State | LVL-W04-007 / LVL-W04-011 / LVL-W04-012 |
+
+Rooms: `LVL-W04-001` … `LVL-W04-012`.
 
 ---
 
 ### WLD-05 — WHAT DO I REALLY KNOW?
 
-High-level conceptual candidate only. Role: UNDERSTANDING. No room list in this pass.
+| Field | Value |
+| --- | --- |
+| World ID | `WLD-05` |
+| Name | WHAT DO I REALLY KNOW? |
+| Role | UNDERSTANDING |
+| Status | CANDIDATE |
+| Core Question | What do I really know? |
+| Evolves from | “What is the rule?” → “What else is possible with the rules I already know?” |
+| New Rule target | **0** |
+| New Gimmick target | **0** |
+| Hidden mechanic | **0** |
+| Exists to | Recall, reinterpret, recombine, challenge assumptions, permit alternate rule-consistent solutions |
+| Major Discoveries | DSC-007 payoff; DSC-016 payoff; reinforcement of DSC-009/011–015/018 |
+| Mastery Test | LVL-W05-012 |
+| Transition to Next World | None recorded. |
+| Visual / Audio Identity | **Not locked.** |
 
-Near-zero new-gimmick budget (C-05). Prefer PAT-009, PAT-015, PAT-016, PAT-017. D3 remains rare.
+Do not put every gimmick in the finale. Prefer ~4–5 deeply interacting concepts. Exact mix TBD after prototype/playtest.
+
+#### Knowledge Graph
+
+```text
+MOVEMENT STATE
+      |
+   MOMENTUM
+      |
+      v
+ WORLD STATE
+   /      \
+OBJECT    SECOND
+ ROLE      FACE
+   \       /
+    \     /
+  FUTURE STATE
+       |
+   PREDICTION
+       |
+PLAYER ASSUMPTION
+    /       \
+EXPECTED    ACTUAL
+SOLUTION   POSSIBILITY
+    \       /
+     \     /
+ REINTERPRETATION
+       |
+  COMBINATION
+       |
+    MASTERY
+```
+
+#### Knowledge Gates
+
+Player-understanding gates only. **28** total across W1–W5. Alternate-solution support is **not** W5-GATE-7.
+
+| Gate | Requirement | May be satisfied in |
+| --- | --- | --- |
+| W5-GATE-1 | Question the first apparent solution when rules permit alternatives | LVL-W05-001 / LVL-W05-002 |
+| W5-GATE-2 | Detour / apparent loss as deliberate setup | LVL-W05-003 / LVL-W05-004 |
+| W5-GATE-3 | Sacrifice an apparently favorable Movement State | LVL-W05-005 |
+| W5-GATE-4 | Choose an object's First/Second Face by context | LVL-W05-006 |
+| W5-GATE-5 | Plan present actions around a desired future state | LVL-W05-007 / LVL-W05-008 |
+| W5-GATE-6 | Form a valid solution from learned rules; no newly taught behavior | LVL-W05-011 / LVL-W05-012 |
+
+Rooms: `LVL-W05-001` … `LVL-W05-012`.
 
 ---
 
-## Anti-pattern review (W1–W3 architecture)
+## 60-slot note
 
-Conceptual only. Do not fabricate PASS from documentation.
+W1–W5 = 12 × 5 = **60 progression candidates / slots**.
+
+This is **not** a commitment to ship 60 rooms. Later playtest may merge, delete, expand, reorder, convert to Reward, or reduce count.
+
+---
+
+## DOC-003 audits
+
+### Interaction
+
+Unused Interaction ≠ design debt. Required progression need not cover INT-018, INT-019, INT-024. Those may stay challenge / alternate / expansion / experiment material.
+
+### Gimmick economy
+
+| World | Required / primary |
+| --- | --- |
+| W1 | none |
+| W2 | Wind, Ice, Rough Surface |
+| W3 | Door, Switch |
+| W4 | Bounce Counter, Timed Gate, Delayed Switch (or Switch+Delay variation) |
+| W5 | no new gimmicks |
+
+Intentional (C-05). Do not add gimmicks so later worlds “look more complex.”
+
+GIM-005 Rough Surface Second Face remains **unresolved**. “Kill unwanted momentum” may only be a positive reading of the First Face (slow). Do not invent a new property to satisfy C-07. Blocks CORE until playtest/design resolves it.
+
+### Pattern / cognitive operations (W5 adjacent)
+
+If two adjacent rooms share one reasoning operation, mark for future merge/reorder. Not new Pattern IDs.
+
+| Room | Primary cognitive operation | Distinct ask |
+| --- | --- | --- |
+| LVL-W05-003 | Spatial detour | WHERE first? |
+| LVL-W05-004 | State transformation | WHAT state to create? |
+| LVL-W05-005 | State sacrifice | WHAT valuable state to abandon? |
+| LVL-W05-006 | Object role selection | WHAT role for this object? |
+| LVL-W05-007 | Trigger timing | WHEN to cause the future event? |
+| LVL-W05-008 | Resource allocation | HOW to spend/count events? |
+
+W04-004 (waiting as action) ≠ W04-007 (synchronize two clocks). W04-009 (trigger now, move) ≠ W05-007 (choose when to trigger).
+
+### Anti-pattern (full W1–W5)
+
+Conceptual only. Do not fabricate PASS.
 
 | ID | Result |
 | --- | --- |
-| ANTI-001 Hidden Information | **Structurally compliant** if Visible State / door-as-wall setup is kept. **Playtest** for attributable wind/friction/door cues. |
-| ANTI-002 Rule Betrayal | **Structurally compliant** — no silent rule exceptions in this architecture. |
-| ANTI-003 Frame-Perfect Input | **Requires playtest** — landing grammar and windows are PLAY-001B knobs. |
-| ANTI-004 Reaction Test | **Structurally compliant** for W1–W3 (no required timers). **Playtest** W2 wind fights. |
-| ANTI-006 Execution Tax | **Requires playtest** — C-02 target stated; unvalidated feel. |
-| ANTI-008 Single-Use Gimmick | **Structurally compliant** — Wind/Ice/Rough/Door/Switch are reused across rooms. |
-| ANTI-009 One-Face Gimmick | **Structurally compliant** for Door and Wind (second faces assigned). Switch second face is a **candidate**. Ice/Rough second faces still unset — **unresolved** as C-07 importance, not as W2 teach. |
-| ANTI-010 Gimmick Flood | **Structurally compliant** — W1 none; W2 three configs; W3 two objects; Spring/movers excluded. |
-| ANTI-011 Rule Overload | **Structurally compliant** if worlds accumulate as graphed. **Playtest** W1-011 / W2-010 / W3-011 combine rooms. |
-| ANTI-015 Solution by Accident | **Requires playtest** — gates require deliberate application; accidental-clear risk is empirical. |
-| ANTI-017 Redundant Puzzle | **Structurally compliant** — each room has a distinct knowledge job. **Playtest** for felt clones. |
-| ANTI-018 Difficulty by Numbers | **Structurally compliant** — no numeric grind specified. |
-| ANTI-020 New Gimmick as Solution | **Structurally compliant** — mastery rooms forbid new rules/gimmicks. |
+| ANTI-001 | **Structurally compliant** if cues stay visible. **W5 scrutiny / playtest:** DSC-016 fairness; no hidden failure-as-setup. |
+| ANTI-002 | **Structurally compliant** — W5-010 does not change rules. |
+| ANTI-003 | **Requires playtest.** **W4 scrutiny:** windows/delays/sync must stay generous. |
+| ANTI-004 | **Structurally** W4 is planning-first. **Requires playtest** that Timed Gate / sync do not become twitch. |
+| ANTI-006 | **Requires playtest** across mastery rooms. |
+| ANTI-008 | **Structurally compliant** — gimmicks reuse across rooms/worlds. |
+| ANTI-009 | Door/Wind assigned; Switch candidate; **Rough unresolved**; Ice unset. |
+| ANTI-010 | **Structurally compliant** — W5 adds none; W4 three temporal questions. |
+| ANTI-011 | **Playtest** combine/finale rooms (W04-010/011/012, W05-009/012). Prefer 2–5 concepts. |
+| ANTI-012 | **Structurally** Delay requires readable chain. **W4 scrutiny / playtest.** |
+| ANTI-013 | **Requires playtest** (wrong-order / missed-window resets). |
+| ANTI-015 | **Requires playtest.** **W5 scrutiny:** alternate solutions and DSC-016 must be repeatable on purpose. |
+| ANTI-017 | **Structurally** operations differ. **W5 scrutiny / playtest** for “do the opposite” clones. |
+| ANTI-018 | **Structurally compliant** — counts/durations not canonical. |
+| ANTI-019 | **Structurally** no mandatory clips. **W5 scrutiny / playtest.** |
+| ANTI-020 | **Structurally compliant** — W4/W5 mastery add no new gimmick. |
 
 ---
 
@@ -397,5 +579,5 @@ Conceptual only. Do not fabricate PASS from documentation.
 
 - Do not implement rooms or gimmicks from this file.
 - Do not grow the New Rule Budget to fill world length.
-- Do not specify geometry or physics values.
-- Knowledge Gates are requirements, not extra `LVL-` IDs.
+- Do not specify geometry, counts, or durations.
+- Knowledge Gates are requirements, not extra `LVL-` IDs (28 player gates; no W5-GATE-7).

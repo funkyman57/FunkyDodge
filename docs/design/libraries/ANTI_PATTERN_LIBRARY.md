@@ -8,6 +8,8 @@ A proposal that matches a hard-reject anti-pattern should not ship, even if it i
 
 Failure must normally teach something.
 
+W1–W5 conceptual audit (structurally compliant / requires playtest / unresolved): [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md). Do not treat that audit as playtest PASS. W4: extra scrutiny on ANTI-003, ANTI-004, ANTI-012. W5: ANTI-001, ANTI-015, ANTI-017, ANTI-019.
+
 ---
 
 ## Schema

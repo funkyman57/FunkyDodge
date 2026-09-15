@@ -84,4 +84,4 @@ See [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) for the full boundary statement.
 
 `INT-001`–`INT-028` and `DSC-001`–`DSC-018` are imported as `CANDIDATE` (DOC-001A). Documentation does not validate them.
 
-W1–W3 room rows are progression candidates (`CANDIDATE` status). See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) and [progression/LEVEL_LIBRARY.md](progression/LEVEL_LIBRARY.md). Do not implement them. Geometry and feel numbers stay `TBD — after PLAY-001B feel validation`.
+W1–W5 room rows are 60 progression **slots** (`CANDIDATE` status), not a fixed ship count. See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md). Do not implement them. Geometry, counts, and durations stay `TBD — after PLAY-001B / relevant prototype validation`.

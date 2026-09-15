@@ -76,6 +76,7 @@ DOC-001A / DOC-002 Second Faces recorded where supplied: Door (closed = wall), W
 | --- | --- |
 | W2: GIM-003 Wind, GIM-004 Ice, GIM-005 Rough Surface | W2: GIM-006 Spring / R-FORCE-002 Impulse (C-05; keep in library) |
 | W3: GIM-001 Door, GIM-002 Switch | W3: GIM-010 Moving Block, GIM-011 One-way Surface (C-05; keep in library) |
+| W4: GIM-007 Bounce Counter, GIM-008 Timed Gate, GIM-012 Delayed Switch (or Switch+Delay) | W5: no new gimmicks |
 
 W1 required progression uses no environmental gimmicks.
 
@@ -93,12 +94,12 @@ Do not invent Motion/Kinematic or Conditional Collision rules to support GIM-010
 | GIM-004 | Ice | CANDIDATE | W2 |
 | GIM-005 | Rough Surface | CANDIDATE | W2 |
 | GIM-006 | Spring | CANDIDATE | none (kept) |
-| GIM-007 | Bounce Counter | CANDIDATE | later-world candidate |
-| GIM-008 | Timed Gate | CANDIDATE | later-world candidate |
+| GIM-007 | Bounce Counter | CANDIDATE | W4 |
+| GIM-008 | Timed Gate | CANDIDATE | W4 |
 | GIM-009 | Force Switch | CANDIDATE | none |
 | GIM-010 | Moving Block | CANDIDATE | none (kept; W3 not required) |
 | GIM-011 | One-way Surface | CANDIDATE | none (kept; W3 not required) |
-| GIM-012 | Delayed Switch | CANDIDATE | later-world candidate |
+| GIM-012 | Delayed Switch | CANDIDATE | W4 (may be Switch+Delay variation; unresolved) |
 
 Placement is guidance, not ownership. Visual themes are not locked.
 
@@ -222,7 +223,7 @@ Do not create a separate “Ice Rule.” Ice is a Friction configuration.
 | Default State | Surface property |
 | Player Assumption | This ground will slow or stop me. |
 | Primary Use / First Face | Kill or dump momentum. |
-| Second Face | TBD |
+| Second Face | **Unresolved.** “Deliberately kill unwanted Momentum” may only be a positive reading of the First Face (slow), not a distinct function. Do not invent a new property to satisfy C-07. Blocks CORE until playtest/design resolves it. |
 | Further Uses | TBD |
 | Compatible Interactions | INT-004; INT-015. Same rule as Ice, opposite friction configuration. |
 | Visual Cue | Must read as grabby before it dumps speed. |
@@ -285,7 +286,7 @@ Do not create a separate “Rough Rule.”
 | Fairness Concerns | Hidden count is ANTI-001. Required exact count with no readable feedback is ANTI-005 / ANTI-015 risk. |
 | Anti-Pattern Risks | ANTI-018 Difficulty by Numbers; ANTI-003 if the last bounce is frame-perfect |
 | Complexity Tier | TBD |
-| Introduced World | TBD (conceptual fit: WLD-04) |
+| Introduced World | WLD-04 (progression guidance, not ownership) |
 | Validated Levels | none |
 
 ---
@@ -311,7 +312,7 @@ Do not create a separate “Rough Rule.”
 | Fairness Concerns | Unreadable timer is ANTI-012. Frame-perfect crossing is ANTI-003. |
 | Anti-Pattern Risks | ANTI-004 Reaction Test; ANTI-006 Execution Tax |
 | Complexity Tier | TBD |
-| Introduced World | TBD (conceptual fit: WLD-04) |
+| Introduced World | WLD-04 (progression guidance, not ownership) |
 | Validated Levels | none |
 
 ---
@@ -417,7 +418,7 @@ Threshold numbers are not recorded. Do not freeze them.
 | Fairness Concerns | Hidden delay is ANTI-012. |
 | Anti-Pattern Risks | ANTI-004 if the delay is only a reaction test; ANTI-008 |
 | Complexity Tier | TBD |
-| Introduced World | TBD (conceptual fit: WLD-04) |
+| Introduced World | WLD-04 (progression guidance). Implementation as independent object vs Switch+Delay is unresolved. Do not decide in DOC-003. |
 | Validated Levels | none |
 
 ---

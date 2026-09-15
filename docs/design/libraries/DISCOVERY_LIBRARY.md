@@ -20,7 +20,7 @@ A strong discovery should normally become reusable player knowledge.
 
 Avoid one-room revelations that never matter again.
 
-Progression must reuse discoveries as later tools. World placement is **guidance, not ownership**. Do not lock a DSC to one world. Canonical homes: [progression/WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md).
+Progression must reuse discoveries as later tools. World placement is **guidance, not ownership**. Do not lock a DSC to one world. Audit and long-range seeds (DSC-017, DSC-007, DSC-016): [progression/WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md).
 
 ---
 
@@ -582,7 +582,7 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Puzzle Patterns | PAT-019 Controlled Failure |
 | Required Setup | The “failure” uses ordinary rules and leaves a readable next state. |
 | Expected Player Hypothesis | “Down / blocked / miss = I failed.” |
-| Trigger Context | After players can distinguish a miss from a plan. |
+| Trigger Context | Weak seed: LVL-W03-011 (apparent unproductive rebound as setup). Payoff: LVL-W05-004. Do not declare realized in W3. |
 | Discovery Type | Perspective |
 | Intensity | Not assigned. |
 | Why It Is Fair | The intended miss is easy to perform on purpose and does not depend on an exploit (ANTI-019). |
