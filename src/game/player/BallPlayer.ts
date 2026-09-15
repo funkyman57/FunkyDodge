@@ -31,7 +31,7 @@ export class BallPlayer {
 
     this.label = scene.add
       .text(this.sprite.x, this.sprite.y - radius - 14, "NORMAL", {
-        fontFamily: "monospace",
+        fontFamily: "DejaVu Sans Mono, JetBrains Mono, monospace",
         fontSize: "12px",
         color: "#ffffff",
       })

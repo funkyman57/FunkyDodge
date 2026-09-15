@@ -10,7 +10,7 @@ export class DebugHud {
   constructor(scene: Phaser.Scene) {
     this.text = scene.add
       .text(16, 12, "", {
-        fontFamily: "monospace",
+        fontFamily: "DejaVu Sans Mono, JetBrains Mono, monospace",
         fontSize: "13px",
         color: "#e8f1ff",
         backgroundColor: "rgba(8, 12, 24, 0.55)",

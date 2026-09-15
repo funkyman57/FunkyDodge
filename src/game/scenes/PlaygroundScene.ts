@@ -71,7 +71,7 @@ export class PlaygroundScene extends Phaser.Scene {
         "Hold into land: BOOST",
         "Opposite on wall: WALL JUMP",
       ].join("\n"), {
-        fontFamily: "monospace",
+        fontFamily: "DejaVu Sans Mono, JetBrains Mono, monospace",
         fontSize: "12px",
         color: "#c9d6f0",
         align: "right",
@@ -152,7 +152,7 @@ function addSolid(
 function label(scene: Phaser.Scene, x: number, y: number, text: string): void {
   scene.add
     .text(x, y, text, {
-      fontFamily: "monospace",
+      fontFamily: "DejaVu Sans Mono, JetBrains Mono, monospace",
       fontSize: "11px",
       color: "#d7e3ff",
     })
