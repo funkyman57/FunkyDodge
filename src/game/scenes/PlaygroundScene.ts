@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { DebugHud } from "../debug/DebugHud";
 import { InputState } from "../input/InputState";
+import { isAirReversing } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { BallPlayer } from "../player/BallPlayer";
 import { PlayerController } from "../player/PlayerController";
@@ -63,6 +64,7 @@ export class PlaygroundScene extends Phaser.Scene {
     this.add
       .text(PhysicsConfig.width - 16, 12, [
         "PHYSICS PLAYGROUND",
+        "PLAY-001B feel pass",
         "A/D or arrows: move",
         "R: restart",
         "Fresh tap near land: LOW",
@@ -198,6 +200,8 @@ function publishDebugState(player: PlayerController, input: InputState, nowMs: n
     movementState: player.movementState,
     freshPress: player.freshPressThisFrame,
     pressImpulse: player.lastPressImpulse,
+    pressAgeMs: input.getFreshHorizontalPress(nowMs)?.ageMs ?? null,
+    airReverse: !player.grounded && isAirReversing(player.vx, input.leftDown, input.rightDown),
     held: input.leftDown ? "LEFT" : input.rightDown ? "RIGHT" : "NONE",
     lastInput: input.lastInputLabel,
     inputDurationMs: input.inputDurationMs(nowMs),

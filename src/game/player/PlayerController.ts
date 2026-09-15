@@ -12,6 +12,7 @@ import {
   resolvePressImpulse,
   resolveTakeoffDirection,
   resolveTakeoffVelocity,
+  resolveWallJumpVelocity,
 } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { BallPlayer, BallVisualState } from "./BallPlayer";
@@ -219,8 +220,9 @@ export class PlayerController {
     }
 
     const body = this.player.body;
-    body.setVelocityX(direction * PhysicsConfig.wallJumpHorizontalVelocity);
-    body.setVelocityY(-PhysicsConfig.wallJumpVerticalVelocity);
+    const jump = resolveWallJumpVelocity(direction);
+    body.setVelocityX(jump.vx);
+    body.setVelocityY(jump.vy);
     body.blocked.left = false;
     body.blocked.right = false;
     body.blocked.down = false;

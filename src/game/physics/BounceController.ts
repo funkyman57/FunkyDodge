@@ -141,6 +141,13 @@ export function resolveTakeoffVelocity(
   return direction * Math.max(Math.abs(currentVx), minimum);
 }
 
+export function resolveWallJumpVelocity(direction: -1 | 1): { vx: number; vy: number } {
+  return {
+    vx: direction * PhysicsConfig.wallJumpHorizontalVelocity,
+    vy: -PhysicsConfig.wallJumpVerticalVelocity,
+  };
+}
+
 export function resolveMovementState(
   vx: number,
   leftDown: boolean,

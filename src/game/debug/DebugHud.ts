@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { isAirReversing } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { InputState } from "../input/InputState";
 import { PlayerController } from "../player/PlayerController";
@@ -26,18 +27,28 @@ export class DebugHud {
       return;
     }
 
+    const press = input.getFreshHorizontalPress(nowMs);
+    const horizontalInput = input.leftDown && !input.rightDown
+      ? "LEFT"
+      : input.rightDown && !input.leftDown
+        ? "RIGHT"
+        : "NONE";
+    const airReverse = !player.grounded && isAirReversing(player.vx, input.leftDown, input.rightDown);
+
     this.text.setText(
       [
         `vx ${player.vx.toFixed(1)}`,
         `vy ${player.vy.toFixed(1)}`,
+        `Horizontal Input ${horizontalInput}`,
         `Fresh Press ${yesNo(player.freshPressThisFrame)}`,
+        `Press Age ${press ? `${Math.round(press.ageMs)}ms` : "—"}`,
         `Press Impulse ${player.lastPressImpulse.toFixed(0)}`,
+        `Air Reverse ${yesNo(airReverse)}`,
         `Movement State ${player.movementState}`,
         `Bounce Type: ${player.lastBounceType}`,
         `Landing Intent: ${player.landingIntent}`,
         `Grounded ${yesNo(player.grounded)}`,
         `Wall L/R ${yesNo(player.wallLeft)}/${yesNo(player.wallRight)}`,
-        `Hold ${Math.round(input.getHorizontalHoldDuration(nowMs))}ms`,
         player.lastBounceType === "BOOST" ? "LANDING BOOST" : "",
       ]
         .filter(Boolean)

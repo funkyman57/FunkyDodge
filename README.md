@@ -1,10 +1,12 @@
 # FunkyDodge
 
-Physics Playground (PLAY-000 / PLAY-001 / PLAY-001A).
+Physics Playground (PLAY-000 / PLAY-001 / PLAY-001A / PLAY-001B experiment).
 
 This is not a complete game. It is a playable experiment for one question:
 
 **Is controlling the bouncing ball fun?**
+
+PLAY-001B is a movement-feel pass. Tuning numbers in `PhysicsConfig.ts` are experimental playground values, not level-design law.
 
 ## Run
 
