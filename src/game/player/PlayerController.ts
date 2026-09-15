@@ -7,12 +7,11 @@ import {
   MovementState,
   resolveFloorBounce,
   resolveLandingIntent,
-  resolveMoveAcceleration,
   resolveMovementState,
-  resolvePressImpulse,
   resolveTakeoffDirection,
   resolveTakeoffVelocity,
   resolveWallJumpVelocity,
+  stepHorizontalVelocity,
 } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { BallPlayer, BallVisualState } from "./BallPlayer";
@@ -161,35 +160,20 @@ export class PlayerController {
 
   private applyHorizontalControl(body: Phaser.Physics.Arcade.Body, dt: number, nowMs: number): void {
     const pressDirection = this.input.justPressedDirection();
-    const impulse = resolvePressImpulse(body.velocity.x, pressDirection);
-    this.freshPressThisFrame = pressDirection !== 0;
-    this.lastPressImpulse = impulse;
-
-    let vx = body.velocity.x + impulse;
-
-    const accel = resolveMoveAcceleration(
-      this.grounded,
-      vx,
-      this.input.leftDown,
-      this.input.rightDown,
-    );
-
-    if (this.input.leftDown && !this.input.rightDown) {
-      vx -= accel * dt;
-    } else if (this.input.rightDown && !this.input.leftDown) {
-      vx += accel * dt;
-    } else {
-      const drag = PhysicsConfig.horizontalDrag * dt;
-      if (vx > 0) {
-        vx = Math.max(0, vx - drag);
-      } else if (vx < 0) {
-        vx = Math.min(0, vx + drag);
-      }
-    }
-
     const boostActive = nowMs < this.boostUntilMs || this.lastBounceType === "BOOST";
     const maxSpeed = PhysicsConfig.maxHorizontalSpeed * (boostActive ? PhysicsConfig.landingBoostMultiplier : 1);
-    vx = clamp(vx, -maxSpeed, maxSpeed);
+    const stepped = stepHorizontalVelocity({
+      vx: body.velocity.x,
+      grounded: this.grounded,
+      leftDown: this.input.leftDown,
+      rightDown: this.input.rightDown,
+      pressDirection,
+      dt,
+      maxSpeed,
+    });
+    this.freshPressThisFrame = pressDirection !== 0;
+    this.lastPressImpulse = stepped.impulse;
+    let vx = stepped.vx;
 
     if (this.wallLeft && vx < 0 && !this.input.rightDown) {
       vx = 0;
@@ -198,7 +182,7 @@ export class PlayerController {
       vx = 0;
     }
 
-    this.movementState = resolveMovementState(vx, this.input.leftDown, this.input.rightDown, impulse);
+    this.movementState = resolveMovementState(vx, this.input.leftDown, this.input.rightDown, stepped.impulse);
     body.setVelocityX(vx);
   }
 

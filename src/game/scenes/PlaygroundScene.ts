@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { DebugHud } from "../debug/DebugHud";
+import { mountPhysicsLab, physicsLabEnabled, type PhysicsLabHandle } from "../debug/PhysicsLab";
 import { InputState } from "../input/InputState";
 import { isAirReversing } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
@@ -23,6 +24,7 @@ export class PlaygroundScene extends Phaser.Scene {
   private controller!: PlayerController;
   private inputState!: InputState;
   private hud!: DebugHud;
+  private physicsLab: PhysicsLabHandle | null = null;
   private keys!: {
     left: Phaser.Input.Keyboard.Key;
     right: Phaser.Input.Keyboard.Key;
@@ -47,6 +49,18 @@ export class PlaygroundScene extends Phaser.Scene {
     this.controller = new PlayerController(this.player, this.inputState);
     this.controller.setSolids(solids);
     this.hud = new DebugHud(this);
+    if (physicsLabEnabled()) {
+      this.physicsLab = mountPhysicsLab({
+        onResetBall: () => {
+          this.controller.reset();
+          this.inputState.reset();
+        },
+        onValuesChanged: () => {
+          this.physics.world.gravity.y = PhysicsConfig.gravity;
+        },
+      });
+      this.physics.world.gravity.y = PhysicsConfig.gravity;
+    }
 
     this.physics.add.collider(this.player.sprite, platforms);
     this.game.canvas.setAttribute("tabindex", "0");
@@ -64,9 +78,10 @@ export class PlaygroundScene extends Phaser.Scene {
     this.add
       .text(PhysicsConfig.width - 16, 12, [
         "PHYSICS PLAYGROUND",
-        "PLAY-001C cadence pass",
+        "PLAY-001D physics lab",
         "A/D or arrows: move",
         "R: restart",
+        "L: toggle Physics Lab",
         "Fresh tap near land: LOW",
         "Hold into land: BOOST",
         "Opposite on wall: WALL JUMP",

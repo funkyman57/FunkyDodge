@@ -1,0 +1,86 @@
+.physics-lab {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 20;
+  width: 320px;
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+  padding: 10px 12px 12px;
+  color: #e8f1ff;
+  font: 11px/1.35 "DejaVu Sans Mono", "JetBrains Mono", monospace;
+  background: rgba(8, 12, 24, 0.88);
+  border: 1px solid rgba(201, 214, 240, 0.22);
+  border-radius: 8px;
+}
+
+.physics-lab[hidden] {
+  display: none;
+}
+
+.physics-lab h2 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.physics-lab-row,
+.physics-lab-actions,
+.physics-lab-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.physics-lab button {
+  appearance: none;
+  border: 1px solid rgba(201, 214, 240, 0.28);
+  background: #24314d;
+  color: #e8f1ff;
+  font: inherit;
+  padding: 3px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.physics-lab button[data-active="true"] {
+  background: #3d6ea8;
+}
+
+.physics-lab label {
+  display: grid;
+  grid-template-columns: 1fr 58px;
+  gap: 4px 8px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.physics-lab label span {
+  grid-column: 1 / -1;
+  color: #c9d6f0;
+}
+
+.physics-lab input[type="range"] {
+  width: 100%;
+}
+
+.physics-lab input[type="number"] {
+  width: 58px;
+  border: 1px solid rgba(201, 214, 240, 0.24);
+  background: #12182b;
+  color: #e8f1ff;
+  font: inherit;
+}
+
+.physics-lab-metrics {
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid rgba(201, 214, 240, 0.16);
+  color: #c9d6f0;
+}
+
+.physics-lab-note {
+  margin: 6px 0 0;
+  color: #9eb0d0;
+}

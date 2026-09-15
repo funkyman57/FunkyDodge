@@ -105,6 +105,42 @@ export function resolveMoveAcceleration(
   return PhysicsConfig.airAcceleration;
 }
 
+export function stepHorizontalVelocity(options: {
+  vx: number;
+  grounded: boolean;
+  leftDown: boolean;
+  rightDown: boolean;
+  pressDirection: -1 | 0 | 1;
+  dt: number;
+  maxSpeed?: number;
+}): { vx: number; impulse: number; acceleration: number } {
+  const impulse = resolvePressImpulse(options.vx, options.pressDirection);
+  let vx = options.vx + impulse;
+  const acceleration = resolveMoveAcceleration(
+    options.grounded,
+    vx,
+    options.leftDown,
+    options.rightDown,
+  );
+
+  if (options.leftDown && !options.rightDown) {
+    vx -= acceleration * options.dt;
+  } else if (options.rightDown && !options.leftDown) {
+    vx += acceleration * options.dt;
+  } else {
+    const drag = PhysicsConfig.horizontalDrag * options.dt;
+    if (vx > 0) {
+      vx = Math.max(0, vx - drag);
+    } else if (vx < 0) {
+      vx = Math.min(0, vx + drag);
+    }
+  }
+
+  const maxSpeed = options.maxSpeed ?? PhysicsConfig.maxHorizontalSpeed;
+  vx = Math.max(-maxSpeed, Math.min(maxSpeed, vx));
+  return { vx, impulse, acceleration };
+}
+
 export function resolvePressImpulse(vx: number, pressDirection: -1 | 0 | 1): number {
   if (pressDirection === 0) {
     return 0;
@@ -164,6 +200,16 @@ export function resolveMovementState(
     return isAirReversing(vx, false, true) ? "REVERSE" : "ACCEL";
   }
   return Math.abs(vx) > PhysicsConfig.airReverseSpeedEpsilon ? "DRAG" : "IDLE";
+}
+
+export function theoreticalBounceApexHeight(
+  launchSpeed: number,
+  gravity: number = PhysicsConfig.gravity,
+): number {
+  if (gravity <= 0) {
+    return 0;
+  }
+  return (launchSpeed * launchSpeed) / (2 * gravity);
 }
 
 export function theoreticalBounceAirtimeSeconds(
