@@ -2,6 +2,10 @@
 
 Patterns are abstract structures. They arrange known rules, interactions, and gimmicks. They do not add hidden rules.
 
+Puzzle Patterns describe the **thinking problem**, not merely the spatial objective.
+
+Do not assign `PAT-001` because a room ends by reaching an exit. Use `PAT-001` only when constructing a viable trajectory to the destination is itself the meaningful puzzle.
+
 Levels instantiate patterns. A pattern without a discovery target is incomplete as a design record.
 
 ---
@@ -113,7 +117,7 @@ Compatible Interactions list only IDs directly supported by DOC-001A. Empty mean
 | Variants | Vertical reach, horizontal reach, multi-bounce reach |
 | Failure Readability | Miss should show short / high / late |
 | Anti-Pattern Risks | ANTI-006, ANTI-018 |
-| Example Level | LVL-W01-001 (structural candidate) |
+| Example Level | none assigned — not every exit is PAT-001 |
 | Validated Levels | none |
 
 ---
@@ -134,10 +138,10 @@ Compatible Interactions list only IDs directly supported by DOC-001A. Empty mean
 | Execution Difficulty | Each route should stay achievable |
 | Discovery Types | D1 Application |
 | Difficulty Knobs | How different the routes are; cost of the wrong first pick |
-| Variants | LOW vs BOOST (LVL-W01-008 candidate) |
+| Variants | LOW / NORMAL / BOOST (LVL-W01-007 candidate) |
 | Failure Readability | Wrong route should look like a wrong plan, not a fumble |
 | Anti-Pattern Risks | ANTI-007 Fake Choice |
-| Example Level | LVL-W01-008 |
+| Example Level | LVL-W01-007 |
 | Validated Levels | none |
 
 ---
@@ -185,7 +189,7 @@ Compatible Interactions list only IDs directly supported by DOC-001A. Empty mean
 | Variants | Multi-bounce buildup; boost-assisted buildup |
 | Failure Readability | Coming up short while slow |
 | Anti-Pattern Risks | ANTI-006 if the runway is only a grind; ANTI-018 |
-| Example Level | LVL-W01-007 |
+| Example Level | LVL-W02-009 |
 | Validated Levels | none |
 
 ---

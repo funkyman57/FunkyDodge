@@ -68,28 +68,39 @@ PLAY-002 has **not** started. Do not implement these gimmicks from this document
 
 Second Face and Further Uses stay unset unless a later approved note supplies them. C-07 still applies: an important gimmick may not ship without another face.
 
-DOC-001A supplies Second Face material for Door (closed door as wall) and Wind (headwind / airtime). Other second faces are not filled from this pass.
+DOC-001A / DOC-002 Second Faces recorded where supplied: Door (closed = wall), Wind (headwind / airtime), Switch (restore a previous state — candidate).
+
+**Required progression assignment (not a delete list):**
+
+| Assigned | Not assigned to required progression |
+| --- | --- |
+| W2: GIM-003 Wind, GIM-004 Ice, GIM-005 Rough Surface | W2: GIM-006 Spring / R-FORCE-002 Impulse (C-05; keep in library) |
+| W3: GIM-001 Door, GIM-002 Switch | W3: GIM-010 Moving Block, GIM-011 One-way Surface (C-05; keep in library) |
+
+W1 required progression uses no environmental gimmicks.
+
+Do not invent Motion/Kinematic or Conditional Collision rules to support GIM-010 / GIM-011. Those rule gaps stay explicit.
 
 ---
 
 ## Index
 
-| ID | Name | Status | Introduced World |
+| ID | Name | Status | Required progression |
 | --- | --- | --- | --- |
-| GIM-001 | Door | CANDIDATE | TBD |
-| GIM-002 | Switch | CANDIDATE | TBD |
-| GIM-003 | Wind | CANDIDATE | TBD |
-| GIM-004 | Ice | CANDIDATE | TBD |
-| GIM-005 | Rough Surface | CANDIDATE | TBD |
-| GIM-006 | Spring | CANDIDATE | TBD |
-| GIM-007 | Bounce Counter | CANDIDATE | TBD |
-| GIM-008 | Timed Gate | CANDIDATE | TBD |
-| GIM-009 | Force Switch | CANDIDATE | TBD |
-| GIM-010 | Moving Block | CANDIDATE | TBD |
-| GIM-011 | One-way Surface | CANDIDATE | TBD |
-| GIM-012 | Delayed Switch | CANDIDATE | TBD |
+| GIM-001 | Door | CANDIDATE | W3 |
+| GIM-002 | Switch | CANDIDATE | W3 |
+| GIM-003 | Wind | CANDIDATE | W2 |
+| GIM-004 | Ice | CANDIDATE | W2 |
+| GIM-005 | Rough Surface | CANDIDATE | W2 |
+| GIM-006 | Spring | CANDIDATE | none (kept) |
+| GIM-007 | Bounce Counter | CANDIDATE | later-world candidate |
+| GIM-008 | Timed Gate | CANDIDATE | later-world candidate |
+| GIM-009 | Force Switch | CANDIDATE | none |
+| GIM-010 | Moving Block | CANDIDATE | none (kept; W3 not required) |
+| GIM-011 | One-way Surface | CANDIDATE | none (kept; W3 not required) |
+| GIM-012 | Delayed Switch | CANDIDATE | later-world candidate |
 
-World column is unset on purpose. Visual themes are not locked (see WORLD_LIBRARY).
+Placement is guidance, not ownership. Visual themes are not locked.
 
 ---
 
@@ -114,7 +125,7 @@ World column is unset on purpose. Visual themes are not locked (see WORLD_LIBRAR
 | Fairness Concerns | State must be visible. Linked switch must be attributable. |
 | Anti-Pattern Risks | ANTI-008 Single-Use; ANTI-009 One-Face; ANTI-001 if the lock is hidden |
 | Complexity Tier | TBD |
-| Introduced World | TBD |
+| Introduced World | WLD-03 (progression guidance, not ownership) |
 | Validated Levels | none |
 
 ---
@@ -131,7 +142,7 @@ World column is unset on purpose. Visual themes are not locked (see WORLD_LIBRAR
 | Default State | TBD |
 | Player Assumption | Touch or bounce on it to change something elsewhere. |
 | Primary Use / First Face | Toggle or set a Binary State. |
-| Second Face | TBD |
+| Second Face | Candidate: restore or recreate a useful previous state (`LVL-W03-007`). Consistent with First Face “toggle or set.” Not a new trigger rule. |
 | Further Uses | TBD |
 | Compatible Interactions | INT-022; INT-028. Pairing with Door is INT-022 → INT-021. Delayed write is GIM-012 / INT-027. |
 | Visual Cue | Switch state and target state must be readable. |
@@ -140,7 +151,7 @@ World column is unset on purpose. Visual themes are not locked (see WORLD_LIBRAR
 | Fairness Concerns | Effect must be learnable without hidden wiring (ANTI-001). |
 | Anti-Pattern Risks | ANTI-007 Fake Choice; ANTI-008; ANTI-016 if taught only by text |
 | Complexity Tier | TBD |
-| Introduced World | TBD |
+| Introduced World | WLD-03 (progression guidance, not ownership) |
 | Validated Levels | none |
 
 ---
@@ -156,8 +167,8 @@ World column is unset on purpose. Visual themes are not locked (see WORLD_LIBRAR
 | Rule Composition | R-FORCE-001 Directional Force; R-MOTION-001 Momentum; R-INFO-001 |
 | Default State | TBD (always on vs switched) |
 | Player Assumption | Wind is a hazard that blows me off course. |
-| Primary Use / First Face | Change motion without a new button. |
-| Second Face | Headwind that reduces horizontal momentum; airtime up or down (`INT-001` Second Face, `DSC-002`). |
+| Primary Use / First Face | Helps movement in its direction. |
+| Second Face | Can deliberately reduce or alter unwanted movement (headwind / airtime; `INT-001`, `DSC-002`). |
 | Further Uses | Speed remaining after leaving the region (`INT-016`, `INT-017`). |
 | Compatible Interactions | INT-001; INT-016; INT-017; INT-018; INT-019; INT-011 |
 | Visual Cue | Direction and presence must be visible before they matter. |
@@ -166,7 +177,7 @@ World column is unset on purpose. Visual themes are not locked (see WORLD_LIBRAR
 | Fairness Concerns | Invisible wind is ANTI-001. Instant death from wind is ANTI-013 risk. |
 | Anti-Pattern Risks | ANTI-009 if it only ever pushes you into a pit; ANTI-002 if it secretly changes bounce |
 | Complexity Tier | TBD |
-| Introduced World | TBD (conceptual fit: WLD-02) |
+| Introduced World | WLD-02 (progression guidance, not ownership) |
 | Validated Levels | none |
 
 ---
@@ -192,7 +203,7 @@ World column is unset on purpose. Visual themes are not locked (see WORLD_LIBRAR
 | Fairness Concerns | Must not look like ordinary ground. |
 | Anti-Pattern Risks | ANTI-006 if the only test is not sliding off; ANTI-018 if longer ice = harder |
 | Complexity Tier | TBD |
-| Introduced World | TBD (conceptual fit: WLD-02) |
+| Introduced World | WLD-02 (progression guidance, not ownership) |
 | Validated Levels | none |
 
 Do not create a separate “Ice Rule.” Ice is a Friction configuration.
@@ -220,7 +231,7 @@ Do not create a separate “Ice Rule.” Ice is a Friction configuration.
 | Fairness Concerns | Must not look like Ice or ordinary ground. |
 | Anti-Pattern Risks | ANTI-006; ANTI-009 if it only ever ruins a run |
 | Complexity Tier | TBD |
-| Introduced World | TBD (conceptual fit: WLD-02) |
+| Introduced World | WLD-02 (progression guidance, not ownership) |
 | Validated Levels | none |
 
 Do not create a separate “Rough Rule.”
@@ -248,7 +259,7 @@ Do not create a separate “Rough Rule.”
 | Fairness Concerns | Must not silently replace Auto Bounce identity (C-04). |
 | Anti-Pattern Risks | ANTI-020 if a new spring is the only solution; ANTI-009; ANTI-004 if the window is a reaction test |
 | Complexity Tier | TBD |
-| Introduced World | TBD |
+| Introduced World | Not assigned to required W2 progression (C-05). Remains a library CANDIDATE. |
 | Validated Levels | none |
 
 ---
@@ -354,7 +365,7 @@ Threshold numbers are not recorded. Do not freeze them.
 | Fairness Concerns | Unreadable path is ANTI-001. Crush without telegraph is ANTI-013 risk. |
 | Anti-Pattern Risks | ANTI-004; ANTI-012; ANTI-010 if many movers replace rule depth |
 | Complexity Tier | TBD |
-| Introduced World | TBD |
+| Introduced World | Not assigned to required W3 progression (C-05). Remains a library CANDIDATE. Unresolved: no Motion/Kinematic rule is registered; do not invent one. |
 | Validated Levels | none |
 
 ---
@@ -380,7 +391,7 @@ Threshold numbers are not recorded. Do not freeze them.
 | Fairness Concerns | Invisible one-way is ANTI-001 and ANTI-002. |
 | Anti-Pattern Risks | ANTI-013 if falling through is a long reset; ANTI-009 |
 | Complexity Tier | TBD |
-| Introduced World | TBD (conceptual fit: WLD-03 / WLD-05) |
+| Introduced World | Not assigned to required W3 progression (C-05). Remains a library CANDIDATE. Unresolved: no Conditional Collision rule is registered; do not invent one. |
 | Validated Levels | none |
 
 ---

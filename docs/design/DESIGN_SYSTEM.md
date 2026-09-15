@@ -135,6 +135,89 @@ IDs are permanent. If an item is deprecated, do not recycle its ID.
 
 ---
 
+## Design vocabulary (DOC-002)
+
+These terms are progression vocabulary. They are **not** Rules, Interactions, Gimmicks, or player-visible stats.
+
+### Knowledge Graph
+
+A Knowledge Graph is the dependency structure of **player understanding**.
+
+It answers:
+
+> What must the player understand before this idea can be meaningfully taught, tested, or reinterpreted?
+
+It is not an implementation dependency graph. A later room may be moved, removed, or redesigned while the knowledge dependency stays.
+
+World graphs live in [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
+
+### Knowledge Gate
+
+A Knowledge Gate is a progression requirement: the player must demonstrate previously introduced knowledge.
+
+It does **not** require a separate examination level. A normal room can be a gate when accidental completion is unlikely and the intended knowledge must be applied deliberately.
+
+Gates validate **understanding**, not mechanical precision. They must respect C-02, ANTI-003, ANTI-004, and ANTI-006.
+
+Gate labels (`W1-GATE-1`, …) are progression requirements, not library IDs and not extra rooms.
+
+### Movement State
+
+> The player's current physical condition that determines what future movement possibilities are available.
+
+Conceptual components may include position, velocity vector, direction, bounce state/type, directional intent, momentum, and current surface/environment influence.
+
+Do **not** expose numerical Movement State to the player by default. Players should feel it:
+
+- “I am too fast.”
+- “I need to enter low.”
+- “I need rightward momentum.”
+- “I need to reach that wall with a different trajectory.”
+
+Design question:
+
+> Not only “Where should the player go?” but “In what Movement State should the player arrive there?”
+
+Air steering / counter-steering names a change of directional intent in flight. It is not a new Rule ID.
+
+---
+
+## Progression principles
+
+Progression should support Discovery → Knowledge → Future Tool. Canonical statement: [libraries/DISCOVERY_LIBRARY.md](libraries/DISCOVERY_LIBRARY.md).
+
+Default difficulty target: Cognitive Difficulty >= Execution Difficulty. Once the solution is understood, execution should feel achievable (C-02).
+
+Puzzle Patterns describe the **thinking problem**, not merely the spatial objective. Do not assign `PAT-001` because a room ends at an exit. Use it only when constructing a viable trajectory *is* the puzzle. See [libraries/PUZZLE_PATTERN_LIBRARY.md](libraries/PUZZLE_PATTERN_LIBRARY.md).
+
+High-level world arc (labels are roles; questions stay canonical):
+
+| World | Role | Question |
+| --- | --- | --- |
+| WLD-01 | CONTROL | How do I move? |
+| WLD-02 | MOMENTUM | What changes my motion? |
+| WLD-03 | POSSIBILITY | What can objects become? |
+| WLD-04 | TIME | When should I act? |
+| WLD-05 | UNDERSTANDING | What do I really know? |
+
+W4 and W5 remain high-level conceptual candidates. Do not author detailed W4/W5 rooms in DOC-002.
+
+W1–W3 room rows are **progression candidates**. Official lifecycle status stays `CANDIDATE`. Do not add `PROGRESSION CANDIDATE` to the lifecycle. Documentation is not validation.
+
+---
+
+## Geometry / physics boundary
+
+Do not specify platform distance, gap width, ceiling height, wall spacing, wind strength, friction coefficients, required velocity, bounce height, frame windows, precise input timing, or momentum thresholds in design docs.
+
+These depend on PLAY-001B and later human playtesting.
+
+Use: `TBD — after PLAY-001B feel validation`.
+
+Progression constrains geometry later. Geometry must not prematurely constrain unvalidated physics.
+
+---
+
 ## Current implementation boundary
 
 **Current development stage: PLAY-001B — Dynamic Movement Pass**

@@ -20,6 +20,8 @@ A strong discovery should normally become reusable player knowledge.
 
 Avoid one-room revelations that never matter again.
 
+Progression must reuse discoveries as later tools. World placement is **guidance, not ownership**. Do not lock a DSC to one world. Canonical homes: [progression/WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md).
+
 ---
 
 ## Required Setup
@@ -308,7 +310,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Puzzle Patterns | PAT-003 Setup → Payoff; PAT-004; PAT-016 |
 | Required Setup | Low Bounce and horizontal carry are already known. The short bounce must set up a later payoff, not only crawl under a slab. |
 | Expected Player Hypothesis | “Low Bounce is just a weaker bounce.” |
-| Trigger Context | After Low Bounce and (typically) Landing Boost intros. Structural homes: LVL-W01-008 / LVL-W01-012. |
+| Trigger Context | After Low Bounce and (typically) Landing Boost intros. Structural homes: LVL-W01-005 / LVL-W01-012. |
 | Discovery Type | Perspective |
 | Intensity | Not assigned. |
 | Why It Is Fair | Sequence of known tools, not a new button. |

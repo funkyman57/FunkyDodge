@@ -40,7 +40,7 @@ They describe what the game is allowed to be. They do not automatically describe
 | Document | Role |
 | --- | --- |
 | [CONSTITUTION.md](CONSTITUTION.md) | Highest design authority. Eight principles + core experience. |
-| [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) | Architecture, status lifecycle, ID rules, current implementation boundary. |
+| [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) | Architecture, vocabulary (Knowledge Graph, Knowledge Gate, Movement State), lifecycle, PLAY-001B boundary. |
 | [libraries/RULE_LIBRARY.md](libraries/RULE_LIBRARY.md) | Stable rules and tunable parameters. |
 | [libraries/INTERACTION_LIBRARY.md](libraries/INTERACTION_LIBRARY.md) | What happens when rules combine. |
 | [libraries/GIMMICK_LIBRARY.md](libraries/GIMMICK_LIBRARY.md) | Embodied objects / surfaces / devices. |
@@ -83,3 +83,5 @@ Therefore:
 See [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) for the full boundary statement.
 
 `INT-001`–`INT-028` and `DSC-001`–`DSC-018` are imported as `CANDIDATE` (DOC-001A). Documentation does not validate them.
+
+W1–W3 room rows are progression candidates (`CANDIDATE` status). See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) and [progression/LEVEL_LIBRARY.md](progression/LEVEL_LIBRARY.md). Do not implement them. Geometry and feel numbers stay `TBD — after PLAY-001B feel validation`.

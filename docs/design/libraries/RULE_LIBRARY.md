@@ -270,7 +270,7 @@ Player floor bounce when landing intent is a hold.
 Holding through the landing carries farther than a neutral bounce. Exact VFX is not locked.
 
 **Interactions**  
-Competes with Low Bounce at the same contact. Combines with Momentum and Velocity Limit. World 1 candidate rooms contrast LOW vs BOOST (LVL-W01-008). Registered pairs: INT-009, INT-010.
+Competes with Low Bounce at the same contact. Combines with Momentum and Velocity Limit. World 1 bounce-choice candidate: LVL-W01-007. Registered pairs: INT-009, INT-010.
 
 **Constraints**  
 Must be predictable from hold vs tap. Must not secretly apply in some rooms and not others. Must not require frame-perfect timing (ANTI-003).
@@ -606,6 +606,8 @@ An instantaneous change in velocity. Distinct from continuous Acceleration and c
 Current playground: a direction press applies a horizontal impulse, then Acceleration continues. That is a configuration of Impulse + Acceleration, not a new rule.
 
 A future Spring (GIM-006) would be evaluated as this rule (or Auto Bounce variation) before inventing a new species.
+
+Impulse / Spring are **not** part of required W2 progression (C-05). Do not delete this rule.
 
 **Parameters**  
 - press impulse  
