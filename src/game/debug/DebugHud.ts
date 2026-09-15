@@ -34,6 +34,7 @@ export class DebugHud {
         ? "RIGHT"
         : "NONE";
     const airReverse = !player.grounded && isAirReversing(player.vx, input.leftDown, input.rightDown);
+    const showPressAge = press !== null && (press.held || press.ageMs <= PhysicsConfig.lowBounceFreshPressWindowMs);
 
     this.text.setText(
       [
@@ -41,7 +42,7 @@ export class DebugHud {
         `vy ${player.vy.toFixed(1)}`,
         `Horizontal Input ${horizontalInput}`,
         `Fresh Press ${yesNo(player.freshPressThisFrame)}`,
-        `Press Age ${press ? `${Math.round(press.ageMs)}ms` : "—"}`,
+        `Press Age ${showPressAge && press ? `${Math.round(press.ageMs)}ms` : "—"}`,
         `Press Impulse ${player.lastPressImpulse.toFixed(0)}`,
         `Air Reverse ${yesNo(airReverse)}`,
         `Movement State ${player.movementState}`,
