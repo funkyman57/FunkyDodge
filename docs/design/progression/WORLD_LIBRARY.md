@@ -88,7 +88,7 @@ Names in the Name field stay as the question until a later design pass chooses a
 | Rules Emphasized | R-WORLD-001 Gravity; R-PLAYER-001 Auto Bounce; R-PLAYER-002 Directional Control; EXPERIMENTAL: R-PLAYER-003 Low Bounce, R-PLAYER-004 Landing Boost, R-PLAYER-005 Wall Jump; R-MOTION-001…003; R-CONTACT-001 |
 | Existing Rules Recontextualized | none (first world) |
 | New Rule Budget | Movement school only. **Zero candidate gimmicks.** Do not implement GIM-001–012 here. |
-| Major Discoveries | D0 movement facts; signature candidates DSC-005, DSC-006; possible DSC-017 seed. Reserved DSC IDs TBD. |
+| Major Discoveries | D0 movement facts; DSC-005; DSC-006; DSC-010; possible DSC-017 seed. |
 | Difficulty Curve | Teach bounce → steer → air position → LOW → BOOST → choice → wall → combine → reinterpret |
 | Visual Identity | **Not locked.** |
 | Audio Identity | **Not locked.** |
@@ -113,7 +113,7 @@ PLAY-001B is still validating movement feel. Do not mark Low Bounce, Landing Boo
 | Rules Emphasized | R-CONTACT-003 Friction; R-FORCE-001 Directional Force; R-MOTION-001 Momentum; R-INFO-001 |
 | Existing Rules Recontextualized | Auto Bounce, Momentum, Velocity Limit — same identities, new configurations |
 | New Rule Budget | Prefer configurations (Ice / Rough / Wind as *candidates*) over new rule families. Budget intentionally small. Not a commitment to implement GIM-003–005. |
-| Major Discoveries | DSC-017 is a signature candidate. Other DSC IDs reserved. |
+| Major Discoveries | DSC-002; DSC-003; DSC-004; DSC-009; DSC-017. |
 | Difficulty Curve | Teach one motion-changer → apply → test → reinterpret (help vs hinder) → combine with World 1 movement → mastery |
 | Visual Identity | **Not locked.** Do not assume “ice world” art. |
 | Audio Identity | **Not locked.** |
@@ -136,7 +136,7 @@ PLAY-002 has not started. Do not build this world.
 | Rules Emphasized | R-STATE-001; R-SIGNAL-001; R-CONTACT-001 variations; R-INFO-001 |
 | Existing Rules Recontextualized | Movement rules from WLD-01–02 remain. Objects recontextualize them. |
 | New Rule Budget | Small. Candidate gimmicks such as Door, Switch, One-way Surface, Moving Block are **not** a build list. C-05 still applies. |
-| Major Discoveries | PAT-014 / PAT-016 style realizations. Reserved DSC IDs TBD. |
+| Major Discoveries | DSC-001; DSC-014; DSC-018. PAT-014 / PAT-016 style realizations. |
 | Difficulty Curve | Teach first face → apply → surprise with second face → combine → mastery |
 | Visual Identity | **Not locked.** |
 | Audio Identity | **Not locked.** |
@@ -157,9 +157,9 @@ Do not implement. Second faces in GIMMICK_LIBRARY are TBD and must be designed b
 | Core Question | When should I act? |
 | Design Theme | Time, delay, count, and windows as readable decisions. Not a visual theme. |
 | Rules Emphasized | R-STATE-002 Timed State; R-STATE-003 Counter; R-SIGNAL-002 Delay; R-INFO-001 |
-| Existing Rules Recontextualized | Auto Bounce as a clock or a countable resource (DSC-011 candidate) |
+| Existing Rules Recontextualized | Auto Bounce as a clock or a countable resource (DSC-011) |
 | New Rule Budget | Small. Timed Gate, Bounce Counter, Delayed Switch are candidates, not commitments. |
-| Major Discoveries | DSC-011 signature candidate. PAT-010, PAT-011, PAT-012, PAT-020. |
+| Major Discoveries | DSC-011; DSC-012; DSC-013. PAT-010, PAT-011, PAT-012, PAT-020. |
 | Difficulty Curve | Teach a readable clock → apply → test *when* → reinterpret the clock as a tool → combine → mastery |
 | Visual Identity | **Not locked.** |
 | Audio Identity | **Not locked.** |
@@ -182,7 +182,7 @@ Windows must stay generous. Do not freeze durations here.
 | Rules Emphasized | Already-taught rules. Prefer PAT-009, PAT-015, PAT-016, PAT-017. |
 | Existing Rules Recontextualized | Everything prior. This is the recontextualization world. |
 | New Rule Budget | **Near zero.** New gimmicks are last resort (C-05, ANTI-010, ANTI-020). |
-| Major Discoveries | D2, rarely D3. Signature candidates may climax here if not spent earlier. Reserved DSC IDs TBD. |
+| Major Discoveries | DSC-015; DSC-016; DSC-017. D3 remains rare. Signature candidates may climax here if not spent earlier. |
 | Difficulty Curve | Revisit → reverse order → reinterpret space/object → combine → mastery. Teach beats only if a leftover gap remains. |
 | Visual Identity | **Not locked.** |
 | Audio Identity | **Not locked.** |
@@ -205,5 +205,5 @@ D3 revelations stay rare.
 ## Normalization needed later
 
 - Public-facing world titles (if different from the questions).
-- Official discovery ID lists per world after DSC-001–018 are imported.
 - Actual New Rule Budget numbers after playtest — keep them small.
+- World discovery lists above are conceptual homes, not a lock that those IDs cannot appear earlier or later.

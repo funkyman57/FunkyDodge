@@ -90,7 +90,7 @@ These patterns are flagged as signature *candidates*. The flag is not `CORE`.
 
 All rows are structural CANDIDATES. None are implemented as authored levels.
 
-Compatible Interactions list reserved INT IDs only as “TBD — reserved set.” Do not invent INT mappings.
+Compatible Interactions list only IDs directly supported by DOC-001A. Empty means unspecified, not reserved.
 
 ---
 
@@ -104,7 +104,7 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | Get from here to there. The board asks “can you arrive?” |
 | Primary Cognitive Challenge | Read the space; pick a motion that arrives. |
 | Required Rule Types | PLAYER, MOTION, CONTACT |
-| Compatible Interactions | TBD — reserved INT set |
+| Compatible Interactions | INT-007 when the reach is a low route |
 | Compatible Gimmicks | Any that change reachable space |
 | Cognitive Difficulty | Low by default |
 | Execution Difficulty | Must not exceed the cognitive ask |
@@ -128,7 +128,7 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | Two or more viable paths. The player picks. |
 | Primary Cognitive Challenge | Compare routes against current knowledge. |
 | Required Rule Types | PLAYER plus whatever distinguishes the routes |
-| Compatible Interactions | TBD |
+| Compatible Interactions | None specified in DOC-001A |
 | Compatible Gimmicks | TBD |
 | Cognitive Difficulty | Medium |
 | Execution Difficulty | Each route should stay achievable |
@@ -152,11 +152,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | Do a preparatory action, then spend it. |
 | Primary Cognitive Challenge | See that the first action is for the second. |
 | Required Rule Types | Depends on the setup (often STATE or MOTION) |
-| Compatible Interactions | TBD |
+| Compatible Interactions | INT-008 when LOW is the setup |
 | Compatible Gimmicks | Switch, Spring, Counter, Delayed Switch |
 | Cognitive Difficulty | Medium |
 | Execution Difficulty | Payoff should be easier than discovering the setup |
-| Discovery Types | D1, D2 |
+| Discovery Types | D1, D2; DSC-006; DSC-008 |
 | Difficulty Knobs | Distance between setup and payoff; how loud the setup is |
 | Variants | Immediate payoff; payoff in the next room (not required here) |
 | Failure Readability | Arriving unprepared should be obvious |
@@ -176,11 +176,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | Arrive with *more* speed than a standing start allows. |
 | Primary Cognitive Challenge | Treat current velocity as a resource to grow. |
 | Required Rule Types | MOTION (Momentum, Acceleration), PLAYER |
-| Compatible Interactions | TBD. Observed: Momentum × space. |
+| Compatible Interactions | INT-006; INT-014; INT-003; INT-009 |
 | Compatible Gimmicks | Ice, Wind, Spring (candidates) |
 | Cognitive Difficulty | Medium–high |
 | Execution Difficulty | Keep below cognitive |
-| Discovery Types | D1, D2; related DSC-017 |
+| Discovery Types | D1, D2; DSC-003; DSC-008; DSC-017 |
 | Difficulty Knobs | Runway length, required exit speed |
 | Variants | Multi-bounce buildup; boost-assisted buildup |
 | Failure Readability | Coming up short while slow |
@@ -200,11 +200,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | Arrive with *less* speed than the obvious approach produces. |
 | Primary Cognitive Challenge | See that going slower (or stopping) is the solution. |
 | Required Rule Types | MOTION, CONTACT (often Friction) |
-| Compatible Interactions | TBD |
+| Compatible Interactions | INT-015; INT-004 |
 | Compatible Gimmicks | Rough Surface, Low Bounce as a height/speed tool |
 | Cognitive Difficulty | Medium–high |
 | Execution Difficulty | Stopping should be achievable, not pixel-perfect |
-| Discovery Types | D2 Reinterpretation; related DSC-005 |
+| Discovery Types | D2 Reinterpretation; DSC-004; DSC-009 |
 | Difficulty Knobs | How punishing leftover speed is |
 | Variants | Dump speed before a narrow landing; refuse a boost |
 | Failure Readability | Overshoot should read as “too fast” |
@@ -224,7 +224,7 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | Change the world, then travel. |
 | Primary Cognitive Challenge | Notice the board is wrong until a state is set. |
 | Required Rule Types | STATE, SIGNAL, PLAYER |
-| Compatible Interactions | TBD |
+| Compatible Interactions | None specified in DOC-001A |
 | Compatible Gimmicks | Door, Switch, Timed Gate |
 | Cognitive Difficulty | Low–medium |
 | Execution Difficulty | Low once the state is set |
@@ -248,7 +248,7 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | Travel first so that a later state change is useful — or possible. |
 | Primary Cognitive Challenge | Invert the usual “switch then go.” |
 | Required Rule Types | PLAYER, STATE |
-| Compatible Interactions | TBD |
+| Compatible Interactions | None specified in DOC-001A |
 | Compatible Gimmicks | Door, Switch, Delayed Switch |
 | Cognitive Difficulty | Medium |
 | Execution Difficulty | Low–medium |
@@ -272,11 +272,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | A then B works. B then A does not (or does something else). |
 | Primary Cognitive Challenge | Find the legal sequence. |
 | Required Rule Types | STATE and/or PLAYER landing grammar |
-| Compatible Interactions | TBD |
+| Compatible Interactions | INT-021; INT-022 |
 | Compatible Gimmicks | Any sequenced devices |
 | Cognitive Difficulty | Medium |
 | Execution Difficulty | Sequence should not be a dexterity tax |
-| Discovery Types | D1, D2 |
+| Discovery Types | D1, D2; DSC-014 |
 | Difficulty Knobs | Number of steps; how many look legal |
 | Variants | Two-step; three-step |
 | Failure Readability | Wrong order produces a clear wrong board |
@@ -296,11 +296,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | A learned order is wrong here. The reverse is required. |
 | Primary Cognitive Challenge | Drop a previous habit. |
 | Required Rule Types | Same as the learned order |
-| Compatible Interactions | TBD |
+| Compatible Interactions | INT-021; INT-022 |
 | Compatible Gimmicks | Same tools as the earlier lesson, new sequence |
 | Cognitive Difficulty | High |
 | Execution Difficulty | Must stay below the cognitive ask |
-| Discovery Types | D2 Reinterpretation |
+| Discovery Types | D2 Reinterpretation; DSC-014 |
 | Difficulty Knobs | How strongly the old order was taught |
 | Variants | Reverse two devices; reverse LOW then BOOST vs BOOST then LOW |
 | Failure Readability | Doing the old order should fail obviously |
@@ -320,11 +320,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | A condition is true only for a readable duration. |
 | Primary Cognitive Challenge | Decide *when*, not only *what*. |
 | Required Rule Types | STATE (Timed) or SIGNAL (Delay), INFO |
-| Compatible Interactions | TBD |
+| Compatible Interactions | INT-023 |
 | Compatible Gimmicks | Timed Gate, Delayed Switch, Moving Block |
 | Cognitive Difficulty | Medium |
 | Execution Difficulty | Window must be wide enough (C-02, ANTI-003, ANTI-004) |
-| Discovery Types | D1 |
+| Discovery Types | D1; DSC-012 |
 | Difficulty Knobs | Duration, telegraph, cycle vs one-shot |
 | Variants | Recurring cycle; one-shot after trigger |
 | Failure Readability | Late arrival should show a closed window |
@@ -344,11 +344,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | The number of bounces is the resource or the key. |
 | Primary Cognitive Challenge | Treat Auto Bounce events as countable. |
 | Required Rule Types | PLAYER (Auto Bounce), STATE (Counter), INFO |
-| Compatible Interactions | TBD |
+| Compatible Interactions | INT-005; INT-012; INT-025; INT-026 |
 | Compatible Gimmicks | GIM-007 Bounce Counter |
 | Cognitive Difficulty | Medium–high |
 | Execution Difficulty | Counting must not become frame-perfect last hops |
-| Discovery Types | D2; named DSC-011 |
+| Discovery Types | DSC-011 |
 | Difficulty Knobs | Threshold, whether bounce type changes the count |
 | Variants | Reach N; stay under N; spend N |
 | Failure Readability | Count visible at failure |
@@ -368,7 +368,7 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | Align the player's cycle with another cycle. |
 | Primary Cognitive Challenge | Match two clocks (bounce cycle vs object cycle). |
 | Required Rule Types | PLAYER, plus a moving or timed object |
-| Compatible Interactions | TBD |
+| Compatible Interactions | None specified in DOC-001A |
 | Compatible Gimmicks | Moving Block, Timed Gate |
 | Cognitive Difficulty | Medium |
 | Execution Difficulty | Cycles should meet in a generous overlap |
@@ -392,7 +392,7 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | Entering a space spends the option to leave the same way. |
 | Primary Cognitive Challenge | Accept an irreversible (or costly-to-reverse) choice. |
 | Required Rule Types | CONTACT, sometimes STATE |
-| Compatible Interactions | TBD |
+| Compatible Interactions | None specified in DOC-001A |
 | Compatible Gimmicks | One-way Surface, Door |
 | Cognitive Difficulty | Medium |
 | Execution Difficulty | The committed action itself should be easy |
@@ -416,11 +416,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | A known object is used for a job it was not introduced to do. |
 | Primary Cognitive Challenge | Drop the first-face assumption. |
 | Required Rule Types | Whatever the object already has |
-| Compatible Interactions | TBD |
+| Compatible Interactions | INT-021; INT-019 |
 | Compatible Gimmicks | Any gimmick that has (or will have) a second face |
 | Cognitive Difficulty | High |
 | Execution Difficulty | Low–medium after the idea |
-| Discovery Types | D2, rarely D3 |
+| Discovery Types | DSC-001; DSC-018 |
 | Difficulty Knobs | How loudly the first face was taught |
 | Variants | Door as floor; switch as platform — examples only, not commitments |
 | Failure Readability | Using only the first face should stall readably |
@@ -440,11 +440,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | The same geometry means something else given a new approach. |
 | Primary Cognitive Challenge | See the room as a function of entry state. |
 | Required Rule Types | MOTION, CONTACT |
-| Compatible Interactions | TBD. Named DSC-017. |
+| Compatible Interactions | INT-013; INT-006 |
 | Compatible Gimmicks | One-way Surface; any surface whose contact depends on velocity |
 | Cognitive Difficulty | High |
 | Execution Difficulty | Approach should be achievable |
-| Discovery Types | D2, D3 (D3 rare) |
+| Discovery Types | DSC-017 |
 | Difficulty Knobs | How different the two readings are |
 | Variants | Fast vs slow; high vs low entry |
 | Failure Readability | The “wrong reading” should look consistent with the old habit |
@@ -464,11 +464,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | No new gimmick. A known tool does a new job. |
 | Primary Cognitive Challenge | Apply C-05 in play: variation and combination before novelty. |
 | Required Rule Types | Already-taught PLAYER / MOTION rules |
-| Compatible Interactions | TBD |
+| Compatible Interactions | INT-007; INT-008 |
 | Compatible Gimmicks | Prefer none new |
 | Cognitive Difficulty | High |
 | Execution Difficulty | Below cognitive |
-| Discovery Types | D2; related DSC-005, DSC-006 |
+| Discovery Types | DSC-005; DSC-006 |
 | Difficulty Knobs | Distance from the tool's intro room |
 | Variants | Low Bounce as route-starter, not only “go under” |
 | Failure Readability | Using the old function should be possible but insufficient |
@@ -488,11 +488,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | Two known rules, used together, solve what neither solves alone. |
 | Primary Cognitive Challenge | Hold two facts at once. |
 | Required Rule Types | At least two families |
-| Compatible Interactions | TBD — this pattern *is* an interaction reveal |
+| Compatible Interactions | Room-defined pair. Named example: INT-016. Do not invent a default pair. |
 | Compatible Gimmicks | Prefer already-introduced |
 | Cognitive Difficulty | High |
 | Execution Difficulty | Combination, once seen, should be performable |
-| Discovery Types | D2, D3 rare |
+| Discovery Types | DSC-015 |
 | Difficulty Knobs | How far apart the two lessons were taught |
 | Variants | LOW + wall; BOOST + kill-speed landing — examples, not assignments |
 | Failure Readability | Each half working alone should stall |
@@ -512,11 +512,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | The straight path fails. A longer path is the solution. |
 | Primary Cognitive Challenge | Reject the obvious line. |
 | Required Rule Types | Depends |
-| Compatible Interactions | TBD |
-| Compatible Gimmicks | TBD |
+| Compatible Interactions | None specified in DOC-001A |
+| Compatible Gimmicks | none required |
 | Cognitive Difficulty | Medium–high |
 | Execution Difficulty | Detour should not be a precision tax |
-| Discovery Types | D2 |
+| Discovery Types | DSC-007 |
 | Difficulty Knobs | How attractive the false straight path is |
 | Variants | Detour to set state; detour to build or kill momentum |
 | Failure Readability | Straight path fails for a visible reason |
@@ -536,11 +536,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | A miss, bounce, or fall is the intended first step. |
 | Primary Cognitive Challenge | Use a “failure” as a setup. |
 | Required Rule Types | PLAYER, CONTACT |
-| Compatible Interactions | TBD |
-| Compatible Gimmicks | TBD |
+| Compatible Interactions | None specified in DOC-001A |
+| Compatible Gimmicks | none required |
 | Cognitive Difficulty | High |
 | Execution Difficulty | The intended miss must be easy to perform on purpose |
-| Discovery Types | D2, D3 rare |
+| Discovery Types | DSC-016 |
 | Difficulty Knobs | How costly an uncontrolled miss is |
 | Variants | Fall to a lower ledge on purpose; waste a bounce on purpose |
 | Failure Readability | Accidental vs intended miss should be distinguishable after learning |
@@ -560,11 +560,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | Cause now, effect later. Plan across the gap. |
 | Primary Cognitive Challenge | Hold a future board in mind. |
 | Required Rule Types | SIGNAL (Delay), STATE, INFO |
-| Compatible Interactions | TBD |
+| Compatible Interactions | INT-027 |
 | Compatible Gimmicks | Delayed Switch, Timed Gate |
 | Cognitive Difficulty | Medium–high |
 | Execution Difficulty | After the plan, the wait should not be a reaction test |
-| Discovery Types | D1, D2 |
+| Discovery Types | DSC-013 |
 | Difficulty Knobs | Delay length, telegraph |
 | Variants | Helpful delay; hostile delay the player must schedule |
 | Failure Readability | Effect arriving at the wrong time should be visible |
@@ -584,11 +584,11 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | A limited resource can be spent in more than one place. |
 | Primary Cognitive Challenge | Choose where the resource does the most work. |
 | Required Rule Types | STATE (Counter) or equivalent scarce event |
-| Compatible Interactions | TBD |
+| Compatible Interactions | INT-005; INT-025 |
 | Compatible Gimmicks | Bounce Counter; one-shot Switch |
 | Cognitive Difficulty | Medium–high |
 | Execution Difficulty | Spending should be a decision, not a fumble |
-| Discovery Types | D1, D2; related DSC-011 |
+| Discovery Types | DSC-011 |
 | Difficulty Knobs | Budget size; number of sinks |
 | Variants | Bounces; switch uses; timed-window uses |
 | Failure Readability | Empty budget with work left should be obvious |
@@ -608,7 +608,7 @@ Compatible Interactions list reserved INT IDs only as “TBD — reserved set.�
 | Abstract Structure | More than one intended solution is valid. |
 | Primary Cognitive Challenge | Optional. The room must still have a purpose (C-08). |
 | Required Rule Types | Depends |
-| Compatible Interactions | TBD |
+| Compatible Interactions | None specified in DOC-001A |
 | Compatible Gimmicks | TBD |
 | Cognitive Difficulty | Varies |
 | Execution Difficulty | Each intended path stays achievable |
@@ -628,4 +628,4 @@ Alternate solutions are welcome. They must still follow the Constitution.
 
 - Do not implement example levels from this file.
 - Do not add PAT-023+ in this bootstrap.
-- Do not assign reserved INT IDs to “Compatible Interactions.”
+- Do not invent INT mappings to fill empty Compatible Interactions fields.

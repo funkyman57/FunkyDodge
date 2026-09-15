@@ -154,7 +154,7 @@ Player, on floor contact that qualifies as a bounce.
 The ball leaves the floor by itself. There is no jump button.
 
 **Interactions**  
-Landing intent selects Low Bounce or Landing Boost as variations of this bounce, not replacements for it. See R-PLAYER-003 and R-PLAYER-004.
+Landing intent selects Low Bounce or Landing Boost as variations of this bounce, not replacements for it. See R-PLAYER-003 and R-PLAYER-004. Registered pairs: INT-001, INT-002, INT-003, INT-004, INT-005.
 
 **Constraints**  
 Do not add a conventional jump button. Do not silently disable bounce in a room that still presents as the same bounce world. Do not treat surface restitution (`R-CONTACT-002`) as this rule.
@@ -189,7 +189,7 @@ Player input. Restart is a session control, not a movement rule.
 ← / → (or A / D) change horizontal intent. No other movement keys.
 
 **Interactions**  
-Intent at landing selects bounce variation. Intent at a wall selects Wall Jump. Intent in air changes horizontal velocity through Acceleration and Impulse.
+Intent at landing selects bounce variation. Intent at a wall selects Wall Jump. Intent in air changes horizontal velocity through Acceleration and Impulse. Registered pair: INT-006.
 
 **Constraints**  
 Do not add jump, dash, or crouch buttons to create depth. New verbs must first be evaluated as applications or combinations of existing rules (C-05).
@@ -230,7 +230,7 @@ Player floor bounce when landing intent is a fresh press.
 A late tap at the floor yields a visibly shorter hop. Playground tint is an implementation aid, not a locked visual language.
 
 **Interactions**  
-Competes with Landing Boost at the same contact moment. Intent classification decides; both are not applied at once. Related to DSC-005 and DSC-006.
+Competes with Landing Boost at the same contact moment. Intent classification decides; both are not applied at once. Registered pairs: INT-007, INT-008. Discoveries: DSC-005, DSC-006.
 
 **Constraints**  
 Must remain a readable variation of Auto Bounce. Must not become a second jump button. Priority vs Boost is intent, not an arbitrary override.
@@ -270,7 +270,7 @@ Player floor bounce when landing intent is a hold.
 Holding through the landing carries farther than a neutral bounce. Exact VFX is not locked.
 
 **Interactions**  
-Competes with Low Bounce at the same contact. Combines with Momentum and Velocity Limit. World 1 candidate rooms contrast LOW vs BOOST (LVL-W01-008).
+Competes with Low Bounce at the same contact. Combines with Momentum and Velocity Limit. World 1 candidate rooms contrast LOW vs BOOST (LVL-W01-008). Registered pairs: INT-009, INT-010.
 
 **Constraints**  
 Must be predictable from hold vs tap. Must not secretly apply in some rooms and not others. Must not require frame-perfect timing (ANTI-003).
@@ -309,7 +309,7 @@ Player, on wall contact with opposing horizontal intent.
 Pressing away from a touched wall sends the ball up and off the wall.
 
 **Interactions**  
-Requires Solid Collision. Uses Directional Control. Combines with Momentum for the next arc.
+Requires Solid Collision. Uses Directional Control. Combines with Momentum for the next arc. Registered pairs: INT-011, INT-012.
 
 **Constraints**  
 Must not send the player downward. Must not work without readable wall contact. Must not become a second jump button in open air. Still EXPERIMENTAL; do not mark `CORE`.
@@ -346,7 +346,7 @@ Player velocity. Future movable objects only if approved.
 The ball keeps going after the key is released. Reversing takes time.
 
 **Interactions**  
-Build Momentum (PAT-004) and Kill Momentum (PAT-005) are patterns over this rule. Entry velocity can change how a place behaves (DSC-017).
+Build Momentum (PAT-004) and Kill Momentum (PAT-005) are patterns over this rule. Entry velocity can change how a place behaves (DSC-017). Registered pairs: INT-006, INT-008, INT-013, INT-014, INT-015, INT-017.
 
 **Constraints**  
 Do not silently zero velocity on bounce unless a named rule says so. Do not treat “this room needs a stop” as a secret exception (C-01).
@@ -460,7 +460,7 @@ Player vs solid geometry. Future solids if approved.
 The ball does not pass through painted solids.
 
 **Interactions**  
-Floor contact triggers Auto Bounce. Wall contact can trigger Wall Jump. Ceiling contact interrupts the upward arc.
+Floor contact triggers Auto Bounce. Wall contact can trigger Wall Jump. Ceiling contact interrupts the upward arc. Registered pairs: INT-007, INT-010, INT-013, INT-021, INT-023.
 
 **Constraints**  
 Solids must look solid. One-way surfaces, if approved, are a gimmick embodying a variation — not a silent hole in this rule (see GIM-011).
@@ -538,7 +538,7 @@ Surfaces or travel states that opt in.
 The surface must read as slick or grabby before it changes speed.
 
 **Interactions**  
-Kill Momentum / Build Momentum patterns. Must remain predictable from Visible State.
+Kill Momentum / Build Momentum patterns. Must remain predictable from Visible State. Registered pairs: INT-003, INT-004, INT-009, INT-014, INT-015, INT-016, INT-020. Low and high are configurations, not two rules.
 
 **Constraints**  
 Do not invent a new rule for each friction number. Do not apply invisible friction (ANTI-001).
@@ -578,7 +578,7 @@ Volumes or objects that opt in. Not implemented in PLAY-001B.
 The force must be visible (R-INFO-001) before it matters.
 
 **Interactions**  
-Adds to Momentum. May fight or help Directional Control. Must not secretly change Auto Bounce.
+Adds to Momentum. May fight or help Directional Control. Must not secretly change Auto Bounce. Registered pairs: INT-001, INT-011, INT-016, INT-017, INT-018, INT-019, INT-024.
 
 **Constraints**  
 PLAY-002 has not started. Do not implement candidate wind from this entry.
@@ -621,7 +621,7 @@ Player input (current). Surfaces / objects (candidate).
 A tap changes speed immediately; a hold continues to accelerate.
 
 **Interactions**  
-Landing intent uses press timing. Combined with Velocity Limit.
+Landing intent uses press timing. Combined with Velocity Limit. Registered pairs: INT-002, INT-020.
 
 **Constraints**  
 Do not split “ground impulse” and “air impulse” into two rules.
@@ -660,7 +660,7 @@ Candidate gimmicks such as Door and Switch. Not implemented.
 The current state must be visible (R-INFO-001).
 
 **Interactions**  
-Triggers flip or set this state. Timed State and Counter are other state shapes, not subtypes of Binary State.
+Triggers flip or set this state. Timed State and Counter are other state shapes, not subtypes of Binary State. Registered pairs: INT-018, INT-019, INT-021, INT-022, INT-026, INT-028. Do not add a State Toggle rule.
 
 **Constraints**  
 Do not add a third silent state. Do not change what a state means mid-room (C-01).
@@ -697,7 +697,7 @@ Candidate Timed Gate and similar. Not implemented.
 The remaining time, or an equivalent readable clock, must be available (ANTI-012 if not).
 
 **Interactions**  
-Often started by a Trigger. Combines with Delay when the start is postponed.
+Often started by a Trigger. Combines with Delay when the start is postponed. Registered pairs: INT-023, INT-024.
 
 **Constraints**  
 Do not use invisible timers as the puzzle. PLAY-002 has not started.
@@ -733,7 +733,7 @@ Candidate Bounce Counter (GIM-007). Not implemented.
 The count must be visible (R-INFO-001). Related to DSC-011.
 
 **Interactions**  
-Auto Bounce can be the event that increments. Threshold may Trigger a state change.
+Auto Bounce can be the event that increments. Threshold may Trigger a state change. Registered pairs: INT-005, INT-012, INT-025, INT-026.
 
 **Constraints**  
 Counting must be fair and readable. Do not hide the count (ANTI-001). Do not make the solution luck (ANTI-005).
@@ -771,7 +771,7 @@ Candidate Switch, Force Switch, pressure, or volume. Not implemented.
 The triggerable object and its effect must be readable, immediately or after a published Delay.
 
 **Interactions**  
-Usually writes Binary State or starts Timed State. Delay can postpone the fire.
+Usually writes Binary State or starts Timed State. Delay can postpone the fire. Registered pairs: INT-022, INT-025, INT-027.
 
 **Constraints**  
 The condition must be learnable. Do not trigger from hidden geometry (ANTI-014).
@@ -806,7 +806,7 @@ Candidate delayed devices. Not implemented.
 The wait must be telegraphed. Arbitrary unreadable delay is ANTI-012.
 
 **Interactions**  
-Always paired with a Trigger or state change. Enables PAT-020 Delayed Consequence.
+Always paired with a Trigger or state change. Enables PAT-020 Delayed Consequence. Registered pair: INT-027.
 
 **Constraints**  
 PLAY-002 has not started. Do not implement from this entry.
@@ -845,7 +845,7 @@ Every gimmick and state that affects a choice.
 The cue *is* the rule.
 
 **Interactions**  
-Required by Binary State, Timed State, Counter, Trigger, Delay, Friction, Directional Force.
+Required by Binary State, Timed State, Counter, Trigger, Delay, Friction, Directional Force. Registered pair: INT-028.
 
 **Constraints**  
 Surprise comes from possibility, not from hiding the board (C-06).

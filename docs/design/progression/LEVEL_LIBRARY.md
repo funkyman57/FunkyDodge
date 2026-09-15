@@ -73,7 +73,7 @@ World: `WLD-01` — HOW DO I MOVE?
 | LVL-W01-011 | Movement combination | Test |
 | LVL-W01-012 | Movement mastery / first meaningful reinterpretation | Test / Surprise |
 
-Interactions Used remain TBD until INT-001–INT-028 are imported. Do not invent INT mappings.
+Interactions Used list only IDs directly supported by DOC-001A. Do not invent mappings.
 
 Gimmicks Used: none. World 1 is a movement school. Candidate gimmicks are not committed and must not be implemented from this file.
 
@@ -90,7 +90,7 @@ Gimmicks Used: none. World 1 is a movement school. Candidate gimmicks are not co
 | Teach / Apply / Test / Surprise / Reward | Teach |
 | Discovery Target | D0: the ball bounces by itself (R-PLAYER-001). No numbered DSC required. |
 | Rules Used | R-WORLD-001; R-PLAYER-001; R-CONTACT-001 |
-| Interactions Used | TBD (reserved INT set) |
+| Interactions Used | none — Auto Bounce observation is engine cycle, not a registered INT |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-001 Reach |
 | Expected Player Hypothesis | “I need to jump.” |
@@ -118,7 +118,7 @@ Gimmicks Used: none. World 1 is a movement school. Candidate gimmicks are not co
 | Teach / Apply / Test / Surprise / Reward | Teach |
 | Discovery Target | D0: LEFT and RIGHT steer (R-PLAYER-002) |
 | Rules Used | R-PLAYER-002; R-PLAYER-001; R-MOTION-002 |
-| Interactions Used | TBD |
+| Interactions Used | INT-006 |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-001 |
 | Expected Player Hypothesis | “There should be more buttons.” |
@@ -146,7 +146,7 @@ Gimmicks Used: none. World 1 is a movement school. Candidate gimmicks are not co
 | Teach / Apply / Test / Surprise / Reward | Teach, Apply |
 | Discovery Target | D1: air time is for positioning; landing location is a choice |
 | Rules Used | R-PLAYER-002; R-MOTION-001; R-MOTION-002; R-PLAYER-001 |
-| Interactions Used | TBD |
+| Interactions Used | INT-006 |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-001 |
 | Expected Player Hypothesis | “I only steer on the ground.” |
@@ -174,7 +174,7 @@ Gimmicks Used: none. World 1 is a movement school. Candidate gimmicks are not co
 | Teach / Apply / Test / Surprise / Reward | Teach |
 | Discovery Target | D0/D1 Low Bounce exists. Opens DSC-005. |
 | Rules Used | R-PLAYER-003; R-PLAYER-001; R-PLAYER-002 |
-| Interactions Used | TBD |
+| Interactions Used | INT-007 |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-001 |
 | Expected Player Hypothesis | “I always bounce the same height.” |
@@ -202,9 +202,9 @@ Do not mark Low Bounce `CORE` from this candidate.
 | Status | CANDIDATE |
 | Purpose | Apply |
 | Teach / Apply / Test / Surprise / Reward | Apply |
-| Discovery Target | DSC-005 (candidate) |
+| Discovery Target | DSC-005 |
 | Rules Used | R-PLAYER-003; R-CONTACT-001 |
-| Interactions Used | TBD |
+| Interactions Used | INT-007 |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-001; PAT-016 |
 | Expected Player Hypothesis | “I need more height to get through.” |
@@ -232,7 +232,7 @@ Do not mark Low Bounce `CORE` from this candidate.
 | Teach / Apply / Test / Surprise / Reward | Teach |
 | Discovery Target | D0/D1 Landing Boost exists |
 | Rules Used | R-PLAYER-004; R-PLAYER-001; R-PLAYER-002; R-MOTION-003 |
-| Interactions Used | TBD |
+| Interactions Used | none specified — Boost intro is a player-rule teach, not a registered INT pair |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-001; PAT-004 |
 | Expected Player Hypothesis | “Hold does the same as tap.” |
@@ -262,7 +262,7 @@ Do not mark Landing Boost `CORE` from this candidate.
 | Teach / Apply / Test / Surprise / Reward | Apply |
 | Discovery Target | D1 application of Landing Boost; may preview DSC-017 |
 | Rules Used | R-PLAYER-004; R-MOTION-001 |
-| Interactions Used | TBD |
+| Interactions Used | INT-006 |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-004; PAT-001 |
 | Expected Player Hypothesis | “I need a new button for distance.” |
@@ -288,9 +288,9 @@ Do not mark Landing Boost `CORE` from this candidate.
 | Status | CANDIDATE |
 | Purpose | Test / Surprise |
 | Teach / Apply / Test / Surprise / Reward | Test, Surprise |
-| Discovery Target | DSC-005 and/or DSC-006 (candidates). Choice is real (not ANTI-007). |
+| Discovery Target | DSC-005 and/or DSC-006. Choice is real (not ANTI-007). |
 | Rules Used | R-PLAYER-003; R-PLAYER-004 |
-| Interactions Used | TBD |
+| Interactions Used | INT-007; INT-008 |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-002; PAT-016 |
 | Expected Player Hypothesis | “One of these is always correct.” |
@@ -316,9 +316,9 @@ Do not mark Landing Boost `CORE` from this candidate.
 | Status | CANDIDATE |
 | Purpose | Teach |
 | Teach / Apply / Test / Surprise / Reward | Teach |
-| Discovery Target | D0/D1 Wall Jump: leave up and away |
+| Discovery Target | D0/D1 Wall Jump: leave up and away. Opens DSC-010. |
 | Rules Used | R-PLAYER-005; R-CONTACT-001; R-PLAYER-002 |
-| Interactions Used | TBD |
+| Interactions Used | INT-013 |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-001 |
 | Expected Player Hypothesis | “Walls only block me.” |
@@ -346,9 +346,9 @@ Do not mark Wall Jump `CORE` from this candidate.
 | Status | CANDIDATE |
 | Purpose | Apply |
 | Teach / Apply / Test / Surprise / Reward | Apply |
-| Discovery Target | D1 Wall Jump as a tool |
+| Discovery Target | D1 Wall Jump as a tool (`DSC-010`) |
 | Rules Used | R-PLAYER-005 |
-| Interactions Used | TBD |
+| Interactions Used | INT-013 |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-001; PAT-016 |
 | Expected Player Hypothesis | “Wall Jump was a one-room trick.” |
@@ -374,9 +374,9 @@ Do not mark Wall Jump `CORE` from this candidate.
 | Status | CANDIDATE |
 | Purpose | Test |
 | Teach / Apply / Test / Surprise / Reward | Test |
-| Discovery Target | PAT-017 Combination Discovery — two taught movement rules together. Exact pair TBD; do not invent a new mechanic. |
+| Discovery Target | DSC-015 / PAT-017 — two taught movement rules together. Exact pair not assigned. |
 | Rules Used | Subset of R-PLAYER-001…005 and R-MOTION-001…003 already taught |
-| Interactions Used | TBD |
+| Interactions Used | Room-defined. Do not invent a default pair. |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-017 |
 | Expected Player Hypothesis | “I use one tool at a time.” |
@@ -404,7 +404,7 @@ Do not mark Wall Jump `CORE` from this candidate.
 | Teach / Apply / Test / Surprise / Reward | Test, Surprise |
 | Discovery Target | First meaningful reinterpretation. Signature candidates: DSC-006 and/or DSC-017. PAT-016 / PAT-009 / PAT-015. |
 | Rules Used | Taught World 1 movement rules only |
-| Interactions Used | TBD |
+| Interactions Used | INT-008 and/or INT-013, matching the chosen discovery |
 | Gimmicks Used | none |
 | Puzzle Patterns Used | PAT-016; optionally PAT-009, PAT-015, PAT-022 |
 | Expected Player Hypothesis | The World 1 defaults (higher is better; Low is only “under”; a place is a place). |

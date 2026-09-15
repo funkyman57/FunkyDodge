@@ -81,3 +81,5 @@ Therefore:
 - Do not implement the candidate gimmicks or levels from these docs.
 
 See [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) for the full boundary statement.
+
+`INT-001`–`INT-028` and `DSC-001`–`DSC-018` are imported as `CANDIDATE` (DOC-001A). Documentation does not validate them.

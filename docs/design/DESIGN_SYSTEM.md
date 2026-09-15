@@ -125,10 +125,10 @@ IDs are permanent. If an item is deprecated, do not recycle its ID.
 | --- | --- |
 | Constitution | May forbid a rule, gimmick, pattern, or room purpose. |
 | Rules | Interactions must be predictable from named rules. |
-| Interactions | Gimmicks embody interactions; they do not invent silent extra rules. |
+| Interactions | Gimmicks embody interactions; they do not invent silent extra rules. Strong interactions should support more than one application (Second Face) without new IDs. |
 | Gimmicks | Must have at least two meaningful faces before they can become important (C-07). |
 | Puzzle Patterns | Arrange known interactions; they do not add hidden rules. |
-| Discoveries | Must be fair given known rules and cues (C-06). |
+| Discoveries | Must be fair given known rules and cues (C-06). Discovery requires setup. |
 | Levels | Must have a purpose (C-08) and reference IDs. |
 | Worlds | Sequence teach → apply → test → reinterpret → combine → mastery. |
 | Anti-Patterns | Can reject a proposal at any layer. |
@@ -157,12 +157,10 @@ PLAY-001B is still tuning movement feel. Parameter numbers that appear in code (
 
 ---
 
-## Source-note gap (DOC-001)
+## DOC-001A import
 
-At bootstrap time, the repository did not contain the design notes that define the official `INT-001`–`INT-028` and `DSC-001`–`DSC-018` candidate sets.
+`INT-001`–`INT-028` and `DSC-001`–`DSC-018` are imported as `CANDIDATE` entries.
 
-Those IDs are **reserved**.
-
-Do not invent names or definitions for reserved IDs except where this bootstrap brief already named them (`DSC-005`, `DSC-006`, `DSC-011`, `DSC-017`).
+Do not add `RESERVED` to the official lifecycle.
 
 See [libraries/INTERACTION_LIBRARY.md](libraries/INTERACTION_LIBRARY.md) and [libraries/DISCOVERY_LIBRARY.md](libraries/DISCOVERY_LIBRARY.md).

@@ -66,7 +66,9 @@ This list is **not** a commitment to implement all twelve.
 
 PLAY-002 has **not** started. Do not implement these gimmicks from this document.
 
-Second Face and Further Uses are **TBD** unless a later approved note supplies them. Inventing a second face here would invent design. C-07 still applies: an important gimmick may not ship without another face.
+Second Face and Further Uses stay unset unless a later approved note supplies them. C-07 still applies: an important gimmick may not ship without another face.
+
+DOC-001A supplies Second Face material for Door (closed door as wall) and Wind (headwind / airtime). Other second faces are not filled from this pass.
 
 ---
 
@@ -103,9 +105,9 @@ World column is unset on purpose. Visual themes are not locked (see WORLD_LIBRAR
 | Default State | TBD |
 | Player Assumption | A door blocks a path until something opens it. |
 | Primary Use / First Face | Open a route. |
-| Second Face | TBD (C-07 required before this can be important) |
-| Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. Candidate pairing with Switch. |
+| Second Face | Closed door as a wall (`DSC-001`). C-07 still required before this is important. |
+| Further Uses | Opening immediately can be wrong (`DSC-014`) — order, not a third object type. |
+| Compatible Interactions | INT-021; INT-022; INT-028 |
 | Visual Cue | Open vs closed must be visible. |
 | Audio Cue | TBD |
 | Choice Creation | Whether to open, leave shut, or use the closed door as geometry. |
@@ -131,7 +133,7 @@ World column is unset on purpose. Visual themes are not locked (see WORLD_LIBRAR
 | Primary Use / First Face | Toggle or set a Binary State. |
 | Second Face | TBD |
 | Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. Candidate pairing with Door, Timed Gate, Delayed Switch. |
+| Compatible Interactions | INT-022; INT-028. Pairing with Door is INT-022 → INT-021. Delayed write is GIM-012 / INT-027. |
 | Visual Cue | Switch state and target state must be readable. |
 | Audio Cue | TBD |
 | Choice Creation | When to flip it; whether the new state is the one you want. |
@@ -155,9 +157,9 @@ World column is unset on purpose. Visual themes are not locked (see WORLD_LIBRAR
 | Default State | TBD (always on vs switched) |
 | Player Assumption | Wind is a hazard that blows me off course. |
 | Primary Use / First Face | Change motion without a new button. |
-| Second Face | TBD — C-07 expects a help face as well as a hinder face |
-| Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. |
+| Second Face | Headwind that reduces horizontal momentum; airtime up or down (`INT-001` Second Face, `DSC-002`). |
+| Further Uses | Speed remaining after leaving the region (`INT-016`, `INT-017`). |
+| Compatible Interactions | INT-001; INT-016; INT-017; INT-018; INT-019; INT-011 |
 | Visual Cue | Direction and presence must be visible before they matter. |
 | Audio Cue | TBD |
 | Choice Creation | Enter, avoid, or use the push as carry. |
@@ -183,7 +185,7 @@ World column is unset on purpose. Visual themes are not locked (see WORLD_LIBRAR
 | Primary Use / First Face | Preserve horizontal speed. |
 | Second Face | TBD |
 | Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. Same rule as Rough Surface, opposite configuration. |
+| Compatible Interactions | INT-003; INT-009; INT-014; INT-016; INT-020. Same rule as Rough Surface, opposite friction configuration. |
 | Visual Cue | Must read as slick before it affects speed. |
 | Audio Cue | TBD |
 | Choice Creation | Land here to keep speed, or avoid to stay precise. |
@@ -211,7 +213,7 @@ Do not create a separate “Ice Rule.” Ice is a Friction configuration.
 | Primary Use / First Face | Kill or dump momentum. |
 | Second Face | TBD |
 | Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. Same rule as Ice, opposite configuration. |
+| Compatible Interactions | INT-004; INT-015. Same rule as Ice, opposite friction configuration. |
 | Visual Cue | Must read as grabby before it dumps speed. |
 | Audio Cue | TBD |
 | Choice Creation | Land here to stop, or avoid to keep speed. |
@@ -239,7 +241,7 @@ Do not create a separate “Rough Rule.”
 | Primary Use / First Face | Extra takeoff. |
 | Second Face | TBD |
 | Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. |
+| Compatible Interactions | INT-002; INT-020 |
 | Visual Cue | Must look launch-capable before use. |
 | Audio Cue | TBD |
 | Choice Creation | Use, skip, or approach with a chosen bounce type. |
@@ -265,7 +267,7 @@ Do not create a separate “Rough Rule.”
 | Primary Use / First Face | Threshold after N bounces. |
 | Second Face | TBD |
 | Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. Named discovery: DSC-011. |
+| Compatible Interactions | INT-005; INT-012; INT-025; INT-026. Discovery: DSC-011. |
 | Visual Cue | The count must be visible at decision time. |
 | Audio Cue | TBD |
 | Choice Creation | Spend or conserve bounces; choose bounce type because height changes count rate. |
@@ -291,7 +293,7 @@ Do not create a separate “Rough Rule.”
 | Primary Use / First Face | A limited window to pass. |
 | Second Face | TBD |
 | Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. PAT-010 Timed Window. |
+| Compatible Interactions | INT-023. Pattern: PAT-010 Timed Window. |
 | Visual Cue | Open/closed and remaining time must be readable. |
 | Audio Cue | TBD |
 | Choice Creation | Go now, wait for the next cycle, or use the closed gate as geometry. |
@@ -317,7 +319,7 @@ Do not create a separate “Rough Rule.”
 | Primary Use / First Face | Activate only under a known motion condition. |
 | Second Face | TBD |
 | Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. |
+| Compatible Interactions | INT-022 (it is a Trigger that writes state). No force-threshold INT is registered; do not invent one. |
 | Visual Cue | The required condition must be teachable from the object, not from text only (ANTI-016). |
 | Audio Cue | TBD |
 | Choice Creation | Approach with LOW, BOOST, or neutral; succeed or spare the switch. |
@@ -345,7 +347,7 @@ Threshold numbers are not recorded. Do not freeze them.
 | Primary Use / First Face | A platform or door that changes position. |
 | Second Face | TBD |
 | Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. PAT-012 Synchronization. |
+| Compatible Interactions | None specified in DOC-001A. Pattern: PAT-012 Synchronization. |
 | Visual Cue | Path or cycle must be readable. |
 | Audio Cue | TBD |
 | Choice Creation | Ride, use as a moving wall, or treat as a timed solid. |
@@ -371,7 +373,7 @@ Threshold numbers are not recorded. Do not freeze them.
 | Primary Use / First Face | Enter a space you cannot exit the same way — or the reverse. |
 | Second Face | TBD |
 | Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. PAT-013 Commitment; PAT-015 Reinterpret Space. |
+| Compatible Interactions | None specified in DOC-001A. Patterns: PAT-013 Commitment; PAT-015 Reinterpret Space. |
 | Visual Cue | Allowed direction must be visible before commitment. |
 | Audio Cue | TBD |
 | Choice Creation | Commit to a side; use it as floor or as passage. |
@@ -397,7 +399,7 @@ Threshold numbers are not recorded. Do not freeze them.
 | Primary Use / First Face | Cause, then wait, then effect. |
 | Second Face | TBD |
 | Further Uses | TBD |
-| Compatible Interactions | Reserved INT set TBD. PAT-020 Delayed Consequence. |
+| Compatible Interactions | INT-027; INT-022. Pattern: PAT-020 Delayed Consequence. Discovery: DSC-013. |
 | Visual Cue | The wait must be telegraphed. |
 | Audio Cue | TBD |
 | Choice Creation | Start the delay when the coming state will help, not when it is convenient to press. |
