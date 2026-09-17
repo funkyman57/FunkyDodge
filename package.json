@@ -7,7 +7,7 @@
     "dev": "vite --host 0.0.0.0 --port 5173",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 0.0.0.0 --port 5173",
-    "test": "tsx --test src/game/physics/BounceController.test.ts src/game/physics/PhysicsTuning.test.ts src/game/input/InputState.test.ts"
+    "test": "tsx --test src/game/physics/BounceController.test.ts src/game/physics/PhysicsTuning.test.ts src/game/input/InputState.test.ts src/game/input/RhythmRecognizer.test.ts"
   },
   "dependencies": {
     "phaser": "^3.88.2"

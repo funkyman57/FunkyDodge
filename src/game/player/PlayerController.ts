@@ -1,5 +1,7 @@
 import Phaser from "phaser";
 import { InputState } from "../input/InputState";
+import { ExperimentReport, LowInputExperiment } from "../input/LowInputExperiment";
+import { rhythmDecisionToLegacyReason, sharedRhythmRecognizer, type RhythmPreview } from "../input/RhythmRecognizer";
 import {
   BounceType,
   isWallJumpEligible,
@@ -36,6 +38,9 @@ export class PlayerController {
   movementState: MovementState = "IDLE";
   freshPressThisFrame = false;
   lastPressImpulse = 0;
+  lastDecisionReason = ExperimentReport.lastDecision;
+  lastClearReason = ExperimentReport.lastClearReason;
+  rhythmPreview: RhythmPreview | null = null;
 
   private bounceApplied = false;
   private wallJumpConsumed = false;
@@ -82,6 +87,9 @@ export class PlayerController {
     this.movementState = "IDLE";
     this.freshPressThisFrame = false;
     this.lastPressImpulse = 0;
+    this.lastDecisionReason = "NO_REQUEST";
+    this.lastClearReason = "RESET";
+    this.rhythmPreview = null;
     this.bounceApplied = false;
     this.wallJumpConsumed = false;
     this.boostUntilMs = 0;
@@ -95,6 +103,7 @@ export class PlayerController {
     this.physicsWorldGravity();
     this.refreshContactFlags(body);
     this.updateApproachWindow(body, nowMs);
+    this.refreshRhythmPreview(nowMs);
     this.applyHorizontalControl(body, dt, nowMs);
     this.applyWallJump(nowMs);
     this.applyFloorBounce(nowMs);
@@ -139,6 +148,14 @@ export class PlayerController {
       const distance = solid.left - body.right;
       return distance >= -skin && distance <= skin;
     });
+  }
+
+  private refreshRhythmPreview(nowMs: number): void {
+    if (LowInputExperiment.mode !== "RHYTHM") {
+      this.rhythmPreview = null;
+      return;
+    }
+    this.rhythmPreview = sharedRhythmRecognizer.preview(nowMs);
   }
 
   private updateApproachWindow(body: Phaser.Physics.Arcade.Body, nowMs: number): void {
@@ -214,6 +231,11 @@ export class PlayerController {
     this.wallJumpConsumed = true;
     this.lastWallJumpAt = nowMs;
     this.visualState = "WALL";
+    if (LowInputExperiment.mode === "RHYTHM") {
+      sharedRhythmRecognizer.onWallJump(nowMs);
+      this.lastClearReason = "WALL_JUMP";
+      ExperimentReport.lastClearReason = "WALL_JUMP";
+    }
   }
 
   private applyFloorBounce(nowMs: number): void {
@@ -226,11 +248,22 @@ export class PlayerController {
       return;
     }
 
-    const result = resolveFloorBounce(this.input, nowMs);
+    const result = LowInputExperiment.mode === "RHYTHM"
+      ? sharedRhythmRecognizer.commitLanding(nowMs)
+      : resolveFloorBounce(this.input, nowMs);
     body.setVelocityY(result.verticalVelocity);
     body.blocked.down = false;
     this.lastBounceType = result.type;
     this.landingIntent = result.intent;
+    this.lastDecisionReason = LowInputExperiment.mode === "RHYTHM"
+      ? sharedRhythmRecognizer.lastDecisionReason
+      : rhythmDecisionToLegacyReason(result.intent);
+    this.lastClearReason = LowInputExperiment.mode === "RHYTHM"
+      ? sharedRhythmRecognizer.lastClearReason
+      : null;
+    ExperimentReport.lastBounce = result.type;
+    ExperimentReport.lastDecision = this.lastDecisionReason;
+    ExperimentReport.lastClearReason = this.lastClearReason;
     this.bounceApplied = true;
 
     const takeoffDirection = resolveTakeoffDirection(this.input, nowMs, result.intent);

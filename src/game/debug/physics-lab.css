@@ -26,7 +26,9 @@
 
 .physics-lab-row,
 .physics-lab-actions,
-.physics-lab-presets {
+.physics-lab-presets,
+.physics-lab-modes,
+.physics-lab-timing {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;

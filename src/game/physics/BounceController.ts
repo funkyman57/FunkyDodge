@@ -232,24 +232,24 @@ export function lowBounceAirtimeSeconds(): number {
   );
 }
 
-export function resolveFloorBounce(input: BounceInput, nowMs: number): FloorBounceResult {
-  const intent = resolveLandingIntent(input, nowMs);
-
-  if (intent === "FRESH_PRESS") {
+export function createFloorBounceResult(
+  type: BounceType,
+  boostDirection: -1 | 0 | 1 = 0,
+): FloorBounceResult {
+  if (type === "LOW") {
     return {
       type: "LOW",
-      intent,
+      intent: "FRESH_PRESS",
       verticalVelocity: -PhysicsConfig.bounceVelocity * PhysicsConfig.lowBounceMultiplier,
       applyHorizontalBoost: false,
       boostDirection: 0,
     };
   }
 
-  if (intent === "HOLD") {
-    const boostDirection = resolveBoostDirection(input);
+  if (type === "BOOST") {
     return {
       type: "BOOST",
-      intent,
+      intent: "HOLD",
       verticalVelocity: -PhysicsConfig.bounceVelocity,
       applyHorizontalBoost: boostDirection !== 0,
       boostDirection,
@@ -258,11 +258,25 @@ export function resolveFloorBounce(input: BounceInput, nowMs: number): FloorBoun
 
   return {
     type: "NORMAL",
-    intent,
+    intent: "NONE",
     verticalVelocity: -PhysicsConfig.bounceVelocity,
     applyHorizontalBoost: false,
     boostDirection: 0,
   };
+}
+
+export function resolveFloorBounce(input: BounceInput, nowMs: number): FloorBounceResult {
+  const intent = resolveLandingIntent(input, nowMs);
+
+  if (intent === "FRESH_PRESS") {
+    return createFloorBounceResult("LOW");
+  }
+
+  if (intent === "HOLD") {
+    return createFloorBounceResult("BOOST", resolveBoostDirection(input));
+  }
+
+  return createFloorBounceResult("NORMAL");
 }
 
 function hasHorizontalIntent(

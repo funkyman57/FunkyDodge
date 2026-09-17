@@ -28,6 +28,16 @@ test("INPUT-01: fresh directional press is detected once, not every held frame",
   assert.equal(input.leftDown, true);
 });
 
+test("adoptHeld does not fabricate a fresh press", () => {
+  const input = new InputState();
+  input.adoptHeld(true, false);
+  assert.equal(input.leftDown, true);
+  assert.equal(input.leftJustPressed, false);
+  assert.equal(input.justPressedDirection(), 0);
+  input.update(16, true, false, false);
+  assert.equal(input.justPressedDirection(), 0);
+});
+
 test("INPUT-01: opposite fresh press is a new one-shot after release", () => {
   const input = new InputState();
   input.update(0, false, true, false);

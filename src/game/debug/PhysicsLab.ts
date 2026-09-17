@@ -1,4 +1,15 @@
 import {
+  applyRhythmTiming,
+  EXPERIMENT_VERSION,
+  ExperimentReport,
+  isPositiveMs,
+  LowInputExperiment,
+  readRhythmTiming,
+  RHYTHM_TIMING_DEFAULTS,
+  type InputMode,
+  type RhythmTimingValues,
+} from "../input/LowInputExperiment";
+import {
   applyPhysicsTuning,
   cadenceMetrics,
   PHYSICS_PRESETS,
@@ -42,24 +53,76 @@ export type PhysicsLabHandle = {
 export function mountPhysicsLab(options: {
   onResetBall: () => void;
   onValuesChanged: () => void;
+  onModeOrTimingChanged: (reason: "MODE_SWITCH" | "TIMING_EDIT") => void;
 }): PhysicsLabHandle {
   const root = document.createElement("aside");
   root.className = "physics-lab";
   root.innerHTML = `
     <h2>PHYSICS LAB <small>L toggle</small></h2>
+    <div class="physics-lab-modes"></div>
+    <div class="physics-lab-timing"></div>
     <div class="physics-lab-presets"></div>
     <div class="physics-lab-actions"></div>
     <form class="physics-lab-fields"></form>
     <div class="physics-lab-metrics"></div>
-    <p class="physics-lab-note">Dev only. Presets are experiments, not validated values.</p>
+    <p class="physics-lab-note">Dev only. Input mode is independent of physics presets. Timing seeds are provisional.</p>
   `;
 
+  const modeRow = root.querySelector(".physics-lab-modes") as HTMLElement;
+  const timingBox = root.querySelector(".physics-lab-timing") as HTMLElement;
   const presetRow = root.querySelector(".physics-lab-presets") as HTMLElement;
   const actionRow = root.querySelector(".physics-lab-actions") as HTMLElement;
   const form = root.querySelector(".physics-lab-fields") as HTMLFormElement;
   const metrics = root.querySelector(".physics-lab-metrics") as HTMLElement;
 
   let selectedPreset: PhysicsPresetName = "DYNAMIC";
+
+  const modeButtons = (["LEGACY", "RHYTHM"] as const).map((name) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = name === "LEGACY" ? "LEGACY — fresh press" : "RHYTHM — double tap";
+    button.addEventListener("click", () => setMode(name));
+    modeRow.append(button);
+    return { name, button };
+  });
+
+  const timingFields: Array<{ key: keyof RhythmTimingValues; label: string }> = [
+    { key: "rhythmDoubleTapIntervalMs", label: "double-tap interval ms" },
+    { key: "rhythmLandingBufferMs", label: "landing buffer ms" },
+    { key: "rhythmHoldThresholdMs", label: "hold threshold ms" },
+  ];
+  for (const field of timingFields) {
+    const label = document.createElement("label");
+    const title = document.createElement("span");
+    title.textContent = field.label;
+    const number = document.createElement("input");
+    number.type = "number";
+    number.min = "1";
+    number.step = "1";
+    number.dataset.timing = field.key;
+    number.addEventListener("change", () => {
+      const value = Number(number.value);
+      if (!isPositiveMs(value)) {
+        number.value = String(readRhythmTiming()[field.key]);
+        return;
+      }
+      const next = readRhythmTiming();
+      next[field.key] = value;
+      applyRhythmTiming(next);
+      options.onModeOrTimingChanged("TIMING_EDIT");
+    });
+    label.append(title, number);
+    timingBox.append(label);
+  }
+  const resetTiming = document.createElement("button");
+  resetTiming.type = "button";
+  resetTiming.textContent = "RESET TIMING";
+  resetTiming.addEventListener("click", () => {
+    applyRhythmTiming(RHYTHM_TIMING_DEFAULTS);
+    refreshTiming();
+    options.onModeOrTimingChanged("TIMING_EDIT");
+  });
+  timingBox.append(resetTiming);
 
   const presetButtons = (["CURRENT", "DYNAMIC", "AGGRESSIVE"] as const).map((name) => {
     const button = document.createElement("button");
@@ -92,7 +155,26 @@ export function mountPhysicsLab(options: {
     }, 900);
   });
 
-  actionRow.append(resetBall, resetValues, copyValues);
+  const copyExperiment = document.createElement("button");
+  copyExperiment.type = "button";
+  copyExperiment.textContent = "COPY EXPERIMENT";
+  copyExperiment.addEventListener("click", async () => {
+    const payload = JSON.stringify({
+      version: EXPERIMENT_VERSION,
+      mode: LowInputExperiment.mode,
+      physics: readPhysicsTuning(),
+      timing: readRhythmTiming(),
+      lastBounce: ExperimentReport.lastBounce,
+      lastDecision: ExperimentReport.lastDecision,
+    }, null, 2);
+    await navigator.clipboard.writeText(payload);
+    copyExperiment.textContent = "COPIED";
+    window.setTimeout(() => {
+      copyExperiment.textContent = "COPY EXPERIMENT";
+    }, 900);
+  });
+
+  actionRow.append(resetBall, resetValues, copyValues, copyExperiment);
 
   for (const field of FIELDS) {
     const label = document.createElement("label");
@@ -164,6 +246,28 @@ export function mountPhysicsLab(options: {
     options.onValuesChanged();
   }
 
+  function setMode(mode: InputMode): void {
+    LowInputExperiment.mode = mode;
+    refreshModes();
+    options.onModeOrTimingChanged("MODE_SWITCH");
+  }
+
+  function refreshModes(): void {
+    for (const mode of modeButtons) {
+      mode.button.dataset.active = String(mode.name === LowInputExperiment.mode);
+    }
+  }
+
+  function refreshTiming(): void {
+    const values = readRhythmTiming();
+    for (const input of timingBox.querySelectorAll("input")) {
+      const key = input.dataset.timing as keyof RhythmTimingValues | undefined;
+      if (key) {
+        input.value = String(values[key]);
+      }
+    }
+  }
+
   const onKeyDown = (event: KeyboardEvent): void => {
     if (event.repeat || event.target instanceof HTMLInputElement) {
       return;
@@ -175,6 +279,10 @@ export function mountPhysicsLab(options: {
 
   window.addEventListener("keydown", onKeyDown);
   document.body.append(root);
+  LowInputExperiment.mode = "LEGACY";
+  applyRhythmTiming(RHYTHM_TIMING_DEFAULTS);
+  refreshModes();
+  refreshTiming();
   applyPreset("DYNAMIC");
 
   return {

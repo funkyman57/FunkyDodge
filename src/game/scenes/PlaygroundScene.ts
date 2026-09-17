@@ -2,6 +2,8 @@ import Phaser from "phaser";
 import { DebugHud } from "../debug/DebugHud";
 import { mountPhysicsLab, physicsLabEnabled, type PhysicsLabHandle } from "../debug/PhysicsLab";
 import { InputState } from "../input/InputState";
+import { LowInputExperiment, type ClearReason } from "../input/LowInputExperiment";
+import { sharedRhythmRecognizer } from "../input/RhythmRecognizer";
 import { isAirReversing } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { BallPlayer } from "../player/BallPlayer";
@@ -51,16 +53,17 @@ export class PlaygroundScene extends Phaser.Scene {
     this.hud = new DebugHud(this);
     if (physicsLabEnabled()) {
       this.physicsLab = mountPhysicsLab({
-        onResetBall: () => {
-          this.controller.reset();
-          this.inputState.reset();
-        },
+        onResetBall: () => this.resetPlaySession("RESET"),
         onValuesChanged: () => {
           this.physics.world.gravity.y = PhysicsConfig.gravity;
         },
+        onModeOrTimingChanged: (reason) => this.resetPlaySession(reason),
       });
       this.physics.world.gravity.y = PhysicsConfig.gravity;
     }
+
+    window.addEventListener("blur", this.handleFocusLoss);
+    document.addEventListener("visibilitychange", this.handleVisibilityChange);
 
     this.physics.add.collider(this.player.sprite, platforms);
     this.game.canvas.setAttribute("tabindex", "0");
@@ -78,11 +81,12 @@ export class PlaygroundScene extends Phaser.Scene {
     this.add
       .text(PhysicsConfig.width - 16, 12, [
         "PHYSICS PLAYGROUND",
-        "PLAY-001D physics lab",
+        "LOW input experiment",
         "A/D or arrows: move",
         "R: restart",
         "L: toggle Physics Lab",
-        "Fresh tap near land: LOW",
+        "LEGACY: fresh tap = LOW",
+        "RHYTHM: 따닥 entry, 탁 continue",
         "Hold into land: BOOST",
         "Opposite on wall: WALL JUMP",
       ].join("\n"), {
@@ -103,17 +107,49 @@ export class PlaygroundScene extends Phaser.Scene {
     const restartJustPressed = override.restart || Phaser.Input.Keyboard.JustDown(this.keys.r);
 
     this.inputState.update(time, leftDown, rightDown, restartJustPressed);
+    if (LowInputExperiment.mode === "RHYTHM") {
+      sharedRhythmRecognizer.update(time, leftDown, rightDown);
+    }
 
     if (this.inputState.restartJustPressed) {
-      this.controller.reset();
-      this.inputState.reset();
-      this.inputState.update(time, leftDown, rightDown, false);
+      this.resetPlaySession("RESET");
     }
 
     this.controller.update(time, delta);
     this.hud.update(this.controller, this.inputState, time);
     publishDebugState(this.controller, this.inputState, time);
   }
+
+  private resetPlaySession(reason: Exclude<ClearReason, null>): void {
+    const physical = this.physicalDirections();
+    this.controller.reset();
+    this.inputState.reset();
+    this.inputState.adoptHeld(physical.left, physical.right);
+    sharedRhythmRecognizer.reset(reason, physical.left, physical.right);
+  }
+
+  private physicalDirections(): { left: boolean; right: boolean } {
+    if (!this.keys) {
+      return { left: false, right: false };
+    }
+    const override = debugInputOverride();
+    return {
+      left: override.left ?? (this.keys.left.isDown || this.keys.a.isDown),
+      right: override.right ?? (this.keys.right.isDown || this.keys.d.isDown),
+    };
+  }
+
+  private readonly handleFocusLoss = (): void => {
+    const physical = this.physicalDirections();
+    sharedRhythmRecognizer.reset("FOCUS_LOSS", physical.left, physical.right);
+    this.inputState.adoptHeld(physical.left, physical.right);
+  };
+
+  private readonly handleVisibilityChange = (): void => {
+    if (document.hidden) {
+      this.handleFocusLoss();
+    }
+  };
 
   private createTestRoom(): { solids: Solid[]; platforms: Phaser.GameObjects.Rectangle[] } {
     const t = 24;
@@ -208,7 +244,14 @@ function publishDebugState(player: PlayerController, input: InputState, nowMs: n
     grounded: player.grounded,
     wallLeft: player.wallLeft,
     wallRight: player.wallRight,
+    inputMode: LowInputExperiment.mode,
     bounceType: player.lastBounceType,
+    lastDecision: player.lastDecisionReason,
+    lastClear: player.lastClearReason,
+    lowChain: player.rhythmPreview?.chain ?? null,
+    pending: player.rhythmPreview?.pending ?? null,
+    nextResponse: player.rhythmPreview?.type ?? null,
+    gestureCue: player.rhythmPreview?.gestureCue ?? null,
     visualState: player.visualState,
     landingIntent: player.landingIntent,
     approachIntent: player.approachIntent,

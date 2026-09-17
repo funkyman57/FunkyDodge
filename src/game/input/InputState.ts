@@ -130,6 +130,19 @@ export class InputState implements HorizontalInputSnapshot {
     return leftRelease >= rightRelease ? leftTap : rightTap;
   }
 
+  adoptHeld(leftDown: boolean, rightDown: boolean): void {
+    this.leftDown = leftDown;
+    this.rightDown = rightDown;
+    this.leftJustPressed = false;
+    this.rightJustPressed = false;
+    this.restartJustPressed = false;
+    this.leftPressedAt = null;
+    this.rightPressedAt = null;
+    this.leftReleasedAt = null;
+    this.rightReleasedAt = null;
+    this.lastHorizontalDirection = leftDown && !rightDown ? -1 : rightDown && !leftDown ? 1 : 0;
+  }
+
   reset(): void {
     this.leftDown = false;
     this.rightDown = false;

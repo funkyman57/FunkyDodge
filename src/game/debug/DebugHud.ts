@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { LowInputExperiment } from "../input/LowInputExperiment";
 import { isAirReversing } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { InputState } from "../input/InputState";
@@ -46,7 +47,16 @@ export class DebugHud {
         `Press Impulse ${player.lastPressImpulse.toFixed(0)}`,
         `Air Reverse ${yesNo(airReverse)}`,
         `Movement State ${player.movementState}`,
+        `Input Mode ${LowInputExperiment.mode}`,
         `Bounce Type: ${player.lastBounceType}`,
+        `LOW chain ${player.rhythmPreview ? (player.rhythmPreview.chain ? "ON" : "OFF") : "—"}`,
+        `Pending ${formatPending(player)}`,
+        `Intent ${player.rhythmPreview?.clearIntent ?? horizontalInput}`,
+        `Hold Age ${player.rhythmPreview ? `${Math.round(player.rhythmPreview.holdAgeMs)}ms` : "—"}`,
+        `Next ${player.rhythmPreview?.type ?? "—"} (preview)`,
+        `Decision ${player.lastDecisionReason}`,
+        `Clear ${player.lastClearReason ?? "—"}`,
+        `Gesture ${player.rhythmPreview?.gestureCue ?? "NONE"}`,
         `Landing Intent: ${player.landingIntent}`,
         `Grounded ${yesNo(player.grounded)}`,
         `Wall L/R ${yesNo(player.wallLeft)}/${yesNo(player.wallRight)}`,
@@ -60,4 +70,14 @@ export class DebugHud {
 
 function yesNo(value: boolean): string {
   return value ? "YES" : "NO";
+}
+
+function formatPending(player: PlayerController): string {
+  const preview = player.rhythmPreview;
+  if (!preview || preview.pending === "NONE") {
+    return "NONE";
+  }
+  const age = preview.pendingAgeMs === null ? "—" : `${Math.round(preview.pendingAgeMs)}ms`;
+  const remain = preview.pendingRemainingMs === null ? "—" : `${Math.round(preview.pendingRemainingMs)}ms`;
+  return `${preview.pending} age ${age} left ${remain}`;
 }

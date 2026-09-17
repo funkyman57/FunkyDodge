@@ -8,6 +8,8 @@ This is not a complete game. It is a playable experiment for one question:
 
 PLAY-001D adds a playground-only Physics Lab. Press `L` to hide or show it. CURRENT / DYNAMIC / AGGRESSIVE are comparison experiments, not validated game values.
 
+The Lab also has a LOW input experiment: **LEGACY** (fresh press) vs **RHYTHM** (double-tap entry + tap continuation). Same physics settings. Timing seeds are provisional. Human playtest is required.
+
 Repeated LOW needs a fresh tap near each landing. Holding a direction is BOOST, not a bunny-hop chain.
 
 ## Run
