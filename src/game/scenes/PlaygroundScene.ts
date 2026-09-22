@@ -249,6 +249,7 @@ function publishDebugState(
     wallLeft: player.wallLeft,
     wallRight: player.wallRight,
     wallPhase: hud.lastWallPhase,
+    wallNewHud: hud.lastWallNewFlash,
     wallJumpHud: hud.lastWallJumpHud,
     inputMode: LowInputExperiment.mode,
     bounceType: player.lastBounceType,

@@ -6,7 +6,7 @@ import {
   AR_IMPULSE_HUD_LATCH_MS,
   WALL_NEW_HUD_LATCH_MS,
   latchAirReverseDisplay,
-  latchWallPhaseDisplay,
+  latchWallNewFlash,
   resolveAirReverseDiagnostic,
   resolveWallContactPhase,
   wallJumpHudActive,
@@ -28,6 +28,7 @@ test("DIAG-01: diagnostic helpers do not rewrite DYNAMIC physics values", () => 
     });
     resolveWallContactPhase(false, false, true, false);
     latchAirReverseDisplay("IMPULSE", 1000, 0);
+    latchWallNewFlash("NEW", 1000, 0);
     wallJumpHudActive(1000, 900);
 
     assert.deepEqual(readPhysicsTuning(), before);
@@ -117,15 +118,22 @@ test("DIAG-04: wall NEW vs STAY is observation-only", () => {
   assert.equal(resolveWallContactPhase(true, false, false, true), "NEW");
 });
 
-test("DIAG-04b: Wall NEW HUD latch is display-only and clears off-wall", () => {
-  const started = latchWallPhaseDisplay("NEW", 1000, 0, WALL_NEW_HUD_LATCH_MS);
-  assert.equal(started.phase, "NEW");
-  const duringStay = latchWallPhaseDisplay("STAY", 1100, started.newUntilMs, WALL_NEW_HUD_LATCH_MS);
-  assert.equal(duringStay.phase, "NEW");
-  const after = latchWallPhaseDisplay("STAY", 1180, started.newUntilMs, WALL_NEW_HUD_LATCH_MS);
-  assert.equal(after.phase, "STAY");
-  const left = latchWallPhaseDisplay("—", 1100, started.newUntilMs, WALL_NEW_HUD_LATCH_MS);
-  assert.equal(left.phase, "—");
+test("DIAG-04b: Wall NEW HUD flash is display-only; STAY stays actual contact", () => {
+  const started = latchWallNewFlash("NEW", 1000, 0, WALL_NEW_HUD_LATCH_MS);
+  assert.equal(started.contact, "NEW");
+  assert.equal(started.newFlash, true);
+
+  const duringStay = latchWallNewFlash("STAY", 1100, started.newUntilMs, WALL_NEW_HUD_LATCH_MS);
+  assert.equal(duringStay.contact, "STAY");
+  assert.equal(duringStay.newFlash, true);
+
+  const after = latchWallNewFlash("STAY", 1180, started.newUntilMs, WALL_NEW_HUD_LATCH_MS);
+  assert.equal(after.contact, "STAY");
+  assert.equal(after.newFlash, false);
+
+  const left = latchWallNewFlash("—", 1100, started.newUntilMs, WALL_NEW_HUD_LATCH_MS);
+  assert.equal(left.contact, "—");
+  assert.equal(left.newFlash, false);
 });
 
 test("DIAG-05: WJ indicator follows lastWallJumpAt only", () => {

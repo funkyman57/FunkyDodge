@@ -65,20 +65,22 @@ export function resolveWallContactPhase(
   return "STAY";
 }
 
-export function latchWallPhaseDisplay(
+export function latchWallNewFlash(
   raw: WallContactPhase,
   nowMs: number,
   newUntilMs: number,
   latchMs: number = WALL_NEW_HUD_LATCH_MS,
-): { phase: WallContactPhase; newUntilMs: number } {
+): { contact: WallContactPhase; newFlash: boolean; newUntilMs: number } {
   if (raw === "—") {
-    return { phase: "—", newUntilMs: 0 };
+    return { contact: "—", newFlash: false, newUntilMs: 0 };
   }
+
   const until = raw === "NEW" ? nowMs + latchMs : newUntilMs;
-  if (nowMs < until) {
-    return { phase: "NEW", newUntilMs: until };
-  }
-  return { phase: raw, newUntilMs: until };
+  return {
+    contact: raw,
+    newFlash: nowMs < until,
+    newUntilMs: until,
+  };
 }
 
 export function wallJumpHudActive(

@@ -5,7 +5,7 @@ import { InputState } from "../input/InputState";
 import { PlayerController } from "../player/PlayerController";
 import {
   latchAirReverseDisplay,
-  latchWallPhaseDisplay,
+  latchWallNewFlash,
   resolveAirReverseDiagnostic,
   resolveWallContactPhase,
   wallJumpHudActive,
@@ -21,6 +21,7 @@ export class DebugHud {
   private wallNewUntilMs = 0;
   lastAirReverseLabel: AirReverseHud = "—";
   lastWallPhase: WallContactPhase = "—";
+  lastWallNewFlash = false;
   lastWallJumpHud = false;
 
   constructor(scene: Phaser.Scene) {
@@ -66,9 +67,10 @@ export class DebugHud {
       player.wallLeft,
       player.wallRight,
     );
-    const latchedWall = latchWallPhaseDisplay(rawWallPhase, nowMs, this.wallNewUntilMs);
+    const latchedWall = latchWallNewFlash(rawWallPhase, nowMs, this.wallNewUntilMs);
     this.wallNewUntilMs = latchedWall.newUntilMs;
-    this.lastWallPhase = latchedWall.phase;
+    this.lastWallPhase = latchedWall.contact;
+    this.lastWallNewFlash = latchedWall.newFlash;
     this.prevWallLeft = player.wallLeft;
     this.prevWallRight = player.wallRight;
     this.lastWallJumpHud = wallJumpHudActive(nowMs, player.lastWallJumpAt);
@@ -98,6 +100,7 @@ export class DebugHud {
         `Grounded ${yesNo(player.grounded)}`,
         `Wall L/R ${yesNo(player.wallLeft)}/${yesNo(player.wallRight)}`,
         `Wall ${this.lastWallPhase}`,
+        this.lastWallNewFlash && this.lastWallPhase !== "NEW" ? "Wall NEW" : "",
         this.lastWallJumpHud ? "WJ" : "",
         player.lastBounceType === "BOOST" ? "LANDING BOOST" : "",
       ]
