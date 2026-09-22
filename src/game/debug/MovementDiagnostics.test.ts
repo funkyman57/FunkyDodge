@@ -4,7 +4,9 @@ import { PHYSICS_PRESETS, applyPhysicsTuning, readPhysicsTuning } from "../physi
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import {
   AR_IMPULSE_HUD_LATCH_MS,
+  WALL_NEW_HUD_LATCH_MS,
   latchAirReverseDisplay,
+  latchWallPhaseDisplay,
   resolveAirReverseDiagnostic,
   resolveWallContactPhase,
   wallJumpHudActive,
@@ -113,6 +115,17 @@ test("DIAG-04: wall NEW vs STAY is observation-only", () => {
   assert.equal(resolveWallContactPhase(false, false, false, true), "NEW");
   assert.equal(resolveWallContactPhase(false, true, false, true), "STAY");
   assert.equal(resolveWallContactPhase(true, false, false, true), "NEW");
+});
+
+test("DIAG-04b: Wall NEW HUD latch is display-only and clears off-wall", () => {
+  const started = latchWallPhaseDisplay("NEW", 1000, 0, WALL_NEW_HUD_LATCH_MS);
+  assert.equal(started.phase, "NEW");
+  const duringStay = latchWallPhaseDisplay("STAY", 1100, started.newUntilMs, WALL_NEW_HUD_LATCH_MS);
+  assert.equal(duringStay.phase, "NEW");
+  const after = latchWallPhaseDisplay("STAY", 1180, started.newUntilMs, WALL_NEW_HUD_LATCH_MS);
+  assert.equal(after.phase, "STAY");
+  const left = latchWallPhaseDisplay("—", 1100, started.newUntilMs, WALL_NEW_HUD_LATCH_MS);
+  assert.equal(left.phase, "—");
 });
 
 test("DIAG-05: WJ indicator follows lastWallJumpAt only", () => {

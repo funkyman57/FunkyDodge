@@ -5,6 +5,7 @@ import { InputState } from "../input/InputState";
 import { PlayerController } from "../player/PlayerController";
 import {
   latchAirReverseDisplay,
+  latchWallPhaseDisplay,
   resolveAirReverseDiagnostic,
   resolveWallContactPhase,
   wallJumpHudActive,
@@ -17,6 +18,7 @@ export class DebugHud {
   private prevWallLeft = false;
   private prevWallRight = false;
   private arImpulseUntilMs = 0;
+  private wallNewUntilMs = 0;
   lastAirReverseLabel: AirReverseHud = "—";
   lastWallPhase: WallContactPhase = "—";
   lastWallJumpHud = false;
@@ -58,12 +60,15 @@ export class DebugHud {
     const latched = latchAirReverseDisplay(rawAirReverse, nowMs, this.arImpulseUntilMs);
     this.arImpulseUntilMs = latched.impulseUntilMs;
     this.lastAirReverseLabel = latched.label;
-    this.lastWallPhase = resolveWallContactPhase(
+    const rawWallPhase = resolveWallContactPhase(
       this.prevWallLeft,
       this.prevWallRight,
       player.wallLeft,
       player.wallRight,
     );
+    const latchedWall = latchWallPhaseDisplay(rawWallPhase, nowMs, this.wallNewUntilMs);
+    this.wallNewUntilMs = latchedWall.newUntilMs;
+    this.lastWallPhase = latchedWall.phase;
     this.prevWallLeft = player.wallLeft;
     this.prevWallRight = player.wallRight;
     this.lastWallJumpHud = wallJumpHudActive(nowMs, player.lastWallJumpAt);

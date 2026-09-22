@@ -4,6 +4,7 @@ export type AirReverseHud = "—" | "IMPULSE" | "HOLD";
 export type WallContactPhase = "—" | "NEW" | "STAY";
 
 export const AR_IMPULSE_HUD_LATCH_MS = 180;
+export const WALL_NEW_HUD_LATCH_MS = 180;
 export const WJ_HUD_LATCH_MS = 220;
 
 export function resolveAirReverseDiagnostic(input: {
@@ -62,6 +63,22 @@ export function resolveWallContactPhase(
   }
 
   return "STAY";
+}
+
+export function latchWallPhaseDisplay(
+  raw: WallContactPhase,
+  nowMs: number,
+  newUntilMs: number,
+  latchMs: number = WALL_NEW_HUD_LATCH_MS,
+): { phase: WallContactPhase; newUntilMs: number } {
+  if (raw === "—") {
+    return { phase: "—", newUntilMs: 0 };
+  }
+  const until = raw === "NEW" ? nowMs + latchMs : newUntilMs;
+  if (nowMs < until) {
+    return { phase: "NEW", newUntilMs: until };
+  }
+  return { phase: raw, newUntilMs: until };
 }
 
 export function wallJumpHudActive(
