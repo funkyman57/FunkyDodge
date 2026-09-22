@@ -42,10 +42,11 @@ export class PlayerController {
   lastClearReason = ExperimentReport.lastClearReason;
   rhythmPreview: RhythmPreview | null = null;
 
+  lastWallJumpAt = 0;
+
   private bounceApplied = false;
   private wallJumpConsumed = false;
   private boostUntilMs = 0;
-  private lastWallJumpAt = 0;
   private solids: SolidBody[] = [];
 
   constructor(

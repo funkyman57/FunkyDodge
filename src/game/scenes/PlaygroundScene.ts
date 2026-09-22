@@ -4,7 +4,6 @@ import { mountPhysicsLab, physicsLabEnabled, type PhysicsLabHandle } from "../de
 import { InputState } from "../input/InputState";
 import { LowInputExperiment, type ClearReason } from "../input/LowInputExperiment";
 import { sharedRhythmRecognizer } from "../input/RhythmRecognizer";
-import { isAirReversing } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { BallPlayer } from "../player/BallPlayer";
 import { PlayerController } from "../player/PlayerController";
@@ -117,7 +116,7 @@ export class PlaygroundScene extends Phaser.Scene {
 
     this.controller.update(time, delta);
     this.hud.update(this.controller, this.inputState, time);
-    publishDebugState(this.controller, this.inputState, time);
+    publishDebugState(this.controller, this.inputState, this.hud, time);
   }
 
   private resetPlaySession(reason: Exclude<ClearReason, null>): void {
@@ -233,7 +232,12 @@ function debugInputOverride(): DebugInputOverride {
   };
 }
 
-function publishDebugState(player: PlayerController, input: InputState, nowMs: number): void {
+function publishDebugState(
+  player: PlayerController,
+  input: InputState,
+  hud: DebugHud,
+  nowMs: number,
+): void {
   if (!PhysicsConfig.debug) {
     return;
   }
@@ -244,6 +248,8 @@ function publishDebugState(player: PlayerController, input: InputState, nowMs: n
     grounded: player.grounded,
     wallLeft: player.wallLeft,
     wallRight: player.wallRight,
+    wallPhase: hud.lastWallPhase,
+    wallJumpHud: hud.lastWallJumpHud,
     inputMode: LowInputExperiment.mode,
     bounceType: player.lastBounceType,
     lastDecision: player.lastDecisionReason,
@@ -259,7 +265,7 @@ function publishDebugState(player: PlayerController, input: InputState, nowMs: n
     freshPress: player.freshPressThisFrame,
     pressImpulse: player.lastPressImpulse,
     pressAgeMs: input.getFreshHorizontalPress(nowMs)?.ageMs ?? null,
-    airReverse: !player.grounded && isAirReversing(player.vx, input.leftDown, input.rightDown),
+    airReverse: hud.lastAirReverseLabel,
     held: input.leftDown ? "LEFT" : input.rightDown ? "RIGHT" : "NONE",
     lastInput: input.lastInputLabel,
     inputDurationMs: input.inputDurationMs(nowMs),

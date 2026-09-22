@@ -1,12 +1,25 @@
 import Phaser from "phaser";
 import { LowInputExperiment } from "../input/LowInputExperiment";
-import { isAirReversing } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { InputState } from "../input/InputState";
 import { PlayerController } from "../player/PlayerController";
+import {
+  latchAirReverseDisplay,
+  resolveAirReverseDiagnostic,
+  resolveWallContactPhase,
+  wallJumpHudActive,
+  type AirReverseHud,
+  type WallContactPhase,
+} from "./MovementDiagnostics";
 
 export class DebugHud {
   private readonly text: Phaser.GameObjects.Text;
+  private prevWallLeft = false;
+  private prevWallRight = false;
+  private arImpulseUntilMs = 0;
+  lastAirReverseLabel: AirReverseHud = "—";
+  lastWallPhase: WallContactPhase = "—";
+  lastWallJumpHud = false;
 
   constructor(scene: Phaser.Scene) {
     this.text = scene.add
@@ -34,7 +47,26 @@ export class DebugHud {
       : input.rightDown && !input.leftDown
         ? "RIGHT"
         : "NONE";
-    const airReverse = !player.grounded && isAirReversing(player.vx, input.leftDown, input.rightDown);
+    const rawAirReverse = resolveAirReverseDiagnostic({
+      grounded: player.grounded,
+      vx: player.vx,
+      leftDown: input.leftDown,
+      rightDown: input.rightDown,
+      pressImpulse: player.lastPressImpulse,
+      reverseImpulseMagnitude: PhysicsConfig.airReversePressImpulse,
+    });
+    const latched = latchAirReverseDisplay(rawAirReverse, nowMs, this.arImpulseUntilMs);
+    this.arImpulseUntilMs = latched.impulseUntilMs;
+    this.lastAirReverseLabel = latched.label;
+    this.lastWallPhase = resolveWallContactPhase(
+      this.prevWallLeft,
+      this.prevWallRight,
+      player.wallLeft,
+      player.wallRight,
+    );
+    this.prevWallLeft = player.wallLeft;
+    this.prevWallRight = player.wallRight;
+    this.lastWallJumpHud = wallJumpHudActive(nowMs, player.lastWallJumpAt);
     const showPressAge = press !== null && (press.held || press.ageMs <= PhysicsConfig.lowBounceFreshPressWindowMs);
 
     this.text.setText(
@@ -45,7 +77,7 @@ export class DebugHud {
         `Fresh Press ${yesNo(player.freshPressThisFrame)}`,
         `Press Age ${showPressAge && press ? `${Math.round(press.ageMs)}ms` : "—"}`,
         `Press Impulse ${player.lastPressImpulse.toFixed(0)}`,
-        `Air Reverse ${yesNo(airReverse)}`,
+        `AR ${this.lastAirReverseLabel}`,
         `Movement State ${player.movementState}`,
         `Input Mode ${LowInputExperiment.mode}`,
         `Bounce Type: ${player.lastBounceType}`,
@@ -60,6 +92,8 @@ export class DebugHud {
         `Landing Intent: ${player.landingIntent}`,
         `Grounded ${yesNo(player.grounded)}`,
         `Wall L/R ${yesNo(player.wallLeft)}/${yesNo(player.wallRight)}`,
+        `Wall ${this.lastWallPhase}`,
+        this.lastWallJumpHud ? "WJ" : "",
         player.lastBounceType === "BOOST" ? "LANDING BOOST" : "",
       ]
         .filter(Boolean)
