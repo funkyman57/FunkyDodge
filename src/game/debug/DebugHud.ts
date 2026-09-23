@@ -85,6 +85,7 @@ export class DebugHud {
         `Press Age ${showPressAge && press ? `${Math.round(press.ageMs)}ms` : "—"}`,
         `Press Impulse ${player.lastPressImpulse.toFixed(0)}`,
         `AR ${this.lastAirReverseLabel}`,
+        `AR-A ${player.airReverseExperimentHud}`,
         `Movement State ${player.movementState}`,
         `Input Mode ${LowInputExperiment.mode}`,
         `Bounce Type: ${player.lastBounceType}`,

@@ -15,6 +15,7 @@ export const PhysicsConfig = {
 
   horizontalPressImpulse: 90,
   airReversePressImpulse: 140,
+  airReverseSpecialImpulse: 360,
 
   maxHorizontalSpeed: 420,
 

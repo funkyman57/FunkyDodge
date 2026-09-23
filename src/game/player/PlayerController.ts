@@ -4,16 +4,20 @@ import { ExperimentReport, LowInputExperiment } from "../input/LowInputExperimen
 import { rhythmDecisionToLegacyReason, sharedRhythmRecognizer, type RhythmPreview } from "../input/RhythmRecognizer";
 import {
   BounceType,
+  isSpecialAirReverseEligible,
   isWallJumpEligible,
   LandingIntent,
   MovementState,
+  resolveAirReverseExperimentHud,
   resolveFloorBounce,
   resolveLandingIntent,
   resolveMovementState,
+  resolveSpecialAirReverseVelocity,
   resolveTakeoffDirection,
   resolveTakeoffVelocity,
   resolveWallJumpVelocity,
   stepHorizontalVelocity,
+  type AirReverseExperimentHud,
 } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { BallPlayer, BallVisualState } from "./BallPlayer";
@@ -43,6 +47,10 @@ export class PlayerController {
   rhythmPreview: RhythmPreview | null = null;
 
   lastWallJumpAt = 0;
+  airReverseAvailable = true;
+  airReverseFiredAt = 0;
+  specialAirReverseThisFrame = false;
+  airReverseExperimentHud: AirReverseExperimentHud = "READY";
 
   private bounceApplied = false;
   private wallJumpConsumed = false;
@@ -95,6 +103,10 @@ export class PlayerController {
     this.wallJumpConsumed = false;
     this.boostUntilMs = 0;
     this.lastWallJumpAt = 0;
+    this.airReverseAvailable = true;
+    this.airReverseFiredAt = 0;
+    this.specialAirReverseThisFrame = false;
+    this.airReverseExperimentHud = "READY";
   }
 
   update(nowMs: number, deltaMs: number): void {
@@ -108,6 +120,11 @@ export class PlayerController {
     this.applyHorizontalControl(body, dt, nowMs);
     this.applyWallJump(nowMs);
     this.applyFloorBounce(nowMs);
+    this.airReverseExperimentHud = resolveAirReverseExperimentHud(
+      this.airReverseAvailable,
+      this.airReverseFiredAt,
+      nowMs,
+    );
     this.updateVisualState(nowMs);
     this.player.syncLabel();
   }
@@ -180,17 +197,42 @@ export class PlayerController {
     const pressDirection = this.input.justPressedDirection();
     const boostActive = nowMs < this.boostUntilMs || this.lastBounceType === "BOOST";
     const maxSpeed = PhysicsConfig.maxHorizontalSpeed * (boostActive ? PhysicsConfig.landingBoostMultiplier : 1);
-    const stepped = stepHorizontalVelocity({
+    const wallJumpWins = !this.wallJumpConsumed && isWallJumpEligible(
+      this.wallLeft,
+      this.wallRight,
+      this.input,
+      nowMs,
+      PhysicsConfig.wallInputBufferMs,
+    ) !== 0;
+    const specialReverse = isSpecialAirReverseEligible({
+      grounded: this.grounded,
       vx: body.velocity.x,
+      pressDirection,
+      available: this.airReverseAvailable,
+      wallJumpWins,
+    });
+    this.specialAirReverseThisFrame = specialReverse;
+
+    let startVx = body.velocity.x;
+    let specialImpulse = 0;
+    if (specialReverse && (pressDirection === -1 || pressDirection === 1)) {
+      startVx = resolveSpecialAirReverseVelocity(body.velocity.x, pressDirection);
+      specialImpulse = startVx - body.velocity.x;
+      this.airReverseAvailable = false;
+      this.airReverseFiredAt = nowMs;
+    }
+
+    const stepped = stepHorizontalVelocity({
+      vx: startVx,
       grounded: this.grounded,
       leftDown: this.input.leftDown,
       rightDown: this.input.rightDown,
-      pressDirection,
+      pressDirection: specialReverse ? 0 : pressDirection,
       dt,
       maxSpeed,
     });
     this.freshPressThisFrame = pressDirection !== 0;
-    this.lastPressImpulse = stepped.impulse;
+    this.lastPressImpulse = specialReverse ? specialImpulse : stepped.impulse;
     let vx = stepped.vx;
 
     if (this.wallLeft && vx < 0 && !this.input.rightDown) {
@@ -266,6 +308,7 @@ export class PlayerController {
     ExperimentReport.lastDecision = this.lastDecisionReason;
     ExperimentReport.lastClearReason = this.lastClearReason;
     this.bounceApplied = true;
+    this.airReverseAvailable = true;
 
     const takeoffDirection = resolveTakeoffDirection(this.input, nowMs, result.intent);
     if (takeoffDirection !== 0) {

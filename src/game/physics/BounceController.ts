@@ -153,6 +153,50 @@ export function resolvePressImpulse(vx: number, pressDirection: -1 | 0 | 1): num
   return pressDirection * magnitude;
 }
 
+export type AirReverseExperimentHud = "READY" | "USED" | "FIRE";
+
+export function isSpecialAirReverseEligible(options: {
+  grounded: boolean;
+  vx: number;
+  pressDirection: -1 | 0 | 1;
+  available: boolean;
+  wallJumpWins?: boolean;
+  epsilon?: number;
+}): boolean {
+  if (options.grounded || !options.available || options.wallJumpWins || options.pressDirection === 0) {
+    return false;
+  }
+
+  const epsilon = options.epsilon ?? PhysicsConfig.airReverseSpeedEpsilon;
+  if (options.pressDirection === -1 && options.vx > epsilon) {
+    return true;
+  }
+  if (options.pressDirection === 1 && options.vx < -epsilon) {
+    return true;
+  }
+  return false;
+}
+
+export function resolveSpecialAirReverseVelocity(
+  vx: number,
+  pressDirection: -1 | 1,
+  impulse: number = PhysicsConfig.airReverseSpecialImpulse,
+): number {
+  return vx + pressDirection * impulse;
+}
+
+export function resolveAirReverseExperimentHud(
+  available: boolean,
+  firedAt: number,
+  nowMs: number,
+  fireLatchMs: number = 180,
+): AirReverseExperimentHud {
+  if (firedAt > 0 && nowMs - firedAt < fireLatchMs) {
+    return "FIRE";
+  }
+  return available ? "READY" : "USED";
+}
+
 export function resolveTakeoffDirection(input: BounceInput, nowMs: number, intent: LandingIntent): -1 | 0 | 1 {
   if (intent === "NONE") {
     return 0;
