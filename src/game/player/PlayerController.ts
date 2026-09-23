@@ -242,7 +242,12 @@ export class PlayerController {
       vx = 0;
     }
 
-    this.movementState = resolveMovementState(vx, this.input.leftDown, this.input.rightDown, stepped.impulse);
+    this.movementState = resolveMovementState(
+      vx,
+      this.input.leftDown,
+      this.input.rightDown,
+      specialReverse ? specialImpulse : stepped.impulse,
+    );
     body.setVelocityX(vx);
   }
 
