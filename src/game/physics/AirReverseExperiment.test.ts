@@ -30,7 +30,7 @@ test("AR-A-01: airborne fresh opposite press can fire special AR once", () => {
     available: true,
   });
   assert.equal(first, true);
-  assert.equal(resolveSpecialAirReverseVelocity(220, -1), 220 - PhysicsConfig.airReverseSpecialImpulse);
+  assert.equal(resolveSpecialAirReverseVelocity(220, -1), -220 * PhysicsConfig.airReverseRetainRatio);
 
   const used = isSpecialAirReverseEligible({
     grounded: false,
@@ -121,11 +121,16 @@ test("AR-A-07: grounded opposite press is not special AR", () => {
   }), false);
 });
 
-test("AR-A-08: special correction is stronger than ordinary reverse impulse and does not snap to max", () => {
+test("AR-A-08: reflection flips sign, keeps a reduced fraction, and does not snap to max", () => {
+  assert.equal(PhysicsConfig.airReverseRetainRatio, 0.5);
+  assert.equal(resolveSpecialAirReverseVelocity(400, -1), -200);
+  assert.equal(resolveSpecialAirReverseVelocity(200, -1), -100);
+  assert.equal(resolveSpecialAirReverseVelocity(-180, 1), 90);
+
   const special = resolveSpecialAirReverseVelocity(180, -1);
-  const ordinary = 180 - PhysicsConfig.airReversePressImpulse;
-  assert.ok(special < ordinary);
   assert.ok(special < 0);
+  assert.ok(Math.sign(special) !== Math.sign(180));
+  assert.ok(Math.abs(special) < 180);
   assert.ok(special > -PhysicsConfig.maxHorizontalSpeed);
   assert.notEqual(special, -PhysicsConfig.maxHorizontalSpeed);
 });

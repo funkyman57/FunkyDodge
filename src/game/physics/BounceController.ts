@@ -179,10 +179,10 @@ export function isSpecialAirReverseEligible(options: {
 
 export function resolveSpecialAirReverseVelocity(
   vx: number,
-  pressDirection: -1 | 1,
-  impulse: number = PhysicsConfig.airReverseSpecialImpulse,
+  _pressDirection: -1 | 1,
+  retainRatio: number = PhysicsConfig.airReverseRetainRatio,
 ): number {
-  return vx + pressDirection * impulse;
+  return -vx * retainRatio;
 }
 
 export function resolveAirReverseExperimentHud(
