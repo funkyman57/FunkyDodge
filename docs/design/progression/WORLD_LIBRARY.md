@@ -2,11 +2,13 @@
 
 Worlds sequence levels. They ask one core question at a time.
 
-Vocabulary (Knowledge Graph, Knowledge Gate, Movement State) is defined in [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Room rows live in [LEVEL_LIBRARY.md](LEVEL_LIBRARY.md). Do not duplicate those definitions here.
+Vocabulary (Knowledge Graph, Knowledge Gate, Movement State) is defined in [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Room rows live in [LEVEL_LIBRARY.md](LEVEL_LIBRARY.md). Discovery Language: [DISCOVERY_LIBRARY.md](../libraries/DISCOVERY_LIBRARY.md). Do not duplicate those definitions here.
 
 Official status for worlds and rooms: `CANDIDATE`. Role: progression candidate. Documentation is not validation.
 
-Do **not** lock visual themes. Do not implement these worlds. PLAY-002 has not started. PLAY-001B feel validation is pending.
+W1 CONTROL Knowledge Architecture v1 (`W1-K01`–`W1-K08`) is recorded under WLD-01. **Status:** `CANDIDATE`. Conceptual only.
+
+Do **not** lock visual themes. Do not implement these worlds. PLAY-002 remains LOCKED. Vertical Slice implementation remains HOLD. Movement foundation is not finalized.
 
 Geometry / physics values: `TBD — after PLAY-001B feel validation`. See DESIGN_SYSTEM.
 
@@ -185,6 +187,135 @@ Not separate exam rooms.
 | W1-GATE-4 | Select among movement techniques by situation | LVL-W01-011 |
 
 Rooms: `LVL-W01-001` … `LVL-W01-012`.
+
+The DOC-003 graph and 12 slots remain prior progression candidates. They are **not** replaced by the W1-K architecture below. The graph is **not** identical to room order.
+
+#### W1 CONTROL Knowledge Architecture v1
+
+**Status:** `CANDIDATE` — conceptual. Unvalidated. Not runtime objects. Not `VALIDATED` / `CORE`.
+
+**IDs:** `W1-K01` … `W1-K08`. Permanent conceptual knowledge IDs. Do not recycle. Do not implement as game objects.
+
+**World statement:** “내 움직임을 바꿀 수 있다.”
+
+**Graduation candidate:** The player can think about the position and direction needed for the next useful action, choose the current trajectory / landing / approach accordingly, and reorganize the plan from the actual resulting state.
+
+Graduation is **not** “used every movement technique” and **not** “executed one fixed route perfectly.”
+
+##### Knowledge nodes
+
+| ID | Layer | Understanding | Prerequisite | Evidence | Misconception |
+| --- | --- | --- | --- | --- | --- |
+| W1-K01 | FOUNDATION | 누르지 않아도 공은 다시 튄다. | — | Player waits for and uses Auto Bounce. | Jump must be manually initiated. |
+| W1-K02 | FOUNDATION | 입력을 바꾸면 내려오는 곳도 바뀐다. | K01 | Player changes approach input based on prior landing result. | Direction input is an immediate position command. |
+| W1-K03 | DEVELOPMENT | 다른 궤적이 더 유리한 공간도 있다. | K01 + K02 + access to LOW input | Player chooses NORMAL / LOW according to spatial conditions. | Higher is always better. |
+| W1-K04 | REINTERPRETATION | 이번 착지는 다음 행동의 출발점을 만든다. | K02. Current D-1 candidate may also depend on K03. | Player changes the previous action to alter the next starting position. | Only getting closer to the exit matters. |
+| W1-K05 | TRANSFER | 마지막 출발점을 생각하면 앞선 길도 고를 수 있다. | K04 | Player changes an earlier approach / route for the sake of the final action. | Route choice is only the shortest / closest path. |
+| W1-K06 | DEVELOPMENT | 잘 됐던 선택도 이번에는 맞지 않을 수 있다. | K03 + K04 | Player does not repeat LOW / preparation automatically. They choose by current need. | LOW or preparation is always the advanced / correct choice. |
+| W1-K07 | DEVELOPMENT | 계획과 다르게 내려왔어도 여기서 다시 생각할 수 있다. | K02 + K04 | Player reorganizes approach from the actual landing instead of replaying the previous sequence. | Missing the intended landing means reset / replay exactly. |
+| W1-K08 | MASTERY | 필요한 출발점을 만들고, 결과에 맞춰 선택을 이어갈 수 있다. | K05 + K06 + K07 | Player combines known relationships into a plan and modifies it using actual results. | Memorized input order equals mastery. |
+
+K04 is **not** conceptually LOW-dependent. K03 may support the current D-1 candidate. K06 and K07 may emerge during existing rooms and do not automatically require dedicated rooms.
+
+##### Knowledge flow
+
+```text
+K01 Auto Bounce
+        ↓
+K02 Landing Intervention
+   /        \
+  v          v
+K03 Contextual     K04 Landing as Next Start
+Trajectory Choice         |
+  \                       v
+   \               K05 Earlier Approach Planning
+    \                     |
+     +------ K06 Contextual Re-evaluation
+     |              (K03 + K04)
+     +------ K07 Plan Adjustment from Actual Landing
+                    (K02 + K04)
+                          |
+                          v
+              K08 Integrated Control Mastery
+                    (K05 + K06 + K07)
+```
+
+##### Current W1 arc
+
+Roles only. **Not** a fixed room count.
+
+| Role | Statement |
+| --- | --- |
+| CONTROL | 착지를 바꿀 수 있다. |
+| CHOICE | 상황에 따라 좋은 궤적이 다르다. |
+| PREPARATION | 이번 착지가 다음 행동을 만든다. |
+| PLANNING | 미래의 출발점을 보고 앞선 선택을 바꾼다. |
+| ADAPTATION | 잘 됐던 선택도 항상 정답은 아니며, 실제 착지에서 다시 판단한다. |
+| MASTERY | 이제 내가 계획을 만든다. |
+
+##### Conceptual Vertical Slice
+
+**Status:** `CANDIDATE` / unvalidated. Implementation: **HOLD**.
+
+These labels are **not** `LVL-W01-*` IDs. Do not treat them as the 12-slot list.
+
+Candidate: **A+B-1 → C-1 → D-1 → G-1**. **G-3** remains comparison / backup.
+
+| Slice | Intended knowledge | Role | Target evidence | Must remain unstated | False positive |
+| --- | --- | --- | --- | --- | --- |
+| A+B-1 | K01 + K02 | Auto Bounce + landing intervention | Player changes input based on previous landing. Discovery audit: ACTION / EFFECT. Evidence target E2. | Exact correct landing / solution sequence | Room clear alone |
+| C-1 | K03 | First contextual value of LOW | Player chooses low trajectory because the space favors it. RELATIONSHIP. Evidence target E2. | “Use LOW here.” | NORMAL hits ceiling and still passes — C-1 then fails its conceptual role |
+| D-1 | K04 | Preparation | Player changes a previous action to create a better next starting position. REINTERPRETATION. Evidence target E2. | “Land on P so the next bounce works.” | LOW once → preparation shelf → hold direction → automatic exit |
+| G-1 | K05 | Transfer / planning | Player changes an earlier route because of the final starting position needed. TRANSFER. Evidence target E3 candidate. | “Take the detour.” | The detour is simply the visually obvious path |
+| G-3 | backup / comparison | — | — | — | May become an obvious “follow the visible route” problem |
+
+Discovery Language audit for this slice: [DISCOVERY_LIBRARY.md](../libraries/DISCOVERY_LIBRARY.md).
+
+##### W1 graduation
+
+**MUST UNDERSTAND**
+
+- Auto Bounce continues without manual jump.
+- Landing can be influenced.
+- NORMAL / LOW are contextual trajectory choices.
+- Landing determines the next useful starting point.
+- Earlier approach can change because of a future action.
+- Actual landing result can cause plan revision.
+
+**MAY EXPERIENCE**
+
+- multiple valid plans
+- left/right mirrored application
+- temporarily moving away from exit
+- using an imperfect landing
+- self-discovered shorter / cleaner approach
+
+**MUST NOT REQUIRE**
+
+- speed accumulation
+- momentum preservation
+- velocity optimization
+- BOOST
+- Air Reversal
+- Wall Jump
+- RHYTHM LOW
+- environmental gimmicks
+- timing-state systems
+- precision execution
+- verbal explanation of the solution
+
+W1 may physically involve velocity. The player must **not** need deliberate velocity accumulation / preservation to understand W1 problems.
+
+##### W1 → W2 boundary
+
+| | W1 | W2 first new question |
+| --- | --- | --- |
+| Question | 다음 행동을 하기 좋으려면 어디에서, 어느 쪽을 향해 시작해야 할까? | 같은 위치에서 시작해도, 도착할 때 남아 있는 움직임에 따라 다음 가능성이 달라질까? |
+| Conceptual | Position / Direction | Motion State / carried movement |
+
+Existing WLD-02 question (“What changes my motion?”) remains. This boundary records the conceptual handoff only.
+
+Movement contracts (AR-A2, WJ-B, Charge / Spin) are a separate pending human-validation queue. Protocol: `docs/playtest/MOVEMENT_VALIDATION_003.md` on `cursor/movement-validation-003-3f71`. Do not treat those experiments as W1 requirements. No outcomes are recorded here.
 
 ---
 

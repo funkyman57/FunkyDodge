@@ -8,7 +8,9 @@ All W1–W5 rows are **progression candidates** (60 slots, not a ship count). Of
 
 Geometry, spacing, force strength, friction coefficients, velocities, bounce heights, counts, and timing windows: `TBD — after PLAY-001B / relevant prototype validation`.
 
-Knowledge Graphs and Gates: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Vocabulary: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Do not assign `PAT-001` merely because a room has an exit.
+Knowledge Graphs, W1-K01–K08, and the conceptual Vertical Slice: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Discovery Language: [DISCOVERY_LIBRARY.md](../libraries/DISCOVERY_LIBRARY.md). Vocabulary: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Do not assign `PAT-001` merely because a room has an exit.
+
+A+B-1 / C-1 / D-1 / G-1 / G-3 are conceptual slice labels, **not** `LVL-W01-*` IDs. Do not treat them as this 12-slot index. Unvalidated. Implementation HOLD.
 
 ---
 
@@ -74,6 +76,8 @@ Difficulty target: Cognitive >= Execution (default, not an invariant).
 | LVL-W01-012 | Same Space, Different Ball | SURPRISE / MASTERY |
 
 Gimmicks: none.
+
+Conceptual Vertical Slice candidate (separate from the rows above): A+B-1 → C-1 → D-1 → G-1. G-3 backup. Mapping and W1-K targets: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
 
 ### WLD-02 — 12
 

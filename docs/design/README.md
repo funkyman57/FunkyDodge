@@ -12,7 +12,7 @@ They describe what the game is allowed to be. They do not automatically describe
    If a proposed mechanic, gimmick, level, or implementation contradicts `CONSTITUTION.md`, the Constitution wins.
 
 2. **Libraries are referenced by stable IDs.**  
-   Use `R-PLAYER-001`, `INT-001`, `GIM-001`, `PAT-001`, `DSC-001`, `ANTI-001`, `LVL-W01-001`, `WLD-01`.  
+   Use `R-PLAYER-001`, `INT-001`, `GIM-001`, `PAT-001`, `DSC-001`, `W1-K01`, `DL-01`, `ANTI-001`, `LVL-W01-001`, `WLD-01`.  
    IDs are permanent. Deprecated items keep their ID. Never recycle an ID.
 
 3. **Implementation does not automatically validate a design.**  
@@ -40,15 +40,15 @@ They describe what the game is allowed to be. They do not automatically describe
 | Document | Role |
 | --- | --- |
 | [CONSTITUTION.md](CONSTITUTION.md) | Highest design authority. Eight principles + core experience. |
-| [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) | Architecture, vocabulary (Knowledge Graph, Knowledge Gate, Movement State), lifecycle, PLAY-001B boundary. |
+| [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) | Architecture, vocabulary (Knowledge Graph, Knowledge Gate, Movement State), lifecycle, current boundary. |
 | [libraries/RULE_LIBRARY.md](libraries/RULE_LIBRARY.md) | Stable rules and tunable parameters. |
 | [libraries/INTERACTION_LIBRARY.md](libraries/INTERACTION_LIBRARY.md) | What happens when rules combine. |
 | [libraries/GIMMICK_LIBRARY.md](libraries/GIMMICK_LIBRARY.md) | Embodied objects / surfaces / devices. |
 | [libraries/PUZZLE_PATTERN_LIBRARY.md](libraries/PUZZLE_PATTERN_LIBRARY.md) | Abstract puzzle structures. |
-| [libraries/DISCOVERY_LIBRARY.md](libraries/DISCOVERY_LIBRARY.md) | Player realizations the game should produce. |
+| [libraries/DISCOVERY_LIBRARY.md](libraries/DISCOVERY_LIBRARY.md) | Player realizations + Discovery Language System v1 (`DL-01`–`DL-08`). |
 | [libraries/ANTI_PATTERN_LIBRARY.md](libraries/ANTI_PATTERN_LIBRARY.md) | What we refuse to ship. |
 | [progression/LEVEL_LIBRARY.md](progression/LEVEL_LIBRARY.md) | Room-scale instantiations. |
-| [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) | World-scale sequence and questions. |
+| [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) | World-scale sequence, W1-K01–K08, conceptual Vertical Slice. |
 
 ---
 
@@ -66,22 +66,14 @@ It is not a frozen specification.
 
 ## Current implementation boundary
 
-**Current development stage: PLAY-001B — Dynamic Movement Pass**
+Movement foundation is **not finalized**. Human Movement Validation #3 is **pending**.
 
-PLAY-002 has **not** started.
+PLAY-002 remains **LOCKED**. Vertical Slice implementation remains **HOLD**.
 
-Movement feel is still being validated.
-
-Therefore:
-
-- Do not mark Low Bounce `CORE`.
-- Do not mark Landing Boost `CORE`.
-- Do not mark Wall Jump `CORE`.
-- Do not freeze movement parameter values as design law.
-- Do not implement the candidate gimmicks or levels from these docs.
+W1 Knowledge Architecture and Discovery Language System: **CANDIDATE**. Do not promote to `VALIDATED` / `CORE`.
 
 See [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) for the full boundary statement.
 
 `INT-001`–`INT-028` and `DSC-001`–`DSC-018` are imported as `CANDIDATE` (DOC-001A). Documentation does not validate them.
 
-W1–W5 room rows are 60 progression **slots** (`CANDIDATE` status), not a fixed ship count. See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md). Do not implement them. Geometry, counts, and durations stay `TBD — after PLAY-001B / relevant prototype validation`.
+W1–W5 room rows are 60 progression **slots** (`CANDIDATE` status), not a fixed ship count. Conceptual Vertical Slice (A+B-1 → C-1 → D-1 → G-1) is a separate unvalidated candidate. See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md). Do not implement them. Geometry, counts, and durations stay `TBD — after movement validation / relevant prototype validation`.
