@@ -113,6 +113,8 @@ IDs are permanent. If an item is deprecated, do not recycle its ID.
 | `GIM-` | Gimmicks | `GIM-001` |
 | `PAT-` | Puzzle patterns | `PAT-001` |
 | `DSC-` | Discoveries | `DSC-001` |
+| `W1-K` | W1 conceptual knowledge nodes (not runtime) | `W1-K01` |
+| `DL-` | Discovery Language guides (not Constitution) | `DL-01` |
 | `ANTI-` | Anti-patterns | `ANTI-001` |
 | `LVL-W##-` | Levels | `LVL-W01-001` |
 | `WLD-` | Worlds | `WLD-01` |
@@ -150,6 +152,8 @@ It answers:
 It is not an implementation dependency graph. A later room may be moved, removed, or redesigned while the knowledge dependency stays.
 
 World graphs live in [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
+
+W1 CONTROL Knowledge Architecture v1 (`W1-K01`–`W1-K08`) is recorded there as a **CANDIDATE**. It is conceptual player-understanding, not a runtime object graph, and it does not replace the DOC-003 12-slot W1 graph.
 
 ### Knowledge Gate
 
@@ -256,11 +260,15 @@ Progression constrains geometry later. Geometry must not prematurely constrain u
 
 ## Current implementation boundary
 
-**Current development stage: PLAY-001B — Dynamic Movement Pass**
+Movement foundation is **not finalized**. Human Movement Validation #3 is **pending**. Protocol: `docs/playtest/MOVEMENT_VALIDATION_003.md` on `cursor/movement-validation-003-3f71`.
 
-PLAY-002 has **not** started.
+Pending experiment queue (no outcomes recorded here): AR-A2, WJ-B, Charge / Spin.
 
-Movement feel is still being validated.
+PLAY-002 remains **LOCKED**. Vertical Slice implementation remains **HOLD**.
+
+Conceptual Vertical Slice candidate (unvalidated): A+B-1 → C-1 → D-1 → G-1. G-3 is backup / comparison. See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
+
+W1 Knowledge Architecture and Discovery Language System are **CANDIDATE**. Do not promote them to `VALIDATED` or `CORE`.
 
 Therefore:
 
@@ -269,10 +277,11 @@ Therefore:
 - Do not mark Wall Jump `CORE`.
 - Do not freeze movement parameter values as design law.
 - Do not implement the candidate gimmicks or levels from these docs.
+- Do not implement the conceptual Vertical Slice from these docs.
 
 Gravity, Auto Bounce, and Directional Control may be recorded as **CORE candidates**. They are not `CORE` until explicitly approved.
 
-PLAY-001B is still tuning movement feel. Parameter numbers that appear in code (`PhysicsConfig`) are implementation knobs, not constitutional values.
+Parameter numbers that appear in code (`PhysicsConfig`) are implementation knobs, not constitutional values.
 
 ---
 

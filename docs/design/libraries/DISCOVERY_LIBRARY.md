@@ -50,6 +50,186 @@ This is an implementation of:
 
 ---
 
+## Discovery Language System v1
+
+**Status:** `CANDIDATE`. Shared guidance for this library and for progression audits. **Not Constitution.** Do not promote to `VALIDATED` / `CORE`. Do not implement a hint system from this section.
+
+W1 knowledge IDs live in [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md). Movement validation is pending (`docs/playtest/MOVEMENT_VALIDATION_003.md` on `cursor/movement-validation-003-3f71`). Do not record AR-A2 / WJ-B / Charge outcomes here.
+
+### Core statement
+
+Discovery Language is **not** about hiding the answer.
+
+It is about showing the facts and consequences honestly enough for the player to make a judgment.
+
+| May remain undisclosed | Must not be hidden for difficulty |
+| --- | --- |
+| Strategic conclusion | Controls; actual state; actual action result; relevant contact / cause; essential readability |
+
+### Discovery definition
+
+The player observes a result, updates an expectation, and uses the revised understanding in later choices.
+
+| Layer | Question | Code |
+| --- | --- | --- |
+| EVENT | What actually happened? | E1 |
+| INTERPRETATION EVIDENCE | Did later behavior change based on the result? | E2 |
+| USE / TRANSFER EVIDENCE | Was the relationship reused or transferred? | E3 |
+
+Room clear alone is not proof.
+
+### Discovery types (Language)
+
+These classify a *learning event*. They do not replace existing DSC entry types (Function, Perspective, …).
+
+| Type | Meaning | False positive |
+| --- | --- | --- |
+| ACTION | I can do X. | One accidental activation. |
+| EFFECT | When I do X, Y changes. | Saw the effect but did not connect it to input. |
+| RELATIONSHIP | X is useful because this situation has property Y. | Memorized local input sequence. |
+| REINTERPRETATION | X has another useful meaning. | Same action succeeds accidentally in a new layout. |
+| TRANSFER | The earlier relationship applies here too. | Same input sequence in a cosmetically different room. |
+| MASTERY | I can organize known relationships into my own plan. | Precise execution of a memorized route. |
+
+### Core candidates
+
+| ID | Rule | Reason | Violation |
+| --- | --- | --- | --- |
+| DL-01 | Facts Are Not Hidden. Controls, state, and actual consequences needed for judgment must be accessible. | Confusion is not discovery. | Invisible activation condition used as difficulty. |
+| DL-02 | Feedback Follows Reality. Visual, audio, and state feedback must match actual gameplay events. | Extends C-01 into communication. | LOW feedback plays when LOW did not trigger. |
+| DL-03 | Leave the Conclusion to the Player. Provide evidence for a relationship; do not automatically provide the strategic conclusion. | Protects ownership of discovery. | Only the correct platform is highlighted. |
+| DL-04 | Separate Outcome from Understanding. A clear is a real achievement; it does not automatically prove understanding. | Separates accidental success from knowledge evidence. | Room clear immediately marks a concept as mastered. |
+
+### Supporting heuristics
+
+| ID | Heuristic |
+| --- | --- |
+| DL-05 | Failure Should Help the Next Attempt. A failed hypothesis should narrow what the player thinks, or make intention vs result comparable. |
+| DL-06 | Help the Actual Problem. Diagnose with K Knowledge / X Execution / R Readability / M Movement / A Ambiguity / U Unknown. Do not reveal a solution merely because attempts are numerous. |
+| DL-07 | Make Comparison Causal. When comparing outcomes, the player should be able to track which difference mattered. |
+| DL-08 | Leave Room for Reuse. After a relationship is discovered, provide opportunities for application / reinterpretation / transfer. Do not force every discovery through all stages. |
+
+### Information ladder
+
+Not a mandatory linear escalation. Basic control information and accessibility support may begin at L3. Do not force unreadability in order to preserve discovery.
+
+| Level | Name | Meaning |
+| --- | --- | --- |
+| L0 | FACT | World behavior and real result. |
+| L1 | READABILITY | Make an existing fact easier to perceive. |
+| L2 | COMPARISON | Make differences between results easier to compare. |
+| L3 | CONTROL / POSSIBILITY | Expose available action and input contract. |
+| L4 | RELATIONSHIP CLUE | Point attention toward a relevant relationship. |
+| L5 | RELATIONSHIP / SOLUTION EXPLANATION | Explicitly explain why or how to solve. |
+
+### Failure as information
+
+| Kind | Meaning | Example |
+| --- | --- | --- |
+| INFORMATIVE | The result supports or rejects part of a hypothesis. | Player overshoots a preparation landing and can see why the next action begins poorly. |
+| UNINFORMATIVE | Only failure is clear. | Immediate reset after an unclear off-screen collision. |
+| MISLEADING | Feedback suggests the wrong cause. | Showing LOW activation feedback when LOW did not trigger. |
+
+### Recovery
+
+Recovery is not merely “do not kill the player.” A recovery state should allow: intention → actual result → revised plan.
+
+Audit: Can intended vs actual landing be compared? Does the result remain readable long enough? Is there room to think without immediate precision demand? Can known actions re-enter the problem? Is recovery itself not a new puzzle? Is Restart still available? Are alternate valid recovery plans allowed?
+
+### Visible vs explained relationship
+
+| Visible | Explained |
+| --- | --- |
+| The player can observe the relevant cause / result evidence. | The game provides the interpretation and/or the strategic choice. |
+
+Target: facts should be visible; meaning may remain discoverable.
+
+Readable: NORMAL and LOW produce different real trajectories.  
+Not automatically explained: “Use LOW here.”
+
+### Teach HOW / Discover WHY — REVISE
+
+Previous principle: “Teach HOW. Let the player discover WHY.”
+
+**Verdict:** REVISE.
+
+Current candidate (Discovery Language common guide, **not Constitution**):
+
+> 판단에 필요한 사실은 명확히 제공한다. 용도와 전략은 발견할 여지를 남긴다.
+
+> Provide the facts needed for judgment clearly. Leave room for the player to discover use and strategy.
+
+### Help / hint philosophy
+
+Default flow candidate: free experiment → opportunity to form a hypothesis → meaningful stagnation → offer help → player chooses whether to reveal more.
+
+Do **not**: failure count → automatic solution.
+
+If help is accepted, reveal only the minimum appropriate information level. Behavior after explicit help is **not** unsupported discovery evidence.
+
+Do not implement a hint system in this documentation pass.
+
+### Confirmation
+
+The game confirms **EVENTS**, not player thoughts.
+
+Good: real movement change; contact response; sound tied to an actual event; visual state change; clean traversal; clear completion.
+
+Avoid: “Discovery Complete!” / “Preparation Learned!”
+
+The game knows what happened. It does not know the player's internal understanding.
+
+### Misconception framework
+
+Useful misconceptions should arise from reasonable over-generalization of true prior experience. The game must not lie to create them.
+
+W1 examples (see W1-K):
+
+- “Higher is always better.” → challenged by contextual LOW value.
+- “LOW is the advanced/default move.” → challenged where NORMAL is better.
+- “Closer to exit is always better.” → challenged by preparation / starting-position value.
+- “There is one correct landing.” → challenged by valid alternative planning.
+- “If I miss the intended landing, reset.” → challenged by readable recovery.
+
+Pattern: validated relationship → natural generalization → different result under same rules → assumption revised → relationship reused.
+
+### Discovery arc template
+
+Role checklist. **Not** a fixed number of rooms. Phases may merge, be skipped, or repeat. Do not pad rooms to satisfy the template.
+
+| Phase | Role |
+| --- | --- |
+| SEED | Give a safe reason to observe / try. |
+| EXPOSE | Let action and effect become experienceable. |
+| CONTRAST | Make hypotheses distinguishable. |
+| DISCOVER | Give opportunity to use the relationship. |
+| REINTERPRET | Reveal a new meaning of a known relationship. |
+| TRANSFER | Use the relationship in a new context. |
+| MASTER | Organize known relationships into a plan. |
+
+### Discovery density
+
+| Density | Meaning | Action |
+| --- | --- | --- |
+| UNDERLOADED | Same reasoning repeats without application / reward / pacing role. | Merge / remove candidate. |
+| FOCUSED | One main question remains readable; known actions allow hypotheses to be tested. | Keep. |
+| OVERLOADED | New control + new rule + unfamiliar geometry + high execution burden make failure cause unclear. | Separate burden or improve information. |
+
+### Current slice discovery audit
+
+Conceptual Vertical Slice only. Unvalidated. HOLD. Not `LVL-W01-*`.
+
+| Slice | Language type | Primary channels | Must be obvious | Must remain unstated | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| A+B-1 | ACTION / EFFECT | Motion, Consequence, Repetition | Auto Bounce; direction input affects landing | Exact correct landing / solution sequence | E2 |
+| C-1 | RELATIONSHIP | Geometry, Contrast | LOW exists / can be performed; trajectory differs | “Use LOW here.” | E2 |
+| D-1 | REINTERPRETATION | Consequence, Recovery, Spatial relationship | Preparation landing; exit; actual landing result | “Land on P so the next bounce works.” | E2 |
+| G-1 | TRANSFER | Route connection, starting-position contrast | Route connectivity; final action context | “Take the detour.” | E3 candidate |
+
+Slice knowledge mapping: [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md).
+
+---
+
 ## Schema
 
 ```text
@@ -80,6 +260,25 @@ Future Reuse
 
 Spoiler Risk
 Validated Level
+```
+
+Existing DSC-001–018 keep the schema above.
+
+For **future** Discovery entries, prefer this compact permanent set. Do not copy the full Discovery Language essay into every entry.
+
+```text
+previous assumption
+target understanding
+Rule / Interaction dependencies
+prerequisite knowledge
+facts shown
+strategic conclusion left to discover
+primary communication channels
+informative failure
+behavioral evidence
+representative false positive
+validation status
+playtest evidence reference
 ```
 
 ---
