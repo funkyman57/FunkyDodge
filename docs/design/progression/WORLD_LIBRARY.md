@@ -1,18 +1,100 @@
 # World Library
 
-Worlds sequence levels. They ask one core question at a time.
+Worlds sequence levels. They are **knowledge domains**, not mechanic or gimmick bundles.
 
 Vocabulary (Knowledge Graph, Knowledge Gate, Movement State) is defined in [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Room rows live in [LEVEL_LIBRARY.md](LEVEL_LIBRARY.md). Discovery Language: [DISCOVERY_LIBRARY.md](../libraries/DISCOVERY_LIBRARY.md). Do not duplicate those definitions here.
 
-Official status for worlds and rooms: `CANDIDATE`. Role: progression candidate. Documentation is not validation.
+Official status for worlds and rooms: `CANDIDATE`. Role: progression candidate. Documentation is not validation. This pass does **not** validate W2–W5 content, any gimmick, or movement experiments.
 
 W1 CONTROL Knowledge Architecture v1 (`W1-K01`–`W1-K08`) is the **current** W1 planning source. **Status:** `CANDIDATE`. Conceptual only.
 
-The DOC-003 12-slot W1 list is a **historical candidate inventory**. It is not a production room count, not a shipping sequence, and not the current graduation checklist. C-05 Depth Over Quantity takes precedence over slot preservation.
+The DOC-003 12-slot lists are **historical candidate inventories**. They are not production room counts, shipping sequences, or current graduation checklists. C-05 Depth Over Quantity takes precedence over slot preservation.
 
 Do **not** lock visual themes. Do not implement these worlds. PLAY-002 remains LOCKED. Vertical Slice implementation remains HOLD. Movement foundation is not finalized.
 
 Geometry / physics values: `TBD — after PLAY-001B feel validation`. See DESIGN_SYSTEM.
+
+---
+
+## World Knowledge Architecture
+
+**Status:** `CANDIDATE`. Authoritative current World identities. Historical names (`HOW DO I MOVE?`, etc.) remain as lineage labels.
+
+Choose a knowledge question first. Then find the smallest expression. Do **not** choose a gimmick, assign a World, and then invent a room.
+
+| World | Role | Core question | Korean |
+| --- | --- | --- | --- |
+| WLD-01 | CONTROL | Where / in which direction should the next useful action begin — and what do I choose now? | 다음 유용한 행동을 어디에서, 어느 방향으로 시작하려면 지금 무엇을 선택할까? |
+| WLD-02 | MOMENTUM | How does carried movement change what becomes possible? | 도착할 때 남아 있는 움직임이 다음 가능성을 어떻게 바꾸는가? |
+| WLD-03 | POSSIBILITY | When the world state changes, which actions appear and which disappear? | 세계의 상태가 바뀌면 어떤 행동이 가능해지고, 어떤 행동이 사라지는가? |
+| WLD-04 | TIME | When does the needed state appear, how long does it last, and after which event — and how does that change the plan? | 필요한 상태가 언제 생기고, 얼마나 유지되며, 어떤 사건 뒤에 생기는지가 계획을 어떻게 바꾸는가? |
+| WLD-05 | UNDERSTANDING | Under what conditions is my familiar solution valid, and what becomes possible if known relationships connect differently? | 내가 정답처럼 쓰던 해법은 어떤 조건에서 유효하며, 알려진 관계를 다르게 연결하면 무엇이 가능한가? |
+
+Historical English labels remain: How do I move? / What changes my motion? / What can objects become? / When should I act? / What do I really know?
+
+### Knowledge focus
+
+| World | Focus | Inherited | Must not require |
+| --- | --- | --- | --- |
+| W1 CONTROL | Trajectory, landing, next starting position, starting direction | — | Deliberate speed accumulation; momentum preservation; velocity optimization; world-state manipulation; time-state planning; BOOST / Air Reversal / Wall Jump mastery |
+| W2 MOMENTUM | Carried motion; preserve / reduce / discard; same position, different movement state | W1 position / direction / next start | “Go faster” as identity; world-state as the lesson; time-state planning. W2 is **not** Wind / Ice / Rough. |
+| W3 POSSIBILITY | World state changes action availability; create **and** remove possibilities; order of world-state choices | W1 + W2 player / motion state | Gimmick showcase as identity. W3 is **not** Door / Switch. Logical order ≠ TIME. |
+| W4 TIME | Occurrence, duration, delay, event progression, future-state prediction | W1 + W2 + W3 state *value* / order | Reaction challenge; frame-perfect timing; hidden-cycle memorization. Event-count belongs **only if** it changes future-state planning. Pure counting / resource allocation is not automatically TIME. |
+| W5 UNDERSTANDING | Check assumptions behind familiar solutions; recombine known relationships; construct a personal plan | W1–W4 known relationships | Hidden new rules; new input grammar; all mechanics / gimmicks; long execution chains; precision escalation. Reinterpretation already exists from W1 onward and is **not** unique to W5. |
+
+### Graduation evidence
+
+| World | Sufficient | Insufficient |
+| --- | --- | --- |
+| W1 | Player changes earlier trajectory / landing / approach based on the next starting position needed. | LOW usage alone; room clear; memorized sequence |
+| W2 | Player intentionally uses differences in carried motion (preserve / reduce / discard / redirect) because the goal demands it. | Maximum-speed clear; accidental slide |
+| W3 | Player selects / delays / reverses a world-state change because it changes what actions remain possible. | Press every switch; follow every opened path |
+| W4 | Player adjusts cause timing / order / waiting because a useful state must exist at a future moment or event. | Lucky timing; fast reaction; cycle memorization without understanding |
+| W5 | Player detects that a familiar solution’s assumptions no longer hold and reorganizes known relationships into a different plan. | Hard execution of an old solution; using many gimmicks; a longer sequence |
+
+### Adjacent transitions
+
+| Handoff | Previous | New | Discontinuity |
+| --- | --- | --- | --- |
+| W1 → W2 | Where / which direction should I begin? | How does carried movement change what becomes possible? | Position / direction alone no longer explains the result. |
+| W2 → W3 | What movement state should I arrive with? | What world state must exist for the desired action to be possible? | Player state is no longer the only changing condition. |
+| W3 → W4 | Which world state should I create, and in what logical order? | When will that state exist, and for how long? | State *value* alone is insufficient; occurrence / duration / event progression matters. |
+| W4 → W5 | How do I align player state, world state, and time? | Which assumptions behind my familiar solutions still apply? | Not a new physical dimension. Greater autonomy in selecting and recombining known relationships. |
+
+### Dangerous boundary leaks
+
+1. W1 preparation becoming speed buildup.
+2. W2 becoming “faster is better.”
+3. W2 being defined by a Wind / Ice / Rough inventory.
+4. W3 being defined by gimmick novelty.
+5. W3 logical order being mistaken for W4 TIME.
+6. W4 becoming reaction / precision timing.
+7. Every Counter being classified as TIME.
+8. W5 repeating W3’s “same object, different role.”
+9. W5 repeating W4 timing lessons.
+10. W5 hiding new rules inside “reinterpretation.”
+
+### Unassigned / not yet world-owned
+
+Unassigned is **not** design debt. It means the knowledge role is not yet proven. Do not force a World.
+
+Candidates that remain unassigned unless later justified: BOOST / Spin / Charge; special Air Reversal; Wall Jump; Spring / Impulse use cases; Moving Block; One-way Surface; Force Switch; pure count / resource puzzles; Mirror / Detour forms; Recovery; Personal Plan; Reinterpretation (as a standalone domain).
+
+### W5 synthesis status
+
+W5 is **not** a fifth mechanic domain. It is a **synthesis / autonomy** stage.
+
+It may be smaller than other Worlds. Its content count is **not** protected. If strong recombination / assumption-audit problems are scarce, reduce W5 scope. Do **not** steal reinterpretation from earlier Worlds to fill W5. Do **not** preserve the historical 12-room count.
+
+### Gimmicks as expression tools
+
+Gimmicks do **not** own Worlds. A gimmick may support different domains depending on the required inference.
+
+Example (classification only; do not invent new Door behavior):
+
+- W3 if Door state changes which actions are available
+- W4 if a delayed / temporary Door state must be predicted
+- W5 only if already-known Door relationships combine with other known relationships in a new planning structure
 
 ---
 
@@ -48,31 +130,30 @@ IDs are permanent: `WLD-01`.
 
 ```text
 W1 — CONTROL
-Where / which direction should the next useful action begin?
-(historical label: How do I move?)
+Where / in which direction should the next useful action begin?
         ↓
 W2 — MOMENTUM
-In what Movement State should I arrive?
+How does carried movement change what becomes possible?
         ↓
 W3 — POSSIBILITY
-What should the World State be?
+When the world state changes, which actions appear and which disappear?
         ↓
 W4 — TIME
-When should those states exist?
+When will the needed state exist, and for how long?
         ↓
 W5 — UNDERSTANDING
-What assumptions am I making, and what else is possible?
+Which assumptions behind familiar solutions still apply?
 ```
 
-W5 does not replace prior knowledge. It recombines and reinterprets W1–W4.
+W5 does not replace prior knowledge. It is a synthesis stage over W1–W4. Canonical questions: World Knowledge Architecture above.
 
-Examples (no new INT IDs):
+Historical expression examples (no new INT IDs; not World identities):
 
-- W1: LOW
-- W2: LOW × Momentum; LOW × Wind (`INT-001`); LOW × Low Friction (`INT-003`)
-- W3: Movement State × Door State (`INT-021`); Momentum × Door (`INT-013` + closed solid)
-- W4: Bounce count (`INT-005`); Timed State (`INT-023`); Delay (`INT-027`)
-- W5: compose taught pairs only
+- W1: LOW as contextual trajectory (not speed)
+- W2: LOW × carried motion; LOW × Wind (`INT-001`); LOW × Low Friction (`INT-003`) — if the ask is remaining motion
+- W3: Movement State × Door State (`INT-021`); Momentum × Door (`INT-013` + closed solid) — if the ask is action availability
+- W4: Bounce count (`INT-005`) only if future-state planning; Timed State (`INT-023`); Delay (`INT-027`)
+- W5: compose already-taught pairs only. No new physical dimension.
 
 Rhythm, Reward, Cognitive Operation Variety: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md).
 
@@ -80,17 +161,19 @@ Rhythm, Reward, Cognitive Operation Variety: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM
 
 ## Discovery distribution (guidance, not ownership)
 
-| World | Conceptual homes |
+Do not lock a DSC to one world. Discovery → Knowledge → Future Tool. Mixed / unassigned IDs stay unassigned.
+
+| Alignment | IDs |
 | --- | --- |
-| W1 | DSC-005 (contextual height). DSC-006 / DSC-010 / DSC-017 W1 homes are **historical guidance** — see scope notes in Discovery Library. |
-| W2 | DSC-002, DSC-003, DSC-004, DSC-007 (seed), DSC-008, DSC-009, DSC-017 (payoff/reinforcement) |
-| W3 | DSC-001, DSC-014, DSC-015, DSC-018, DSC-016 (weak seed only) |
-| W4 | DSC-011, DSC-012, DSC-013 |
-| W5 | DSC-007 payoff; DSC-016 payoff; DSC-009/011/012/013/014/015/018 reinforcement or recombination |
+| W1 clear | DSC-005 Higher Is Not Always Better |
+| W2 clear | DSC-002, DSC-003, DSC-004, DSC-008, DSC-009, DSC-017 |
+| W3 clear | DSC-014, DSC-018 |
+| W4 clear | DSC-012, DSC-013 |
+| W4 conditional | DSC-011 Bounce Is a Resource — only if event progression changes future-state planning |
+| Mixed / unassigned | DSC-006, DSC-007, DSC-010, DSC-015, DSC-016 |
+| Historical guidance only | DSC-001 (Door-as-wall seed; expression, not W3 identity); DSC-006 / DSC-010 / DSC-017 as former W1 homes |
 
-Long-range: DSC-017 historical W1 seed → later motion-state payoff (not current W1 graduation evidence); DSC-007 W2 seed → W5 payoff; DSC-016 W3 seed → W5 payoff.
-
-Do not lock a DSC to one world. Discovery → Knowledge → Future Tool.
+Long-range: DSC-017 is a W2-clear carried-motion candidate, **not** current W1 graduation evidence and **not** a forced W2 room. Do not assign mixed IDs to W5 to fill a remix quota.
 
 ---
 
@@ -108,11 +191,11 @@ Do not open a world with mastery. Do not end a world with an untaught new gimmic
 
 | ID | Role | Core Question | Status | Room detail |
 | --- | --- | --- | --- | --- |
-| WLD-01 | CONTROL | Where / which direction should the next useful action begin? | CANDIDATE | Role-based current plan. 12-slot list = historical inventory. |
-| WLD-02 | MOMENTUM | WHAT CHANGES MY MOTION? | CANDIDATE | 12 progression candidates |
-| WLD-03 | POSSIBILITY | WHAT CAN OBJECTS BECOME? | CANDIDATE | 12 progression candidates |
-| WLD-04 | TIME | WHEN SHOULD I ACT? | CANDIDATE | 12 progression candidates |
-| WLD-05 | UNDERSTANDING | WHAT DO I REALLY KNOW? | CANDIDATE | 12 progression candidates |
+| WLD-01 | CONTROL | Where / in which direction should the next useful action begin? | CANDIDATE | Role-based current plan. 12-slot list = historical inventory. |
+| WLD-02 | MOMENTUM | How does carried movement change what becomes possible? | CANDIDATE | Knowledge domain. 12-slot list = historical inventory. |
+| WLD-03 | POSSIBILITY | When the world state changes, which actions appear and which disappear? | CANDIDATE | Knowledge domain. 12-slot list = historical inventory. |
+| WLD-04 | TIME | When will the needed state exist, and for how long? | CANDIDATE | Knowledge domain. 12-slot list = historical inventory. |
+| WLD-05 | UNDERSTANDING | Which assumptions behind familiar solutions still apply? | CANDIDATE | Synthesis stage. Historical 12-slot count is **not** protected. |
 
 ---
 
@@ -124,7 +207,7 @@ Do not open a world with mastery. Do not end a world with an untaught new gimmic
 | Name | HOW DO I MOVE? |
 | Role | CONTROL |
 | Status | CANDIDATE |
-| Core Question | Where / which direction should the next useful action begin? (historical label: How do I move?) |
+| Core Question | Where / in which direction should the next useful action begin — and what do I choose now? (historical label: How do I move?) |
 | Design Theme | Player physics. Not a visual theme. |
 | World purpose | The player does not jump. The ball auto-bounces; the player intervenes in its trajectory. |
 | End-of-world understanding | “I do not command jumps. I manipulate the trajectory of a continuously bouncing ball.” |
@@ -273,11 +356,11 @@ W1 may physically involve velocity. The player must **not** need deliberate velo
 
 | | Current W1 | Later motion-state expansion |
 | --- | --- | --- |
-| Question | Where / which direction should the next useful action begin? | How does carried movement change what becomes possible? |
+| Question | Where / in which direction should the next useful action begin? | How does carried movement change what becomes possible? |
 | Conceptual | Position / Direction | Motion State / carried movement |
-| Korean | 다음 행동을 하기 좋으려면 어디에서, 어느 쪽을 향해 시작해야 할까? | 같은 위치에서 시작해도, 도착할 때 남아 있는 움직임에 따라 다음 가능성이 달라질까? |
+| Korean | 다음 유용한 행동을 어디에서, 어느 방향으로 시작하려면 지금 무엇을 선택할까? | 도착할 때 남아 있는 움직임이 다음 가능성을 어떻게 바꾸는가? |
 
-Existing WLD-02 question (“What changes my motion?”) remains. This boundary records the conceptual handoff only. Historical W1 slots about Wall Jump, BOOST, or entry velocity are **not** current W1 requirements and are **not** automatic W2 rooms.
+Canonical handoff: World Knowledge Architecture above. Historical WLD-02 label (“What changes my motion?”) remains as lineage. Historical W1 slots about Wall Jump, BOOST, or entry velocity are **not** current W1 requirements and are **not** automatic W2 rooms.
 
 Movement contracts (AR-A2, WJ-B, Charge / Spin) are a separate pending human-validation queue. Protocol: `docs/playtest/MOVEMENT_VALIDATION_003.md` on `cursor/movement-validation-003-3f71`. Do not treat those experiments as W1 requirements. No outcomes are recorded here.
 
@@ -366,21 +449,25 @@ Rooms `LVL-W01-001` … `LVL-W01-012` are a **historical candidate inventory**. 
 | Name | WHAT CHANGES MY MOTION? |
 | Role | MOMENTUM |
 | Status | CANDIDATE |
-| Core Question | What changes my motion? |
+| Core Question | How does carried movement change what becomes possible? (historical label: What changes my motion?) |
 | Design Theme | Momentum is managed. Not a visual theme. Do not assume “ice world” art. |
-| World purpose | Movement State is changed by the environment as well as input. |
-| Central concept | Momentum is something you manage: build, preserve, redirect, reduce, intentionally discard. Greater speed is not universally better. |
+| World purpose | Remaining motion at arrival changes what is possible. Same position, different movement state. |
+| Central concept | The player should sometimes want more motion, less motion, or different motion. W2 is **not** “go faster.” |
+| Knowledge focus | Preserve / reduce / discard / redirect carried motion because the goal demands it. |
+| Graduation | Intentional use of motion-state difference. Insufficient: max-speed clear; accidental slide. |
 | Rules Emphasized | R-FORCE-001; R-CONTACT-003 (low/high configs); R-MOTION-001; R-INFO-001 |
-| New Rule Budget | Wind, Ice, Rough Surface only. **Impulse / Spring not required** (C-05). Keep `R-FORCE-002` and `GIM-006` in libraries. |
-| Major Discoveries | DSC-002, DSC-003, DSC-004, DSC-007, DSC-008, DSC-009, DSC-017 reinforcement |
-| Mastery Test | LVL-W02-012 |
-| Transition to Next World | Speed is managed. Next: object state changes possibility. |
+| New Rule Budget | Historical expression candidates: Wind, Ice, Rough Surface. **These do not define W2.** Impulse / Spring remain unassigned (C-05). Keep `R-FORCE-002` and `GIM-006` in libraries. |
+| Major Discoveries | W2-clear: DSC-002, DSC-003, DSC-004, DSC-008, DSC-009, DSC-017. DSC-007 remains mixed / unassigned. |
+| Mastery Test | Historical: LVL-W02-012. Current: carried-motion evidence, not a required 12th slot. |
+| Transition to Next World | Player state is no longer the only changing condition. Next: world state changes action availability. |
 | Visual / Audio Identity | **Not locked.** |
-| World conclusion | “Speed is not simply an outcome. It is something I manage.” |
+| World conclusion | “Remaining motion is something I manage, not a speed trophy.” |
 
 Do not turn BUILD / PRESERVE / USE / KILL into player-visible meters.
 
-#### Knowledge Graph
+#### Knowledge Graph (historical candidate inventory)
+
+Wind / Ice / Rough appear here as historical expression, not as W2’s identity.
 
 ```text
                     W1 MOVEMENT LANGUAGE
@@ -420,9 +507,11 @@ Do not turn BUILD / PRESERVE / USE / KILL into player-visible meters.
                        ENVIRONMENT MASTERY
 ```
 
-#### Knowledge Gates
+#### Knowledge Gates (historical — not current World identity)
 
-| Gate | Requirement | May be satisfied in |
+IDs retained. Current W2 graduation is carried-motion evidence above, not “used Wind / Ice / Rough.”
+
+| Gate | Historical requirement | May be satisfied in |
 | --- | --- | --- |
 | W2-GATE-1 | Wind changes trajectory | LVL-W02-001 |
 | W2-GATE-2 | Use Wind with and against its direction | LVL-W02-002 / LVL-W02-003 / LVL-W02-004 |
@@ -431,7 +520,7 @@ Do not turn BUILD / PRESERVE / USE / KILL into player-visible meters.
 | W2-GATE-5 | Build useful Movement State before the objective | LVL-W02-009 |
 | W2-GATE-6 | Plan Movement State required at a future location | LVL-W02-010 / LVL-W02-011 |
 
-Rooms: `LVL-W02-001` … `LVL-W02-012`.
+Rooms `LVL-W02-001` … `LVL-W02-012` are a **historical candidate inventory**. Not a production count.
 
 ---
 
@@ -443,23 +532,27 @@ Rooms: `LVL-W02-001` … `LVL-W02-012`.
 | Name | WHAT CAN OBJECTS BECOME? |
 | Role | POSSIBILITY |
 | Status | CANDIDATE |
-| Core Question | What can objects become? |
+| Core Question | When the world state changes, which actions appear and which disappear? (historical label: What can objects become?) |
 | Design Theme | State changes possibility. C-07. Not a visual theme. |
-| World purpose | An object's state changes what possibilities it provides. |
-| Core statement | State changes possibility. |
-| Primary Gimmicks | GIM-001 Door; GIM-002 Switch |
+| World purpose | World state changes action availability. A change may create **and** remove possibilities. |
+| Core statement | State changes possibility. W3 is **not** a new-gimmick showcase. |
+| Knowledge focus | Select / delay / reverse a world-state change because it changes what actions remain possible. |
+| Graduation | Deliberate state choice that opens some actions and closes others. Insufficient: press every switch; follow every opened path. |
+| Primary Gimmicks | Historical expression candidates: GIM-001 Door; GIM-002 Switch. **These do not define W3.** |
 | Rules Emphasized | R-STATE-001; R-SIGNAL-001; R-CONTACT-001; R-INFO-001 |
 | Existing Rules Recontextualized | W1+W2 movement language |
-| New Rule Budget | Door + Switch only. **GIM-010 / GIM-011 not required.** Keep them as library candidates. Do not invent Motion/Kinematic or Conditional Collision rules for them. |
-| Major Discoveries | DSC-001, DSC-014, DSC-015, DSC-018 |
-| Mastery Test | LVL-W03-012 |
-| Transition to Next World | Objects have contextual roles. Next question (W4): *when*. |
+| New Rule Budget | Historical: Door + Switch only. **GIM-010 / GIM-011 remain unassigned** (C-05). Do not invent Motion/Kinematic or Conditional Collision rules for them. |
+| Major Discoveries | W3-clear: DSC-014, DSC-018. DSC-001 is historical Door-as-wall guidance. DSC-015 / DSC-016 remain mixed / unassigned. |
+| Mastery Test | Historical: LVL-W03-012. Current: world-state possibility evidence, not a required 12th slot. |
+| Transition to Next World | State *value* / logical order is not enough. Next: when that state exists and for how long. |
 | Visual / Audio Identity | **Not locked.** |
-| World conclusion | Objects do not have one purpose. Their state changes what they can become. |
+| World conclusion | World state changes what I can do — and what I can no longer do. |
 
-W3 is physical possibility, not Boolean-logic puzzles.
+W3 is physical possibility, not Boolean-logic puzzles. Logical order of state changes is still W3, not W4 TIME.
 
-#### Knowledge Graph
+#### Knowledge Graph (historical candidate inventory)
+
+Door / Switch appear here as historical expression, not as W3’s identity.
 
 ```text
                  W1 + W2 KNOWLEDGE
@@ -518,9 +611,11 @@ W3 is physical possibility, not Boolean-logic puzzles.
                    SECOND FACE
 ```
 
-#### Knowledge Gates
+#### Knowledge Gates (historical — not current World identity)
 
-| Gate | Requirement | May be satisfied in |
+IDs retained. Current W3 graduation is world-state possibility evidence above, not “used Door / Switch.”
+
+| Gate | Historical requirement | May be satisfied in |
 | --- | --- | --- |
 | W3-GATE-1 | Switch → state change | LVL-W03-001 / LVL-W03-002 |
 | W3-GATE-2 | Closed Door is a usable physical surface | LVL-W03-004 |
@@ -529,7 +624,7 @@ W3 is physical possibility, not Boolean-logic puzzles.
 | W3-GATE-5 | Reinterpret the same object by context | LVL-W03-010 |
 | W3-GATE-6 | Combine object state with prior physics | LVL-W03-011 |
 
-Rooms: `LVL-W03-001` … `LVL-W03-012`.
+Rooms `LVL-W03-001` … `LVL-W03-012` are a **historical candidate inventory**. Not a production count.
 
 ---
 
@@ -541,19 +636,23 @@ Rooms: `LVL-W03-001` … `LVL-W03-012`.
 | Name | WHEN SHOULD I ACT? |
 | Role | TIME |
 | Status | CANDIDATE |
-| Core Question | When should I act? |
+| Core Question | When does the needed state appear, how long does it last, and after which event — and how does that change the plan? (historical label: When should I act?) |
 | Core understanding | Reason about *when* a future state will exist, not only the current state. |
 | Time principle | Time is reasoned about, not reacted to. A timing window creates a planning decision before an execution challenge. |
-| Avoid | Frame-perfect windows; unexplained timers; sudden state changes; arbitrary timing; reaction-only gates; invisible countdown (ANTI-003, ANTI-004, ANTI-012) |
+| Knowledge focus | Occurrence, duration, delay, event progression, future-state prediction. |
+| Graduation | Player adjusts cause timing / order / waiting because a useful state must exist later. Insufficient: lucky timing; fast reaction; cycle memorization. |
+| Avoid | Frame-perfect windows; unexplained timers; sudden state changes; arbitrary timing; reaction-only gates; invisible countdown (ANTI-003, ANTI-004, ANTI-012). W4 is **not** a reaction challenge. |
 | Rules Emphasized | R-STATE-003; R-STATE-002; R-SIGNAL-002; R-INFO-001 |
-| New Rule Budget | Bounce Counter, Timed Gate, Delayed Switch (or Switch+Delay variation). Three distinct questions: How many? How long? When later? |
+| New Rule Budget | Historical expression candidates: Bounce Counter, Timed Gate, Delayed Switch (or Switch+Delay). **These do not define W4.** Event-count belongs here **only if** it changes future-state planning. Pure counting / resource allocation is not automatically TIME. |
 | Delayed Switch note | May later be a Switch variation, not a separate object family. **Do not resolve in DOC-003.** |
-| Major Discoveries | DSC-011, DSC-012, DSC-013 |
-| Mastery Test | LVL-W04-012 |
-| Transition to Next World | Future states can be planned. Next: what else is possible with known rules? |
+| Major Discoveries | W4-clear: DSC-012, DSC-013. DSC-011 is **conditional** (future-state planning required). |
+| Mastery Test | Historical: LVL-W04-012. Current: future-state planning evidence, not a required 12th slot. |
+| Transition to Next World | Player / world / time alignment is known. Next: which assumptions behind familiar solutions still apply. |
 | Visual / Audio Identity | **Not locked.** Durations TBD — after PLAY-001B / relevant prototype validation. |
 
-#### Knowledge Graph
+#### Knowledge Graph (historical candidate inventory)
+
+Counter / Gate / Delay appear here as historical expression, not as W4’s identity. COUNT is TIME only when it changes future-state prediction.
 
 ```text
 WORLD STATE
@@ -593,9 +692,11 @@ COUNTER   STATE     CONSEQUENCE
        TIME MASTERY
 ```
 
-#### Knowledge Gates
+#### Knowledge Gates (historical — not current World identity)
 
-| Gate | Requirement | May be satisfied in |
+IDs retained. Current W4 graduation is future-state planning evidence above. W4-GATE-1 is TIME only if the count changes a predicted future state.
+
+| Gate | Historical requirement | May be satisfied in |
 | --- | --- | --- |
 | W4-GATE-1 | Bounce is a countable event/resource | LVL-W04-001 / LVL-W04-002 |
 | W4-GATE-2 | Extra Bounce or detour to alter future state | LVL-W04-003 |
@@ -604,7 +705,7 @@ COUNTER   STATE     CONSEQUENCE
 | W4-GATE-5 | Predict a delayed consequence | LVL-W04-008 / LVL-W04-009 |
 | W4-GATE-6 | Synchronize future Movement State and World State | LVL-W04-007 / LVL-W04-011 / LVL-W04-012 |
 
-Rooms: `LVL-W04-001` … `LVL-W04-012`.
+Rooms `LVL-W04-001` … `LVL-W04-012` are a **historical candidate inventory**. Not a production count.
 
 ---
 
@@ -616,20 +717,24 @@ Rooms: `LVL-W04-001` … `LVL-W04-012`.
 | Name | WHAT DO I REALLY KNOW? |
 | Role | UNDERSTANDING |
 | Status | CANDIDATE |
-| Core Question | What do I really know? |
-| Evolves from | “What is the rule?” → “What else is possible with the rules I already know?” |
+| Core Question | Under what conditions is my familiar solution valid, and what becomes possible if known relationships connect differently? (historical label: What do I really know?) |
+| Evolves from | “What is the rule?” → “Which assumptions behind my familiar solutions still apply?” |
+| Identity | **Synthesis / autonomy stage.** Not a fifth mechanic domain. Not Remix / Hard Mode. |
 | New Rule target | **0** |
 | New Gimmick target | **0** |
 | Hidden mechanic | **0** |
-| Exists to | Recall, reinterpret, recombine, challenge assumptions, permit alternate rule-consistent solutions |
-| Major Discoveries | DSC-007 payoff; DSC-016 payoff; reinforcement of DSC-009/011–015/018 |
-| Mastery Test | LVL-W05-012 |
+| Exists to | Check assumptions; recombine known relationships; construct a personal plan. Reinterpretation is **not** unique to W5. |
+| Graduation | Player detects that a familiar solution’s assumptions no longer hold and reorganizes known relationships. Insufficient: hard execution of an old solution; using many gimmicks; a longer sequence. |
+| Major Discoveries | Do **not** force mixed IDs here. DSC-007 / DSC-016 remain mixed / unassigned unless later justified as assumption-audit / recombination. |
+| Mastery Test | Historical: LVL-W05-012. Current: synthesis evidence. Room count is **not** protected. |
 | Transition to Next World | None recorded. |
 | Visual / Audio Identity | **Not locked.** |
 
-Do not put every gimmick in the finale. Prefer ~4–5 deeply interacting concepts. Exact mix TBD after prototype/playtest.
+W5 may be smaller than other Worlds. If strong recombination / assumption-audit problems are scarce, **reduce W5 scope**. Do not steal reinterpretation from earlier Worlds. Do not put every gimmick in the finale. Prefer a few deeply interacting known relationships. Exact mix TBD after prototype/playtest.
 
-#### Knowledge Graph
+#### Knowledge Graph (historical candidate inventory)
+
+This graph is lineage. W5 must not hide new rules inside “reinterpretation,” repeat W3 object-role lessons, or repeat W4 timing lessons.
 
 ```text
 MOVEMENT STATE
@@ -673,7 +778,7 @@ Player-understanding gates only. **28** historical gate IDs across W1–W5. W1-G
 | W5-GATE-5 | Plan present actions around a desired future state | LVL-W05-007 / LVL-W05-008 |
 | W5-GATE-6 | Form a valid solution from learned rules; no newly taught behavior | LVL-W05-011 / LVL-W05-012 |
 
-Rooms: `LVL-W05-001` … `LVL-W05-012`.
+Rooms `LVL-W05-001` … `LVL-W05-012` are a **historical candidate inventory**. The 12-slot count is **not** protected.
 
 ---
 
@@ -681,7 +786,7 @@ Rooms: `LVL-W05-001` … `LVL-W05-012`.
 
 W1–W5 = 12 × 5 = **60 historical progression candidates / slots**.
 
-This is **not** a commitment to ship 60 rooms. The W1 12-slot list is a historical candidate inventory, not a production target. C-05 Depth Over Quantity takes precedence over slot preservation. Later playtest may merge, delete, expand, reorder, convert to Reward, or reduce count.
+This is **not** a commitment to ship 60 rooms. No World is defined by its slot count. W5’s count is especially unprotected. C-05 Depth Over Quantity takes precedence over slot preservation. Later playtest may merge, delete, expand, reorder, convert to Reward, or reduce count.
 
 ---
 
@@ -691,14 +796,16 @@ This is **not** a commitment to ship 60 rooms. The W1 12-slot list is a historic
 
 Unused Interaction ≠ design debt. Required progression need not cover INT-018, INT-019, INT-024. Those may stay challenge / alternate / expansion / experiment material.
 
-### Gimmick economy
+### Gimmick economy (historical expression candidates)
 
-| World | Required / primary |
+These groupings do **not** define Worlds. Gimmicks are expression tools for a knowledge question.
+
+| World | Historical expression candidates |
 | --- | --- |
-| W1 | none |
-| W2 | Wind, Ice, Rough Surface |
-| W3 | Door, Switch |
-| W4 | Bounce Counter, Timed Gate, Delayed Switch (or Switch+Delay variation) |
+| W1 | none required |
+| W2 | Wind, Ice, Rough Surface — if the ask is carried motion, not “use the ice world” |
+| W3 | Door, Switch — if the ask is action availability, not gimmick novelty |
+| W4 | Bounce Counter, Timed Gate, Delayed Switch — if the ask is future-state prediction, not counting for its own sake |
 | W5 | no new gimmicks |
 
 Intentional (C-05). Do not add gimmicks so later worlds “look more complex.”
@@ -706,6 +813,8 @@ Intentional (C-05). Do not add gimmicks so later worlds “look more complex.”
 GIM-005 Rough Surface Second Face remains **unresolved**. “Kill unwanted momentum” may only be a positive reading of the First Face (slow). Do not invent a new property to satisfy C-07. Blocks CORE until playtest/design resolves it.
 
 ### Pattern / cognitive operations (W5 adjacent)
+
+Historical W5 room rows only. Several operations below (detour, object role, resource allocation, trigger timing) may belong to earlier Worlds or remain unassigned. Do not steal them to fill W5.
 
 If two adjacent rooms share one reasoning operation, mark for future merge/reorder. Not new Pattern IDs.
 
@@ -750,4 +859,5 @@ Conceptual only. Do not fabricate PASS.
 - Do not implement rooms or gimmicks from this file.
 - Do not grow the New Rule Budget to fill world length.
 - Do not specify geometry, counts, or durations.
-- Knowledge Gate IDs are retained and are not extra `LVL-` IDs (28 historical player-gate labels; no W5-GATE-7). Current W1 graduation is W1-K evidence language, not W1-GATE-2/3.
+- Do not define a World by its historical gimmick inventory or slot count.
+- Knowledge Gate IDs are retained and are not extra `LVL-` IDs (28 historical player-gate labels; no W5-GATE-7). Current graduation is the World Knowledge Architecture evidence language, not historical gate-to-gimmick checklists.

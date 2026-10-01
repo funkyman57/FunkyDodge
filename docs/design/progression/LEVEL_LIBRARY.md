@@ -2,7 +2,7 @@
 
 Levels instantiate discoveries. They sequence into worlds.
 
-All W1–W5 rows are **progression candidates** (60 slots, not a ship count). Official lifecycle status: `CANDIDATE`. Do not add a new lifecycle state. Documentation is not validation. Do not promote to EXPERIMENTAL / VALIDATED / CORE from this file.
+All W1–W5 rows are **historical candidate inventories** (60 slots, not a ship count). Official lifecycle status: `CANDIDATE`. Historical World assignment ≠ current production commitment. Worlds are knowledge domains: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Do not add a new lifecycle state. Documentation is not validation. Do not promote to EXPERIMENTAL / VALIDATED / CORE from this file. Do not redesign these rooms from this pass.
 
 **Do not implement these rooms.** PLAY-002 has not started. PLAY-001B feel validation is pending. Do not start W4 implementation.
 
@@ -81,7 +81,9 @@ Gimmicks: none.
 
 Current Slice (authoritative planning labels): A+B-1 → C-1 → D-1 → G-1. G-3 backup.
 
-### WLD-02 — 12
+### WLD-02 — historical candidate inventory
+
+IDs and titles preserved. **Not** a production count. W2 identity is carried-motion knowledge, not Wind / Ice / Rough. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
 
 | ID | Title | Purpose |
 | --- | --- | --- |
@@ -98,9 +100,11 @@ Current Slice (authoritative planning labels): A+B-1 → C-1 → D-1 → G-1. G-
 | LVL-W02-011 | Enter Differently | REINTERPRET |
 | LVL-W02-012 | Momentum Laboratory | MASTERY |
 
-Gimmicks: Wind, Ice, Rough only. No Spring.
+Historical expression candidates: Wind, Ice, Rough. No Spring. These gimmicks do **not** define W2.
 
-### WLD-03 — 12
+### WLD-03 — historical candidate inventory
+
+IDs and titles preserved. **Not** a production count. W3 identity is world-state possibility, not Door / Switch. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
 
 | ID | Title | Purpose |
 | --- | --- | --- |
@@ -117,9 +121,11 @@ Gimmicks: Wind, Ice, Rough only. No Spring.
 | LVL-W03-011 | Door × Momentum | COMBINE |
 | LVL-W03-012 | The Door Is Not a Door | MASTERY / REINTERPRET |
 
-Gimmicks: Door, Switch only. No Moving Block / One-way Surface.
+Historical expression candidates: Door, Switch. No Moving Block / One-way Surface. These gimmicks do **not** define W3.
 
-### WLD-04 — 12
+### WLD-04 — historical candidate inventory
+
+IDs and titles preserved. **Not** a production count. W4 identity is future-state planning, not Counter / Gate / Delay. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
 
 | ID | Title | Purpose |
 | --- | --- | --- |
@@ -136,9 +142,11 @@ Gimmicks: Door, Switch only. No Moving Block / One-way Surface.
 | LVL-W04-011 | Meet Me There | SYNCHRONIZATION / TEST |
 | LVL-W04-012 | The Right Time | MASTERY |
 
-Gimmicks: Bounce Counter, Timed Gate, Delayed Switch (or Switch+Delay). Planning, not twitch.
+Historical expression candidates: Bounce Counter, Timed Gate, Delayed Switch (or Switch+Delay). Planning, not twitch. Event-count is TIME only if it changes future-state prediction.
 
-### WLD-05 — 12
+### WLD-05 — historical candidate inventory
+
+IDs and titles preserved. **Not** a protected room count. W5 is a synthesis stage, not Remix / Hard Mode. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
 
 | ID | Title | Purpose |
 | --- | --- | --- |
@@ -417,6 +425,8 @@ Do not mark Wall Jump `CORE`.
 
 ## World 2
 
+Historical candidate inventory. Official status remains `CANDIDATE`. Historical World assignment ≠ current production commitment. Current W2 domain (carried motion, not Wind / Ice / Rough): [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W2-GATE-*` fields below are historical IDs.
+
 ### LVL-W02-001 — Something Is Pushing Me
 
 | Field | Value |
@@ -654,6 +664,8 @@ Do not mark Wall Jump `CORE`.
 ---
 
 ## World 3
+
+Historical candidate inventory. Official status remains `CANDIDATE`. Historical World assignment ≠ current production commitment. Current W3 domain (world-state possibility, not Door / Switch): [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W3-GATE-*` fields below are historical IDs.
 
 ### LVL-W03-001 — Closed
 
@@ -893,7 +905,9 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 
 ## World 4
 
-Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY-001B / relevant prototype validation. Numeric counts in titles are illustrative, not canonical.
+Historical candidate inventory. Official status remains `CANDIDATE`. Historical World assignment ≠ current production commitment. Current W4 domain (future-state planning, not Counter / Gate / Delay; not reaction): [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W4-GATE-*` fields below are historical IDs.
+
+Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY-001B / relevant prototype validation. Numeric counts in titles are illustrative, not canonical. Event-count is TIME only if it changes future-state prediction.
 
 ### LVL-W04-001 — One, Two, Three
 
@@ -1121,7 +1135,9 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 
 ## World 5
 
-New Rule 0. New Gimmick 0. Hidden mechanic 0. Adjacent rooms must use different cognitive operations ([WORLD_LIBRARY.md](WORLD_LIBRARY.md)).
+Historical candidate inventory. Official status remains `CANDIDATE`. The 12-slot count is **not** protected. W5 is a synthesis / autonomy stage, not Remix / Hard Mode and not a fifth mechanic domain. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W5-GATE-*` fields below are historical IDs.
+
+New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from earlier Worlds to fill W5. Adjacent rooms must use different cognitive operations ([WORLD_LIBRARY.md](WORLD_LIBRARY.md)).
 
 ### LVL-W05-001 — You Know This
 
@@ -1375,3 +1391,4 @@ Gate definitions: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
 - Do not invent geometry, counts, durations, or physics values.
 - Do not invent new INT / DSC IDs.
 - Do not start W4 implementation or PLAY-001B from this document.
+- Historical World assignment ≠ current production commitment. Do not define a World by its historical gimmick list or slot count.

@@ -43,14 +43,14 @@ They describe what the game is allowed to be. They do not automatically describe
 | [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) | Architecture, vocabulary (Knowledge Graph, Knowledge Gate, Movement State), lifecycle, current boundary. |
 | [libraries/RULE_LIBRARY.md](libraries/RULE_LIBRARY.md) | Stable rules and tunable parameters. |
 | [libraries/INTERACTION_LIBRARY.md](libraries/INTERACTION_LIBRARY.md) | What happens when rules combine. |
-| [libraries/GIMMICK_LIBRARY.md](libraries/GIMMICK_LIBRARY.md) | Embodied objects / surfaces / devices. |
+| [libraries/GIMMICK_LIBRARY.md](libraries/GIMMICK_LIBRARY.md) | Expression tools. Gimmicks do not own Worlds. |
 | [libraries/PUZZLE_PATTERN_LIBRARY.md](libraries/PUZZLE_PATTERN_LIBRARY.md) | Abstract puzzle structures. |
-| [libraries/DISCOVERY_LIBRARY.md](libraries/DISCOVERY_LIBRARY.md) | Player realizations + Discovery Language System v1 (`DL-01`–`DL-08`). DSC-006 / DSC-017 have current W1 scope notes. |
+| [libraries/DISCOVERY_LIBRARY.md](libraries/DISCOVERY_LIBRARY.md) | Player realizations + Discovery Language System v1 (`DL-01`–`DL-08`). Mixed / unassigned IDs stay unassigned. |
 | [libraries/ANTI_PATTERN_LIBRARY.md](libraries/ANTI_PATTERN_LIBRARY.md) | What we refuse to ship. |
-| [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) | **Start here for W1.** Current Knowledge Architecture + role model first; historical 12-slot lineage after. |
-| [progression/LEVEL_LIBRARY.md](progression/LEVEL_LIBRARY.md) | Room IDs. W1 12-slot list = historical inventory, not the shipping plan. |
+| [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) | **World Knowledge Architecture.** Knowledge domains first; W1 role model; historical 12-slot lineage after. |
+| [progression/LEVEL_LIBRARY.md](progression/LEVEL_LIBRARY.md) | Room IDs. Historical World assignment ≠ production commitment. |
 
-W1 reading order: (1) current Knowledge Architecture in WORLD_LIBRARY → (2) current role-based structure → (3) historical 12-slot inventory as lineage → (4) Discovery Language → (5) historical DSC / gate references with scope notes. Do not treat “12 rooms teaching every movement technique” as the active plan.
+Reading order: (1) Constitution → (2) World Knowledge Architecture in WORLD_LIBRARY → (3) current W1 architecture → (4) Discovery Language → (5) Libraries → (6) historical content as lineage. Prefer “choose knowledge question → find the smallest expression.” Do not “choose gimmick → assign World → make room.” Do not treat “12 rooms teaching every movement technique” as the active plan.
 
 ---
 
@@ -72,12 +72,14 @@ Movement foundation is **not finalized**. Human Movement Validation #3 is **pend
 
 PLAY-002 remains **LOCKED**. Vertical Slice implementation remains **HOLD**.
 
-W1 Knowledge Architecture and Discovery Language System: **CANDIDATE**. Do not promote to `VALIDATED` / `CORE`.
+W1 Knowledge Architecture, Discovery Language System, and World Knowledge Architecture: **CANDIDATE**. Do not promote to `VALIDATED` / `CORE`. This pass does not validate W2–W5 content, gimmicks, or movement experiments.
 
 See [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) for the full boundary statement.
 
 `INT-001`–`INT-028` and `DSC-001`–`DSC-018` are imported as `CANDIDATE` (DOC-001A). Documentation does not validate them.
 
+Worlds are knowledge domains (CONTROL → MOMENTUM → POSSIBILITY → TIME → UNDERSTANDING). W5 is a synthesis stage, not a fifth mechanic pack.
+
 W1 current planning is **role-based** (FOUNDATION → CONTEXTUAL CHOICE → PREPARATION → TRANSFER → [CONDITIONAL SYNTHESIS]). The historical W1 12-slot list is lineage only — not “W1 must have 12 rooms and teach every movement technique.” See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
 
-W2–W5 room rows remain 12-slot **historical candidate inventories** each (`CANDIDATE`). Do not implement them. Geometry, counts, and durations stay `TBD — after movement validation / relevant prototype validation`.
+W2–W5 room rows remain 12-slot **historical candidate inventories** each (`CANDIDATE`). Historical gimmick groupings (Wind/Ice/Rough, Door/Switch, Counter/Gate/Delay) do **not** define those Worlds. Do not implement them. Geometry, counts, and durations stay `TBD — after movement validation / relevant prototype validation`.
