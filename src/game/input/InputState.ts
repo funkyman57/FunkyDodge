@@ -56,6 +56,10 @@ export class InputState implements HorizontalInputSnapshot {
   leftReleasedAt: number | null = null;
   rightReleasedAt: number | null = null;
 
+  spaceDown = false;
+  spaceJustPressed = false;
+  spacePressedAt: number | null = null;
+
   lastHorizontalDirection: HorizontalDirection = 0;
   lastInputLabel = "NONE";
 
@@ -69,10 +73,17 @@ export class InputState implements HorizontalInputSnapshot {
     return 0;
   }
 
-  update(nowMs: number, leftDown: boolean, rightDown: boolean, restartJustPressed: boolean): void {
+  update(
+    nowMs: number,
+    leftDown: boolean,
+    rightDown: boolean,
+    restartJustPressed: boolean,
+    spaceDown = false,
+  ): void {
     this.restartJustPressed = restartJustPressed;
     this.leftJustPressed = leftDown && !this.leftDown;
     this.rightJustPressed = rightDown && !this.rightDown;
+    this.spaceJustPressed = spaceDown && !this.spaceDown;
 
     if (this.leftJustPressed) {
       this.leftPressedAt = nowMs;
@@ -90,8 +101,16 @@ export class InputState implements HorizontalInputSnapshot {
       this.rightReleasedAt = nowMs;
     }
 
+    if (this.spaceJustPressed) {
+      this.spacePressedAt = nowMs;
+      if (!this.leftJustPressed && !this.rightJustPressed) {
+        this.lastInputLabel = "SPACE";
+      }
+    }
+
     this.leftDown = leftDown;
     this.rightDown = rightDown;
+    this.spaceDown = spaceDown;
 
     if (leftDown && !rightDown) {
       this.lastHorizontalDirection = -1;
@@ -130,16 +149,19 @@ export class InputState implements HorizontalInputSnapshot {
     return leftRelease >= rightRelease ? leftTap : rightTap;
   }
 
-  adoptHeld(leftDown: boolean, rightDown: boolean): void {
+  adoptHeld(leftDown: boolean, rightDown: boolean, spaceDown = false): void {
     this.leftDown = leftDown;
     this.rightDown = rightDown;
+    this.spaceDown = spaceDown;
     this.leftJustPressed = false;
     this.rightJustPressed = false;
+    this.spaceJustPressed = false;
     this.restartJustPressed = false;
     this.leftPressedAt = null;
     this.rightPressedAt = null;
     this.leftReleasedAt = null;
     this.rightReleasedAt = null;
+    this.spacePressedAt = null;
     this.lastHorizontalDirection = leftDown && !rightDown ? -1 : rightDown && !leftDown ? 1 : 0;
   }
 
@@ -148,6 +170,9 @@ export class InputState implements HorizontalInputSnapshot {
     this.rightDown = false;
     this.leftJustPressed = false;
     this.rightJustPressed = false;
+    this.spaceJustPressed = false;
+    this.spaceDown = false;
+    this.spacePressedAt = null;
     this.restartJustPressed = false;
     this.leftPressedAt = null;
     this.rightPressedAt = null;

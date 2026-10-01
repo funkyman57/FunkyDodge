@@ -32,6 +32,7 @@ export class PlaygroundScene extends Phaser.Scene {
     a: Phaser.Input.Keyboard.Key;
     d: Phaser.Input.Keyboard.Key;
     r: Phaser.Input.Keyboard.Key;
+    space: Phaser.Input.Keyboard.Key;
   };
 
   constructor() {
@@ -75,18 +76,21 @@ export class PlaygroundScene extends Phaser.Scene {
       a: Phaser.Input.Keyboard.KeyCodes.A,
       d: Phaser.Input.Keyboard.KeyCodes.D,
       r: Phaser.Input.Keyboard.KeyCodes.R,
+      space: Phaser.Input.Keyboard.KeyCodes.SPACE,
     }) as typeof this.keys;
 
     this.add
       .text(PhysicsConfig.width - 16, 12, [
         "PHYSICS PLAYGROUND",
-        "LOW input experiment",
+        "Charge BOOST experiment",
         "A/D or arrows: move",
+        "Hold Space: charge",
+        "Release Space: cancel",
+        "READY + floor bounce: BOOST",
         "R: restart",
         "L: toggle Physics Lab",
         "LEGACY: fresh tap = LOW",
-        "RHYTHM: 따닥 entry, 탁 continue",
-        "Hold into land: BOOST",
+        "Direction hold is not BOOST",
         "Opposite on wall: WALL JUMP",
       ].join("\n"), {
         fontFamily: "DejaVu Sans Mono, JetBrains Mono, monospace",
@@ -103,9 +107,10 @@ export class PlaygroundScene extends Phaser.Scene {
     const override = debugInputOverride();
     const leftDown = override.left ?? (this.keys.left.isDown || this.keys.a.isDown);
     const rightDown = override.right ?? (this.keys.right.isDown || this.keys.d.isDown);
+    const spaceDown = override.space ?? this.keys.space.isDown;
     const restartJustPressed = override.restart || Phaser.Input.Keyboard.JustDown(this.keys.r);
 
-    this.inputState.update(time, leftDown, rightDown, restartJustPressed);
+    this.inputState.update(time, leftDown, rightDown, restartJustPressed, spaceDown);
     if (LowInputExperiment.mode === "RHYTHM") {
       sharedRhythmRecognizer.update(time, leftDown, rightDown);
     }
@@ -123,25 +128,26 @@ export class PlaygroundScene extends Phaser.Scene {
     const physical = this.physicalDirections();
     this.controller.reset();
     this.inputState.reset();
-    this.inputState.adoptHeld(physical.left, physical.right);
+    this.inputState.adoptHeld(physical.left, physical.right, physical.space);
     sharedRhythmRecognizer.reset(reason, physical.left, physical.right);
   }
 
-  private physicalDirections(): { left: boolean; right: boolean } {
+  private physicalDirections(): { left: boolean; right: boolean; space: boolean } {
     if (!this.keys) {
-      return { left: false, right: false };
+      return { left: false, right: false, space: false };
     }
     const override = debugInputOverride();
     return {
       left: override.left ?? (this.keys.left.isDown || this.keys.a.isDown),
       right: override.right ?? (this.keys.right.isDown || this.keys.d.isDown),
+      space: override.space ?? this.keys.space.isDown,
     };
   }
 
   private readonly handleFocusLoss = (): void => {
     const physical = this.physicalDirections();
     sharedRhythmRecognizer.reset("FOCUS_LOSS", physical.left, physical.right);
-    this.inputState.adoptHeld(physical.left, physical.right);
+    this.inputState.adoptHeld(physical.left, physical.right, physical.space);
   };
 
   private readonly handleVisibilityChange = (): void => {
@@ -213,6 +219,7 @@ function label(scene: Phaser.Scene, x: number, y: number, text: string): void {
 type DebugInputOverride = {
   left?: boolean;
   right?: boolean;
+  space?: boolean;
   restart?: boolean;
 };
 
@@ -266,6 +273,10 @@ function publishDebugState(
     freshPress: player.freshPressThisFrame,
     pressImpulse: player.lastPressImpulse,
     pressAgeMs: input.getFreshHorizontalPress(nowMs)?.ageMs ?? null,
+    chargePhase: player.chargePhase,
+    chargeProgress: player.chargeProgress01,
+    chargeEvent: hud.lastChargeEvent,
+    spaceDown: input.spaceDown,
     airReverse: hud.lastAirReverseLabel,
     held: input.leftDown ? "LEFT" : input.rightDown ? "RIGHT" : "NONE",
     lastInput: input.lastInputLabel,
