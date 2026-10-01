@@ -12,6 +12,7 @@ import {
   type AirReverseHud,
   type WallContactPhase,
 } from "./MovementDiagnostics";
+import type { BinaryWorldState, WorldStateChangeReason } from "./WorldStateProbe";
 
 export class DebugHud {
   private readonly text: Phaser.GameObjects.Text;
@@ -38,7 +39,12 @@ export class DebugHud {
       .setScrollFactor(0);
   }
 
-  update(player: PlayerController, input: InputState, nowMs: number): void {
+  update(
+    player: PlayerController,
+    input: InputState,
+    nowMs: number,
+    worldState?: { state: BinaryWorldState; lastReason: WorldStateChangeReason },
+  ): void {
     this.text.setVisible(PhysicsConfig.debug);
     if (!PhysicsConfig.debug) {
       return;
@@ -78,6 +84,8 @@ export class DebugHud {
 
     this.text.setText(
       [
+        worldState ? `W3 STATE ${worldState.state}` : "",
+        worldState?.lastReason === "REFUSED_OVERLAP" ? "W3 toggle refused (overlap)" : "",
         `vx ${player.vx.toFixed(1)}`,
         `vy ${player.vy.toFixed(1)}`,
         `Horizontal Input ${horizontalInput}`,

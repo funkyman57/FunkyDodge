@@ -18,6 +18,7 @@ import {
   type PhysicsTuningValues,
 } from "../physics/PhysicsTuning";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
+import type { BinaryWorldState, WorldStateScenarioId } from "./WorldStateProbe";
 import "./physics-lab.css";
 
 type LabField = {
@@ -48,12 +49,15 @@ const FIELDS: LabField[] = [
 export type PhysicsLabHandle = {
   applyPreset: (name: PhysicsPresetName) => void;
   destroy: () => void;
+  setWorldStateUi: (state: BinaryWorldState) => void;
 };
 
 export function mountPhysicsLab(options: {
   onResetBall: () => void;
   onValuesChanged: () => void;
   onModeOrTimingChanged: (reason: "MODE_SWITCH" | "TIMING_EDIT") => void;
+  onWorldStateSet?: (state: BinaryWorldState) => void;
+  onWorldStateLaunch?: (id: WorldStateScenarioId) => void;
 }): PhysicsLabHandle {
   const root = document.createElement("aside");
   root.className = "physics-lab";
@@ -63,6 +67,9 @@ export function mountPhysicsLab(options: {
     <div class="physics-lab-timing"></div>
     <div class="physics-lab-presets"></div>
     <div class="physics-lab-actions"></div>
+    <h3>W3 STATE</h3>
+    <div class="physics-lab-world-state"></div>
+    <p class="physics-lab-note">T toggle · 5 SOLID A · 6 PASSABLE B. Diagnostic only.</p>
     <form class="physics-lab-fields"></form>
     <div class="physics-lab-metrics"></div>
     <p class="physics-lab-note">Dev only. Input mode is independent of physics presets. Timing seeds are provisional.</p>
@@ -72,7 +79,9 @@ export function mountPhysicsLab(options: {
   const timingBox = root.querySelector(".physics-lab-timing") as HTMLElement;
   const presetRow = root.querySelector(".physics-lab-presets") as HTMLElement;
   const actionRow = root.querySelector(".physics-lab-actions") as HTMLElement;
+  const worldStateRow = root.querySelector(".physics-lab-world-state") as HTMLElement;
   const form = root.querySelector(".physics-lab-fields") as HTMLFormElement;
+  let worldState: BinaryWorldState = "SOLID";
   const metrics = root.querySelector(".physics-lab-metrics") as HTMLElement;
 
   let selectedPreset: PhysicsPresetName = "DYNAMIC";
@@ -175,6 +184,30 @@ export function mountPhysicsLab(options: {
   });
 
   actionRow.append(resetBall, resetValues, copyValues, copyExperiment);
+
+  const worldButtons = (["SOLID", "PASSABLE"] as const).map((name) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = name;
+    button.addEventListener("click", () => options.onWorldStateSet?.(name));
+    worldStateRow.append(button);
+    return { name, button };
+  });
+  const launchA = document.createElement("button");
+  launchA.type = "button";
+  launchA.textContent = "A";
+  launchA.addEventListener("click", () => options.onWorldStateLaunch?.("A"));
+  const launchB = document.createElement("button");
+  launchB.type = "button";
+  launchB.textContent = "B";
+  launchB.addEventListener("click", () => options.onWorldStateLaunch?.("B"));
+  worldStateRow.append(launchA, launchB);
+
+  function refreshWorldState(): void {
+    for (const entry of worldButtons) {
+      entry.button.dataset.active = String(entry.name === worldState);
+    }
+  }
 
   for (const field of FIELDS) {
     const label = document.createElement("label");
@@ -285,12 +318,18 @@ export function mountPhysicsLab(options: {
   refreshTiming();
   applyPreset("DYNAMIC");
 
+  refreshWorldState();
+
   return {
     applyPreset,
     destroy() {
       window.removeEventListener("keydown", onKeyDown);
       root.remove();
       applyPhysicsTuning(PHYSICS_PRESETS.CURRENT);
+    },
+    setWorldStateUi(state: BinaryWorldState) {
+      worldState = state;
+      refreshWorldState();
     },
   };
 }

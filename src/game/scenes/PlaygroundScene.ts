@@ -1,6 +1,12 @@
 import Phaser from "phaser";
 import { DebugHud } from "../debug/DebugHud";
 import { mountPhysicsLab, physicsLabEnabled, type PhysicsLabHandle } from "../debug/PhysicsLab";
+import {
+  WORLD_STATE_TRAVERSAL,
+  type BinaryWorldState,
+  type WorldStateScenarioId,
+} from "../debug/WorldStateProbe";
+import { WorldStateProbeView } from "../debug/WorldStateProbeView";
 import { InputState } from "../input/InputState";
 import { LowInputExperiment, type ClearReason } from "../input/LowInputExperiment";
 import { sharedRhythmRecognizer } from "../input/RhythmRecognizer";
@@ -32,7 +38,12 @@ export class PlaygroundScene extends Phaser.Scene {
     a: Phaser.Input.Keyboard.Key;
     d: Phaser.Input.Keyboard.Key;
     r: Phaser.Input.Keyboard.Key;
+    t: Phaser.Input.Keyboard.Key;
+    five: Phaser.Input.Keyboard.Key;
+    six: Phaser.Input.Keyboard.Key;
   };
+  private probe!: WorldStateProbeView;
+  private roomSolids: Solid[] = [];
 
   constructor() {
     super("PlaygroundScene");
@@ -44,11 +55,14 @@ export class PlaygroundScene extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, PhysicsConfig.width, PhysicsConfig.height);
 
     const { solids, platforms } = this.createTestRoom();
+    this.roomSolids = solids;
+    this.probe = new WorldStateProbeView(this);
+    platforms.push(this.probe.rect);
 
     this.player = new BallPlayer(this);
     this.inputState = new InputState();
     this.controller = new PlayerController(this.player, this.inputState);
-    this.controller.setSolids(solids);
+    this.syncSolids();
     this.hud = new DebugHud(this);
     if (physicsLabEnabled()) {
       this.physicsLab = mountPhysicsLab({
@@ -57,8 +71,11 @@ export class PlaygroundScene extends Phaser.Scene {
           this.physics.world.gravity.y = PhysicsConfig.gravity;
         },
         onModeOrTimingChanged: (reason) => this.resetPlaySession(reason),
+        onWorldStateSet: (state) => this.setProbeState(state),
+        onWorldStateLaunch: (id) => this.launchWorldState(id),
       });
       this.physics.world.gravity.y = PhysicsConfig.gravity;
+      this.physicsLab.setWorldStateUi(this.probe.model.state);
     }
 
     window.addEventListener("blur", this.handleFocusLoss);
@@ -75,6 +92,9 @@ export class PlaygroundScene extends Phaser.Scene {
       a: Phaser.Input.Keyboard.KeyCodes.A,
       d: Phaser.Input.Keyboard.KeyCodes.D,
       r: Phaser.Input.Keyboard.KeyCodes.R,
+      t: Phaser.Input.Keyboard.KeyCodes.T,
+      five: Phaser.Input.Keyboard.KeyCodes.FIVE,
+      six: Phaser.Input.Keyboard.KeyCodes.SIX,
     }) as typeof this.keys;
 
     this.add
@@ -84,6 +104,8 @@ export class PlaygroundScene extends Phaser.Scene {
         "A/D or arrows: move",
         "R: restart",
         "L: toggle Physics Lab",
+        "T: W3 state toggle",
+        "5/6: W3 SOLID/PASSABLE launch",
         "LEGACY: fresh tap = LOW",
         "RHYTHM: 따닥 entry, 탁 continue",
         "Hold into land: BOOST",
@@ -100,6 +122,17 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   update(time: number, delta: number): void {
+    const typing = document.activeElement instanceof HTMLInputElement;
+    if (!typing) {
+      if (Phaser.Input.Keyboard.JustDown(this.keys.t)) {
+        this.setProbeState(this.probe.model.state === "SOLID" ? "PASSABLE" : "SOLID");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.five)) {
+        this.launchWorldState("A");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.six)) {
+        this.launchWorldState("B");
+      }
+    }
+
     const override = debugInputOverride();
     const leftDown = override.left ?? (this.keys.left.isDown || this.keys.a.isDown);
     const rightDown = override.right ?? (this.keys.right.isDown || this.keys.d.isDown);
@@ -115,8 +148,8 @@ export class PlaygroundScene extends Phaser.Scene {
     }
 
     this.controller.update(time, delta);
-    this.hud.update(this.controller, this.inputState, time);
-    publishDebugState(this.controller, this.inputState, this.hud, time);
+    this.hud.update(this.controller, this.inputState, time, this.probe.model);
+    publishDebugState(this.controller, this.inputState, this.hud, time, this.probe.model.state);
   }
 
   private resetPlaySession(reason: Exclude<ClearReason, null>): void {
@@ -125,6 +158,30 @@ export class PlaygroundScene extends Phaser.Scene {
     this.inputState.reset();
     this.inputState.adoptHeld(physical.left, physical.right);
     sharedRhythmRecognizer.reset(reason, physical.left, physical.right);
+    this.probe.reset(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.syncSolids();
+    this.physicsLab?.setWorldStateUi(this.probe.model.state);
+  }
+
+  private setProbeState(state: BinaryWorldState): void {
+    this.probe.setState(state, this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.syncSolids();
+    this.physicsLab?.setWorldStateUi(this.probe.model.state);
+  }
+
+  private launchWorldState(id: WorldStateScenarioId): void {
+    this.resetPlaySession("RESET");
+    this.setProbeState(id === "A" ? "SOLID" : "PASSABLE");
+    this.controller.placeAt(
+      WORLD_STATE_TRAVERSAL.startX,
+      WORLD_STATE_TRAVERSAL.startY,
+      WORLD_STATE_TRAVERSAL.vx,
+      WORLD_STATE_TRAVERSAL.vy,
+    );
+  }
+
+  private syncSolids(): void {
+    this.controller.setSolids([...this.roomSolids, ...this.probe.solids]);
   }
 
   private physicalDirections(): { left: boolean; right: boolean } {
@@ -237,6 +294,7 @@ function publishDebugState(
   input: InputState,
   hud: DebugHud,
   nowMs: number,
+  worldState?: BinaryWorldState,
 ): void {
   if (!PhysicsConfig.debug) {
     return;
@@ -274,5 +332,6 @@ function publishDebugState(
     landingBoostWindow: player.landingBoostWindowActive,
     x: player.x,
     y: player.y,
+    worldState: worldState ?? null,
   };
 }
