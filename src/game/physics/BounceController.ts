@@ -54,29 +54,131 @@ export function resolveLandingIntent(
   return "NONE";
 }
 
+export type WallJumpContactPhase = "NONE" | "NEW" | "STAY";
+
+export type WallJumpWindowState = {
+  prevWallLeft: boolean;
+  prevWallRight: boolean;
+  windowUntilMs: number;
+  firedThisContact: boolean;
+};
+
+export type WallJumpPress = {
+  leftDown: boolean;
+  rightDown: boolean;
+  leftJustPressed: boolean;
+  rightJustPressed: boolean;
+};
+
+export function createWallJumpWindowState(): WallJumpWindowState {
+  return {
+    prevWallLeft: false,
+    prevWallRight: false,
+    windowUntilMs: 0,
+    firedThisContact: false,
+  };
+}
+
+export function resolveWallJumpContactPhase(
+  prevLeft: boolean,
+  prevRight: boolean,
+  wallLeft: boolean,
+  wallRight: boolean,
+): WallJumpContactPhase {
+  if (!wallLeft && !wallRight) {
+    return "NONE";
+  }
+
+  const newLeft = wallLeft && !prevLeft;
+  const newRight = wallRight && !prevRight;
+  if (newLeft || newRight) {
+    return "NEW";
+  }
+
+  return "STAY";
+}
+
+export function stepWallJumpWindow(
+  state: WallJumpWindowState,
+  wallLeft: boolean,
+  wallRight: boolean,
+  nowMs: number,
+  windowMs: number = PhysicsConfig.wallJumpResponseWindowMs,
+): WallJumpWindowState {
+  const phase = resolveWallJumpContactPhase(
+    state.prevWallLeft,
+    state.prevWallRight,
+    wallLeft,
+    wallRight,
+  );
+  const next: WallJumpWindowState = {
+    prevWallLeft: wallLeft,
+    prevWallRight: wallRight,
+    windowUntilMs: state.windowUntilMs,
+    firedThisContact: state.firedThisContact,
+  };
+
+  if (phase === "NONE") {
+    next.windowUntilMs = 0;
+    next.firedThisContact = false;
+    return next;
+  }
+
+  if (phase === "NEW") {
+    next.windowUntilMs = nowMs + windowMs;
+    next.firedThisContact = false;
+    return next;
+  }
+
+  return next;
+}
+
+export function isWallJumpWindowActive(state: WallJumpWindowState, nowMs: number): boolean {
+  return !state.firedThisContact && state.windowUntilMs > 0 && nowMs <= state.windowUntilMs;
+}
+
+export function isWallJumpExpired(
+  state: WallJumpWindowState,
+  wallLeft: boolean,
+  wallRight: boolean,
+  nowMs: number,
+): boolean {
+  return (wallLeft || wallRight)
+    && !state.firedThisContact
+    && state.windowUntilMs > 0
+    && nowMs > state.windowUntilMs;
+}
+
 export function isWallJumpEligible(
   wallLeft: boolean,
   wallRight: boolean,
-  input: BounceInput,
+  press: WallJumpPress,
   nowMs: number,
-  bufferMs: number = PhysicsConfig.wallInputBufferMs,
+  state: WallJumpWindowState,
 ): -1 | 1 | 0 {
   if (wallLeft && wallRight) {
     return 0;
   }
+  if (!isWallJumpWindowActive(state, nowMs)) {
+    return 0;
+  }
 
-  const leftIntent = hasHorizontalIntent("left", input, nowMs, bufferMs);
-  const rightIntent = hasHorizontalIntent("right", input, nowMs, bufferMs);
-
-  if (wallLeft && rightIntent && !input.leftDown) {
+  if (wallLeft && press.rightJustPressed && !press.leftDown) {
     return 1;
   }
 
-  if (wallRight && leftIntent && !input.rightDown) {
+  if (wallRight && press.leftJustPressed && !press.rightDown) {
     return -1;
   }
 
   return 0;
+}
+
+export function markWallJumpFired(state: WallJumpWindowState): WallJumpWindowState {
+  return {
+    ...state,
+    firedThisContact: true,
+  };
 }
 
 export function isAirReversing(vx: number, leftDown: boolean, rightDown: boolean): boolean {
@@ -277,19 +379,6 @@ export function resolveFloorBounce(input: BounceInput, nowMs: number): FloorBoun
   }
 
   return createFloorBounceResult("NORMAL");
-}
-
-function hasHorizontalIntent(
-  side: "left" | "right",
-  input: BounceInput,
-  nowMs: number,
-  bufferMs: number,
-): boolean {
-  if (side === "left") {
-    return input.leftDown || (input.leftPressedAt !== null && nowMs - input.leftPressedAt <= bufferMs);
-  }
-
-  return input.rightDown || (input.rightPressedAt !== null && nowMs - input.rightPressedAt <= bufferMs);
 }
 
 function resolveBoostDirection(input: BounceInput): -1 | 0 | 1 {

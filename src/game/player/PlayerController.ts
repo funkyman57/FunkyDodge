@@ -4,16 +4,24 @@ import { ExperimentReport, LowInputExperiment } from "../input/LowInputExperimen
 import { rhythmDecisionToLegacyReason, sharedRhythmRecognizer, type RhythmPreview } from "../input/RhythmRecognizer";
 import {
   BounceType,
+  createWallJumpWindowState,
   isWallJumpEligible,
+  isWallJumpExpired,
+  isWallJumpWindowActive,
   LandingIntent,
+  markWallJumpFired,
   MovementState,
   resolveFloorBounce,
   resolveLandingIntent,
   resolveMovementState,
   resolveTakeoffDirection,
   resolveTakeoffVelocity,
+  resolveWallJumpContactPhase,
   resolveWallJumpVelocity,
   stepHorizontalVelocity,
+  stepWallJumpWindow,
+  type WallJumpContactPhase,
+  type WallJumpWindowState,
 } from "../physics/BounceController";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import { BallPlayer, BallVisualState } from "./BallPlayer";
@@ -43,9 +51,13 @@ export class PlayerController {
   rhythmPreview: RhythmPreview | null = null;
 
   lastWallJumpAt = 0;
+  wallContactPhase: WallJumpContactPhase = "NONE";
+  wallJumpWindowActive = false;
+  wallJumpExpired = false;
 
   private bounceApplied = false;
   private wallJumpConsumed = false;
+  private wallJumpWindow: WallJumpWindowState = createWallJumpWindowState();
   private boostUntilMs = 0;
   private solids: SolidBody[] = [];
 
@@ -93,6 +105,10 @@ export class PlayerController {
     this.rhythmPreview = null;
     this.bounceApplied = false;
     this.wallJumpConsumed = false;
+    this.wallJumpWindow = createWallJumpWindowState();
+    this.wallContactPhase = "NONE";
+    this.wallJumpWindowActive = false;
+    this.wallJumpExpired = false;
     this.boostUntilMs = 0;
     this.lastWallJumpAt = 0;
   }
@@ -102,7 +118,7 @@ export class PlayerController {
     const dt = deltaMs / 1000;
 
     this.physicsWorldGravity();
-    this.refreshContactFlags(body);
+    this.refreshContactFlags(body, nowMs);
     this.updateApproachWindow(body, nowMs);
     this.refreshRhythmPreview(nowMs);
     this.applyHorizontalControl(body, dt, nowMs);
@@ -116,13 +132,27 @@ export class PlayerController {
     this.player.sprite.scene.physics.world.gravity.y = PhysicsConfig.gravity;
   }
 
-  private refreshContactFlags(body: Phaser.Physics.Arcade.Body): void {
+  private refreshContactFlags(body: Phaser.Physics.Arcade.Body, nowMs: number): void {
     const geometricLeft = this.isTouchingWall(body, "left");
     const geometricRight = this.isTouchingWall(body, "right");
 
     this.grounded = body.blocked.down || body.touching.down;
     this.wallLeft = body.blocked.left || body.touching.left || geometricLeft;
     this.wallRight = body.blocked.right || body.touching.right || geometricRight;
+
+    this.wallContactPhase = resolveWallJumpContactPhase(
+      this.wallJumpWindow.prevWallLeft,
+      this.wallJumpWindow.prevWallRight,
+      this.wallLeft,
+      this.wallRight,
+    );
+    this.wallJumpWindow = stepWallJumpWindow(
+      this.wallJumpWindow,
+      this.wallLeft,
+      this.wallRight,
+      nowMs,
+    );
+    this.refreshWallJumpContractFlags(nowMs);
 
     if (!this.wallLeft && !this.wallRight) {
       this.wallJumpConsumed = false;
@@ -205,19 +235,21 @@ export class PlayerController {
   }
 
   private applyWallJump(nowMs: number): void {
-    if (this.wallJumpConsumed) {
-      return;
-    }
-
     const direction = isWallJumpEligible(
       this.wallLeft,
       this.wallRight,
-      this.input,
+      {
+        leftDown: this.input.leftDown,
+        rightDown: this.input.rightDown,
+        leftJustPressed: this.input.leftJustPressed,
+        rightJustPressed: this.input.rightJustPressed,
+      },
       nowMs,
-      PhysicsConfig.wallInputBufferMs,
+      this.wallJumpWindow,
     );
 
     if (direction === 0) {
+      this.refreshWallJumpContractFlags(nowMs);
       return;
     }
 
@@ -229,14 +261,26 @@ export class PlayerController {
     body.blocked.right = false;
     body.blocked.down = false;
     body.x += direction * 3;
+    this.wallJumpWindow = markWallJumpFired(this.wallJumpWindow);
     this.wallJumpConsumed = true;
     this.lastWallJumpAt = nowMs;
     this.visualState = "WALL";
+    this.refreshWallJumpContractFlags(nowMs);
     if (LowInputExperiment.mode === "RHYTHM") {
       sharedRhythmRecognizer.onWallJump(nowMs);
       this.lastClearReason = "WALL_JUMP";
       ExperimentReport.lastClearReason = "WALL_JUMP";
     }
+  }
+
+  private refreshWallJumpContractFlags(nowMs: number): void {
+    this.wallJumpWindowActive = isWallJumpWindowActive(this.wallJumpWindow, nowMs);
+    this.wallJumpExpired = isWallJumpExpired(
+      this.wallJumpWindow,
+      this.wallLeft,
+      this.wallRight,
+      nowMs,
+    );
   }
 
   private applyFloorBounce(nowMs: number): void {

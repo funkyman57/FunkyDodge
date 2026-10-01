@@ -90,3 +90,21 @@ export function wallJumpHudActive(
 ): boolean {
   return lastWallJumpAt > 0 && nowMs - lastWallJumpAt <= windowMs;
 }
+
+export type WallJumpContractHud = {
+  window: boolean;
+  expired: boolean;
+  fire: boolean;
+};
+
+export function resolveWallJumpContractHud(input: {
+  windowActive: boolean;
+  expired: boolean;
+  fireLatch: boolean;
+}): WallJumpContractHud {
+  return {
+    window: input.windowActive,
+    expired: input.expired,
+    fire: input.fireLatch,
+  };
+}
