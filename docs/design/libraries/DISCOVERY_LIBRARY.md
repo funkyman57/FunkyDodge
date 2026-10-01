@@ -27,7 +27,8 @@ Current knowledge-domain alignment (not forced assignment): [progression/WORLD_L
 | Alignment | IDs |
 | --- | --- |
 | W1 clear | DSC-005 |
-| W2 clear | DSC-002, DSC-003, DSC-004, DSC-008, DSC-009, DSC-017 |
+| W2 strong conceptual | DSC-017 (W2-K01), DSC-003 (preserve), DSC-009 (purposeful loss) |
+| W2 useful / conditional | DSC-002, DSC-004, DSC-008 — not mandatory rooms |
 | W3 clear | DSC-014, DSC-018 |
 | W4 clear | DSC-012, DSC-013 |
 | W4 conditional | DSC-011 — only if event progression changes future-state planning |
@@ -67,7 +68,9 @@ This is an implementation of:
 
 **Status:** `CANDIDATE`. Shared guidance for this library and for progression audits. **Not Constitution.** Do not promote to `VALIDATED` / `CORE`. Do not implement a hint system from this section.
 
-W1 knowledge IDs live in [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md). Movement validation is pending (`docs/playtest/MOVEMENT_VALIDATION_003.md` on `cursor/movement-validation-003-3f71`). Do not record AR-A2 / WJ-B / Charge outcomes here.
+W1-K and W2-K IDs live in [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md). Movement Validation #3 is pending (`docs/playtest/MOVEMENT_VALIDATION_003.md` on `cursor/movement-validation-003-3f71`) and does **not** validate W2-K. Do not record AR-A2 / WJ-B / Charge outcomes here.
+
+Carried motion must be readable without a numeric velocity HUD in production. Necessary facts: continuing direction; relative remaining motion; before / after contact change; whether motion persisted through arrival; earlier influence → later result. Ball spin must **not** automatically mean travel speed. Do not design production UI here.
 
 ### Core statement
 
@@ -424,6 +427,8 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Spoiler Risk | Do not label “use headwind here.” |
 | Validated Level | none |
 
+**World alignment:** useful / conditional W2 expression when the ask is carried motion produced or removed by force. Wind is **not** a mandatory W2 mechanic. May be W3 / W4 if world-state or force timing is the ask.
+
 ---
 
 ### DSC-003 — Ice Stores Momentum
@@ -451,6 +456,8 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Spoiler Risk | Do not narrate “store your speed.” |
 | Validated Level | none |
 
+**World alignment:** strong conceptual fit for W2 preservation (W2-K03 face). Ice is **not** a required W2 mechanic and is not “fast floor.” Do not promote GIM-004.
+
 ---
 
 ### DSC-004 — Friction Can Help
@@ -468,7 +475,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Puzzle Patterns | PAT-005 Kill Momentum |
 | Required Setup | Player already values momentum and can see the grabby surface. |
 | Expected Player Hypothesis | “Slowing ground is bad.” |
-| Trigger Context | After speed has been useful (`DSC-003` or World 1 carry). |
+| Trigger Context | After speed has been useful (`DSC-003` or later motion-state content). Current W1 does **not** already teach carried-motion management. “World 1 carry” is historical wording only. |
 | Discovery Type | Function |
 | Intensity | Not assigned. |
 | Why It Is Fair | High friction is the other configuration of the same rule as ice. |
@@ -477,6 +484,8 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Future Reuse | Later precision landings. |
 | Spoiler Risk | Do not command “stop here.” |
 | Validated Level | none |
+
+**World alignment:** useful / conditional W2 expression of “motion value depends on purpose.” Rough Surface is **not** a required W2 mechanic and is not “slow floor.” Do not promote GIM-005.
 
 ---
 
@@ -592,6 +601,8 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Spoiler Risk | Do not mandate a lap count (ANTI-018). |
 | Validated Level | none |
 
+**World alignment:** useful / conditional W2 expression of BUILD / later-need. Not a mandatory production assignment. Must not reduce to a long run-up.
+
 ---
 
 ### DSC-009 — Lose Speed on Purpose
@@ -618,6 +629,8 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Future Reuse | Later precision rooms. |
 | Spoiler Risk | Do not print “slow down.” |
 | Validated Level | none |
+
+**World alignment:** strong conceptual fit for W2-K03 (more motion is not inherently better). Purposeful loss is required W2 understanding; Rough Surface is not.
 
 ---
 
@@ -847,7 +860,7 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 
 **Current W1 scope:** DSC-017 depends on **entry velocity** differences at the same location. Status remains `CANDIDATE`. Do **not** use this ID as evidence that current W1 already teaches preparation, landing planning, K04, or K05. Those belong to W1-K and the current Slice. Entry-speed management is beyond the current W1 knowledge boundary.
 
-**World alignment:** W2-clear as carried-motion knowledge. **Not** a confirmed W2 room and **not** current W1 graduation evidence.
+**World alignment:** strongly aligns with **W2-K01** (similar spatial arrival + different carried motion = different future). **Not** automatically a required W2 room. Historical slot position is not authoritative. **Not** current W1 graduation evidence. Do not rewrite this Discovery’s meaning.
 
 ---
 
