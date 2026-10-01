@@ -12,6 +12,10 @@ import {
   type AirReverseHud,
   type WallContactPhase,
 } from "./MovementDiagnostics";
+import {
+  scenarioHudName,
+  type ReadabilityHarnessState,
+} from "./ReadabilityHarness";
 
 export class DebugHud {
   private readonly text: Phaser.GameObjects.Text;
@@ -38,9 +42,28 @@ export class DebugHud {
       .setScrollFactor(0);
   }
 
-  update(player: PlayerController, input: InputState, nowMs: number): void {
+  update(
+    player: PlayerController,
+    input: InputState,
+    nowMs: number,
+    readability?: ReadabilityHarnessState,
+  ): void {
     this.text.setVisible(PhysicsConfig.debug);
     if (!PhysicsConfig.debug) {
+      return;
+    }
+
+    if (readability?.displayMode === "PERCEPTION") {
+      const scenario = readability.scenarioId
+        ? scenarioHudName(readability.scenarioId, "PERCEPTION")
+        : "—";
+      this.text.setText(
+        [
+          "PERCEPTION",
+          `scenario ${scenario}`,
+          readability.scripted ? "scripted" : "live",
+        ].join("\n"),
+      );
       return;
     }
 
@@ -76,8 +99,17 @@ export class DebugHud {
     this.lastWallJumpHud = wallJumpHudActive(nowMs, player.lastWallJumpAt);
     const showPressAge = press !== null && (press.held || press.ageMs <= PhysicsConfig.lowBounceFreshPressWindowMs);
 
+    const readabilityLines = readability?.active && readability.scenarioId
+      ? [
+        `READABILITY ${scenarioHudName(readability.scenarioId, "INSTRUMENTED")}`,
+        `mode INSTRUMENTED`,
+        readability.scripted ? `script ${readability.scriptFrame}/${readability.scriptLength}` : "script off",
+      ]
+      : [];
+
     this.text.setText(
       [
+        ...readabilityLines,
         `vx ${player.vx.toFixed(1)}`,
         `vy ${player.vy.toFixed(1)}`,
         `W2 PRE ${player.lastCarryPreVx.toFixed(1)}`,

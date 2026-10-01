@@ -18,6 +18,10 @@ import {
   type PhysicsTuningValues,
 } from "../physics/PhysicsTuning";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
+import {
+  type ReadabilityLabUiState,
+  type ReadabilityScenarioId,
+} from "./ReadabilityHarness";
 import "./physics-lab.css";
 
 type LabField = {
@@ -48,12 +52,15 @@ const FIELDS: LabField[] = [
 export type PhysicsLabHandle = {
   applyPreset: (name: PhysicsPresetName) => void;
   destroy: () => void;
+  setReadabilityState: (state: ReadabilityLabUiState) => void;
 };
 
 export function mountPhysicsLab(options: {
   onResetBall: () => void;
   onValuesChanged: () => void;
   onModeOrTimingChanged: (reason: "MODE_SWITCH" | "TIMING_EDIT") => void;
+  onReadabilityLaunch?: (id: ReadabilityScenarioId) => void;
+  onReadabilityModeToggle?: () => void;
 }): PhysicsLabHandle {
   const root = document.createElement("aside");
   root.className = "physics-lab";
@@ -63,6 +70,9 @@ export function mountPhysicsLab(options: {
     <div class="physics-lab-timing"></div>
     <div class="physics-lab-presets"></div>
     <div class="physics-lab-actions"></div>
+    <h3>W2 READABILITY</h3>
+    <div class="physics-lab-readability"></div>
+    <p class="physics-lab-note">1–4 launch · M mode · R replay. Perception hides numbers.</p>
     <form class="physics-lab-fields"></form>
     <div class="physics-lab-metrics"></div>
     <p class="physics-lab-note">Dev only. Input mode is independent of physics presets. Timing seeds are provisional.</p>
@@ -72,7 +82,13 @@ export function mountPhysicsLab(options: {
   const timingBox = root.querySelector(".physics-lab-timing") as HTMLElement;
   const presetRow = root.querySelector(".physics-lab-presets") as HTMLElement;
   const actionRow = root.querySelector(".physics-lab-actions") as HTMLElement;
+  const readabilityRow = root.querySelector(".physics-lab-readability") as HTMLElement;
   const form = root.querySelector(".physics-lab-fields") as HTMLFormElement;
+  let readabilityState: ReadabilityLabUiState = {
+    scenarioId: null,
+    displayMode: "INSTRUMENTED",
+    active: false,
+  };
   const metrics = root.querySelector(".physics-lab-metrics") as HTMLElement;
 
   let selectedPreset: PhysicsPresetName = "DYNAMIC";
@@ -175,6 +191,28 @@ export function mountPhysicsLab(options: {
   });
 
   actionRow.append(resetBall, resetValues, copyValues, copyExperiment);
+
+  const readabilityButtons = (["A1", "A2", "B", "C"] as const).map((id) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = id;
+    button.addEventListener("click", () => options.onReadabilityLaunch?.(id));
+    readabilityRow.append(button);
+    return { id, button };
+  });
+  const modeButton = document.createElement("button");
+  modeButton.type = "button";
+  modeButton.textContent = "MODE";
+  modeButton.addEventListener("click", () => options.onReadabilityModeToggle?.());
+  readabilityRow.append(modeButton);
+
+  function refreshReadability(): void {
+    for (const entry of readabilityButtons) {
+      entry.button.dataset.active = String(readabilityState.active && readabilityState.scenarioId === entry.id);
+    }
+    modeButton.textContent = readabilityState.displayMode === "PERCEPTION" ? "PERCEPTION" : "INSTRUMENTED";
+    modeButton.dataset.active = String(readabilityState.displayMode === "PERCEPTION");
+  }
 
   for (const field of FIELDS) {
     const label = document.createElement("label");
@@ -285,12 +323,19 @@ export function mountPhysicsLab(options: {
   refreshTiming();
   applyPreset("DYNAMIC");
 
+  refreshReadability();
+
   return {
     applyPreset,
     destroy() {
       window.removeEventListener("keydown", onKeyDown);
       root.remove();
       applyPhysicsTuning(PHYSICS_PRESETS.CURRENT);
+    },
+    setReadabilityState(state: ReadabilityLabUiState) {
+      readabilityState = state;
+      refreshReadability();
+      refreshModes();
     },
   };
 }
