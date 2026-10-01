@@ -182,7 +182,7 @@ Placement is guidance, not ownership. A gimmick does not belong to one World by 
 | Fairness Concerns | Invisible wind is ANTI-001. Instant death from wind is ANTI-013 risk. |
 | Anti-Pattern Risks | ANTI-009 if it only ever pushes you into a pit; ANTI-002 if it secretly changes bounce |
 | Complexity Tier | TBD |
-| Introduced World | WLD-02 (progression guidance, not ownership) |
+| Introduced World | WLD-02 historical expression candidate (guidance, not ownership). Supports W2 when the ask is carried motion produced or removed by the force. May be W3 / W4 by inference. Wind is **not** a mandatory W2 mechanic. |
 | Validated Levels | none |
 
 ---
@@ -208,10 +208,10 @@ Placement is guidance, not ownership. A gimmick does not belong to one World by 
 | Fairness Concerns | Must not look like ordinary ground. |
 | Anti-Pattern Risks | ANTI-006 if the only test is not sliding off; ANTI-018 if longer ice = harder |
 | Complexity Tier | TBD |
-| Introduced World | WLD-02 (progression guidance, not ownership) |
+| Introduced World | WLD-02 historical expression candidate (guidance, not ownership). May expose motion preservation. **Not** “fast floor.” **Not** required for W2 completion. Do not promote. |
 | Validated Levels | none |
 
-Do not create a separate “Ice Rule.” Ice is a Friction configuration.
+Do not create a separate “Ice Rule.” Ice is a Friction configuration. If Ice and Rough only communicate opposite numeric values without changing judgment, they are redundant.
 
 ---
 
@@ -236,7 +236,7 @@ Do not create a separate “Ice Rule.” Ice is a Friction configuration.
 | Fairness Concerns | Must not look like Ice or ordinary ground. |
 | Anti-Pattern Risks | ANTI-006; ANTI-009 if it only ever ruins a run |
 | Complexity Tier | TBD |
-| Introduced World | WLD-02 (progression guidance, not ownership) |
+| Introduced World | WLD-02 historical expression candidate (guidance, not ownership). May expose motion loss. **Not** “slow floor.” **Not** required for W2 completion. Intentional reduction is W2 knowledge; Rough is not a mandatory mechanic. Do not promote. |
 | Validated Levels | none |
 
 Do not create a separate “Rough Rule.”

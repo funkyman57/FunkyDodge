@@ -114,6 +114,7 @@ IDs are permanent. If an item is deprecated, do not recycle its ID.
 | `PAT-` | Puzzle patterns | `PAT-001` |
 | `DSC-` | Discoveries | `DSC-001` |
 | `W1-K` | W1 conceptual knowledge nodes (not runtime) | `W1-K01` |
+| `W2-K` | W2 conceptual knowledge nodes (not runtime) | `W2-K01` |
 | `DL-` | Discovery Language guides (not Constitution) | `DL-01` |
 | `ANTI-` | Anti-patterns | `ANTI-001` |
 | `LVL-W##-` | Levels | `LVL-W01-001` |
@@ -154,6 +155,8 @@ It is not an implementation dependency graph. A later room may be moved, removed
 World graphs live in [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
 
 W1 CONTROL Knowledge Architecture v1 (`W1-K01`–`W1-K08`) is the **current** W1 planning source (`CANDIDATE`). Conceptual player-understanding, not a runtime object graph.
+
+W2 MOMENTUM Knowledge Architecture v1 (`W2-K01`–`W2-K05`) is the **current** W2 planning source (`CANDIDATE`). Role-based carried-motion knowledge, not a Wind / Ice / Rough tutorial and not “go faster.” Movement Validation #3 pending does **not** validate W2-K.
 
 The DOC-003 12-slot W1 list is a **historical candidate inventory**. It is not the current production plan, not a required room count, and not the graduation checklist. Depth Over Quantity takes precedence over slot preservation.
 
@@ -274,7 +277,7 @@ PLAY-002 remains **LOCKED**. Vertical Slice implementation remains **HOLD**.
 
 Conceptual Vertical Slice candidate (unvalidated): A+B-1 → C-1 → D-1 → G-1. G-3 is backup / comparison. See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
 
-W1 Knowledge Architecture, Discovery Language System, and World Knowledge Architecture are **CANDIDATE**. Do not promote them to `VALIDATED` or `CORE`. This documentation pass does **not** validate W2–W5 content, any gimmick, or movement experiments.
+W1 Knowledge Architecture, W2 Knowledge Architecture (`W2-K01`–`W2-K05`), Discovery Language System, and World Knowledge Architecture are **CANDIDATE**. Do not promote them to `VALIDATED` or `CORE`. Movement Validation #3 pending does **not** validate W2-K. This documentation pass does **not** validate W2 rooms, Wind / Ice / Rough, any gimmick, or movement experiments.
 
 Therefore:
 

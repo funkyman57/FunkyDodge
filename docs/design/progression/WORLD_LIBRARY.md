@@ -8,6 +8,8 @@ Official status for worlds and rooms: `CANDIDATE`. Role: progression candidate. 
 
 W1 CONTROL Knowledge Architecture v1 (`W1-K01`–`W1-K08`) is the **current** W1 planning source. **Status:** `CANDIDATE`. Conceptual only.
 
+W2 MOMENTUM Knowledge Architecture v1 (`W2-K01`–`W2-K05`) is the **current** W2 planning source. **Status:** `CANDIDATE`. Conceptual only. Movement Validation #3 is **pending** and does **not** validate W2-K. No W2 room is `VALIDATED`. No Wind / Ice / Rough implementation is approved by this documentation.
+
 The DOC-003 12-slot lists are **historical candidate inventories**. They are not production room counts, shipping sequences, or current graduation checklists. C-05 Depth Over Quantity takes precedence over slot preservation.
 
 Do **not** lock visual themes. Do not implement these worlds. PLAY-002 remains LOCKED. Vertical Slice implementation remains HOLD. Movement foundation is not finalized.
@@ -166,14 +168,15 @@ Do not lock a DSC to one world. Discovery → Knowledge → Future Tool. Mixed /
 | Alignment | IDs |
 | --- | --- |
 | W1 clear | DSC-005 Higher Is Not Always Better |
-| W2 clear | DSC-002, DSC-003, DSC-004, DSC-008, DSC-009, DSC-017 |
+| W2 strong conceptual | DSC-017 (W2-K01), DSC-003 (preserve), DSC-009 (purposeful loss) |
+| W2 useful / conditional | DSC-002, DSC-004, DSC-008 — not mandatory production assignments |
 | W3 clear | DSC-014, DSC-018 |
 | W4 clear | DSC-012, DSC-013 |
 | W4 conditional | DSC-011 Bounce Is a Resource — only if event progression changes future-state planning |
 | Mixed / unassigned | DSC-006, DSC-007, DSC-010, DSC-015, DSC-016 |
 | Historical guidance only | DSC-001 (Door-as-wall seed; expression, not W3 identity); DSC-006 / DSC-010 / DSC-017 as former W1 homes |
 
-Long-range: DSC-017 is a W2-clear carried-motion candidate, **not** current W1 graduation evidence and **not** a forced W2 room. Do not assign mixed IDs to W5 to fill a remix quota.
+Long-range: DSC-017 strongly aligns with **W2-K01**, **not** current W1 graduation evidence and **not** a forced W2 room. Do not assign mixed IDs to W5 to fill a remix quota.
 
 ---
 
@@ -457,17 +460,191 @@ Rooms `LVL-W01-001` … `LVL-W01-012` are a **historical candidate inventory**. 
 | Graduation | Intentional use of motion-state difference. Insufficient: max-speed clear; accidental slide. |
 | Rules Emphasized | R-FORCE-001; R-CONTACT-003 (low/high configs); R-MOTION-001; R-INFO-001 |
 | New Rule Budget | Historical expression candidates: Wind, Ice, Rough Surface. **These do not define W2.** Impulse / Spring remain unassigned (C-05). Keep `R-FORCE-002` and `GIM-006` in libraries. |
-| Major Discoveries | W2-clear: DSC-002, DSC-003, DSC-004, DSC-008, DSC-009, DSC-017. DSC-007 remains mixed / unassigned. |
+| Major Discoveries | Strong conceptual: DSC-017, DSC-003, DSC-009. Useful / conditional: DSC-002, DSC-004, DSC-008. None are mandatory rooms. DSC-007 remains mixed / unassigned. |
 | Mastery Test | Historical: LVL-W02-012. Current: carried-motion evidence, not a required 12th slot. |
 | Transition to Next World | Player state is no longer the only changing condition. Next: world state changes action availability. |
 | Visual / Audio Identity | **Not locked.** |
 | World conclusion | “Remaining motion is something I manage, not a speed trophy.” |
 
-Do not turn BUILD / PRESERVE / USE / KILL into player-visible meters.
+Do not turn BUILD / PRESERVE / USE / KILL into player-visible meters. Momentum is **not** a reward score. More motion is **not** automatically better.
+
+Current planning model next. Historical 12-slot graph, gates, and slot mapping follow it as lineage.
+
+#### W2 MOMENTUM Knowledge Architecture v1
+
+**Status:** `CANDIDATE` — conceptual. Unvalidated. Not runtime objects. Not `VALIDATED` / `CORE`. Movement Validation #3 pending does **not** validate this architecture. Future W2 room / expression validation is separate.
+
+This is the **authoritative current W2 planning model**. Role-based. Not slot-count-based. Not a gimmick tutorial sequence.
+
+**Core question:** How does carried movement change what becomes possible? / 도착할 때 남아 있는 움직임이 다음 가능성을 어떻게 바꾸는가?
+
+**Useful question:** What movement should remain when I arrive for the next action I want to perform?
+
+W2 may require preserving movement **or** intentionally reducing it. It must **not** become “build maximum speed.”
+
+```text
+ARRIVAL CONTRAST
+    → TRACE THE MOTION
+        → REVALUE MOTION
+            → PREPARE FOR THE NEXT ACTION
+                → OWN THE PLAN
+```
+
+| Role | Knowledge | Planning note |
+| --- | --- | --- |
+| ARRIVAL CONTRAST | K01 | Same place, different future. Position alone is insufficient. |
+| TRACE THE MOTION | K02 | Earlier movement history explains arrival motion. |
+| REVALUE MOTION | K03 | More is not always better. Preserve and Reduce are faces of one principle, not separate mandatory nodes. |
+| PREPARE FOR THE NEXT ACTION | K04 | Future carried-motion need changes earlier approach. |
+| OWN THE PLAN | K05 | Position + carried motion organized into a personal plan. |
+
+Roles may merge. This is **not** a fixed room sequence.
+
+**IDs:** `W2-K01` … `W2-K05`. Permanent conceptual knowledge IDs. Do not recycle. Do not implement as game objects. Do **not** add W2-K06 = Preserve, W2-K07 = Build, etc.
+
+**World statement:** “어디에 도착할지만 아니라, 그때 어떤 움직임을 남기거나 줄일지도 내가 고른다.”
+
+##### Knowledge nodes
+
+| ID | Layer | Understanding | Prerequisite | Evidence | Misconception |
+| --- | --- | --- | --- | --- | --- |
+| W2-K01 | FOUNDATION | 같은 곳에 와도 남은 움직임이 다르면 다음 결과가 달라진다. | W1 landing intervention; W1 landing as next start | Player keeps roughly the same destination but changes carried motion to alter the next result. | If I reach the right place, the state is equivalent. |
+| W2-K02 | DEVELOPMENT | 지금 남은 움직임은 여기까지 오는 과정에서 만들어지고, 유지되거나 줄어든 것이다. | K01 | Player changes an earlier cause to change the motion that remains at arrival. | This surface simply gives one fixed speed. Landing erases what happened before. |
+| W2-K03 | REINTERPRETATION | 남길 움직임은 많을수록 좋은 것이 아니라 다음 행동에 맞아야 한다. | K01 + K02 | Player preserves useful motion and intentionally reduces obstructive motion. | Slowing down means failure. |
+| W2-K04 | TRANSFER | 다음에 필요한 움직임을 생각하면 지금의 접근을 다르게 고를 수 있다. | K02 + K03 + W1 future-oriented approach planning | In a new context, player changes an earlier approach to prepare useful carried motion for a later action. | Get there first; fix the movement after arrival. |
+| W2-K05 | MASTERY | 어디에 도착할지와 무엇을 남길지를 함께 정해 내 계획을 만들 수 있다. | K01–K04 | Player selects / combines known motion relationships, uses them intentionally, and adjusts the plan from actual results. | There is one fixed BUILD → PRESERVE → KILL sequence. |
+
+##### Knowledge flow
+
+```text
+W1 landing / next-start
+        ↓
+W2-K01 same place, different future
+        ↓
+W2-K02 earlier process creates carried motion
+        ↓
+W2-K03 motion value depends on purpose
+        ↓
+W2-K04 future motion changes earlier approach
+        ↓
+W2-K05 integrated position + motion planning
+```
+
+This is a knowledge dependency graph. It is **not** a room count, mandatory room order, or gimmick tutorial sequence.
+
+##### First true W2 Aha
+
+Leading candidate: “자리는 맞았는데, 여기까지 가져온 움직임 때문에 다음이 달라지는구나.”
+
+English: “I reached the right place, but what I carried into it changed what happened next.”
+
+This is the conceptual discontinuity from W1. The comparison must **not** secretly depend on a meaningfully different landing position, starting direction alone, a different world state, or unrelated bounce-type differences. Exact pixel-identical landing is **not** required. A comparable arrival region is enough if position difference cannot reasonably explain the result.
+
+##### W1 preparation vs W2 preparation
+
+| | W1 | W2 |
+| --- | --- | --- |
+| Question | What position / direction should the next action start from? | What carried motion should remain when I arrive there? |
+| Player changes | Trajectory, landing, approach position | How motion is created, preserved, or reduced before arrival |
+
+**Dangerous leak:** if a W1 preparation problem requires deliberate speed buildup or preservation, it has crossed into W2 knowledge.
+
+##### More-is-not-always-better applications
+
+Applications of K03, **not** isolated mandatory lessons and **not** extra knowledge IDs:
+
+| Face | Meaning |
+| --- | --- |
+| PRESERVE | Keep useful motion. |
+| BUILD | Create motion that will be needed later. |
+| REDUCE | Remove motion that interferes with the next action. |
+| ABANDON | Give up previously useful motion because carrying it forward is now worse. |
+
+One deep principle is preferred over a technique-checklist progression.
+
+##### W2 graduation evidence
+
+Use **planning supported / adaptation unobserved**, not “used every surface.”
+
+| Class | Items |
+| --- | --- |
+| MUST UNDERSTAND | Same position can produce different futures because carried motion differs; carried motion results from earlier movement history; more motion is not always better; useful motion may be preserved; harmful motion may be intentionally reduced; the motion needed later can influence an earlier approach; known motion relationships can be applied in a new context |
+| MAY EXPERIENCE | Deliberate motion buildup; abandoning most stored motion; redirecting carried motion with an already-known valid tool; trading position quality against motion quality; multiple valid approaches to a useful arrival state; replanning after too much / too little motion remains |
+| MUST NOT REQUIRE | Maximum speed; exact velocity values; tiny velocity thresholds; Wind + Ice + Rough completion checklist; BOOST / Charge; special Air Reversal; Wall Jump; world-state manipulation; timing / delay synchronization; all alternate solutions; verbal explanation |
+
+Insufficient: maximum-speed clear; accidental slide; automatically favorable motion; memorized surface order.
+
+##### Final integration
+
+Candidate: “어디에 도착할지만 아니라, 그때 어떤 움직임을 남기거나 줄일지도 내가 고른다.”
+
+Must prove: target position matters; target carried motion matters; player can choose known causes; player can preserve **or** reduce when useful; player is not following one fixed technique chain.
+
+False-positive clear: maximum-speed clear; automatically favorable motion; memorized surface order; unrelated new mechanic bypass. No new W3 state manipulation. No timing escalation.
+
+##### W2 → W3 handoff
+
+| | W2 | W3 |
+| --- | --- | --- |
+| Question | What movement state should I arrive with? | What world state must exist for the desired action to be possible? |
+| Environment | Fixed known influences may affect motion | World state itself becomes a planning variable |
+
+Using environmental effects ≠ manipulating world state. Do **not** pre-teach W3 state-switch planning inside W2.
+
+##### Expression alignments (not mandatory rooms)
+
+| Topic | Record |
+| --- | --- |
+| DSC-017 | Core relationship strongly aligns with **W2-K01**: similar spatial arrival + different carried motion = different future. **Not** automatically a required W2 room. Historical slot position is not authoritative. Do not rewrite the Discovery meaning. |
+| Friction / loss | Intentional reduction of carried motion is required W2 understanding. Rough Surface is **not** required. “Friction can help” expresses “motion value depends on purpose.” Do not imply Rough = mandatory W2 mechanic. Do not promote a Gimmick lifecycle. |
+| Wind | Supports W2 when reasoning is about carried motion produced or removed by that force. May be W3 if player-manipulated world state changes available actions. May be W4 if timing / duration / future occurrence of force is central. Object identity does not determine World. |
+| Ice / Rough | Ice may expose preservation; Rough may expose loss. They are **not** simply “fast floor / slow floor.” Neither is required for W2 completion. If two surfaces only communicate opposite numeric values without changing player judgment, they are redundant. |
+
+##### Bloat warnings
+
+Depth Over Quantity applies.
+
+- Faster-is-better repetition
+- Long run-up = fake depth
+- Tiny speed threshold
+- Fast precision landing
+- Repeated BUILD → SPEND sequence
+- Ice / Rough as numeric opposites only
+- Multiple surfaces differentiated only by amount
+- Adding gimmicks because W2 feels short
+
+##### Carried-motion readability
+
+Carried motion must be readable **without** a numeric velocity HUD in production. Do not design production UI here.
+
+Necessary facts may include: direction of continuing movement; relative amount of continuing movement; before / after contact change; whether motion persisted through arrival; relationship between earlier influence and later result.
+
+Support signals may include: world-relative movement; trajectory; consistent contact feedback; trail / sound / rotation where truthful.
+
+Ball spin must **not** automatically mean travel speed, especially if Spin / Charge survives later.
+
+##### Historical slot → current role
+
+IDs and titles preserved. **Not** a production count, mandatory sequence, or graduation checklist.
+
+| Slot | Title | Current alignment |
+| --- | --- | --- |
+| 001 | Something Is Pushing Me | Useful external-force application. Not a mandatory W2 opening. |
+| 002 | Ride the Wind | Application / reward candidate. |
+| 003 | Fight the Wind | Application candidate. Remove if it becomes execution-only resistance. |
+| 004 | Let It Stop You | Strong expression of W2-K03. |
+| 005 | Keep Moving | Strong preservation expression. |
+| 006 | Store It | Transfer / test if preserved motion matters later. Merge if only repeating 005. |
+| 007 | The Rough Patch | Motion-loss application. Rough not mandatory. |
+| 008 | Stop on Purpose | Strong W2-K03 expression. May merge with 007. |
+| 009 | Build It | W2-K04 application. Must not reduce to a long run-up. |
+| 010 | Spend It | Transfer / integration candidate. Fixed BUILD → PRESERVE → USE chain is not authoritative. |
+| 011 | Enter Differently | Strong W2-K01 expression. Historical late position does not make it late knowledge. |
+| 012 | Momentum Laboratory | W2-K05 candidate. Merge if not distinct from 010. |
 
 #### Knowledge Graph (historical candidate inventory)
 
-Wind / Ice / Rough appear here as historical expression, not as W2’s identity.
+Wind / Ice / Rough appear here as historical expression, not as W2’s identity. Current planning: W2-K above.
 
 ```text
                     W1 MOVEMENT LANGUAGE
@@ -509,7 +686,7 @@ Wind / Ice / Rough appear here as historical expression, not as W2’s identity.
 
 #### Knowledge Gates (historical — not current World identity)
 
-IDs retained. Current W2 graduation is carried-motion evidence above, not “used Wind / Ice / Rough.”
+IDs retained. Current W2 graduation is the W2-K evidence language above, not “used Wind / Ice / Rough.”
 
 | Gate | Historical requirement | May be satisfied in |
 | --- | --- | --- |

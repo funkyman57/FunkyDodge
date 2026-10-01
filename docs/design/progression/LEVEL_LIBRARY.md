@@ -8,7 +8,7 @@ All W1–W5 rows are **historical candidate inventories** (60 slots, not a ship 
 
 Geometry, spacing, force strength, friction coefficients, velocities, bounce heights, counts, and timing windows: `TBD — after PLAY-001B / relevant prototype validation`.
 
-Knowledge Graphs, W1-K01–K08, and the conceptual Vertical Slice: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Discovery Language: [DISCOVERY_LIBRARY.md](../libraries/DISCOVERY_LIBRARY.md). Vocabulary: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Do not assign `PAT-001` merely because a room has an exit.
+Knowledge Graphs, W1-K01–K08, W2-K01–K05, and the conceptual Vertical Slice: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Discovery Language: [DISCOVERY_LIBRARY.md](../libraries/DISCOVERY_LIBRARY.md). Vocabulary: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Do not assign `PAT-001` merely because a room has an exit.
 
 A+B-1 / C-1 / D-1 / G-1 / G-3 are the current conceptual slice. They are **not** `LVL-W01-*` IDs. The W1 12-slot index below is a **historical candidate inventory**, not a production count or graduation checklist. Alignment: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Unvalidated. Implementation HOLD.
 
@@ -83,22 +83,22 @@ Current Slice (authoritative planning labels): A+B-1 → C-1 → D-1 → G-1. G-
 
 ### WLD-02 — historical candidate inventory
 
-IDs and titles preserved. **Not** a production count. W2 identity is carried-motion knowledge, not Wind / Ice / Rough. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
+IDs and titles preserved. **Not** a production count, mandatory sequence, or graduation checklist. Current W2-K roles: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
 
-| ID | Title | Purpose |
-| --- | --- | --- |
-| LVL-W02-001 | Something Is Pushing Me | TEACH |
-| LVL-W02-002 | Ride the Wind | APPLY / REWARD candidate |
-| LVL-W02-003 | Fight the Wind | TEST |
-| LVL-W02-004 | Let It Stop You | SURPRISE / REINTERPRET |
-| LVL-W02-005 | Keep Moving | TEACH |
-| LVL-W02-006 | Store It | REINTERPRET / REWARD candidate |
-| LVL-W02-007 | The Rough Patch | TEACH |
-| LVL-W02-008 | Stop on Purpose | SURPRISE |
-| LVL-W02-009 | Build It | TEST / SETUP |
-| LVL-W02-010 | Spend It | COMBINE |
-| LVL-W02-011 | Enter Differently | REINTERPRET |
-| LVL-W02-012 | Momentum Laboratory | MASTERY |
+| ID | Title | Historical purpose | Current W2 scope |
+| --- | --- | --- | --- |
+| LVL-W02-001 | Something Is Pushing Me | TEACH | Useful external-force application. Not a mandatory W2 opening. |
+| LVL-W02-002 | Ride the Wind | APPLY / REWARD candidate | Application / reward candidate. |
+| LVL-W02-003 | Fight the Wind | TEST | Application candidate. Remove if execution-only resistance. |
+| LVL-W02-004 | Let It Stop You | SURPRISE / REINTERPRET | Strong W2-K03 expression. |
+| LVL-W02-005 | Keep Moving | TEACH | Strong preservation expression. |
+| LVL-W02-006 | Store It | REINTERPRET / REWARD candidate | Transfer / test if preserved motion matters later. Merge if only repeating 005. |
+| LVL-W02-007 | The Rough Patch | TEACH | Motion-loss application. Rough not mandatory. |
+| LVL-W02-008 | Stop on Purpose | SURPRISE | Strong W2-K03. May merge with 007. |
+| LVL-W02-009 | Build It | TEST / SETUP | W2-K04 application. Must not become a long run-up. |
+| LVL-W02-010 | Spend It | COMBINE | Transfer / integration. Fixed BUILD → PRESERVE → USE is not authoritative. |
+| LVL-W02-011 | Enter Differently | REINTERPRET | Strong W2-K01. Historical late slot ≠ late knowledge. |
+| LVL-W02-012 | Momentum Laboratory | MASTERY | W2-K05 candidate. Merge if not distinct from 010. |
 
 Historical expression candidates: Wind, Ice, Rough. No Spring. These gimmicks do **not** define W2.
 
@@ -425,7 +425,7 @@ Do not mark Wall Jump `CORE`.
 
 ## World 2
 
-Historical candidate inventory. Official status remains `CANDIDATE`. Historical World assignment ≠ current production commitment. Current W2 domain (carried motion, not Wind / Ice / Rough): [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W2-GATE-*` fields below are historical IDs.
+Historical candidate inventory. Official status remains `CANDIDATE`. Historical World assignment ≠ current production commitment. Current W2-K01–K05 architecture (carried motion, not Wind / Ice / Rough, not “go faster”): [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W2-GATE-*` fields below are historical IDs.
 
 ### LVL-W02-001 — Something Is Pushing Me
 
