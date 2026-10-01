@@ -6,7 +6,6 @@ import {
   isFreshLandingPress,
   isLandingBoostEligible,
   isLowBounceEligible,
-  isWallJumpEligible,
   resolveFloorBounce,
   resolveLandingIntent,
   resolveMoveAcceleration,
@@ -270,15 +269,6 @@ test("LOW-RHYTHM-03: separate fresh taps across landings can produce successive 
 });
 
 test("WALL-01: Wall Jump produces upward and away velocity", () => {
-  const now = 500;
-  const right = input({ rightDown: true, rightPressedAt: now, lastHorizontalDirection: 1 });
-  const left = input({ leftDown: true, leftPressedAt: now, lastHorizontalDirection: -1 });
-
-  assert.equal(isWallJumpEligible(true, false, right, now), 1);
-  assert.equal(isWallJumpEligible(true, false, left, now), 0);
-  assert.equal(isWallJumpEligible(false, true, left, now), -1);
-  assert.equal(isWallJumpEligible(false, true, right, now), 0);
-
   const awayFromLeftWall = resolveWallJumpVelocity(1);
   assert.equal(awayFromLeftWall.vx, PhysicsConfig.wallJumpHorizontalVelocity);
   assert.equal(awayFromLeftWall.vy, -PhysicsConfig.wallJumpVerticalVelocity);

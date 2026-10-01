@@ -31,6 +31,8 @@ export const PhysicsConfig = {
   lowBounceMultiplier: 0.42,
 
   wallInputBufferMs: 120,
+  // WJ-B: post-NEW-contact response window. Forgiving human-test candidate, not a final tune.
+  wallJumpResponseWindowMs: 300,
   wallJumpHorizontalVelocity: 320,
   wallJumpVerticalVelocity: 500,
   wallJumpVisualMs: 180,

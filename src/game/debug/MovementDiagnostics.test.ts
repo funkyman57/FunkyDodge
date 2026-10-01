@@ -9,6 +9,7 @@ import {
   latchWallNewFlash,
   resolveAirReverseDiagnostic,
   resolveWallContactPhase,
+  resolveWallJumpContractHud,
   wallJumpHudActive,
 } from "./MovementDiagnostics";
 
@@ -141,4 +142,24 @@ test("DIAG-05: WJ indicator follows lastWallJumpAt only", () => {
   assert.equal(wallJumpHudActive(1000, 1000), true);
   assert.equal(wallJumpHudActive(1220, 1000), true);
   assert.equal(wallJumpHudActive(1221, 1000), false);
+});
+
+test("DIAG-06: WJ-B HUD mirrors real eligibility and does not invent WINDOW", () => {
+  assert.deepEqual(resolveWallJumpContractHud({
+    windowActive: true,
+    expired: false,
+    fireLatch: false,
+  }), { window: true, expired: false, fire: false });
+
+  assert.deepEqual(resolveWallJumpContractHud({
+    windowActive: false,
+    expired: true,
+    fireLatch: false,
+  }), { window: false, expired: true, fire: false });
+
+  assert.deepEqual(resolveWallJumpContractHud({
+    windowActive: false,
+    expired: false,
+    fireLatch: true,
+  }), { window: false, expired: false, fire: true });
 });

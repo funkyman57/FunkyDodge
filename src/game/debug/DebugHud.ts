@@ -7,7 +7,7 @@ import {
   latchAirReverseDisplay,
   latchWallNewFlash,
   resolveAirReverseDiagnostic,
-  resolveWallContactPhase,
+  resolveWallJumpContractHud,
   wallJumpHudActive,
   type AirReverseHud,
   type WallContactPhase,
@@ -15,14 +15,14 @@ import {
 
 export class DebugHud {
   private readonly text: Phaser.GameObjects.Text;
-  private prevWallLeft = false;
-  private prevWallRight = false;
   private arImpulseUntilMs = 0;
   private wallNewUntilMs = 0;
   lastAirReverseLabel: AirReverseHud = "—";
   lastWallPhase: WallContactPhase = "—";
   lastWallNewFlash = false;
   lastWallJumpHud = false;
+  lastWallJumpWindow = false;
+  lastWallJumpExpired = false;
 
   constructor(scene: Phaser.Scene) {
     this.text = scene.add
@@ -61,19 +61,21 @@ export class DebugHud {
     const latched = latchAirReverseDisplay(rawAirReverse, nowMs, this.arImpulseUntilMs);
     this.arImpulseUntilMs = latched.impulseUntilMs;
     this.lastAirReverseLabel = latched.label;
-    const rawWallPhase = resolveWallContactPhase(
-      this.prevWallLeft,
-      this.prevWallRight,
-      player.wallLeft,
-      player.wallRight,
-    );
+    const rawWallPhase: WallContactPhase = player.wallContactPhase === "NONE"
+      ? "—"
+      : player.wallContactPhase;
     const latchedWall = latchWallNewFlash(rawWallPhase, nowMs, this.wallNewUntilMs);
     this.wallNewUntilMs = latchedWall.newUntilMs;
     this.lastWallPhase = latchedWall.contact;
     this.lastWallNewFlash = latchedWall.newFlash;
-    this.prevWallLeft = player.wallLeft;
-    this.prevWallRight = player.wallRight;
     this.lastWallJumpHud = wallJumpHudActive(nowMs, player.lastWallJumpAt);
+    const wallJumpHud = resolveWallJumpContractHud({
+      windowActive: player.wallJumpWindowActive,
+      expired: player.wallJumpExpired,
+      fireLatch: this.lastWallJumpHud,
+    });
+    this.lastWallJumpWindow = wallJumpHud.window;
+    this.lastWallJumpExpired = wallJumpHud.expired;
     const showPressAge = press !== null && (press.held || press.ageMs <= PhysicsConfig.lowBounceFreshPressWindowMs);
 
     this.text.setText(
@@ -101,7 +103,9 @@ export class DebugHud {
         `Wall L/R ${yesNo(player.wallLeft)}/${yesNo(player.wallRight)}`,
         `Wall ${this.lastWallPhase}`,
         this.lastWallNewFlash && this.lastWallPhase !== "NEW" ? "Wall NEW" : "",
-        this.lastWallJumpHud ? "WJ" : "",
+        this.lastWallJumpWindow ? "WJ WINDOW" : "",
+        this.lastWallJumpExpired ? "WJ EXPIRED" : "",
+        this.lastWallJumpHud ? "WJ FIRE" : "",
         player.lastBounceType === "BOOST" ? "LANDING BOOST" : "",
       ]
         .filter(Boolean)
