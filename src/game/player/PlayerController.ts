@@ -74,6 +74,12 @@ export class PlayerController {
     this.solids = solids;
   }
 
+  placeAt(x: number, y: number, vx: number, vy: number): void {
+    this.player.body.reset(x, y);
+    this.player.body.setVelocity(vx, vy);
+    this.player.body.setAcceleration(0, 0);
+  }
+
   reset(): void {
     this.player.reset();
     this.grounded = false;

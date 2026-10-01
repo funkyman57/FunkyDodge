@@ -24,11 +24,19 @@
   letter-spacing: 0.04em;
 }
 
+.physics-lab h3 {
+  margin: 10px 0 6px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #c9d6f0;
+}
+
 .physics-lab-row,
 .physics-lab-actions,
 .physics-lab-presets,
 .physics-lab-modes,
-.physics-lab-timing {
+.physics-lab-timing,
+.physics-lab-world-state {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
