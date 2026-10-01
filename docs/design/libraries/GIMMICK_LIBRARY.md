@@ -92,8 +92,8 @@ Do not invent Motion/Kinematic or Conditional Collision rules to support GIM-010
 
 | ID | Name | Status | Historical expression candidate |
 | --- | --- | --- | --- |
-| GIM-001 | Door | CANDIDATE | W3 if state changes available actions; may be W4/W5 by inference, not by default |
-| GIM-002 | Switch | CANDIDATE | W3 if the state change is the ask |
+| GIM-001 | Door | CANDIDATE | **Strong W3 expression candidate**, not a mandatory W3 mechanic. May be W4/W5 by inference. No production approval. |
+| GIM-002 | Switch | CANDIDATE | **Useful W3 expression candidate**, not required. Depth only when “can activate” ≠ “should activate now.” |
 | GIM-003 | Wind | CANDIDATE | W2 if remaining motion is the ask |
 | GIM-004 | Ice | CANDIDATE | W2 if remaining motion is the ask |
 | GIM-005 | Rough Surface | CANDIDATE | W2 if remaining motion is the ask |
@@ -133,6 +133,8 @@ Placement is guidance, not ownership. A gimmick does not belong to one World by 
 | Introduced World | WLD-03 (progression guidance, not ownership) |
 | Validated Levels | none |
 
+**W3 status:** Door is a **STRONG CANDIDATE EXPRESSION**, not Door World and not a mandatory W3 mechanic. Strengths: concrete binary state; readable solid / passable; can create and remove different interaction possibilities. Risks: open = progress cliché; switch hunting; closed-state value depending on unvalidated Wall Jump; trivial unlock puzzles. Lifecycle remains `CANDIDATE`. No implementation approval.
+
 ---
 
 ### GIM-002 — Switch
@@ -158,6 +160,8 @@ Placement is guidance, not ownership. A gimmick does not belong to one World by 
 | Complexity Tier | TBD |
 | Introduced World | WLD-03 (progression guidance, not ownership) |
 | Validated Levels | none |
+
+**W3 status:** Switch is a **USEFUL EXPRESSION CANDIDATE**, not required. Primary value: clear cause → separated state result. Danger: a visible switch becomes “press me now.” Supports W3 depth only when “can activate” differs from “should activate now.” Lifecycle remains `CANDIDATE`. No implementation approval.
 
 ---
 

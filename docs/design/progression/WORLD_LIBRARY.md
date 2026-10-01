@@ -8,7 +8,9 @@ Official status for worlds and rooms: `CANDIDATE`. Role: progression candidate. 
 
 W1 CONTROL Knowledge Architecture v1 (`W1-K01`–`W1-K08`) is the **current** W1 planning source. **Status:** `CANDIDATE`. Conceptual only.
 
-W2 MOMENTUM Knowledge Architecture v1 (`W2-K01`–`W2-K05`) is the **current** W2 planning source. **Status:** `CANDIDATE`. Conceptual only. Movement Validation #3 is **pending** and does **not** validate W2-K. No W2 room is `VALIDATED`. No Wind / Ice / Rough implementation is approved by this documentation.
+W2 MOMENTUM Knowledge Architecture v1 (`W2-K01`–`W2-K05`) is the **current** W2 planning source. **Status:** `CANDIDATE`. Conceptual only. Movement Validation #3 is **pending** and does **not** validate W2-K. W2-PHYS-001 (carried motion persists) and W2-PHYS-002 (player can create useful motion contrast) are **physical PASS**. W2-PHYS-003 Human Readability is **PENDING**. Do **not** treat W2 as fully Human Validated. No W2 room is `VALIDATED`. No Wind / Ice / Rough implementation is approved by this documentation.
+
+W3 POSSIBILITY Knowledge Architecture v1 (`W3-K01`–`W3-K05`) is the **current** W3 planning source. **Status:** `CANDIDATE`. Conceptual only. No W3 room is `VALIDATED`. No Door / Switch (or other W3) mechanic is approved for production by this documentation. W3 is **not** Door World, Switch World, or a gimmick showcase.
 
 The DOC-003 12-slot lists are **historical candidate inventories**. They are not production room counts, shipping sequences, or current graduation checklists. C-05 Depth Over Quantity takes precedence over slot preservation.
 
@@ -28,7 +30,7 @@ Choose a knowledge question first. Then find the smallest expression. Do **not**
 | --- | --- | --- | --- |
 | WLD-01 | CONTROL | Where / in which direction should the next useful action begin — and what do I choose now? | 다음 유용한 행동을 어디에서, 어느 방향으로 시작하려면 지금 무엇을 선택할까? |
 | WLD-02 | MOMENTUM | How does carried movement change what becomes possible? | 도착할 때 남아 있는 움직임이 다음 가능성을 어떻게 바꾸는가? |
-| WLD-03 | POSSIBILITY | When the world state changes, which actions appear and which disappear? | 세계의 상태가 바뀌면 어떤 행동이 가능해지고, 어떤 행동이 사라지는가? |
+| WLD-03 | POSSIBILITY | When the world state changes, which actions become possible and which actions disappear? | 세계의 상태가 바뀌면 어떤 행동이 가능해지고, 어떤 행동이 사라지는가? |
 | WLD-04 | TIME | When does the needed state appear, how long does it last, and after which event — and how does that change the plan? | 필요한 상태가 언제 생기고, 얼마나 유지되며, 어떤 사건 뒤에 생기는지가 계획을 어떻게 바꾸는가? |
 | WLD-05 | UNDERSTANDING | Under what conditions is my familiar solution valid, and what becomes possible if known relationships connect differently? | 내가 정답처럼 쓰던 해법은 어떤 조건에서 유효하며, 알려진 관계를 다르게 연결하면 무엇이 가능한가? |
 
@@ -40,7 +42,7 @@ Historical English labels remain: How do I move? / What changes my motion? / Wha
 | --- | --- | --- | --- |
 | W1 CONTROL | Trajectory, landing, next starting position, starting direction | — | Deliberate speed accumulation; momentum preservation; velocity optimization; world-state manipulation; time-state planning; BOOST / Air Reversal / Wall Jump mastery |
 | W2 MOMENTUM | Carried motion; preserve / reduce / discard; same position, different movement state | W1 position / direction / next start | “Go faster” as identity; world-state as the lesson; time-state planning. W2 is **not** Wind / Ice / Rough. |
-| W3 POSSIBILITY | World state changes action availability; create **and** remove possibilities; order of world-state choices | W1 + W2 player / motion state | Gimmick showcase as identity. W3 is **not** Door / Switch. Logical order ≠ TIME. |
+| W3 POSSIBILITY | World State changes the current possibility set; create **and** remove possibilities; logical order of state choices | W1 action / landing understanding; only W2 relationships that were actually introduced and understood | Gimmick showcase as identity. W3 is **not** Door / Switch. Logical order ≠ TIME. Momentum is **not** required in every W3 problem. |
 | W4 TIME | Occurrence, duration, delay, event progression, future-state prediction | W1 + W2 + W3 state *value* / order | Reaction challenge; frame-perfect timing; hidden-cycle memorization. Event-count belongs **only if** it changes future-state planning. Pure counting / resource allocation is not automatically TIME. |
 | W5 UNDERSTANDING | Check assumptions behind familiar solutions; recombine known relationships; construct a personal plan | W1–W4 known relationships | Hidden new rules; new input grammar; all mechanics / gimmicks; long execution chains; precision escalation. Reinterpretation already exists from W1 onward and is **not** unique to W5. |
 
@@ -50,7 +52,7 @@ Historical English labels remain: How do I move? / What changes my motion? / Wha
 | --- | --- | --- |
 | W1 | Player changes earlier trajectory / landing / approach based on the next starting position needed. | LOW usage alone; room clear; memorized sequence |
 | W2 | Player intentionally uses differences in carried motion (preserve / reduce / discard / redirect) because the goal demands it. | Maximum-speed clear; accidental slide |
-| W3 | Player selects / delays / reverses a world-state change because it changes what actions remain possible. | Press every switch; follow every opened path |
+| W3 | Player prepares / preserves / delays / restores World State because it changes which actions remain possible. See W3-K graduation. | Press every switch; follow every opened path; activate-all; memorized switch sequence |
 | W4 | Player adjusts cause timing / order / waiting because a useful state must exist at a future moment or event. | Lucky timing; fast reaction; cycle memorization without understanding |
 | W5 | Player detects that a familiar solution’s assumptions no longer hold and reorganizes known relationships into a different plan. | Hard execution of an old solution; using many gimmicks; a longer sequence |
 
@@ -138,7 +140,7 @@ W2 — MOMENTUM
 How does carried movement change what becomes possible?
         ↓
 W3 — POSSIBILITY
-When the world state changes, which actions appear and which disappear?
+When the world state changes, which actions become possible and which actions disappear?
         ↓
 W4 — TIME
 When will the needed state exist, and for how long?
@@ -196,7 +198,7 @@ Do not open a world with mastery. Do not end a world with an untaught new gimmic
 | --- | --- | --- | --- | --- |
 | WLD-01 | CONTROL | Where / in which direction should the next useful action begin? | CANDIDATE | Role-based current plan. 12-slot list = historical inventory. |
 | WLD-02 | MOMENTUM | How does carried movement change what becomes possible? | CANDIDATE | Knowledge domain. 12-slot list = historical inventory. |
-| WLD-03 | POSSIBILITY | When the world state changes, which actions appear and which disappear? | CANDIDATE | Knowledge domain. 12-slot list = historical inventory. |
+| WLD-03 | POSSIBILITY | When the world state changes, which actions become possible and which actions disappear? | CANDIDATE | Knowledge domain. 12-slot list = historical inventory. |
 | WLD-04 | TIME | When will the needed state exist, and for how long? | CANDIDATE | Knowledge domain. 12-slot list = historical inventory. |
 | WLD-05 | UNDERSTANDING | Which assumptions behind familiar solutions still apply? | CANDIDATE | Synthesis stage. Historical 12-slot count is **not** protected. |
 
@@ -709,13 +711,14 @@ Rooms `LVL-W02-001` … `LVL-W02-012` are a **historical candidate inventory**. 
 | Name | WHAT CAN OBJECTS BECOME? |
 | Role | POSSIBILITY |
 | Status | CANDIDATE |
-| Core Question | When the world state changes, which actions appear and which disappear? (historical label: What can objects become?) |
+| Core Question | When the world state changes, which actions become possible and which actions disappear? (historical label: What can objects become?) |
 | Design Theme | State changes possibility. C-07. Not a visual theme. |
-| World purpose | World state changes action availability. A change may create **and** remove possibilities. |
-| Core statement | State changes possibility. W3 is **not** a new-gimmick showcase. |
-| Knowledge focus | Select / delay / reverse a world-state change because it changes what actions remain possible. |
-| Graduation | Deliberate state choice that opens some actions and closes others. Insufficient: press every switch; follow every opened path. |
-| Primary Gimmicks | Historical expression candidates: GIM-001 Door; GIM-002 Switch. **These do not define W3.** |
+| World purpose | World State changes the current possibility set. A change may create **and** remove possibilities. |
+| Core statement | State changes possibility. W3 is **not** Door World, Switch World, a gimmick showcase, “activate everything,” or “open every path.” |
+| Approved summary | 다음 행동에 필요한 가능성을 만들고, 아직 필요한 가능성은 없애지 않는다. |
+| Knowledge focus | Select / delay / reverse / restore a World State change because it changes what actions remain possible. |
+| Graduation | Deliberate World State choice that opens some actions and closes others. Insufficient: press every switch; follow every opened path. |
+| Primary Gimmicks | Historical expression candidates: GIM-001 Door (strong candidate expression); GIM-002 Switch (useful candidate). **These do not define W3.** No production mechanic is approved. |
 | Rules Emphasized | R-STATE-001; R-SIGNAL-001; R-CONTACT-001; R-INFO-001 |
 | Existing Rules Recontextualized | W1+W2 movement language |
 | New Rule Budget | Historical: Door + Switch only. **GIM-010 / GIM-011 remain unassigned** (C-05). Do not invent Motion/Kinematic or Conditional Collision rules for them. |
@@ -723,9 +726,307 @@ Rooms `LVL-W02-001` … `LVL-W02-012` are a **historical candidate inventory**. 
 | Mastery Test | Historical: LVL-W03-012. Current: world-state possibility evidence, not a required 12th slot. |
 | Transition to Next World | State *value* / logical order is not enough. Next: when that state exists and for how long. |
 | Visual / Audio Identity | **Not locked.** |
-| World conclusion | World state changes what I can do — and what I can no longer do. |
+| World conclusion | World State changes what I can do — and what I can no longer do. Open is not always better. |
 
 W3 is physical possibility, not Boolean-logic puzzles. Logical order of state changes is still W3, not W4 TIME.
+
+Current planning model next. Historical 12-slot graph, gates, and slot mapping follow it as lineage.
+
+#### W3 POSSIBILITY Knowledge Architecture v1
+
+**Status:** `CANDIDATE` — conceptual. Unvalidated. Not runtime objects. Not `VALIDATED` / `CORE`. No W3 room is `VALIDATED`. No W3 mechanic is approved for production.
+
+This is the **authoritative current W3 planning model**. Role-based. Not slot-count-based. Not a Door / Switch tutorial. Not a gimmick showcase.
+
+**Core question:** When the world state changes, which actions become possible and which actions disappear? / 세계의 상태가 바뀌면 어떤 행동이 가능해지고, 어떤 행동이 사라지는가?
+
+**Approved summary:** “다음 행동에 필요한 가능성을 만들고, 아직 필요한 가능성은 없애지 않는다.”
+
+W3 is **not**: Door World; Switch World; gimmick showcase; activate everything; open every path.
+
+W3 **is** about World State changing the **current possibility set**.
+
+##### World State definition
+
+Canonical vocabulary also lives in [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Restated here because W3 owns the planning use.
+
+**World State** is the current operating condition of the environment that changes which interactions / routes / actions are possible under otherwise comparable player conditions.
+
+Design model:
+
+```text
+known rules
++ fixed geometry
++ Player State
++ World State
+→ currently possible actions
+```
+
+| Term | Meaning |
+| --- | --- |
+| PLAYER STATE | Position, direction, carried motion. |
+| WORLD STATE | Current environment operating condition. |
+| FIXED GEOMETRY | The stable spatial structure against which states are compared. |
+| HIDDEN IMPLEMENTATION FLAG | Not valid knowledge unless observable through honest world behavior. |
+| W4 TEMPORAL PROGRESSION | When / how long / after what event a state exists. |
+
+Do **not** define “World State is a resource.”
+
+| Distinguish | Meaning |
+| --- | --- |
+| STATE SELECTION | Which environment condition is active. |
+| STATE COMMITMENT | Changing state may remove future options. |
+| RESOURCE CONSUMPTION | Quantity / uses decrease. |
+| W4 EVENT PROGRESSION | Events change future state over time / sequence. |
+
+W3 language should prefer: create possibility; remove possibility; preserve possibility; restore possibility.
+
+##### Possibility-set model (design audit only)
+
+Example:
+
+```text
+World State A: {X, Y}
+World State B: {Y, Z}
+
+State change: X disappears, Y remains, Z appears
+```
+
+The player does **not** need to see set notation. Designers use the model to ask: “What actions actually changed?”
+
+A possible action must correspond to a real readable gameplay relationship, not an invisible permission flag.
+
+##### Gain / loss / trade-off
+
+| Kind | Meaning |
+| --- | --- |
+| CREATION | A possibility becomes available. |
+| REMOVAL | A possibility becomes unavailable. |
+| TRADE-OFF | One possibility appears while another disappears. |
+
+W3 core requires understanding **creation + removal**. Trade-off is the deeper planning interpretation. Do **not** create separate mandatory tutorial nodes for every variant.
+
+##### Open is not always better
+
+“Open / active / enabled” is not inherently good.
+
+A World State is judged by what it makes possible **for the current plan**.
+
+Behavioral evidence may include: delaying activation; using a possibility before activation; restoring a previous state; choosing activation in a different context.
+
+Do **not** require the player to fail first. Correct anticipation is valid evidence.
+
+```text
+STATE ENABLES ACTION
+    → REVALUE THE CHANGE
+        → PRESERVE WHAT COMES NEXT
+            → PLAN BOTH STATES
+```
+
+| Role | Knowledge | Planning note |
+| --- | --- | --- |
+| STATE ENABLES ACTION | K01 | World State changes what actions are possible. |
+| REVALUE THE CHANGE | K03 (after K02 cause) | An apparently positive state change may remove a useful possibility. |
+| PRESERVE WHAT COMES NEXT | K04 | Logical order keeps a needed possibility available. |
+| PLAN BOTH STATES | K05 | Player State + World State organized into a personal plan. |
+
+K02 (player action changes World State) sits between K01 and K03 in the knowledge flow. Roles may merge. This is **not** a fixed room sequence.
+
+**IDs:** `W3-K01` … `W3-K05`. Permanent conceptual knowledge IDs. Do not recycle. Do not implement as game objects.
+
+**World statement:** “다음 행동에 필요한 가능성을 만들고, 아직 필요한 가능성은 없애지 않는다.”
+
+##### Knowledge nodes
+
+| ID | Layer | Understanding | Prerequisite | Evidence | Misconception |
+| --- | --- | --- | --- | --- | --- |
+| W3-K01 | FOUNDATION | 내 상태가 비슷해도 세계 상태에 따라 할 수 있는 행동이 달라진다. Even with a similar player state, different world states can make different actions possible. | W1 action / landing understanding and whatever already-known movement relationship is used | Player stops changing only Player State and changes / compares World State to make the desired action possible. | If my movement is correct, the same action should always work. |
+| W3-K02 | DEVELOPMENT | 내 행동이 세계 상태를 바꾸고, 그 결과 다음 선택도 바뀐다. My action can change the world state, and that changes what I can do next. | K01; readable cause / state-change relationship | Player intentionally reproduces, avoids, or orders the cause of a state change to affect later possibilities. | The world changed by itself. If I can activate something, I should activate it immediately. |
+| W3-K03 | REINTERPRETATION | 상태 변경은 단순한 진전이 아니라 가능성의 교환일 수 있다. A state change can trade possibilities, not simply create progress. | K01 + K02 | Player considers what will be lost before activating a state change, or restores / delays the change when useful. | Open / active / enabled is always better. |
+| W3-K04 | TRANSFER | 나중에 필요한 가능성을 위해 지금의 행동과 상태 변경 순서를 정할 수 있다. I can order actions and state changes to preserve possibilities I will need later. | K02 + K03 + W1 future-oriented planning | In a new context, player deliberately uses a needed possibility first, then changes World State, or prepares World State before a later action. | Activate everything first, then move. |
+| W3-K05 | MASTERY | 내 상태와 세계 상태를 함께 준비해 내 계획을 만들 수 있다. I can plan both my player state and the world state needed for the action I want. | K01–K04, and only W1 / W2 relationships that were actually introduced and understood | Player selects and combines known relationships into a plan, then revises that plan based on actual results. | The correct switch order is the solution. |
+
+##### Knowledge flow
+
+```text
+W1 action / next-start planning
+        ↓
+W3-K01 state affects action possibility
+        ↓
+W3-K02 player action changes world state
+        ↓
+W3-K03 state value depends on what possibilities are gained/lost
+        ↓
+W3-K04 logical ordering preserves needed possibilities
+        ↓
+W3-K05 player + world state integrated planning
+```
+
+Optional dependency: understood W2 carried-motion relationships may support K05 when relevant. **Momentum is not required in every W3 problem.**
+
+This is a knowledge dependency graph. It is **not** a room count, mandatory room order, or Door / Switch tutorial.
+
+##### First true W3 Aha
+
+Leading candidate: “내가 잘 도착하는 것만으로는 부족하네. 그 행동을 할 수 있는 세계 상태도 필요하구나.”
+
+English: “Arriving correctly is not enough. The world also needs to be in a state that makes the action possible.”
+
+Simply encountering a closed obstacle is **not** sufficient evidence. The player must experience / use: World State difference → action possibility difference, under otherwise comparable conditions.
+
+##### Logical order vs W4 TIME
+
+Record this boundary explicitly.
+
+**W3 ORDER:** B must happen before A because A removes the possibility of B. Waiting forever does not change the logic.
+
+Examples: use a capability before disabling it; enter position before changing solidity; use current state, then switch state; restore a state before another action.
+
+**W4 TIME:** success depends on when a state occurs; how long it lasts; delay; cycle; countdown; event progression; timing between actions.
+
+Boundary tests:
+
+1. Does waiting alone change the relevant World State? If yes, a W4 element exists.
+2. Can the same logical order succeed or fail only because of time spacing? If spacing is the planning variable, W4.
+3. With generous execution time, is a specific logical order still necessary? If yes, it can remain W3.
+
+Do **not** add timing pressure merely for difficulty. No timed switch, short-lived gate, cycle, countdown, delay, or rhythm as default W3 escalation.
+
+##### Reversibility
+
+Reversibility is **not** required by W3.
+
+Early W3 should prefer reversible state changes **or** short readable recovery, because that supports comparison and hypothesis testing.
+
+Irreversible commitment is optional deeper content. Requirements: consequence is readable before commitment; rules remain consistent; failure does not become a hidden softlock; replay / recovery cost remains reasonable.
+
+Do **not** make irreversible commitment a foundational W3 requirement.
+
+##### Player agency
+
+Three possible expression forms. No dedicated Switch is required.
+
+| Form | Meaning |
+| --- | --- |
+| DIRECT | Player intentionally activates state. |
+| INDIRECT | Movement / contact causes state change. |
+| CONSEQUENTIAL | One action changes multiple possibilities. |
+
+Minimum W3 agency: the cause is readable; the player can intentionally cause / avoid / order it; the choice changes later possibilities; the player can compare outcomes and retry.
+
+Automatic state changes may expose K01. They are insufficient by themselves for K02–K05.
+
+##### Readability
+
+Facts that **must** be readable: current relevant World State; what changed; what caused the change; which relevant route / surface / interaction changed; whether the change is reversible when that matters; why a currently desired action is unavailable.
+
+Strategic conclusions that should remain discoverable: which state is best; when to change it; exact action order; which possibility to preserve.
+
+Apply Discovery Language: facts visible, strategy discoverable.
+
+##### Failure as information
+
+| Kind | Pattern |
+| --- | --- |
+| Informative | Player changes state, gains one possibility, and can see another needed possibility disappear. |
+| Uninformative | State changes, progress becomes impossible, but the player cannot identify why. |
+| Misleading | Failure appears to be a movement error, but hidden World State blocked the action. |
+| Accidental clear | Automatic state sequence produces the correct order without intentional choice. |
+
+Hidden softlocks are **not** Discovery. Long mandatory replay is **not** informative failure.
+
+##### Door / Switch status
+
+| Object | Record |
+| --- | --- |
+| Door | **STRONG CANDIDATE EXPRESSION.** Not a mandatory W3 mechanic. Strengths: concrete binary state; readable solid / passable relationship; can create and remove different interaction possibilities. Risks: open = progress cliché; switch hunting; closed-state value depending on unvalidated Wall Jump; trivial unlock puzzles. No implementation approval. |
+| Switch | **USEFUL EXPRESSION CANDIDATE.** Not required. Primary value: clear cause → separated state result. Danger: a visible switch becomes “press me now.” Supports W3 depth only when “can activate” differs from “should activate now.” |
+
+##### W2 reuse
+
+W3 may reuse understood W2 relationships.
+
+W2-PHYS-001 / 002 **PASS** prove physical capability, **not** human understanding. Until W2 readability is validated (W2-PHYS-003 **PENDING**), do not assume the player can use carried-motion knowledge as a required W3 prerequisite.
+
+Good reuse: known player-state preparation + new World-State condition.
+
+Bad reuse: first-time motion reasoning + first-time world-state reasoning in the same problem.
+
+##### W3 graduation evidence
+
+Use **planning supported / adaptation unobserved**, not “used every Door / Switch.”
+
+| Class | Items |
+| --- | --- |
+| MUST UNDERSTAND | World State changes available actions; player actions can change World State; state change can create **and** remove possibilities; a state's value depends on the current plan; logical order may matter even with unlimited thinking time; future actions may require preparing or preserving a World State |
+| MAY EXPERIENCE | Same object in different roles; restoring a prior state; irreversible commitment; one action changing multiple possibilities; deciding whether Player State or World State should be prepared first; multiple valid state plans |
+| MUST NOT REQUIRE | Door / Switch completion checklist; Wall Jump; BOOST / Charge; special Air Reversal; timed switches; countdowns; delay prediction; cycles; rhythm; hidden state conditions; long mandatory replay; precision execution; all alternate solutions; verbal explanation |
+
+Insufficient: press every switch; follow every opened path; automatic order; activate-all; memorized switch sequence; hidden-condition guessing.
+
+##### Final integration
+
+Candidate: “원하는 행동을 위해 내 상태와 세계 상태를 준비하고, 아직 필요한 가능성을 남기는 순서를 고를 수 있다.”
+
+English: “I can prepare both my state and the world state, while ordering changes so needed possibilities remain available.”
+
+Possible evidence: intentionally creates a needed possibility; preserves a still-needed possibility; delays or reverses an apparently beneficial change; chooses a logical state/action order; transfers known relationships to a new context.
+
+Do **not** require all evidence inside one giant room.
+
+False-positive clear: automatic order; activate-all; memorized switch sequence; hidden-condition guessing.
+
+##### W3 → W4 handoff
+
+| | W3 | W4 |
+| --- | --- | --- |
+| Question | What world state must exist for the desired action to be possible? | When must it exist, how long does it exist, or after what event will it exist? |
+| Planning variable | Which state / logical order | Occurrence, duration, delay, cycle, event progression |
+
+W3 should **not** add timing pressure merely for difficulty. No timed switch / short-lived gate / cycle / countdown / delay / rhythm as default W3 escalation.
+
+##### Expression alignments (not mandatory rooms)
+
+| Topic | Record |
+| --- | --- |
+| DSC-014 | Core relationship strongly aligns with **W3-K03 / K04**: apparently positive state change → removes a still-needed possibility → plan / order is reconsidered. Door is one possible expression. Do **not** make Wall Jump or Door-specific behavior a current W3 prerequisite. Do **not** claim a hidden consequence is fair discovery. **Not** automatically a required W3 room. |
+| DSC-018 | Strong W3 alignment when different World State changes what actions involving the object are possible. This does **not** mean every object needs two tricks. W3 learns how World State changes object/action possibility. W5 recombines already-known state/role relationships with other known domains. Do **not** move reinterpretation exclusively to W5. |
+| DSC-001 | Historical Door-as-wall seed. Expression, not W3 identity. Closed-state value must not depend on unvalidated Wall Jump as a current W3 requirement. |
+
+##### Bloat warnings
+
+Depth Over Quantity applies.
+
+- Switch count mistaken for depth
+- Longer state sequences
+- Open / close tutorials split into separate rooms
+- Reverse-order versions with no new inference
+- Hidden linkage
+- Irreversible gotcha
+- Door-specific trick checklist
+- Adding timing to make W3 harder
+- Adding gimmicks because W3 feels short
+
+##### Historical slot → current role
+
+IDs and titles preserved. **Not** a production count, mandatory sequence, or graduation checklist.
+
+| Slot | Title | Current alignment |
+| --- | --- | --- |
+| 001 | Closed | Useful K01/K02 expression candidate. |
+| 002 | State | Duplicate candidate if the same inference as 001. |
+| 003 | Set It First | K04 transfer/test. |
+| 004 | Don't Open It | Conditional / historically Wall-Jump-dependent. **Not** current mandatory content. |
+| 005 | Use It, Then Open It | Useful logical-order application. |
+| 006 | Opening Can Be Wrong | Strong K03 expression candidate. |
+| 007 | Switch Again | State restoration application. |
+| 008 | Movement Before State | Transfer/test. Ensure it is not merely reverse ordering of 003. |
+| 009 | Which First? | Duplicate candidate if the same state-order inference as earlier slots. |
+| 010 | Same Door, Different Job | Transfer/test or duplicate depending on earlier coverage. |
+| 011 | Door × Momentum | Only after W2 knowledge is actually learned. **Not** a current prerequisite. |
+| 012 | The Door Is Not a Door | Integration / transfer candidate. Not “use every Door trick.” |
+
+Historical slots remain lineage, not production count / order / graduation checklist.
 
 #### Knowledge Graph (historical candidate inventory)
 
@@ -790,7 +1091,7 @@ Door / Switch appear here as historical expression, not as W3’s identity.
 
 #### Knowledge Gates (historical — not current World identity)
 
-IDs retained. Current W3 graduation is world-state possibility evidence above, not “used Door / Switch.”
+IDs retained. Current W3 graduation is the W3-K evidence language above, not “used Door / Switch.”
 
 | Gate | Historical requirement | May be satisfied in |
 | --- | --- | --- |

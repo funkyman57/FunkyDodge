@@ -12,7 +12,7 @@ They describe what the game is allowed to be. They do not automatically describe
    If a proposed mechanic, gimmick, level, or implementation contradicts `CONSTITUTION.md`, the Constitution wins.
 
 2. **Libraries are referenced by stable IDs.**  
-   Use `R-PLAYER-001`, `INT-001`, `GIM-001`, `PAT-001`, `DSC-001`, `W1-K01`, `W2-K01`, `DL-01`, `ANTI-001`, `LVL-W01-001`, `WLD-01`.  
+   Use `R-PLAYER-001`, `INT-001`, `GIM-001`, `PAT-001`, `DSC-001`, `W1-K01`, `W2-K01`, `W3-K01`, `DL-01`, `ANTI-001`, `LVL-W01-001`, `WLD-01`.  
    IDs are permanent. Deprecated items keep their ID. Never recycle an ID.
 
 3. **Implementation does not automatically validate a design.**  
@@ -47,10 +47,10 @@ They describe what the game is allowed to be. They do not automatically describe
 | [libraries/PUZZLE_PATTERN_LIBRARY.md](libraries/PUZZLE_PATTERN_LIBRARY.md) | Abstract puzzle structures. |
 | [libraries/DISCOVERY_LIBRARY.md](libraries/DISCOVERY_LIBRARY.md) | Player realizations + Discovery Language System v1 (`DL-01`–`DL-08`). Mixed / unassigned IDs stay unassigned. |
 | [libraries/ANTI_PATTERN_LIBRARY.md](libraries/ANTI_PATTERN_LIBRARY.md) | What we refuse to ship. |
-| [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) | **World Knowledge Architecture.** Knowledge domains first; current W1-K and W2-K role models; historical 12-slot lineage after. |
+| [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) | **World Knowledge Architecture.** Knowledge domains first; current W1-K, W2-K, and W3-K role models; historical 12-slot lineage after. |
 | [progression/LEVEL_LIBRARY.md](progression/LEVEL_LIBRARY.md) | Room IDs. Historical World assignment ≠ production commitment. |
 
-Reading order: (1) Constitution → (2) World Knowledge Architecture in WORLD_LIBRARY → (3) current W1 architecture → (4) current W2-K architecture → (5) Discovery Language → (6) Libraries → (7) historical content as lineage. Prefer “choose knowledge question → find the smallest expression.” Do not “choose gimmick → assign World → make room.” Do not treat W2 as “go faster” or a Wind / Ice / Rough checklist.
+Reading order: (1) Constitution → (2) World Knowledge Architecture in WORLD_LIBRARY → (3) current W1 architecture → (4) current W2-K architecture → (5) current W3-K architecture → (6) Discovery Language → (7) Libraries → (8) historical content as lineage. Prefer “choose knowledge question → find the smallest expression.” Do not “choose gimmick → assign World → make room.” Do not treat W2 as “go faster” or a Wind / Ice / Rough checklist. Do not treat W3 as Door / Switch World or “activate everything.”
 
 ---
 
@@ -72,7 +72,7 @@ Movement foundation is **not finalized**. Human Movement Validation #3 is **pend
 
 PLAY-002 remains **LOCKED**. Vertical Slice implementation remains **HOLD**.
 
-W1 Knowledge Architecture, W2 Knowledge Architecture, Discovery Language System, and World Knowledge Architecture: **CANDIDATE**. Do not promote to `VALIDATED` / `CORE`. Movement Validation #3 pending does not validate W2-K. This pass does not validate W2–W5 rooms, gimmicks, or movement experiments.
+W1 Knowledge Architecture, W2 Knowledge Architecture, W3 Knowledge Architecture, Discovery Language System, and World Knowledge Architecture: **CANDIDATE**. Do not promote to `VALIDATED` / `CORE`. Movement Validation #3 pending does not validate W2-K. W2-PHYS-003 Human Readability remains **PENDING**. This pass does not validate W2–W5 rooms, Door / Switch, gimmicks, or movement experiments. No W3 mechanic is approved for production.
 
 See [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) for the full boundary statement.
 
@@ -81,5 +81,7 @@ See [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) for the full boundary statement.
 Worlds are knowledge domains (CONTROL → MOMENTUM → POSSIBILITY → TIME → UNDERSTANDING). W5 is a synthesis stage, not a fifth mechanic pack.
 
 W1 current planning is **role-based** (FOUNDATION → CONTEXTUAL CHOICE → PREPARATION → TRANSFER → [CONDITIONAL SYNTHESIS]). The historical W1 12-slot list is lineage only — not “W1 must have 12 rooms and teach every movement technique.” See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
+
+W2 current planning is **role-based** (`W2-K01`–`W2-K05`). W3 current planning is **role-based** (`W3-K01`–`W3-K05`: STATE ENABLES ACTION → REVALUE THE CHANGE → PRESERVE WHAT COMES NEXT → PLAN BOTH STATES).
 
 W2–W5 room rows remain 12-slot **historical candidate inventories** each (`CANDIDATE`). Historical gimmick groupings (Wind/Ice/Rough, Door/Switch, Counter/Gate/Delay) do **not** define those Worlds. Do not implement them. Geometry, counts, and durations stay `TBD — after movement validation / relevant prototype validation`.

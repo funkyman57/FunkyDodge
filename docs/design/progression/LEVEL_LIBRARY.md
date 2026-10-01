@@ -104,24 +104,24 @@ Historical expression candidates: Wind, Ice, Rough. No Spring. These gimmicks do
 
 ### WLD-03 — historical candidate inventory
 
-IDs and titles preserved. **Not** a production count. W3 identity is world-state possibility, not Door / Switch. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
+IDs and titles preserved. **Not** a production count. W3 identity is World State changing the current possibility set, not Door / Switch. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md) (`W3-K01`–`W3-K05`).
 
-| ID | Title | Purpose |
-| --- | --- | --- |
-| LVL-W03-001 | Closed | TEACH |
-| LVL-W03-002 | State | APPLY |
-| LVL-W03-003 | Set It First | TEST |
-| LVL-W03-004 | Don't Open It | SURPRISE / REINTERPRET |
-| LVL-W03-005 | Use It, Then Open It | APPLY / ORDER / REWARD candidate |
-| LVL-W03-006 | Opening Can Be Wrong | REINTERPRET |
-| LVL-W03-007 | Switch Again | REINTERPRET / APPLY |
-| LVL-W03-008 | Movement Before State | TEST |
-| LVL-W03-009 | Which First? | ORDER |
-| LVL-W03-010 | Same Door, Different Job | REINTERPRET |
-| LVL-W03-011 | Door × Momentum | COMBINE |
-| LVL-W03-012 | The Door Is Not a Door | MASTERY / REINTERPRET |
+| ID | Title | Purpose | Current alignment |
+| --- | --- | --- | --- |
+| LVL-W03-001 | Closed | TEACH | Useful K01/K02 expression candidate. |
+| LVL-W03-002 | State | APPLY | Duplicate candidate if the same inference as 001. |
+| LVL-W03-003 | Set It First | TEST | K04 transfer/test. |
+| LVL-W03-004 | Don't Open It | SURPRISE / REINTERPRET | Conditional / historically Wall-Jump-dependent. **Not** current mandatory content. |
+| LVL-W03-005 | Use It, Then Open It | APPLY / ORDER / REWARD candidate | Useful logical-order application. |
+| LVL-W03-006 | Opening Can Be Wrong | REINTERPRET | Strong K03 expression candidate. |
+| LVL-W03-007 | Switch Again | REINTERPRET / APPLY | State restoration application. |
+| LVL-W03-008 | Movement Before State | TEST | Transfer/test. Not merely reverse ordering of 003. |
+| LVL-W03-009 | Which First? | ORDER | Duplicate candidate if the same state-order inference. |
+| LVL-W03-010 | Same Door, Different Job | REINTERPRET | Transfer/test or duplicate depending on earlier coverage. |
+| LVL-W03-011 | Door × Momentum | COMBINE | Only after W2 knowledge is actually learned. **Not** a current prerequisite. |
+| LVL-W03-012 | The Door Is Not a Door | MASTERY / REINTERPRET | Integration / transfer candidate. Not “use every Door trick.” |
 
-Historical expression candidates: Door, Switch. No Moving Block / One-way Surface. These gimmicks do **not** define W3.
+Historical expression candidates: Door (strong), Switch (useful). No Moving Block / One-way Surface. These gimmicks do **not** define W3. No W3 room is `VALIDATED`. No W3 mechanic is approved for production.
 
 ### WLD-04 — historical candidate inventory
 
@@ -665,7 +665,7 @@ Historical candidate inventory. Official status remains `CANDIDATE`. Historical 
 
 ## World 3
 
-Historical candidate inventory. Official status remains `CANDIDATE`. Historical World assignment ≠ current production commitment. Current W3 domain (world-state possibility, not Door / Switch): [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W3-GATE-*` fields below are historical IDs.
+Historical candidate inventory. Official status remains `CANDIDATE`. Historical World assignment ≠ current production commitment. Current W3 domain (`W3-K01`–`W3-K05`, World State / possibility set, not Door / Switch): [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W3-GATE-*` fields below are historical IDs. No W3 room is `VALIDATED`.
 
 ### LVL-W03-001 — Closed
 
@@ -673,6 +673,7 @@ Historical candidate inventory. Official status remains `CANDIDATE`. Historical 
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | TEACH |
+| Current alignment | Useful K01/K02 expression candidate. Lineage only. |
 | Knowledge | Switch → Door opens → Pass. Establish: Door = obstacle that should be opened. |
 | Rules Used | R-STATE-001; R-SIGNAL-001; R-CONTACT-001 |
 | Interactions Used | INT-021; INT-022 |
@@ -691,6 +692,7 @@ Historical candidate inventory. Official status remains `CANDIDATE`. Historical 
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | APPLY |
+| Current alignment | Duplicate candidate if the same inference as 001. |
 | Knowledge | CLOSED blocks; OPEN permits; Switch changes Door state. No reinterpretation yet. |
 | Rules Used | R-STATE-001; R-SIGNAL-001 |
 | Interactions Used | INT-021; INT-022; INT-028 |
@@ -709,6 +711,7 @@ Historical candidate inventory. Official status remains `CANDIDATE`. Historical 
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | TEST |
+| Current alignment | K04 transfer/test. |
 | Knowledge | Prepare world state before movement |
 | Discovery Target | none numbered |
 | Rules Used | R-STATE-001; R-SIGNAL-001 |
@@ -730,6 +733,7 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | SURPRISE / REINTERPRET |
+| Current alignment | Conditional / historically Wall-Jump-dependent. **Not** current mandatory W3 content. Closed-state value must not depend on unvalidated Wall Jump. |
 | Knowledge | Closed Door as wall / rebound / wall-jump surface |
 | Discovery Target | DSC-001 |
 | Required setup | Door visibly solid while closed; solids already support movement; Wall Jump known |
@@ -752,6 +756,7 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | APPLY / ORDER / REWARD candidate |
+| Current alignment | Useful logical-order application (use a possibility, then change state). |
 | Knowledge | Both Door faces in one puzzle |
 | Conceptual sequence | Door CLOSED → use as surface → reach Switch → Door OPEN → pass |
 | Rules Used | R-STATE-001; R-SIGNAL-001; R-CONTACT-001 |
@@ -770,6 +775,7 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET |
+| Current alignment | Strong K03 expression candidate. DSC-014 alignment. Door is one expression, not W3 identity. |
 | Knowledge | State change is not automatically an upgrade |
 | Discovery Target | DSC-014 |
 | Rules Used | R-STATE-001; R-CONTACT-001 |
@@ -790,6 +796,7 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET / APPLY |
+| Current alignment | State restoration application. Reversibility is useful early, not a W3 requirement. |
 | Knowledge | Switch Second Face candidate: restore a useful previous state |
 | First Face | Change another object's state to create progress |
 | Conceptual sequence | CLOSED → OPEN → move → CLOSED → use restored structure |
@@ -810,6 +817,7 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | TEST |
+| Current alignment | Transfer/test. Must not be merely reverse ordering of 003 with no new inference. |
 | Knowledge | Create Movement State/position, then change object state |
 | Rules Used | R-STATE-001; W1/W2 movement |
 | Interactions Used | INT-022 |
@@ -829,6 +837,7 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | ORDER |
+| Current alignment | Duplicate candidate if the same state-order inference as 003 / 005 / 008. |
 | Knowledge | Order of Door/Switch actions. Physical possibility, not a Boolean logic exam. |
 | Rules Used | R-STATE-001; R-SIGNAL-001 |
 | Interactions Used | INT-021; INT-022 |
@@ -847,6 +856,7 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET |
+| Current alignment | Transfer/test or duplicate depending on earlier coverage. DSC-018 alignment. |
 | Knowledge | Contextual roles, not one fixed purpose |
 | Discovery Target | DSC-018 |
 | CLOSED roles | blocks passage; provides solid surface |
@@ -868,6 +878,7 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | COMBINE |
+| Current alignment | Only after W2 knowledge is actually learned. **Not** a current W3 prerequisite. W2-PHYS-001/002 are physical PASS; W2-PHYS-003 readability is PENDING. |
 | Knowledge | Door solidity + Momentum. No new Gimmick. |
 | Discovery Target | DSC-015. Weak seed only for DSC-016 (not realized here). |
 | DSC-016 seed | A Door collision/rebound may send the player a way that looks less immediately productive but sets a later trajectory. Do not declare DSC-016 realized in W3. |
@@ -889,6 +900,7 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | MASTERY / REINTERPRET |
+| Current alignment | Integration / transfer candidate. Not “use every Door trick.” Not a graduation checklist. |
 | Knowledge | No new Rule. No new Gimmick. |
 | Discovery Target | DSC-001; DSC-014; DSC-015; DSC-018 |
 | Core question | “What role should this Door have right now?” |
