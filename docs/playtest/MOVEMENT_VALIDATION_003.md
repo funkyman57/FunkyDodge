@@ -61,9 +61,9 @@ If `git rev-parse HEAD` does not match the expected SHA, **stop**. Do not playte
 
 Recommended order:
 
-1. **AR-A2** — airborne directional correction
-2. **WJ-B** — wall-contact intervention
-3. **Charge / Spin** — new SPACE preparation input last
+1. **AR-A2** — tests directional-air correction first
+2. **WJ-B** — tests contact intervention separately
+3. **Charge / Spin** — tests the new SPACE input last
 
 PASS or FAIL on one experiment does **not** change the others.
 
