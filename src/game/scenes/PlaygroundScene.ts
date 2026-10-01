@@ -436,6 +436,8 @@ function publishDebugState(
     inputDurationMs: input.inputDurationMs(nowMs),
     holdDurationMs: input.getHorizontalHoldDuration(nowMs),
     landingBoostWindow: player.landingBoostWindowActive,
+    lastCarryPreVx: player.lastCarryPreVx,
+    lastCarryPostVx: player.lastCarryPostVx,
     x: player.x,
     y: player.y,
     readability: readability

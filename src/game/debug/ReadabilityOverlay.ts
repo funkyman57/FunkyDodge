@@ -9,13 +9,13 @@ import { PhysicsConfig } from "../physics/PhysicsConfig";
 
 type TrailPoint = { x: number; y: number };
 
-const TICK = 0x6d7c9c;
-const START = 0xd7e3ff;
-const ARRIVAL = 0x8aa4d4;
+const TICK = 0xa8b8d4;
+const START = 0xf2f6ff;
+const ARRIVAL = 0x9eb6e0;
 const CONTACT = 0xf4d35e;
-const PREV_CONTACT = 0xb9c4d6;
-const TRAIL = 0x9ecbff;
-const GHOST = 0x7f8eaa;
+const PREV_CONTACT = 0xc5d0e4;
+const TRAIL = 0xb7dcff;
+const GHOST = 0x8b9bb8;
 
 export class ReadabilityOverlay {
   private readonly ticks: Phaser.GameObjects.Rectangle[] = [];
@@ -38,9 +38,12 @@ export class ReadabilityOverlay {
   ) {
     const left = 24;
     const right = PhysicsConfig.width - 24;
+    this.ticks.push(
+      scene.add.rectangle((left + right) / 2, this.floorTop - 1, right - left, 3, TICK, 0.35).setDepth(2).setVisible(false),
+    );
     for (let x = 80; x <= right - 8; x += 80) {
       this.ticks.push(
-        scene.add.rectangle(x, this.floorTop - 7, 2, 14, TICK, 0.55).setDepth(3).setVisible(false),
+        scene.add.rectangle(x, this.floorTop - 10, 3, 20, TICK, 0.85).setDepth(3).setVisible(false),
       );
     }
     this.startMark = scene.add

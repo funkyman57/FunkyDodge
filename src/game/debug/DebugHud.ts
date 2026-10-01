@@ -99,17 +99,25 @@ export class DebugHud {
     this.lastWallJumpHud = wallJumpHudActive(nowMs, player.lastWallJumpAt);
     const showPressAge = press !== null && (press.held || press.ageMs <= PhysicsConfig.lowBounceFreshPressWindowMs);
 
-    const readabilityLines = readability?.active && readability.scenarioId
-      ? [
-        `READABILITY ${scenarioHudName(readability.scenarioId, "INSTRUMENTED")}`,
-        `mode INSTRUMENTED`,
-        readability.scripted ? `script ${readability.scriptFrame}/${readability.scriptLength}` : "script off",
-      ]
-      : [];
+    if (readability?.active && readability.scenarioId) {
+      this.text.setText(
+        [
+          `READABILITY ${scenarioHudName(readability.scenarioId, "INSTRUMENTED")}`,
+          "mode INSTRUMENTED",
+          readability.scripted ? `script ${readability.scriptFrame}/${readability.scriptLength}` : "script off",
+          `vx ${player.vx.toFixed(1)}`,
+          `W2 PRE ${player.lastCarryPreVx.toFixed(1)}`,
+          `W2 POST ${player.lastCarryPostVx.toFixed(1)}`,
+          `W2 retain ${carryRetain(player.lastCarryPreVx, player.lastCarryPostVx)}`,
+          `Bounce Type: ${player.lastBounceType}`,
+          `Horizontal Input ${horizontalInput}`,
+        ].join("\n"),
+      );
+      return;
+    }
 
     this.text.setText(
       [
-        ...readabilityLines,
         `vx ${player.vx.toFixed(1)}`,
         `vy ${player.vy.toFixed(1)}`,
         `W2 PRE ${player.lastCarryPreVx.toFixed(1)}`,
