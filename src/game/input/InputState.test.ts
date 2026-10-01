@@ -38,6 +38,20 @@ test("adoptHeld does not fabricate a fresh press", () => {
   assert.equal(input.justPressedDirection(), 0);
 });
 
+test("INPUT-02: SPACE press is a hold, not a movement direction", () => {
+  const input = new InputState();
+  input.update(0, false, false, false, false);
+  input.update(16, false, false, false, true);
+  assert.equal(input.spaceJustPressed, true);
+  assert.equal(input.spaceDown, true);
+  assert.equal(input.justPressedDirection(), 0);
+
+  input.update(32, false, false, false, true);
+  assert.equal(input.spaceJustPressed, false);
+  assert.equal(input.spaceDown, true);
+  assert.equal(input.justPressedDirection(), 0);
+});
+
 test("INPUT-01: opposite fresh press is a new one-shot after release", () => {
   const input = new InputState();
   input.update(0, false, true, false);

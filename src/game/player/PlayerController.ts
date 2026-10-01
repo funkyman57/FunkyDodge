@@ -3,6 +3,19 @@ import { InputState } from "../input/InputState";
 import { ExperimentReport, LowInputExperiment } from "../input/LowInputExperiment";
 import { rhythmDecisionToLegacyReason, sharedRhythmRecognizer, type RhythmPreview } from "../input/RhythmRecognizer";
 import {
+  applyChargeBoostGate,
+  cancelCharge,
+  chargeProgress01,
+  chargeProgressMs,
+  consumeChargeBoost,
+  createChargeState,
+  resolveChargeHorizontalVelocity,
+  stepCharge,
+  type ChargeEvent,
+  type ChargePhase,
+  type ChargeState,
+} from "../physics/ChargeBoost";
+import {
   BounceType,
   isWallJumpEligible,
   LandingIntent,
@@ -43,10 +56,15 @@ export class PlayerController {
   rhythmPreview: RhythmPreview | null = null;
 
   lastWallJumpAt = 0;
+  chargePhase: ChargePhase = "NONE";
+  chargeProgressMs = 0;
+  chargeProgress01 = 0;
+  chargeLastEvent: ChargeEvent = "NONE";
 
   private bounceApplied = false;
   private wallJumpConsumed = false;
   private boostUntilMs = 0;
+  private charge: ChargeState = createChargeState();
   private solids: SolidBody[] = [];
 
   constructor(
@@ -95,6 +113,9 @@ export class PlayerController {
     this.wallJumpConsumed = false;
     this.boostUntilMs = 0;
     this.lastWallJumpAt = 0;
+    this.charge = createChargeState();
+    this.publishCharge();
+    this.player.setChargePresentation("NONE", 0, 0);
   }
 
   update(nowMs: number, deltaMs: number): void {
@@ -103,6 +124,7 @@ export class PlayerController {
 
     this.physicsWorldGravity();
     this.refreshContactFlags(body);
+    this.updateCharge(nowMs);
     this.updateApproachWindow(body, nowMs);
     this.refreshRhythmPreview(nowMs);
     this.applyHorizontalControl(body, dt, nowMs);
@@ -178,8 +200,10 @@ export class PlayerController {
 
   private applyHorizontalControl(body: Phaser.Physics.Arcade.Body, dt: number, nowMs: number): void {
     const pressDirection = this.input.justPressedDirection();
-    const boostActive = nowMs < this.boostUntilMs || this.lastBounceType === "BOOST";
-    const maxSpeed = PhysicsConfig.maxHorizontalSpeed * (boostActive ? PhysicsConfig.landingBoostMultiplier : 1);
+    const boostActive = this.lastBounceType === "BOOST";
+    const maxSpeed = PhysicsConfig.maxHorizontalSpeed * (
+      boostActive ? PhysicsConfig.chargeBoostHorizontalMultiplier : 1
+    );
     const stepped = stepHorizontalVelocity({
       vx: body.velocity.x,
       grounded: this.grounded,
@@ -232,6 +256,9 @@ export class PlayerController {
     this.wallJumpConsumed = true;
     this.lastWallJumpAt = nowMs;
     this.visualState = "WALL";
+    this.charge = cancelCharge(this.charge);
+    this.publishCharge(nowMs);
+    this.player.setChargePresentation(this.charge.phase, this.chargeProgress01, nowMs);
     if (LowInputExperiment.mode === "RHYTHM") {
       sharedRhythmRecognizer.onWallJump(nowMs);
       this.lastClearReason = "WALL_JUMP";
@@ -249,9 +276,18 @@ export class PlayerController {
       return;
     }
 
-    const result = LowInputExperiment.mode === "RHYTHM"
+    const raw = LowInputExperiment.mode === "RHYTHM"
       ? sharedRhythmRecognizer.commitLanding(nowMs)
       : resolveFloorBounce(this.input, nowMs);
+    const gated = applyChargeBoostGate(raw, this.input, this.charge.phase === "READY");
+    if (gated.cancelCharge) {
+      this.charge = cancelCharge(this.charge);
+    } else if (gated.consumeCharge) {
+      this.charge = consumeChargeBoost(this.charge);
+    }
+    this.publishCharge(nowMs);
+    this.player.setChargePresentation(this.charge.phase, this.chargeProgress01, nowMs);
+    const result = gated.result;
     body.setVelocityY(result.verticalVelocity);
     body.blocked.down = false;
     this.lastBounceType = result.type;
@@ -272,24 +308,22 @@ export class PlayerController {
       body.setVelocityX(resolveTakeoffVelocity(body.velocity.x, takeoffDirection, result.type));
     }
 
-    if (result.applyHorizontalBoost) {
-      this.applyLandingBoost(result.boostDirection, nowMs);
-    } else if (result.type !== "BOOST") {
-      this.boostUntilMs = 0;
+    if (result.applyHorizontalBoost && result.boostDirection !== 0) {
+      body.setVelocityX(resolveChargeHorizontalVelocity(body.velocity.x, result.boostDirection));
     }
   }
 
-  private applyLandingBoost(direction: -1 | 0 | 1, nowMs: number): void {
-    if (direction === 0) {
-      return;
-    }
+  private updateCharge(nowMs: number): void {
+    this.charge = stepCharge(this.charge, nowMs, this.input.spaceDown);
+    this.publishCharge(nowMs);
+    this.player.setChargePresentation(this.charge.phase, this.chargeProgress01, nowMs);
+  }
 
-    const body = this.player.body;
-    const boostedMax = PhysicsConfig.maxHorizontalSpeed * PhysicsConfig.landingBoostMultiplier;
-    const current = Math.abs(body.velocity.x);
-    const boosted = Math.max(current * PhysicsConfig.landingBoostMultiplier, PhysicsConfig.maxHorizontalSpeed * 0.55);
-    body.setVelocityX(direction * clamp(boosted, 0, boostedMax));
-    this.boostUntilMs = nowMs + PhysicsConfig.landingBoostHoldMs;
+  private publishCharge(nowMs = 0): void {
+    this.chargePhase = this.charge.phase;
+    this.chargeProgressMs = chargeProgressMs(this.charge, nowMs);
+    this.chargeProgress01 = chargeProgress01(this.charge, nowMs);
+    this.chargeLastEvent = this.charge.lastEvent;
   }
 
   private updateVisualState(nowMs: number): void {
@@ -324,8 +358,4 @@ export class PlayerController {
 
     return minDistance;
   }
-}
-
-function clamp(value: number, min: number, max: number): number {
-  return Math.max(min, Math.min(max, value));
 }

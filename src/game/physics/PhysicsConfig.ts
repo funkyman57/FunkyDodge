@@ -27,6 +27,11 @@ export const PhysicsConfig = {
   landingBoostMultiplier: 1.25,
   landingBoostHoldMs: 200,
 
+  // Charge BOOST experiment: SPACE hold duration to READY. Human-test candidate, not a final tune.
+  chargeDurationMs: 420,
+  // Charge BOOST experiment: horizontal travel multiplier. Vertical bounce stays NORMAL.
+  chargeBoostHorizontalMultiplier: 1.35,
+
   lowBounceFreshPressWindowMs: 130,
   lowBounceMultiplier: 0.42,
 

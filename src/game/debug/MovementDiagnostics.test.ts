@@ -4,8 +4,10 @@ import { PHYSICS_PRESETS, applyPhysicsTuning, readPhysicsTuning } from "../physi
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import {
   AR_IMPULSE_HUD_LATCH_MS,
+  CHARGE_EVENT_HUD_LATCH_MS,
   WALL_NEW_HUD_LATCH_MS,
   latchAirReverseDisplay,
+  latchChargeEventDisplay,
   latchWallNewFlash,
   resolveAirReverseDiagnostic,
   resolveWallContactPhase,
@@ -141,4 +143,13 @@ test("DIAG-05: WJ indicator follows lastWallJumpAt only", () => {
   assert.equal(wallJumpHudActive(1000, 1000), true);
   assert.equal(wallJumpHudActive(1220, 1000), true);
   assert.equal(wallJumpHudActive(1221, 1000), false);
+});
+
+test("DIAG-07: charge event HUD latch is display-only", () => {
+  const fired = latchChargeEventDisplay("BOOST_FIRE", 1000, 0, "NONE", CHARGE_EVENT_HUD_LATCH_MS);
+  assert.equal(fired.event, "BOOST_FIRE");
+  const during = latchChargeEventDisplay("NONE", 1100, fired.eventUntilMs, fired.event, CHARGE_EVENT_HUD_LATCH_MS);
+  assert.equal(during.event, "BOOST_FIRE");
+  const after = latchChargeEventDisplay("NONE", 1220, fired.eventUntilMs, fired.event, CHARGE_EVENT_HUD_LATCH_MS);
+  assert.equal(after.event, "NONE");
 });

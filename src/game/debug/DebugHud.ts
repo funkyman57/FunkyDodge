@@ -5,11 +5,13 @@ import { InputState } from "../input/InputState";
 import { PlayerController } from "../player/PlayerController";
 import {
   latchAirReverseDisplay,
+  latchChargeEventDisplay,
   latchWallNewFlash,
   resolveAirReverseDiagnostic,
   resolveWallContactPhase,
   wallJumpHudActive,
   type AirReverseHud,
+  type ChargeHudEvent,
   type WallContactPhase,
 } from "./MovementDiagnostics";
 
@@ -23,6 +25,8 @@ export class DebugHud {
   lastWallPhase: WallContactPhase = "—";
   lastWallNewFlash = false;
   lastWallJumpHud = false;
+  lastChargeEvent: ChargeHudEvent = "NONE";
+  private chargeEventUntilMs = 0;
 
   constructor(scene: Phaser.Scene) {
     this.text = scene.add
@@ -74,6 +78,15 @@ export class DebugHud {
     this.prevWallLeft = player.wallLeft;
     this.prevWallRight = player.wallRight;
     this.lastWallJumpHud = wallJumpHudActive(nowMs, player.lastWallJumpAt);
+    const chargeEvent = latchChargeEventDisplay(
+      player.chargeLastEvent,
+      nowMs,
+      this.chargeEventUntilMs,
+      this.lastChargeEvent,
+    );
+    this.lastChargeEvent = chargeEvent.event;
+    this.chargeEventUntilMs = chargeEvent.eventUntilMs;
+    const chargeLabel = player.chargePhase === "NONE" ? "CHARGE —" : player.chargePhase;
     const showPressAge = press !== null && (press.held || press.ageMs <= PhysicsConfig.lowBounceFreshPressWindowMs);
 
     this.text.setText(
@@ -102,7 +115,10 @@ export class DebugHud {
         `Wall ${this.lastWallPhase}`,
         this.lastWallNewFlash && this.lastWallPhase !== "NEW" ? "Wall NEW" : "",
         this.lastWallJumpHud ? "WJ" : "",
-        player.lastBounceType === "BOOST" ? "LANDING BOOST" : "",
+        chargeLabel,
+        `Charge ${Math.round(player.chargeProgress01 * 100)}%`,
+        this.lastChargeEvent === "CANCEL" ? "CANCEL" : "",
+        this.lastChargeEvent === "BOOST_FIRE" ? "BOOST FIRE" : "",
       ]
         .filter(Boolean)
         .join("\n"),

@@ -90,3 +90,23 @@ export function wallJumpHudActive(
 ): boolean {
   return lastWallJumpAt > 0 && nowMs - lastWallJumpAt <= windowMs;
 }
+
+export const CHARGE_EVENT_HUD_LATCH_MS = 220;
+
+export type ChargeHudEvent = "NONE" | "CANCEL" | "BOOST_FIRE";
+
+export function latchChargeEventDisplay(
+  raw: ChargeHudEvent,
+  nowMs: number,
+  eventUntilMs: number,
+  latchedEvent: ChargeHudEvent,
+  latchMs: number = CHARGE_EVENT_HUD_LATCH_MS,
+): { event: ChargeHudEvent; eventUntilMs: number } {
+  if (raw === "CANCEL" || raw === "BOOST_FIRE") {
+    return { event: raw, eventUntilMs: nowMs + latchMs };
+  }
+  if (nowMs < eventUntilMs && latchedEvent !== "NONE") {
+    return { event: latchedEvent, eventUntilMs };
+  }
+  return { event: "NONE", eventUntilMs };
+}
