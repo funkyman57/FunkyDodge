@@ -153,7 +153,9 @@ It is not an implementation dependency graph. A later room may be moved, removed
 
 World graphs live in [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
 
-W1 CONTROL Knowledge Architecture v1 (`W1-K01`–`W1-K08`) is recorded there as a **CANDIDATE**. It is conceptual player-understanding, not a runtime object graph, and it does not replace the DOC-003 12-slot W1 graph.
+W1 CONTROL Knowledge Architecture v1 (`W1-K01`–`W1-K08`) is the **current** W1 planning source (`CANDIDATE`). Conceptual player-understanding, not a runtime object graph.
+
+The DOC-003 12-slot W1 list is a **historical candidate inventory**. It is not the current production plan, not a required room count, and not the graduation checklist. Depth Over Quantity takes precedence over slot preservation.
 
 ### Knowledge Gate
 
@@ -163,7 +165,7 @@ It does **not** require a separate examination level. A normal room can be a gat
 
 Gates validate **understanding**, not mechanical precision. They must respect C-02, ANTI-003, ANTI-004, and ANTI-006.
 
-Gate labels (`W1-GATE-1`, …) are progression requirements, not library IDs and not extra rooms.
+Gate labels (`W1-GATE-1`, …) are historical progression IDs, not extra rooms. Current W1 graduation is the W1-K evidence language in [WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md). Historical W1-GATE-2 (LOW / NORMAL / BOOST) and W1-GATE-3 (Wall / Momentum) are **not** current W1 graduation gates.
 
 ### Movement State
 
@@ -198,13 +200,13 @@ High-level world arc (labels are roles; questions stay canonical):
 
 | World | Role | Question |
 | --- | --- | --- |
-| WLD-01 | CONTROL | How do I move? |
+| WLD-01 | CONTROL | Where / which direction should the next useful action begin? (historical label: How do I move?) |
 | WLD-02 | MOMENTUM | What changes my motion? |
 | WLD-03 | POSSIBILITY | What can objects become? |
 | WLD-04 | TIME | When should I act? |
 | WLD-05 | UNDERSTANDING | What do I really know? |
 
-W1–W5 room rows are **progression candidates** (60 slots, not a release count). Official lifecycle status stays `CANDIDATE`. Do not add `PROGRESSION CANDIDATE` to the lifecycle. Documentation is not validation.
+W1 current planning is role-based, not 12-slot. W1–W5 `LVL-` rows remain **historical candidate inventories** (IDs kept). Official lifecycle status stays `CANDIDATE`. Do not add `PROGRESSION CANDIDATE` to the lifecycle. Documentation is not validation. Do not read “60 slots” as a ship count.
 
 ### Cognitive Operation Variety
 
