@@ -13,6 +13,7 @@ const BALL_COLORS: Record<BallVisualState, number> = {
 export class BallPlayer {
   readonly sprite: Phaser.Physics.Arcade.Image;
   readonly label: Phaser.GameObjects.Text;
+  private hideDebugLabel = false;
 
   constructor(scene: Phaser.Scene) {
     const radius = PhysicsConfig.ballRadius;
@@ -62,12 +63,17 @@ export class BallPlayer {
   setVisualState(state: BallVisualState): void {
     this.sprite.setTint(BALL_COLORS[state]);
     this.label.setText(state);
-    this.label.setVisible(PhysicsConfig.debug);
+    this.syncLabel();
+  }
+
+  setDebugLabelHidden(hidden: boolean): void {
+    this.hideDebugLabel = hidden;
+    this.syncLabel();
   }
 
   syncLabel(): void {
     this.label.setPosition(this.sprite.x, this.sprite.y - PhysicsConfig.ballRadius - 14);
-    this.label.setVisible(PhysicsConfig.debug);
+    this.label.setVisible(PhysicsConfig.debug && !this.hideDebugLabel);
   }
 }
 
