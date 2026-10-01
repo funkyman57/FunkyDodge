@@ -43,6 +43,8 @@ export class PlayerController {
   rhythmPreview: RhythmPreview | null = null;
 
   lastWallJumpAt = 0;
+  lastCarryPreVx = 0;
+  lastCarryPostVx = 0;
 
   private bounceApplied = false;
   private wallJumpConsumed = false;
@@ -95,6 +97,8 @@ export class PlayerController {
     this.wallJumpConsumed = false;
     this.boostUntilMs = 0;
     this.lastWallJumpAt = 0;
+    this.lastCarryPreVx = 0;
+    this.lastCarryPostVx = 0;
   }
 
   update(nowMs: number, deltaMs: number): void {
@@ -252,6 +256,7 @@ export class PlayerController {
     const result = LowInputExperiment.mode === "RHYTHM"
       ? sharedRhythmRecognizer.commitLanding(nowMs)
       : resolveFloorBounce(this.input, nowMs);
+    this.lastCarryPreVx = body.velocity.x;
     body.setVelocityY(result.verticalVelocity);
     body.blocked.down = false;
     this.lastBounceType = result.type;
@@ -277,6 +282,7 @@ export class PlayerController {
     } else if (result.type !== "BOOST") {
       this.boostUntilMs = 0;
     }
+    this.lastCarryPostVx = body.velocity.x;
   }
 
   private applyLandingBoost(direction: -1 | 0 | 1, nowMs: number): void {

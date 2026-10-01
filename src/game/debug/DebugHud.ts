@@ -80,6 +80,9 @@ export class DebugHud {
       [
         `vx ${player.vx.toFixed(1)}`,
         `vy ${player.vy.toFixed(1)}`,
+        `W2 PRE ${player.lastCarryPreVx.toFixed(1)}`,
+        `W2 POST ${player.lastCarryPostVx.toFixed(1)}`,
+        `W2 retain ${carryRetain(player.lastCarryPreVx, player.lastCarryPostVx)}`,
         `Horizontal Input ${horizontalInput}`,
         `Fresh Press ${yesNo(player.freshPressThisFrame)}`,
         `Press Age ${showPressAge && press ? `${Math.round(press.ageMs)}ms` : "—"}`,
@@ -112,6 +115,13 @@ export class DebugHud {
 
 function yesNo(value: boolean): string {
   return value ? "YES" : "NO";
+}
+
+function carryRetain(pre: number, post: number): string {
+  if (Math.abs(pre) < 1) {
+    return "—";
+  }
+  return (post / pre).toFixed(2);
 }
 
 function formatPending(player: PlayerController): string {
