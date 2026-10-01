@@ -1,3 +1,4 @@
+import { PhysicsConfig } from "../physics/PhysicsConfig";
 import {
   aabbOverlap,
   createWorldStateProbe,
@@ -124,6 +125,13 @@ export function aabbTouches(a: Aabb, b: Aabb): boolean {
   return a.left <= b.right && a.right >= b.left && a.top <= b.bottom && a.bottom >= b.top;
 }
 
+export function causeTouches(player: Aabb, cause: Aabb, skin = PhysicsConfig.contactSkin): boolean {
+  return player.left <= cause.right + skin
+    && player.right >= cause.left - skin
+    && player.top <= cause.bottom + skin
+    && player.bottom >= cause.top - skin;
+}
+
 export function causeBoundsFor(model: AgencyModelId): Aabb | null {
   if (model === "A") {
     return MODEL_A_CAUSE_BOUNDS;
@@ -141,7 +149,7 @@ export function createAgencySession(
 ): AgencySession {
   const probe = createWorldStateProbe(state);
   const bounds = causeBoundsFor(model);
-  const overlapping = bounds !== null && occupant !== null && aabbTouches(occupant, bounds);
+  const overlapping = bounds !== null && occupant !== null && causeTouches(occupant, bounds);
   return {
     model,
     grammar: AGENCY_GRAMMAR,
@@ -178,7 +186,7 @@ export function stepAgency(
 ): AgencySession {
   const bounds = causeBoundsFor(session.model);
   const occupant = playerAabb(playerX, playerY, radius);
-  const overlapping = bounds !== null && aabbTouches(occupant, bounds);
+  const overlapping = bounds !== null && causeTouches(occupant, bounds);
   const rising = overlapping && !session.causeOverlapping;
   const next: AgencySession = {
     ...session,

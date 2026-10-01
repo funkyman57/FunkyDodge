@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import {
-  aabbTouches,
+  causeTouches,
   causeBoundsFor,
   createAgencySession,
   stepAgency,
@@ -104,7 +104,7 @@ export class WorldStateAgencyView {
 
   resetLatch(playerX: number, playerY: number, radius: number): void {
     const bounds = causeBoundsFor(this.session.model);
-    const overlapping = bounds !== null && aabbTouches(playerAabb(playerX, playerY, radius), bounds);
+    const overlapping = bounds !== null && causeTouches(playerAabb(playerX, playerY, radius), bounds);
     this.session = {
       ...this.session,
       causeOverlapping: overlapping,
