@@ -9,6 +9,10 @@ Gimmicks embody rules and interactions. They are not a collection quest.
 
 C-05: new gimmicks are the last resort. C-07: important gimmicks need another face.
 
+Gimmicks do **not** own Worlds. A gimmick is an expression tool. The knowledge domain is determined by the inference the player must make, not by the object family.
+
+Example (classification only; do not invent new Door behavior): the same Door may be W3 if its state changes available actions; W4 if a delayed / temporary state must be predicted; W5 only if already-known Door relationships combine with other known relationships in a new planning structure.
+
 ---
 
 ## Schema
@@ -70,38 +74,38 @@ Second Face and Further Uses stay unset unless a later approved note supplies th
 
 DOC-001A / DOC-002 Second Faces recorded where supplied: Door (closed = wall), Wind (headwind / airtime), Switch (restore a previous state — candidate).
 
-**Required progression assignment (not a delete list):**
+**Historical expression candidates (not World identities, not a delete list):**
 
-| Assigned | Not assigned to required progression |
+| Historical expression (if the knowledge ask matches) | Remain unassigned |
 | --- | --- |
-| W2: GIM-003 Wind, GIM-004 Ice, GIM-005 Rough Surface | W2: GIM-006 Spring / R-FORCE-002 Impulse (C-05; keep in library) |
-| W3: GIM-001 Door, GIM-002 Switch | W3: GIM-010 Moving Block, GIM-011 One-way Surface (C-05; keep in library) |
-| W4: GIM-007 Bounce Counter, GIM-008 Timed Gate, GIM-012 Delayed Switch (or Switch+Delay) | W5: no new gimmicks |
+| W2 carried motion: GIM-003 Wind, GIM-004 Ice, GIM-005 Rough Surface | GIM-006 Spring / R-FORCE-002 Impulse (C-05) |
+| W3 world-state possibility: GIM-001 Door, GIM-002 Switch | GIM-010 Moving Block, GIM-011 One-way Surface (C-05) |
+| W4 future-state planning: GIM-007 Bounce Counter, GIM-008 Timed Gate, GIM-012 Delayed Switch (or Switch+Delay) | GIM-009 Force Switch. W5 adds no new gimmicks. |
 
-W1 required progression uses no environmental gimmicks.
+W1 required progression uses no environmental gimmicks. W2 ≠ Wind / Ice / Rough. W3 ≠ Door / Switch. W4 ≠ Counter / Gate / Delay. Event-count is TIME only if it changes future-state planning.
 
-Do not invent Motion/Kinematic or Conditional Collision rules to support GIM-010 / GIM-011. Those rule gaps stay explicit.
+Do not invent Motion/Kinematic or Conditional Collision rules to support GIM-010 / GIM-011. Those rule gaps stay explicit. Unassigned is **not** design debt.
 
 ---
 
 ## Index
 
-| ID | Name | Status | Required progression |
+| ID | Name | Status | Historical expression candidate |
 | --- | --- | --- | --- |
-| GIM-001 | Door | CANDIDATE | W3 |
-| GIM-002 | Switch | CANDIDATE | W3 |
-| GIM-003 | Wind | CANDIDATE | W2 |
-| GIM-004 | Ice | CANDIDATE | W2 |
-| GIM-005 | Rough Surface | CANDIDATE | W2 |
-| GIM-006 | Spring | CANDIDATE | none (kept) |
-| GIM-007 | Bounce Counter | CANDIDATE | W4 |
-| GIM-008 | Timed Gate | CANDIDATE | W4 |
-| GIM-009 | Force Switch | CANDIDATE | none |
-| GIM-010 | Moving Block | CANDIDATE | none (kept; W3 not required) |
-| GIM-011 | One-way Surface | CANDIDATE | none (kept; W3 not required) |
-| GIM-012 | Delayed Switch | CANDIDATE | W4 (may be Switch+Delay variation; unresolved) |
+| GIM-001 | Door | CANDIDATE | W3 if state changes available actions; may be W4/W5 by inference, not by default |
+| GIM-002 | Switch | CANDIDATE | W3 if the state change is the ask |
+| GIM-003 | Wind | CANDIDATE | W2 if remaining motion is the ask |
+| GIM-004 | Ice | CANDIDATE | W2 if remaining motion is the ask |
+| GIM-005 | Rough Surface | CANDIDATE | W2 if remaining motion is the ask |
+| GIM-006 | Spring | CANDIDATE | unassigned (kept) |
+| GIM-007 | Bounce Counter | CANDIDATE | W4 only if count changes future-state planning |
+| GIM-008 | Timed Gate | CANDIDATE | W4 if duration / occurrence is the ask |
+| GIM-009 | Force Switch | CANDIDATE | unassigned |
+| GIM-010 | Moving Block | CANDIDATE | unassigned (kept; W3 not required) |
+| GIM-011 | One-way Surface | CANDIDATE | unassigned (kept; W3 not required) |
+| GIM-012 | Delayed Switch | CANDIDATE | W4 if delay / later occurrence is the ask (may be Switch+Delay; unresolved) |
 
-Placement is guidance, not ownership. Visual themes are not locked.
+Placement is guidance, not ownership. A gimmick does not belong to one World by default. Visual themes are not locked.
 
 ---
 

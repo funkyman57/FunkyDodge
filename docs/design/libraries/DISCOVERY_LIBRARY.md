@@ -20,7 +20,20 @@ A strong discovery should normally become reusable player knowledge.
 
 Avoid one-room revelations that never matter again.
 
-Progression must reuse discoveries as later tools. World placement is **guidance, not ownership**. Do not lock a DSC to one world. Audit and long-range seeds (DSC-017, DSC-007, DSC-016): [progression/WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md).
+Progression must reuse discoveries as later tools. World placement is **guidance, not ownership**. Do not lock a DSC to one world. Do not change a Discovery’s meaning to fit a World.
+
+Current knowledge-domain alignment (not forced assignment): [progression/WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md).
+
+| Alignment | IDs |
+| --- | --- |
+| W1 clear | DSC-005 |
+| W2 clear | DSC-002, DSC-003, DSC-004, DSC-008, DSC-009, DSC-017 |
+| W3 clear | DSC-014, DSC-018 |
+| W4 clear | DSC-012, DSC-013 |
+| W4 conditional | DSC-011 — only if event progression changes future-state planning |
+| Mixed / unassigned | DSC-006, DSC-007, DSC-010, DSC-015, DSC-016 |
+
+Unassigned is **not** design debt. Mixed IDs stay mixed.
 
 ---
 
@@ -521,6 +534,8 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 
 **Current W1 scope:** DSC-006 historically includes horizontal carry / Landing Boost context. Status remains `CANDIDATE`. Do **not** rewrite this ID to mean “LOW as a preparation start.” A D-1 that uses LOW to set the next starting position may evidence **K04**; it does **not** automatically validate the full DSC-006 meaning. BOOST / carry payoff is outside current W1 graduation.
 
+**World alignment:** mixed / unassigned. Do not force W1 or W2.
+
 ---
 
 ### DSC-007 — Move Away to Move Toward
@@ -547,6 +562,8 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Future Reuse | Later setup rooms (`DSC-008`). |
 | Spoiler Risk | Do not draw an arrow away from the goal as the lesson. |
 | Validated Level | none |
+
+**World alignment:** mixed / unassigned. Detour is not automatically W2, W5, or a Personal Plan domain.
 
 ---
 
@@ -629,6 +646,8 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Spoiler Risk | Do not require an unmarked seam (ANTI-014). |
 | Validated Level | none |
 
+**World alignment:** mixed / unassigned. Wall Jump remains unassigned. Do not treat this as a W1 or W2 requirement.
+
 ---
 
 ### DSC-011 — Bounce Is a Resource
@@ -646,7 +665,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Puzzle Patterns | PAT-011 Bounce Counting; PAT-021 Resource Allocation |
 | Required Setup | Auto Bounce is stable. The count is visible before it gates a result. |
 | Expected Player Hypothesis | “I just need to reach the exit.” |
-| Trigger Context | After bounce identity is stable. Conceptual fit: WLD-04. Not World 1 movement school. |
+| Trigger Context | After bounce identity is stable. **W4 conditional:** belongs to TIME only if the count changes future-state planning. Pure counting / resource allocation is not automatically W4. Not World 1 movement school. |
 | Discovery Type | System |
 | Intensity | Not assigned. |
 | Why It Is Fair | The count is visible. Auto Bounce already happens. No hidden rule. |
@@ -657,6 +676,8 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Validated Level | none |
 
 PLAY-002 has not started. Do not implement GIM-007 from this entry.
+
+**World alignment:** W4 **conditional**. Do not treat every Counter use as TIME.
 
 ---
 
@@ -756,7 +777,7 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Puzzle Patterns | PAT-017 Combination Discovery |
 | Required Setup | Each half has been taught alone. |
 | Expected Player Hypothesis | “I use one tool at a time.” |
-| Trigger Context | After two first faces exist. Structural World 1 seed: LVL-W01-011. |
+| Trigger Context | After two first faces exist. Historical inventory seed: LVL-W01-011 (not a current W1 or W5 assignment). |
 | Discovery Type | Combination |
 | Intensity | Not assigned. |
 | Why It Is Fair | No new gimmick is the solution (ANTI-020). The combo is predictable from known rules. |
@@ -765,6 +786,8 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Future Reuse | Mastery worlds. |
 | Spoiler Risk | ANTI-011 if untaught parts are dumped in. |
 | Validated Level | none |
+
+**World alignment:** mixed / unassigned. Combination is not automatically W5 remix.
 
 ---
 
@@ -783,7 +806,7 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Puzzle Patterns | PAT-019 Controlled Failure |
 | Required Setup | The “failure” uses ordinary rules and leaves a readable next state. |
 | Expected Player Hypothesis | “Down / blocked / miss = I failed.” |
-| Trigger Context | Weak seed: LVL-W03-011 (apparent unproductive rebound as setup). Payoff: LVL-W05-004. Do not declare realized in W3. |
+| Trigger Context | Historical seed: LVL-W03-011. Historical payoff candidate: LVL-W05-004. Do not declare realized in W3. Do not force W5. |
 | Discovery Type | Perspective |
 | Intensity | Not assigned. |
 | Why It Is Fair | The intended miss is easy to perform on purpose and does not depend on an exploit (ANTI-019). |
@@ -792,6 +815,8 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Future Reuse | Later reinterpret rooms. |
 | Spoiler Risk | Solution-by-accident if the first clear cannot be repeated (ANTI-015). |
 | Validated Level | none |
+
+**World alignment:** mixed / unassigned. Do not steal this into W5 to fill a remix quota.
 
 ---
 
@@ -820,7 +845,9 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Spoiler Risk | Naming “speed gates” in text flattens it (ANTI-016). |
 | Validated Level | none |
 
-**Current W1 scope:** DSC-017 depends on **entry velocity** differences at the same location. Status remains `CANDIDATE`. Do **not** use this ID as evidence that current W1 already teaches preparation, landing planning, K04, or K05. Those belong to W1-K and the current Slice. Entry-speed management is beyond the current W1 knowledge boundary and is **not** a confirmed W2 room.
+**Current W1 scope:** DSC-017 depends on **entry velocity** differences at the same location. Status remains `CANDIDATE`. Do **not** use this ID as evidence that current W1 already teaches preparation, landing planning, K04, or K05. Those belong to W1-K and the current Slice. Entry-speed management is beyond the current W1 knowledge boundary.
+
+**World alignment:** W2-clear as carried-motion knowledge. **Not** a confirmed W2 room and **not** current W1 graduation evidence.
 
 ---
 

@@ -196,17 +196,21 @@ Default difficulty target: Cognitive Difficulty >= Execution Difficulty. Once th
 
 Puzzle Patterns describe the **thinking problem**, not merely the spatial objective. Do not assign `PAT-001` because a room ends at an exit. Use it only when constructing a viable trajectory *is* the puzzle. See [libraries/PUZZLE_PATTERN_LIBRARY.md](libraries/PUZZLE_PATTERN_LIBRARY.md).
 
+Worlds are **knowledge domains**, not mechanic or gimmick bundles. Canonical identities, graduation evidence, and transitions: [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) (World Knowledge Architecture).
+
 High-level world arc (labels are roles; questions stay canonical):
 
 | World | Role | Question |
 | --- | --- | --- |
-| WLD-01 | CONTROL | Where / which direction should the next useful action begin? (historical label: How do I move?) |
-| WLD-02 | MOMENTUM | What changes my motion? |
-| WLD-03 | POSSIBILITY | What can objects become? |
-| WLD-04 | TIME | When should I act? |
-| WLD-05 | UNDERSTANDING | What do I really know? |
+| WLD-01 | CONTROL | Where / in which direction should the next useful action begin? (historical: How do I move?) |
+| WLD-02 | MOMENTUM | How does carried movement change what becomes possible? (historical: What changes my motion?) |
+| WLD-03 | POSSIBILITY | When the world state changes, which actions appear and which disappear? (historical: What can objects become?) |
+| WLD-04 | TIME | When will the needed state exist, and for how long? (historical: When should I act?) |
+| WLD-05 | UNDERSTANDING | Which assumptions behind familiar solutions still apply? (historical: What do I really know?) |
 
-W1 current planning is role-based, not 12-slot. W1–W5 `LVL-` rows remain **historical candidate inventories** (IDs kept). Official lifecycle status stays `CANDIDATE`. Do not add `PROGRESSION CANDIDATE` to the lifecycle. Documentation is not validation. Do not read “60 slots” as a ship count.
+Choose a knowledge question, then the smallest expression. Do **not** choose a gimmick, assign a World, and invent a room.
+
+W1 current planning is role-based, not 12-slot. W1–W5 `LVL-` rows remain **historical candidate inventories** (IDs kept). Official lifecycle status stays `CANDIDATE`. Do not add `PROGRESSION CANDIDATE` to the lifecycle. Documentation is not validation. Do not read “60 slots” as a ship count. W5 is a synthesis stage; its room count is not protected.
 
 ### Cognitive Operation Variety
 
@@ -270,7 +274,7 @@ PLAY-002 remains **LOCKED**. Vertical Slice implementation remains **HOLD**.
 
 Conceptual Vertical Slice candidate (unvalidated): A+B-1 → C-1 → D-1 → G-1. G-3 is backup / comparison. See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
 
-W1 Knowledge Architecture and Discovery Language System are **CANDIDATE**. Do not promote them to `VALIDATED` or `CORE`.
+W1 Knowledge Architecture, Discovery Language System, and World Knowledge Architecture are **CANDIDATE**. Do not promote them to `VALIDATED` or `CORE`. This documentation pass does **not** validate W2–W5 content, any gimmick, or movement experiments.
 
 Therefore:
 
