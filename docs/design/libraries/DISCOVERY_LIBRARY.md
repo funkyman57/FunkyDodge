@@ -509,7 +509,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Puzzle Patterns | PAT-003 Setup → Payoff; PAT-004; PAT-016 |
 | Required Setup | Low Bounce and horizontal carry are already known. The short bounce must set up a later payoff, not only crawl under a slab. |
 | Expected Player Hypothesis | “Low Bounce is just a weaker bounce.” |
-| Trigger Context | After Low Bounce and (typically) Landing Boost intros. Structural homes: LVL-W01-005 / LVL-W01-012. |
+| Trigger Context | After Low Bounce and (typically) Landing Boost intros. Historical inventory homes: LVL-W01-005 / LVL-W01-012 (not current W1 production assignment). |
 | Discovery Type | Perspective |
 | Intensity | Not assigned. |
 | Why It Is Fair | Sequence of known tools, not a new button. |
@@ -518,6 +518,8 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Future Reuse | Later combination rooms. |
 | Spoiler Risk | Easy to over-tutorialize. Show, do not tell. |
 | Validated Level | none |
+
+**Current W1 scope:** DSC-006 historically includes horizontal carry / Landing Boost context. Status remains `CANDIDATE`. Do **not** rewrite this ID to mean “LOW as a preparation start.” A D-1 that uses LOW to set the next starting position may evidence **K04**; it does **not** automatically validate the full DSC-006 meaning. BOOST / carry payoff is outside current W1 graduation.
 
 ---
 
@@ -808,7 +810,7 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Puzzle Patterns | PAT-015 Reinterpret Space; PAT-004; PAT-005 |
 | Required Setup | Unchanged geometry; two approach speeds; two readable outcomes. Momentum is already felt. |
 | Expected Player Hypothesis | “I am in the right spot, so it should work.” |
-| Trigger Context | After Momentum is felt. Candidate World 1 mastery or later WLD-02 / WLD-05. |
+| Trigger Context | After Momentum is felt. Historical W1 mastery candidate or later motion-state content. **Not** current W1 graduation evidence and **not** a confirmed W2 room. |
 | Discovery Type | Physics |
 | Intensity | Not assigned. Do not inflate to D3 by default. D3 remains rare. |
 | Why It Is Fair | Rules stay the same (C-01). Only motion state changes. The difference is visible. |
@@ -817,6 +819,8 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Future Reuse | Any later entry-state room. |
 | Spoiler Risk | Naming “speed gates” in text flattens it (ANTI-016). |
 | Validated Level | none |
+
+**Current W1 scope:** DSC-017 depends on **entry velocity** differences at the same location. Status remains `CANDIDATE`. Do **not** use this ID as evidence that current W1 already teaches preparation, landing planning, K04, or K05. Those belong to W1-K and the current Slice. Entry-speed management is beyond the current W1 knowledge boundary and is **not** a confirmed W2 room.
 
 ---
 

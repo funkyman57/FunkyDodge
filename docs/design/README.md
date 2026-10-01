@@ -45,10 +45,12 @@ They describe what the game is allowed to be. They do not automatically describe
 | [libraries/INTERACTION_LIBRARY.md](libraries/INTERACTION_LIBRARY.md) | What happens when rules combine. |
 | [libraries/GIMMICK_LIBRARY.md](libraries/GIMMICK_LIBRARY.md) | Embodied objects / surfaces / devices. |
 | [libraries/PUZZLE_PATTERN_LIBRARY.md](libraries/PUZZLE_PATTERN_LIBRARY.md) | Abstract puzzle structures. |
-| [libraries/DISCOVERY_LIBRARY.md](libraries/DISCOVERY_LIBRARY.md) | Player realizations + Discovery Language System v1 (`DL-01`–`DL-08`). |
+| [libraries/DISCOVERY_LIBRARY.md](libraries/DISCOVERY_LIBRARY.md) | Player realizations + Discovery Language System v1 (`DL-01`–`DL-08`). DSC-006 / DSC-017 have current W1 scope notes. |
 | [libraries/ANTI_PATTERN_LIBRARY.md](libraries/ANTI_PATTERN_LIBRARY.md) | What we refuse to ship. |
-| [progression/LEVEL_LIBRARY.md](progression/LEVEL_LIBRARY.md) | Room-scale instantiations. |
-| [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) | World-scale sequence, W1-K01–K08, conceptual Vertical Slice. |
+| [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) | **Start here for W1.** Current Knowledge Architecture + role model first; historical 12-slot lineage after. |
+| [progression/LEVEL_LIBRARY.md](progression/LEVEL_LIBRARY.md) | Room IDs. W1 12-slot list = historical inventory, not the shipping plan. |
+
+W1 reading order: (1) current Knowledge Architecture in WORLD_LIBRARY → (2) current role-based structure → (3) historical 12-slot inventory as lineage → (4) Discovery Language → (5) historical DSC / gate references with scope notes. Do not treat “12 rooms teaching every movement technique” as the active plan.
 
 ---
 
@@ -76,4 +78,6 @@ See [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) for the full boundary statement.
 
 `INT-001`–`INT-028` and `DSC-001`–`DSC-018` are imported as `CANDIDATE` (DOC-001A). Documentation does not validate them.
 
-W1–W5 room rows are 60 progression **slots** (`CANDIDATE` status), not a fixed ship count. Conceptual Vertical Slice (A+B-1 → C-1 → D-1 → G-1) is a separate unvalidated candidate. See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md). Do not implement them. Geometry, counts, and durations stay `TBD — after movement validation / relevant prototype validation`.
+W1 current planning is **role-based** (FOUNDATION → CONTEXTUAL CHOICE → PREPARATION → TRANSFER → [CONDITIONAL SYNTHESIS]). The historical W1 12-slot list is lineage only — not “W1 must have 12 rooms and teach every movement technique.” See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
+
+W2–W5 room rows remain 12-slot **historical candidate inventories** each (`CANDIDATE`). Do not implement them. Geometry, counts, and durations stay `TBD — after movement validation / relevant prototype validation`.

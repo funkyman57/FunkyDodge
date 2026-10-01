@@ -10,7 +10,7 @@ Geometry, spacing, force strength, friction coefficients, velocities, bounce hei
 
 Knowledge Graphs, W1-K01–K08, and the conceptual Vertical Slice: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Discovery Language: [DISCOVERY_LIBRARY.md](../libraries/DISCOVERY_LIBRARY.md). Vocabulary: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Do not assign `PAT-001` merely because a room has an exit.
 
-A+B-1 / C-1 / D-1 / G-1 / G-3 are conceptual slice labels, **not** `LVL-W01-*` IDs. Do not treat them as this 12-slot index. Unvalidated. Implementation HOLD.
+A+B-1 / C-1 / D-1 / G-1 / G-3 are the current conceptual slice. They are **not** `LVL-W01-*` IDs. The W1 12-slot index below is a **historical candidate inventory**, not a production count or graduation checklist. Alignment: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Unvalidated. Implementation HOLD.
 
 ---
 
@@ -58,26 +58,28 @@ Difficulty target: Cognitive >= Execution (default, not an invariant).
 
 ## Index
 
-### WLD-01 — 12
+### WLD-01 — historical candidate inventory
 
-| ID | Title | Purpose |
-| --- | --- | --- |
-| LVL-W01-001 | It Bounces | TEACH / OBSERVE |
-| LVL-W01-002 | I Can Bend It | TEACH |
-| LVL-W01-003 | Change Your Mind | TEST |
-| LVL-W01-004 | Stay Low | TEACH |
-| LVL-W01-005 | Low != Slow | APPLY / REWARD candidate |
-| LVL-W01-006 | Hold It | TEACH |
-| LVL-W01-007 | Three Answers | TEST |
-| LVL-W01-008 | The Wall | TEACH |
-| LVL-W01-009 | Walls Are Routes | APPLY / REINTERPRET |
-| LVL-W01-010 | Arrive Correctly | TEST |
-| LVL-W01-011 | Choose Your Bounce | COMBINE |
-| LVL-W01-012 | Same Space, Different Ball | SURPRISE / MASTERY |
+IDs, titles, and lineage preserved. **Not** a fixed W1 room count. **Not** the current shipping plan. Depth Over Quantity takes precedence over slot preservation. Current roles: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
+
+| ID | Title | Historical purpose | Current W1 scope |
+| --- | --- | --- | --- |
+| LVL-W01-001 | It Bounces | TEACH / OBSERVE | FOUNDATION |
+| LVL-W01-002 | I Can Bend It | TEACH | FOUNDATION |
+| LVL-W01-003 | Change Your Mind | TEST | FOUNDATION (basic intervention). Air Reversal-specific ask is outside current W1 graduation. |
+| LVL-W01-004 | Stay Low | TEACH | CONTEXTUAL CHOICE |
+| LVL-W01-005 | Low != Slow | APPLY / REWARD candidate | Not a required separate lesson |
+| LVL-W01-006 | Hold It | TEACH | Historical hold-BOOST. Not in current W1 plan. |
+| LVL-W01-007 | Three Answers | TEST | Selection → re-evaluation / synthesis. BOOST not required. |
+| LVL-W01-008 | The Wall | TEACH | Wall Jump-specific. Outside current W1 graduation. |
+| LVL-W01-009 | Walls Are Routes | APPLY / REINTERPRET | Wall Jump-dependent. Outside current W1 graduation. |
+| LVL-W01-010 | Arrive Correctly | TEST | Entry-velocity. Beyond current W1 boundary. Not a W2 assignment. |
+| LVL-W01-011 | Choose Your Bounce | COMBINE | May inform [CONDITIONAL SYNTHESIS] |
+| LVL-W01-012 | Same Space, Different Ball | SURPRISE / MASTERY | Entry-velocity mastery. Beyond current W1 knowledge boundary. |
 
 Gimmicks: none.
 
-Conceptual Vertical Slice candidate (separate from the rows above): A+B-1 → C-1 → D-1 → G-1. G-3 backup. Mapping and W1-K targets: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
+Current Slice (authoritative planning labels): A+B-1 → C-1 → D-1 → G-1. G-3 backup.
 
 ### WLD-02 — 12
 
@@ -158,6 +160,8 @@ Gimmicks: none new. New Rule target 0.
 ---
 
 ## World 1
+
+Historical candidate inventory. IDs, titles, and original lineage are preserved. Official status remains `CANDIDATE`. These rooms are **not** the current shipping sequence or graduation checklist. Current role model and evidence language: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W1-GATE-*` fields below are historical IDs.
 
 ### LVL-W01-001 — It Bounces
 
@@ -252,7 +256,7 @@ Do not mark Low Bounce `CORE`.
 | Status | CANDIDATE |
 | Purpose | APPLY / REWARD candidate |
 | Knowledge | Repeated LOW; LOW + horizontal movement |
-| Discovery Target | DSC-006 seed. Do not declare DSC-006 realized until playtest supports the room. |
+| Discovery Target | Historical DSC-006 seed. Do not declare DSC-006 realized. D-1 / K04 does not automatically validate full DSC-006 (carry / Landing Boost). |
 | Rules Used | R-PLAYER-003; R-MOTION-001 |
 | Interactions Used | INT-008 |
 | Gimmicks Used | none |
@@ -357,7 +361,7 @@ Do not mark Wall Jump `CORE`.
 | Status | CANDIDATE |
 | Purpose | TEST |
 | Knowledge | Momentum; Entry State; wall interaction |
-| Discovery Target | DSC-017 seed |
+| Discovery Target | Historical DSC-017 seed. Entry velocity ≠ current W1 K04/K05 evidence. Not a W2 assignment. |
 | Rules Used | R-MOTION-001; R-CONTACT-001 |
 | Interactions Used | INT-013; INT-006 |
 | Gimmicks Used | none |
@@ -398,7 +402,7 @@ Do not mark Wall Jump `CORE`.
 | Status | CANDIDATE |
 | Purpose | SURPRISE / MASTERY |
 | Knowledge | Movement State; no new Rule; no new Gimmick |
-| Discovery Target | Primary DSC-017. Supporting: DSC-005, DSC-006 |
+| Discovery Target | Historical primary DSC-017 (entry velocity). Supporting: DSC-005, DSC-006. Not current W1 K04/K05 evidence. Not a W2 assignment. |
 | Rules Used | Taught W1 rules only |
 | Interactions Used | INT-013 and/or INT-008 matching the chosen discovery |
 | Gimmicks Used | none |
@@ -1358,6 +1362,8 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Adjacent rooms must use different 
 | **Player total** | | **28** |
 
 No W5-GATE-7. Alternate-solution support is a level-design quality principle, not a gate.
+
+W1-GATE-* IDs are retained. They are **not** current W1 graduation requirements. Current evidence: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
 
 Gate definitions: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
 
