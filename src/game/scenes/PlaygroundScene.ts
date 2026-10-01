@@ -7,6 +7,15 @@ import {
   type WorldStateScenarioId,
 } from "../debug/WorldStateProbe";
 import { WorldStateProbeView } from "../debug/WorldStateProbeView";
+import {
+  AGENCY_A_AVOID,
+  AGENCY_A_CAUSE,
+  AGENCY_B_AVOID,
+  AGENCY_B_CAUSE,
+  type AgencyModelId,
+  type AgencyScenarioId,
+} from "../debug/WorldStateAgency";
+import { agencyHudLines, WorldStateAgencyView } from "../debug/WorldStateAgencyView";
 import { InputState } from "../input/InputState";
 import { LowInputExperiment, type ClearReason } from "../input/LowInputExperiment";
 import { sharedRhythmRecognizer } from "../input/RhythmRecognizer";
@@ -41,8 +50,13 @@ export class PlaygroundScene extends Phaser.Scene {
     t: Phaser.Input.Keyboard.Key;
     five: Phaser.Input.Keyboard.Key;
     six: Phaser.Input.Keyboard.Key;
+    seven: Phaser.Input.Keyboard.Key;
+    eight: Phaser.Input.Keyboard.Key;
+    nine: Phaser.Input.Keyboard.Key;
+    m: Phaser.Input.Keyboard.Key;
   };
   private probe!: WorldStateProbeView;
+  private agency!: WorldStateAgencyView;
   private roomSolids: Solid[] = [];
 
   constructor() {
@@ -57,7 +71,9 @@ export class PlaygroundScene extends Phaser.Scene {
     const { solids, platforms } = this.createTestRoom();
     this.roomSolids = solids;
     this.probe = new WorldStateProbeView(this);
+    this.agency = new WorldStateAgencyView(this);
     platforms.push(this.probe.rect);
+    platforms.push(this.agency.activatorRect);
 
     this.player = new BallPlayer(this);
     this.inputState = new InputState();
@@ -73,9 +89,12 @@ export class PlaygroundScene extends Phaser.Scene {
         onModeOrTimingChanged: (reason) => this.resetPlaySession(reason),
         onWorldStateSet: (state) => this.setProbeState(state),
         onWorldStateLaunch: (id) => this.launchWorldState(id),
+        onAgencyModel: (model) => this.setAgencyModel(model),
+        onAgencyLaunch: (id) => this.launchAgency(id),
       });
       this.physics.world.gravity.y = PhysicsConfig.gravity;
       this.physicsLab.setWorldStateUi(this.probe.model.state);
+      this.physicsLab.setAgencyUi(this.agency.session.model);
     }
 
     window.addEventListener("blur", this.handleFocusLoss);
@@ -95,6 +114,10 @@ export class PlaygroundScene extends Phaser.Scene {
       t: Phaser.Input.Keyboard.KeyCodes.T,
       five: Phaser.Input.Keyboard.KeyCodes.FIVE,
       six: Phaser.Input.Keyboard.KeyCodes.SIX,
+      seven: Phaser.Input.Keyboard.KeyCodes.SEVEN,
+      eight: Phaser.Input.Keyboard.KeyCodes.EIGHT,
+      nine: Phaser.Input.Keyboard.KeyCodes.NINE,
+      m: Phaser.Input.Keyboard.KeyCodes.M,
     }) as typeof this.keys;
 
     this.add
@@ -106,6 +129,8 @@ export class PlaygroundScene extends Phaser.Scene {
         "L: toggle Physics Lab",
         "T: W3 state toggle",
         "5/6: W3 SOLID/PASSABLE launch",
+        "M: W3 agency model",
+        "7/8/9: cause/avoid/restore",
         "LEGACY: fresh tap = LOW",
         "RHYTHM: 따닥 entry, 탁 continue",
         "Hold into land: BOOST",
@@ -130,6 +155,14 @@ export class PlaygroundScene extends Phaser.Scene {
         this.launchWorldState("A");
       } else if (Phaser.Input.Keyboard.JustDown(this.keys.six)) {
         this.launchWorldState("B");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.m)) {
+        this.setAgencyModel(nextAgencyModel(this.agency.session.model));
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.seven)) {
+        this.launchAgency("CAUSE");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.eight)) {
+        this.launchAgency("AVOID");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.nine)) {
+        this.launchAgency("RESTORE");
       }
     }
 
@@ -148,8 +181,15 @@ export class PlaygroundScene extends Phaser.Scene {
     }
 
     this.controller.update(time, delta);
-    this.hud.update(this.controller, this.inputState, time, this.probe.model);
-    publishDebugState(this.controller, this.inputState, this.hud, time, this.probe.model.state);
+    this.stepAgency();
+    this.hud.update(
+      this.controller,
+      this.inputState,
+      time,
+      this.probe.model,
+      agencyHudLines(this.agency.session),
+    );
+    publishDebugState(this.controller, this.inputState, this.hud, time, this.probe.model.state, this.agency.session.model);
   }
 
   private resetPlaySession(reason: Exclude<ClearReason, null>): void {
@@ -159,12 +199,49 @@ export class PlaygroundScene extends Phaser.Scene {
     this.inputState.adoptHeld(physical.left, physical.right);
     sharedRhythmRecognizer.reset(reason, physical.left, physical.right);
     this.probe.reset(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.agency.applyProbe(this.probe.model);
+    this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
     this.syncSolids();
     this.physicsLab?.setWorldStateUi(this.probe.model.state);
+    this.physicsLab?.setAgencyUi(this.agency.session.model);
   }
 
   private setProbeState(state: BinaryWorldState): void {
     this.probe.setState(state, this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.agency.applyProbe(this.probe.model);
+    this.syncSolids();
+    this.physicsLab?.setWorldStateUi(this.probe.model.state);
+  }
+
+  private setAgencyModel(model: AgencyModelId): void {
+    this.agency.attachProbe(this.probe.model);
+    this.agency.setModel(model, this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.syncSolids();
+    this.physicsLab?.setAgencyUi(model);
+  }
+
+  private launchAgency(id: AgencyScenarioId): void {
+    if (this.agency.session.model === "OFF") {
+      this.setAgencyModel("B");
+    }
+    this.resetPlaySession("RESET");
+    this.setProbeState(id === "RESTORE" ? "PASSABLE" : "SOLID");
+    const pose = agencyPose(this.agency.session.model, id);
+    if (!pose) {
+      return;
+    }
+    this.controller.placeAt(pose.startX, pose.startY, pose.vx, pose.vy);
+    this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+  }
+
+  private stepAgency(): void {
+    this.agency.attachProbe(this.probe.model);
+    const session = this.agency.step(
+      this.controller.x,
+      this.controller.y,
+      PhysicsConfig.ballRadius,
+    );
+    this.probe.adoptModel(session.probe);
     this.syncSolids();
     this.physicsLab?.setWorldStateUi(this.probe.model.state);
   }
@@ -181,7 +258,7 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   private syncSolids(): void {
-    this.controller.setSolids([...this.roomSolids, ...this.probe.solids]);
+    this.controller.setSolids([...this.roomSolids, ...this.probe.solids, ...this.agency.solids]);
   }
 
   private physicalDirections(): { left: boolean; right: boolean } {
@@ -230,6 +307,26 @@ export class PlaygroundScene extends Phaser.Scene {
 
     return { solids, platforms };
   }
+}
+
+function nextAgencyModel(current: AgencyModelId): AgencyModelId {
+  if (current === "OFF") {
+    return "A";
+  }
+  if (current === "A") {
+    return "B";
+  }
+  return "OFF";
+}
+
+function agencyPose(model: AgencyModelId, id: AgencyScenarioId) {
+  if (model === "A") {
+    return id === "AVOID" ? AGENCY_A_AVOID : AGENCY_A_CAUSE;
+  }
+  if (model === "B") {
+    return id === "AVOID" ? AGENCY_B_AVOID : AGENCY_B_CAUSE;
+  }
+  return null;
 }
 
 function addSolid(
@@ -295,6 +392,7 @@ function publishDebugState(
   hud: DebugHud,
   nowMs: number,
   worldState?: BinaryWorldState,
+  agencyModel?: AgencyModelId,
 ): void {
   if (!PhysicsConfig.debug) {
     return;
@@ -333,5 +431,6 @@ function publishDebugState(
     x: player.x,
     y: player.y,
     worldState: worldState ?? null,
+    agencyModel: agencyModel ?? null,
   };
 }

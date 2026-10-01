@@ -19,6 +19,7 @@ import {
 } from "../physics/PhysicsTuning";
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import type { BinaryWorldState, WorldStateScenarioId } from "./WorldStateProbe";
+import type { AgencyModelId, AgencyScenarioId } from "./WorldStateAgency";
 import "./physics-lab.css";
 
 type LabField = {
@@ -50,6 +51,7 @@ export type PhysicsLabHandle = {
   applyPreset: (name: PhysicsPresetName) => void;
   destroy: () => void;
   setWorldStateUi: (state: BinaryWorldState) => void;
+  setAgencyUi: (model: AgencyModelId) => void;
 };
 
 export function mountPhysicsLab(options: {
@@ -58,6 +60,8 @@ export function mountPhysicsLab(options: {
   onModeOrTimingChanged: (reason: "MODE_SWITCH" | "TIMING_EDIT") => void;
   onWorldStateSet?: (state: BinaryWorldState) => void;
   onWorldStateLaunch?: (id: WorldStateScenarioId) => void;
+  onAgencyModel?: (model: AgencyModelId) => void;
+  onAgencyLaunch?: (id: AgencyScenarioId) => void;
 }): PhysicsLabHandle {
   const root = document.createElement("aside");
   root.className = "physics-lab";
@@ -70,6 +74,9 @@ export function mountPhysicsLab(options: {
     <h3>W3 STATE</h3>
     <div class="physics-lab-world-state"></div>
     <p class="physics-lab-note">T toggle · 5 SOLID A · 6 PASSABLE B. Diagnostic only.</p>
+    <h3>W3 AGENCY</h3>
+    <div class="physics-lab-agency"></div>
+    <p class="physics-lab-note">M model · 7 cause · 8 avoid · 9 restore. Contact only. Not a Switch.</p>
     <form class="physics-lab-fields"></form>
     <div class="physics-lab-metrics"></div>
     <p class="physics-lab-note">Dev only. Input mode is independent of physics presets. Timing seeds are provisional.</p>
@@ -80,8 +87,10 @@ export function mountPhysicsLab(options: {
   const presetRow = root.querySelector(".physics-lab-presets") as HTMLElement;
   const actionRow = root.querySelector(".physics-lab-actions") as HTMLElement;
   const worldStateRow = root.querySelector(".physics-lab-world-state") as HTMLElement;
+  const agencyRow = root.querySelector(".physics-lab-agency") as HTMLElement;
   const form = root.querySelector(".physics-lab-fields") as HTMLFormElement;
   let worldState: BinaryWorldState = "SOLID";
+  let agencyModel: AgencyModelId = "OFF";
   const metrics = root.querySelector(".physics-lab-metrics") as HTMLElement;
 
   let selectedPreset: PhysicsPresetName = "DYNAMIC";
@@ -203,9 +212,36 @@ export function mountPhysicsLab(options: {
   launchB.addEventListener("click", () => options.onWorldStateLaunch?.("B"));
   worldStateRow.append(launchA, launchB);
 
+  const agencyButtons = (["A", "B", "OFF"] as const).map((name) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = name === "OFF" ? "OFF" : `MODEL ${name}`;
+    button.addEventListener("click", () => options.onAgencyModel?.(name));
+    agencyRow.append(button);
+    return { name, button };
+  });
+  const agencyLaunches: Array<{ id: AgencyScenarioId; label: string }> = [
+    { id: "CAUSE", label: "CAUSE" },
+    { id: "AVOID", label: "AVOID" },
+    { id: "RESTORE", label: "RESTORE" },
+  ];
+  for (const launch of agencyLaunches) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = launch.label;
+    button.addEventListener("click", () => options.onAgencyLaunch?.(launch.id));
+    agencyRow.append(button);
+  }
+
   function refreshWorldState(): void {
     for (const entry of worldButtons) {
       entry.button.dataset.active = String(entry.name === worldState);
+    }
+  }
+
+  function refreshAgency(): void {
+    for (const entry of agencyButtons) {
+      entry.button.dataset.active = String(entry.name === agencyModel);
     }
   }
 
@@ -319,6 +355,7 @@ export function mountPhysicsLab(options: {
   applyPreset("DYNAMIC");
 
   refreshWorldState();
+  refreshAgency();
 
   return {
     applyPreset,
@@ -330,6 +367,10 @@ export function mountPhysicsLab(options: {
     setWorldStateUi(state: BinaryWorldState) {
       worldState = state;
       refreshWorldState();
+    },
+    setAgencyUi(model: AgencyModelId) {
+      agencyModel = model;
+      refreshAgency();
     },
   };
 }

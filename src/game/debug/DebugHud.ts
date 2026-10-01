@@ -44,6 +44,7 @@ export class DebugHud {
     input: InputState,
     nowMs: number,
     worldState?: { state: BinaryWorldState; lastReason: WorldStateChangeReason },
+    agencyLines: string[] = [],
   ): void {
     this.text.setVisible(PhysicsConfig.debug);
     if (!PhysicsConfig.debug) {
@@ -86,6 +87,7 @@ export class DebugHud {
       [
         worldState ? `W3 STATE ${worldState.state}` : "",
         worldState?.lastReason === "REFUSED_OVERLAP" ? "W3 toggle refused (overlap)" : "",
+        ...agencyLines,
         `vx ${player.vx.toFixed(1)}`,
         `vy ${player.vy.toFixed(1)}`,
         `Horizontal Input ${horizontalInput}`,

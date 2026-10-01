@@ -52,6 +52,12 @@ export class WorldStateProbeView {
     return this.model.state === "SOLID" ? [{ ...this.model.bounds }] : [];
   }
 
+  adoptModel(model: WorldStateProbeModel): void {
+    this.model = model;
+    this.applyBody();
+    this.refreshVisual();
+  }
+
   setState(next: BinaryWorldState, playerX: number, playerY: number, radius: number): boolean {
     this.model = setWorldState(this.model, next, playerAabb(playerX, playerY, radius));
     if (this.model.lastReason === "REFUSED_OVERLAP") {

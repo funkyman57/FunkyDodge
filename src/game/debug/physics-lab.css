@@ -36,7 +36,8 @@
 .physics-lab-presets,
 .physics-lab-modes,
 .physics-lab-timing,
-.physics-lab-world-state {
+.physics-lab-world-state,
+.physics-lab-agency {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
