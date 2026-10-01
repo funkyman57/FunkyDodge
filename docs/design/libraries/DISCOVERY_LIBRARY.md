@@ -68,7 +68,7 @@ This is an implementation of:
 
 **Status:** `CANDIDATE`. Shared guidance for this library and for progression audits. **Not Constitution.** Do not promote to `VALIDATED` / `CORE`. Do not implement a hint system from this section.
 
-W1-K and W2-K IDs live in [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md). Movement Validation #3 is pending (`docs/playtest/MOVEMENT_VALIDATION_003.md` on `cursor/movement-validation-003-3f71`) and does **not** validate W2-K. Do not record AR-A2 / WJ-B / Charge outcomes here.
+W1-K, W2-K, and W3-K IDs live in [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md). Movement Validation #3 is pending (`docs/playtest/MOVEMENT_VALIDATION_003.md` on `cursor/movement-validation-003-3f71`) and does **not** validate W2-K. W2-PHYS-003 Human Readability is **PENDING**. Do not record AR-A2 / WJ-B / Charge outcomes here.
 
 Carried motion must be readable without a numeric velocity HUD in production. Necessary facts: continuing direction; relative remaining motion; before / after contact change; whether motion persisted through arrival; earlier influence → later result. Ball spin must **not** automatically mean travel speed. Do not design production UI here.
 
@@ -142,9 +142,11 @@ Not a mandatory linear escalation. Basic control information and accessibility s
 
 | Kind | Meaning | Example |
 | --- | --- | --- |
-| INFORMATIVE | The result supports or rejects part of a hypothesis. | Player overshoots a preparation landing and can see why the next action begins poorly. |
-| UNINFORMATIVE | Only failure is clear. | Immediate reset after an unclear off-screen collision. |
-| MISLEADING | Feedback suggests the wrong cause. | Showing LOW activation feedback when LOW did not trigger. |
+| INFORMATIVE | The result supports or rejects part of a hypothesis. | Player overshoots a preparation landing and can see why the next action begins poorly. W3: player changes state, gains one possibility, and can see another needed possibility disappear. |
+| UNINFORMATIVE | Only failure is clear. | Immediate reset after an unclear off-screen collision. W3: state changes and progress becomes impossible, but the player cannot identify why. |
+| MISLEADING | Feedback suggests the wrong cause. | Showing LOW activation feedback when LOW did not trigger. W3: failure looks like a movement error, but hidden World State blocked the action. |
+
+W3 accidental-clear (automatic state sequence producing the correct order without choice) is also uninformative as knowledge evidence. Hidden softlocks and long mandatory replay are **not** Discovery. See [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md) W3-K.
 
 ### Recovery
 
@@ -773,6 +775,8 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Spoiler Risk | Do not lock the door as a secret exception after teaching it opens (ANTI-002). |
 | Validated Level | none |
 
+**World alignment:** general relationship strongly aligns with **W3-K03 / K04** (apparently positive state change → removes a still-needed possibility → plan / order is reconsidered). Door is one possible expression. Do **not** make Wall Jump or Door-specific behavior a current W3 prerequisite. Do **not** claim a hidden consequence is fair discovery. **Not** automatically a required W3 room. Do not rewrite this Discovery’s meaning.
+
 ---
 
 ### DSC-015 — Familiar + Familiar = New
@@ -888,6 +892,8 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Future Reuse | Later second-face rooms. |
 | Spoiler Risk | One-face important gimmicks (ANTI-009) cannot host this fairly. |
 | Validated Level | none |
+
+**World alignment:** strong W3 alignment when different World State changes what actions involving the object are possible. This does **not** mean every object needs two tricks. W3: learns how World State changes object/action possibility. W5: recombines already-known state/role relationships with other known domains. Do **not** move reinterpretation exclusively to W5. **Not** automatically a required W3 room. Do not rewrite this Discovery’s meaning.
 
 ---
 

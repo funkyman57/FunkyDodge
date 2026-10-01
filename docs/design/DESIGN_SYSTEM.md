@@ -115,6 +115,7 @@ IDs are permanent. If an item is deprecated, do not recycle its ID.
 | `DSC-` | Discoveries | `DSC-001` |
 | `W1-K` | W1 conceptual knowledge nodes (not runtime) | `W1-K01` |
 | `W2-K` | W2 conceptual knowledge nodes (not runtime) | `W2-K01` |
+| `W3-K` | W3 conceptual knowledge nodes (not runtime) | `W3-K01` |
 | `DL-` | Discovery Language guides (not Constitution) | `DL-01` |
 | `ANTI-` | Anti-patterns | `ANTI-001` |
 | `LVL-W##-` | Levels | `LVL-W01-001` |
@@ -156,7 +157,9 @@ World graphs live in [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md
 
 W1 CONTROL Knowledge Architecture v1 (`W1-K01`–`W1-K08`) is the **current** W1 planning source (`CANDIDATE`). Conceptual player-understanding, not a runtime object graph.
 
-W2 MOMENTUM Knowledge Architecture v1 (`W2-K01`–`W2-K05`) is the **current** W2 planning source (`CANDIDATE`). Role-based carried-motion knowledge, not a Wind / Ice / Rough tutorial and not “go faster.” Movement Validation #3 pending does **not** validate W2-K.
+W2 MOMENTUM Knowledge Architecture v1 (`W2-K01`–`W2-K05`) is the **current** W2 planning source (`CANDIDATE`). Role-based carried-motion knowledge, not a Wind / Ice / Rough tutorial and not “go faster.” Movement Validation #3 pending does **not** validate W2-K. W2-PHYS-001 / 002 are physical PASS; W2-PHYS-003 Human Readability is PENDING. Do not treat W2 as fully Human Validated.
+
+W3 POSSIBILITY Knowledge Architecture v1 (`W3-K01`–`W3-K05`) is the **current** W3 planning source (`CANDIDATE`). Role-based World State / possibility-set knowledge, not a Door / Switch tutorial and not “activate everything.” No W3 mechanic is approved for production.
 
 The DOC-003 12-slot W1 list is a **historical candidate inventory**. It is not the current production plan, not a required room count, and not the graduation checklist. Depth Over Quantity takes precedence over slot preservation.
 
@@ -189,6 +192,24 @@ Design question:
 
 Air steering / counter-steering names a change of directional intent in flight. It is not a new Rule ID.
 
+### World State
+
+> The current operating condition of the environment that changes which interactions / routes / actions are possible under otherwise comparable player conditions.
+
+Design model: known rules + fixed geometry + Player State + World State → currently possible actions.
+
+| Distinguish | Meaning |
+| --- | --- |
+| PLAYER STATE | Position, direction, carried motion. |
+| WORLD STATE | Current environment operating condition. |
+| FIXED GEOMETRY | Stable spatial structure against which states are compared. |
+| HIDDEN IMPLEMENTATION FLAG | Not valid knowledge unless observable through honest world behavior. |
+| W4 TEMPORAL PROGRESSION | When / how long / after what event a state exists. |
+
+Do **not** define World State as a resource. Prefer: create / remove / preserve / restore possibility.
+
+W3 planning use: [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) (`W3-K01`–`W3-K05`). Logical order of state changes is still W3. Waiting / duration / delay / cycle is W4.
+
 ---
 
 ## Progression principles
@@ -207,7 +228,7 @@ High-level world arc (labels are roles; questions stay canonical):
 | --- | --- | --- |
 | WLD-01 | CONTROL | Where / in which direction should the next useful action begin? (historical: How do I move?) |
 | WLD-02 | MOMENTUM | How does carried movement change what becomes possible? (historical: What changes my motion?) |
-| WLD-03 | POSSIBILITY | When the world state changes, which actions appear and which disappear? (historical: What can objects become?) |
+| WLD-03 | POSSIBILITY | When the world state changes, which actions become possible and which actions disappear? (historical: What can objects become?) |
 | WLD-04 | TIME | When will the needed state exist, and for how long? (historical: When should I act?) |
 | WLD-05 | UNDERSTANDING | Which assumptions behind familiar solutions still apply? (historical: What do I really know?) |
 
@@ -277,7 +298,7 @@ PLAY-002 remains **LOCKED**. Vertical Slice implementation remains **HOLD**.
 
 Conceptual Vertical Slice candidate (unvalidated): A+B-1 → C-1 → D-1 → G-1. G-3 is backup / comparison. See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
 
-W1 Knowledge Architecture, W2 Knowledge Architecture (`W2-K01`–`W2-K05`), Discovery Language System, and World Knowledge Architecture are **CANDIDATE**. Do not promote them to `VALIDATED` or `CORE`. Movement Validation #3 pending does **not** validate W2-K. This documentation pass does **not** validate W2 rooms, Wind / Ice / Rough, any gimmick, or movement experiments.
+W1 Knowledge Architecture, W2 Knowledge Architecture (`W2-K01`–`W2-K05`), W3 Knowledge Architecture (`W3-K01`–`W3-K05`), Discovery Language System, and World Knowledge Architecture are **CANDIDATE**. Do not promote them to `VALIDATED` or `CORE`. Movement Validation #3 pending does **not** validate W2-K. W2-PHYS-003 Human Readability remains **PENDING**. This documentation pass does **not** validate W2 rooms, W3 rooms, Wind / Ice / Rough, Door / Switch, any gimmick, or movement experiments.
 
 Therefore:
 
