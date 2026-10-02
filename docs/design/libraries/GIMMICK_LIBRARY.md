@@ -98,12 +98,12 @@ Do not invent Motion/Kinematic or Conditional Collision rules to support GIM-010
 | GIM-004 | Ice | CANDIDATE | W2 if remaining motion is the ask |
 | GIM-005 | Rough Surface | CANDIDATE | W2 if remaining motion is the ask |
 | GIM-006 | Spring | CANDIDATE | unassigned (kept) |
-| GIM-007 | Bounce Counter | CANDIDATE | W4 only if count changes future-state planning |
-| GIM-008 | Timed Gate | CANDIDATE | W4 if duration / occurrence is the ask |
+| GIM-007 | Bounce Counter | CANDIDATE | **USEFUL / CONDITIONAL.** W4 only if event progression predicts future World State. Not World identity. |
+| GIM-008 | Timed Gate | CANDIDATE | **USEFUL expression candidate.** Not required. Risk: reaction / race. Not World identity. |
 | GIM-009 | Force Switch | CANDIDATE | unassigned |
 | GIM-010 | Moving Block | CANDIDATE | unassigned (kept; W3 not required) |
 | GIM-011 | One-way Surface | CANDIDATE | unassigned (kept; W3 not required) |
-| GIM-012 | Delayed Switch | CANDIDATE | W4 if delay / later occurrence is the ask (may be Switch+Delay; unresolved) |
+| GIM-012 | Delayed Switch | CANDIDATE | **STRONG CANDIDATE EXPRESSION** for delayed causal relation. Does **not** approve a production Delayed Switch object. |
 
 Placement is guidance, not ownership. A gimmick does not belong to one World by default. Visual themes are not locked.
 
@@ -295,6 +295,7 @@ Do not create a separate “Rough Rule.”
 | Anti-Pattern Risks | ANTI-018 Difficulty by Numbers; ANTI-003 if the last bounce is frame-perfect |
 | Complexity Tier | TBD |
 | Introduced World | WLD-04 (progression guidance, not ownership) |
+| World / expression status | **USEFUL / CONDITIONAL.** Only W4 when event progression is used to predict future World State. Do not rewrite resource meanings to force W4 ownership. Lifecycle remains `CANDIDATE`. No production approval. |
 | Validated Levels | none |
 
 ---
@@ -321,6 +322,7 @@ Do not create a separate “Rough Rule.”
 | Anti-Pattern Risks | ANTI-004 Reaction Test; ANTI-006 Execution Tax |
 | Complexity Tier | TBD |
 | Introduced World | WLD-04 (progression guidance, not ownership) |
+| World / expression status | **USEFUL expression candidate.** Not required. Risk: reaction / race challenge. Limited duration is not required for W4 completion. Lifecycle remains `CANDIDATE`. No production approval. |
 | Validated Levels | none |
 
 ---
@@ -427,6 +429,7 @@ Threshold numbers are not recorded. Do not freeze them.
 | Anti-Pattern Risks | ANTI-004 if the delay is only a reaction test; ANTI-008 |
 | Complexity Tier | TBD |
 | Introduced World | WLD-04 (progression guidance). Implementation as independent object vs Switch+Delay is unresolved. Do not decide in DOC-003. |
+| World / expression status | **STRONG CANDIDATE EXPRESSION** for the delayed causal relation (cause now → result pending → future World State). This does **not** approve a production Delayed Switch object. Lifecycle remains `CANDIDATE`. No production approval. |
 | Validated Levels | none |
 
 ---

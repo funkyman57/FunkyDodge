@@ -210,6 +210,22 @@ Do **not** define World State as a resource. Prefer: create / remove / preserve 
 
 W3 planning use: [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) (`W3-K01`–`W3-K05`). Logical order of state changes is still W3. Waiting / duration / delay / cycle is W4.
 
+### Temporal State
+
+> The relationship between the current World State, a future World State, and the known temporal / event relation by which that future state will occur — when that relationship affects player planning.
+
+| Term | Meaning |
+| --- | --- |
+| CURRENT WORLD STATE | What is true now? |
+| FUTURE WORLD STATE | What will become true later if known conditions continue? |
+| TEMPORAL RELATION | When / for how long / after what event does that future change occur? |
+
+Distinguish Temporal State from: ordinary elapsed simulation time; movement execution timing; landing-input timing; animation duration with no gameplay consequence; W3 logical ordering; hidden timer implementation.
+
+W4 does **not** require millisecond prediction. Qualitative knowledge (before / after, soon / later, next event, enough time to prepare) is enough when it changes a meaningful choice.
+
+W4 planning use: [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) (`W4-K01`–`W4-K05`). TIME AS A PLANNING VARIABLE. Timed Gate / Delayed Switch / Counter are expression candidates, not World identity. No temporal mechanic is approved for production.
+
 ---
 
 ## Progression principles
@@ -229,12 +245,12 @@ High-level world arc (labels are roles; questions stay canonical):
 | WLD-01 | CONTROL | Where / in which direction should the next useful action begin? (historical: How do I move?) |
 | WLD-02 | MOMENTUM | How does carried movement change what becomes possible? (historical: What changes my motion?) |
 | WLD-03 | POSSIBILITY | When the world state changes, which actions become possible and which actions disappear? (historical: What can objects become?) |
-| WLD-04 | TIME | When will the needed state exist, and for how long? (historical: When should I act?) |
+| WLD-04 | TIME | When does the needed state appear, how long does it last, and after which event — and how does that change the plan? (historical: When should I act?) |
 | WLD-05 | UNDERSTANDING | Which assumptions behind familiar solutions still apply? (historical: What do I really know?) |
 
 Choose a knowledge question, then the smallest expression. Do **not** choose a gimmick, assign a World, and invent a room.
 
-W1 current planning is role-based, not 12-slot. W1–W5 `LVL-` rows remain **historical candidate inventories** (IDs kept). Official lifecycle status stays `CANDIDATE`. Do not add `PROGRESSION CANDIDATE` to the lifecycle. Documentation is not validation. Do not read “60 slots” as a ship count. W5 is a synthesis stage; its room count is not protected.
+W1 current planning is role-based, not 12-slot. W2 current planning is `W2-K01`–`W2-K05`. W3 current planning is `W3-K01`–`W3-K05`. W4 current planning is `W4-K01`–`W4-K05` (READ THE FUTURE → REVALUE IMMEDIACY → CHOOSE NOW FOR LATER → OWN THE TEMPORAL PLAN). W1–W5 `LVL-` rows remain **historical candidate inventories** (IDs kept). Official lifecycle status stays `CANDIDATE`. Do not add `PROGRESSION CANDIDATE` to the lifecycle. Documentation is not validation. Do not read “60 slots” as a ship count. W5 is a synthesis stage; its room count is not protected.
 
 ### Cognitive Operation Variety
 
@@ -298,7 +314,7 @@ PLAY-002 remains **LOCKED**. Vertical Slice implementation remains **HOLD**.
 
 Conceptual Vertical Slice candidate (unvalidated): A+B-1 → C-1 → D-1 → G-1. G-3 is backup / comparison. See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
 
-W1 Knowledge Architecture, W2 Knowledge Architecture (`W2-K01`–`W2-K05`), W3 Knowledge Architecture (`W3-K01`–`W3-K05`), Discovery Language System, and World Knowledge Architecture are **CANDIDATE**. Do not promote them to `VALIDATED` or `CORE`. Movement Validation #3 pending does **not** validate W2-K. W2-PHYS-003 Human Readability remains **PENDING**. This documentation pass does **not** validate W2 rooms, W3 rooms, Wind / Ice / Rough, Door / Switch, any gimmick, or movement experiments.
+W1 Knowledge Architecture, W2 Knowledge Architecture (`W2-K01`–`W2-K05`), W3 Knowledge Architecture (`W3-K01`–`W3-K05`), W4 Knowledge Architecture (`W4-K01`–`W4-K05`), Discovery Language System, and World Knowledge Architecture are **CANDIDATE**. Do not promote them to `VALIDATED` or `CORE`. Movement Validation #3 pending does **not** validate W2-K. W2-PHYS-003 Human Readability remains **PENDING**. W3 EXP-000 / 001 / 002 are physical **PASS**; EXP-003A harness is **READY**; **W3 Human Validation remains PENDING**. Do **not** document W3 as Human Validated. This documentation pass does **not** validate W2 rooms, W3 rooms, W4 rooms, Wind / Ice / Rough, Door / Switch, Timed Gate / Delayed Switch / Counter, any gimmick, or movement experiments. No temporal mechanic is approved for production.
 
 Therefore:
 
