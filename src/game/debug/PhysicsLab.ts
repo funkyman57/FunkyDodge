@@ -20,6 +20,7 @@ import {
 import { PhysicsConfig } from "../physics/PhysicsConfig";
 import type { BinaryWorldState, WorldStateScenarioId } from "./WorldStateProbe";
 import type { AgencyModelId, AgencyScenarioId } from "./WorldStateAgency";
+import type { TradeoffScenarioId } from "./WorldStateTradeoff";
 import "./physics-lab.css";
 
 type LabField = {
@@ -62,6 +63,7 @@ export function mountPhysicsLab(options: {
   onWorldStateLaunch?: (id: WorldStateScenarioId) => void;
   onAgencyModel?: (model: AgencyModelId) => void;
   onAgencyLaunch?: (id: AgencyScenarioId) => void;
+  onTradeoffLaunch?: (id: TradeoffScenarioId) => void;
 }): PhysicsLabHandle {
   const root = document.createElement("aside");
   root.className = "physics-lab";
@@ -77,6 +79,9 @@ export function mountPhysicsLab(options: {
     <h3>W3 AGENCY</h3>
     <div class="physics-lab-agency"></div>
     <p class="physics-lab-note">M model · 7 cause · 8 avoid · 9 restore. Contact only. Not a Switch.</p>
+    <h3>W3 ORDER</h3>
+    <div class="physics-lab-tradeoff"></div>
+    <p class="physics-lab-note">X = support. Y = traverse. Diagnostic order only.</p>
     <form class="physics-lab-fields"></form>
     <div class="physics-lab-metrics"></div>
     <p class="physics-lab-note">Dev only. Input mode is independent of physics presets. Timing seeds are provisional.</p>
@@ -88,6 +93,7 @@ export function mountPhysicsLab(options: {
   const actionRow = root.querySelector(".physics-lab-actions") as HTMLElement;
   const worldStateRow = root.querySelector(".physics-lab-world-state") as HTMLElement;
   const agencyRow = root.querySelector(".physics-lab-agency") as HTMLElement;
+  const tradeoffRow = root.querySelector(".physics-lab-tradeoff") as HTMLElement;
   const form = root.querySelector(".physics-lab-fields") as HTMLFormElement;
   let worldState: BinaryWorldState = "SOLID";
   let agencyModel: AgencyModelId = "OFF";
@@ -231,6 +237,20 @@ export function mountPhysicsLab(options: {
     button.textContent = launch.label;
     button.addEventListener("click", () => options.onAgencyLaunch?.(launch.id));
     agencyRow.append(button);
+  }
+
+  const tradeoffLaunches: Array<{ id: TradeoffScenarioId; label: string }> = [
+    { id: "CORRECT", label: "CORRECT" },
+    { id: "EARLY", label: "EARLY" },
+    { id: "RESTORE", label: "RESTORE X" },
+    { id: "DIRECT_Y", label: "DIRECT Y" },
+  ];
+  for (const launch of tradeoffLaunches) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = launch.label;
+    button.addEventListener("click", () => options.onTradeoffLaunch?.(launch.id));
+    tradeoffRow.append(button);
   }
 
   function refreshWorldState(): void {
