@@ -583,7 +583,7 @@ export class PlaygroundScene extends Phaser.Scene {
       this.timingXUsed = true;
       this.visitedX = true;
       this.delaySession = acknowledgeCause();
-      this.controller.placeAt(PREP_WAIT.x, PREP_WAIT.y, PREP_VX, 0);
+      this.controller.placeAt(PREP_STAGING.x, PREP_STAGING.y, 0, 0);
     } else {
       this.diagnosisScenario = null;
       this.delaySession = resetDelaySession(this.delaySession, PREP_WAIT.x, PREP_WAIT.y);
