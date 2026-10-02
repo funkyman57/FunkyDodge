@@ -80,9 +80,11 @@ DOC-001A / DOC-002 Second Faces recorded where supplied: Door (closed = wall), W
 | --- | --- |
 | W2 carried motion: GIM-003 Wind, GIM-004 Ice, GIM-005 Rough Surface | GIM-006 Spring / R-FORCE-002 Impulse (C-05) |
 | W3 world-state possibility: GIM-001 Door, GIM-002 Switch | GIM-010 Moving Block, GIM-011 One-way Surface (C-05) |
-| W4 future-state planning: GIM-007 Bounce Counter, GIM-008 Timed Gate, GIM-012 Delayed Switch (or Switch+Delay) | GIM-009 Force Switch. W5 adds no new gimmicks. |
+| W4 future-state planning: GIM-007 Bounce Counter, GIM-008 Timed Gate, GIM-012 Delayed Switch (or Switch+Delay) | GIM-009 Force Switch. W5 adds no new gimmicks. New W5 gimmick: **NOT REQUIRED** (default **NO-GO**). |
 
 W1 required progression uses no environmental gimmicks. W2 ≠ Wind / Ice / Rough. W3 ≠ Door / Switch. W4 ≠ Counter / Gate / Delay. Event-count is TIME only if it changes future-state planning.
+
+W5 is a synthesis / autonomy stage (`W5-K01`–`W5-K04`). It uses already-known gimmick relationships only. A new rule should not be used to manufacture W5 novelty. Before any new gimmick, check: is the prerequisite actually learned? Is the current fact readable? Is the relation dependency real? Does the goal give a reason to select the relation? Do **not** reserve Charge / Wall Jump / Air Reversal for W5 merely because they appear advanced.
 
 Do not invent Motion/Kinematic or Conditional Collision rules to support GIM-010 / GIM-011. Those rule gaps stay explicit. Unassigned is **not** design debt.
 

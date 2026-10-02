@@ -32,9 +32,12 @@ Current knowledge-domain alignment (not forced assignment): [progression/WORLD_L
 | W3 clear | DSC-014, DSC-018 |
 | W4 clear | DSC-012, DSC-013 |
 | W4 conditional | DSC-011 — only if event progression changes future-state planning |
-| Mixed / unassigned | DSC-006, DSC-007, DSC-010, DSC-015, DSC-016 |
+| W5 strongest candidate | DSC-015 — **only** when known relations form a genuinely new dependency. Combination is not automatically W5. |
+| Mixed / unassigned | DSC-006, DSC-007, DSC-010, DSC-016 |
 
-Unassigned is **not** design debt. Mixed IDs stay mixed.
+Unassigned is **not** design debt. Mixed IDs stay mixed. Do **not** change a Discovery’s meaning to populate W5.
+
+W5 audit (IDs and ownership preserved; meanings unchanged): DSC-015 is the strongest W5 candidate only when known relations form a genuinely new dependency. DSC-002 / 008 / 012 / 013 are possible TRANSFER material if already understood. DSC-001 / 003 / 004 / 005 / 009 / 014 / 017 / 018 remain primarily earlier-World understanding — do not move into W5 to fill scope. DSC-006 / 007 / 010 / 011 / 016 remain unassigned / optional; W5 assignment is not required.
 
 ---
 
@@ -68,7 +71,7 @@ This is an implementation of:
 
 **Status:** `CANDIDATE`. Shared guidance for this library and for progression audits. **Not Constitution.** Do not promote to `VALIDATED` / `CORE`. Do not implement a hint system from this section.
 
-W1-K, W2-K, and W3-K IDs live in [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md). Movement Validation #3 is pending (`docs/playtest/MOVEMENT_VALIDATION_003.md` on `cursor/movement-validation-003-3f71`) and does **not** validate W2-K. W2-PHYS-003 Human Readability is **PENDING**. Do not record AR-A2 / WJ-B / Charge outcomes here.
+W1-K, W2-K, W3-K, W4-K, and W5-K IDs live in [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md). Movement Validation #3 is pending (`docs/playtest/MOVEMENT_VALIDATION_003.md` on `cursor/movement-validation-003-3f71`) and does **not** validate W2-K. W2-PHYS-003 Human Readability is **PENDING**. W2 / W3 / W4 Human Validation remains **PENDING**. Do not record AR-A2 / WJ-B / Charge outcomes here. Do not treat Human understanding as validated.
 
 Carried motion must be readable without a numeric velocity HUD in production. Necessary facts: continuing direction; relative remaining motion; before / after contact change; whether motion persisted through arrival; earlier influence → later result. Ball spin must **not** automatically mean travel speed. Do not design production UI here.
 
@@ -402,6 +405,8 @@ Intensity is not assigned in this index.
 
 PLAY-002 has not started. Do not implement GIM-001 from this entry.
 
+**World alignment:** primarily earlier-World / Door-as-wall expression. Do **not** move into W5 to fill scope. W5 may recombine an already-known closed-door relation with another known domain; that does not transfer ownership.
+
 ---
 
 ### DSC-002 — Use the Headwind
@@ -429,7 +434,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Spoiler Risk | Do not label “use headwind here.” |
 | Validated Level | none |
 
-**World alignment:** useful / conditional W2 expression when the ask is carried motion produced or removed by force. Wind is **not** a mandatory W2 mechanic. May be W3 / W4 if world-state or force timing is the ask.
+**World alignment:** useful / conditional W2 expression when the ask is carried motion produced or removed by force. Wind is **not** a mandatory W2 mechanic. May be W3 / W4 if world-state or force timing is the ask. Possible W5 TRANSFER material **if already understood**. Do not move ownership to fill W5.
 
 ---
 
@@ -458,7 +463,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Spoiler Risk | Do not narrate “store your speed.” |
 | Validated Level | none |
 
-**World alignment:** strong conceptual fit for W2 preservation (W2-K03 face). Ice is **not** a required W2 mechanic and is not “fast floor.” Do not promote GIM-004.
+**World alignment:** strong conceptual fit for W2 preservation (W2-K03 face). Ice is **not** a required W2 mechanic and is not “fast floor.” Do not promote GIM-004. Primarily earlier-World understanding. Do **not** move into W5 to fill scope.
 
 ---
 
@@ -487,7 +492,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Spoiler Risk | Do not command “stop here.” |
 | Validated Level | none |
 
-**World alignment:** useful / conditional W2 expression of “motion value depends on purpose.” Rough Surface is **not** a required W2 mechanic and is not “slow floor.” Do not promote GIM-005.
+**World alignment:** useful / conditional W2 expression of “motion value depends on purpose.” Rough Surface is **not** a required W2 mechanic and is not “slow floor.” Do not promote GIM-005. Primarily earlier-World understanding. Do **not** move into W5 to fill scope.
 
 ---
 
@@ -515,6 +520,8 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Future Reuse | Any later low route. Must not be a one-room trick. |
 | Spoiler Risk | Do not print “use Low Bounce.” |
 | Validated Level | none |
+
+**World alignment:** W1 clear. Primarily earlier-World understanding. Do **not** move into W5 to fill scope.
 
 ---
 
@@ -545,7 +552,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 
 **Current W1 scope:** DSC-006 historically includes horizontal carry / Landing Boost context. Status remains `CANDIDATE`. Do **not** rewrite this ID to mean “LOW as a preparation start.” A D-1 that uses LOW to set the next starting position may evidence **K04**; it does **not** automatically validate the full DSC-006 meaning. BOOST / carry payoff is outside current W1 graduation.
 
-**World alignment:** mixed / unassigned. Do not force W1 or W2.
+**World alignment:** mixed / unassigned. Do not force W1 or W2. W5 assignment not required.
 
 ---
 
@@ -574,7 +581,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Spoiler Risk | Do not draw an arrow away from the goal as the lesson. |
 | Validated Level | none |
 
-**World alignment:** mixed / unassigned. Detour is not automatically W2, W5, or a Personal Plan domain.
+**World alignment:** mixed / unassigned. Detour is not automatically W2, W5, or a Personal Plan domain. W5 assignment not required.
 
 ---
 
@@ -603,7 +610,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Spoiler Risk | Do not mandate a lap count (ANTI-018). |
 | Validated Level | none |
 
-**World alignment:** useful / conditional W2 expression of BUILD / later-need. Not a mandatory production assignment. Must not reduce to a long run-up.
+**World alignment:** useful / conditional W2 expression of BUILD / later-need. Not a mandatory production assignment. Must not reduce to a long run-up. Possible W5 TRANSFER material **if already understood**. Do not move ownership to fill W5.
 
 ---
 
@@ -632,7 +639,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Spoiler Risk | Do not print “slow down.” |
 | Validated Level | none |
 
-**World alignment:** strong conceptual fit for W2-K03 (more motion is not inherently better). Purposeful loss is required W2 understanding; Rough Surface is not.
+**World alignment:** strong conceptual fit for W2-K03 (more motion is not inherently better). Purposeful loss is required W2 understanding; Rough Surface is not. Primarily earlier-World understanding. Do **not** move into W5 to fill scope.
 
 ---
 
@@ -661,7 +668,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 | Spoiler Risk | Do not require an unmarked seam (ANTI-014). |
 | Validated Level | none |
 
-**World alignment:** mixed / unassigned. Wall Jump remains unassigned. Do not treat this as a W1 or W2 requirement.
+**World alignment:** mixed / unassigned. Wall Jump remains unassigned. Do not treat this as a W1 or W2 requirement. W5 assignment not required. Do **not** reserve Wall Jump for W5 merely because it appears advanced.
 
 ---
 
@@ -692,7 +699,7 @@ PLAY-002 has not started. Do not implement GIM-001 from this entry.
 
 PLAY-002 has not started. Do not implement GIM-007 from this entry.
 
-**World alignment:** W4 **conditional**. Do not treat every Counter use as TIME.
+**World alignment:** W4 **conditional**. Do not treat every Counter use as TIME. Remain optional. W5 assignment not required.
 
 ---
 
@@ -721,7 +728,7 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Spoiler Risk | Do not become a reaction test (ANTI-004). |
 | Validated Level | none |
 
-**World alignment:** useful W4 application (`W4-K03`). **Not** a mandatory separate graduation skill.
+**World alignment:** useful W4 application (`W4-K03`). **Not** a mandatory separate graduation skill. Possible W5 TRANSFER material **if already understood**. Do not move ownership to fill W5.
 
 Distinguish:
 
@@ -759,7 +766,7 @@ Auto Bounce note: waiting does **not** necessarily mean standing still. Do not r
 | Spoiler Risk | Hidden delay is ANTI-012. |
 | Validated Level | none |
 
-**World alignment:** strong candidate for foundational W4 expression (`W4-K01` / `W4-K02` / first Aha). Core relation: cause now → result pending → future World State → preparation before result.
+**World alignment:** strong candidate for foundational W4 expression (`W4-K01` / `W4-K02` / first Aha). Core relation: cause now → result pending → future World State → preparation before result. Possible W5 TRANSFER material **if already understood**. Do not move ownership to fill W5.
 
 Must read: cause occurred successfully; result is pending; affected target; future change; temporal progression.
 
@@ -792,7 +799,7 @@ Do **not** allow arbitrary hidden delay. Delayed **causal relation** is the cand
 | Spoiler Risk | Do not lock the door as a secret exception after teaching it opens (ANTI-002). |
 | Validated Level | none |
 
-**World alignment:** general relationship strongly aligns with **W3-K03 / K04** (apparently positive state change → removes a still-needed possibility → plan / order is reconsidered). Door is one possible expression. Do **not** make Wall Jump or Door-specific behavior a current W3 prerequisite. Do **not** claim a hidden consequence is fair discovery. **Not** automatically a required W3 room. Do not rewrite this Discovery’s meaning.
+**World alignment:** general relationship strongly aligns with **W3-K03 / K04** (apparently positive state change → removes a still-needed possibility → plan / order is reconsidered). Door is one possible expression. Do **not** make Wall Jump or Door-specific behavior a current W3 prerequisite. Do **not** claim a hidden consequence is fair discovery. **Not** automatically a required W3 room. Primarily earlier-World understanding. Do **not** move into W5 to fill scope. Do not rewrite this Discovery’s meaning.
 
 ---
 
@@ -821,7 +828,7 @@ Do **not** allow arbitrary hidden delay. Delayed **causal relation** is the cand
 | Spoiler Risk | ANTI-011 if untaught parts are dumped in. |
 | Validated Level | none |
 
-**World alignment:** mixed / unassigned. Combination is not automatically W5 remix.
+**World alignment:** strongest W5 candidate (`W5-K03`) **only** when known relations form a genuinely new dependency — RELATION A’s result changes RELATION B’s condition / usefulness. Mere sequential use of two mechanics is **not** recombination. Combination is not automatically W5 remix. Do **not** change this Discovery’s meaning to populate W5. Historical seed LVL-W01-011 is not a current W1 or W5 assignment.
 
 ---
 
@@ -850,7 +857,7 @@ Do **not** allow arbitrary hidden delay. Delayed **causal relation** is the cand
 | Spoiler Risk | Solution-by-accident if the first clear cannot be repeated (ANTI-015). |
 | Validated Level | none |
 
-**World alignment:** mixed / unassigned. Do not steal this into W5 to fill a remix quota.
+**World alignment:** mixed / unassigned. Do not steal this into W5 to fill a remix quota. W5 assignment not required.
 
 ---
 
@@ -881,7 +888,7 @@ Do **not** allow arbitrary hidden delay. Delayed **causal relation** is the cand
 
 **Current W1 scope:** DSC-017 depends on **entry velocity** differences at the same location. Status remains `CANDIDATE`. Do **not** use this ID as evidence that current W1 already teaches preparation, landing planning, K04, or K05. Those belong to W1-K and the current Slice. Entry-speed management is beyond the current W1 knowledge boundary.
 
-**World alignment:** strongly aligns with **W2-K01** (similar spatial arrival + different carried motion = different future). **Not** automatically a required W2 room. Historical slot position is not authoritative. **Not** current W1 graduation evidence. Do not rewrite this Discovery’s meaning.
+**World alignment:** strongly aligns with **W2-K01** (similar spatial arrival + different carried motion = different future). **Not** automatically a required W2 room. Historical slot position is not authoritative. **Not** current W1 graduation evidence. Primarily earlier-World understanding. Do **not** move into W5 to fill scope. Do not rewrite this Discovery’s meaning.
 
 ---
 

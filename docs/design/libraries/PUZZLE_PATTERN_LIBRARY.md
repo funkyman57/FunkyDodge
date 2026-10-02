@@ -100,6 +100,17 @@ All rows are structural CANDIDATES. None are implemented as authored levels.
 
 Compatible Interactions list only IDs directly supported by DOC-001A. Empty means unspecified, not reserved.
 
+### W5 UNDERSTANDING support (not ownership)
+
+Pattern presence does **not** make content W5. The W5 criterion remains: assumption audit / relation selection / meaningful recombination / autonomy. See [WORLD_LIBRARY.md](../progression/WORLD_LIBRARY.md) (`W5-K01`–`W5-K04`). No new Pattern ID is required now.
+
+| Support | IDs |
+| --- | --- |
+| Strong support candidates | PAT-009 Order Reversal; PAT-014 Reinterpret Object; PAT-015 Reinterpret Space; PAT-016 Same Tool, New Function; PAT-017 Combination Discovery; PAT-003 Setup → Payoff; PAT-020 Delayed Consequence; PAT-022 Alternate Solution |
+| Conditional support | PAT-006 / 007 / 008; PAT-018 / 019; PAT-021 |
+
+PAT-017 supports W5 recombination **only** when RELATION A’s result changes RELATION B’s condition. Mere sequential use is not recombination. PAT-022 multiple valid plans are **USEFUL**, not required. PAT-014 / 015 / 016 already exist in earlier Worlds; do not steal them to fill W5.
+
 ---
 
 ### PAT-001 — Reach

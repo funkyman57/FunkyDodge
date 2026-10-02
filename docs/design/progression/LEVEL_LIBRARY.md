@@ -8,7 +8,7 @@ All W1–W5 rows are **historical candidate inventories** (60 slots, not a ship 
 
 Geometry, spacing, force strength, friction coefficients, velocities, bounce heights, counts, and timing windows: `TBD — after PLAY-001B / relevant prototype validation`.
 
-Knowledge Graphs, W1-K01–K08, W2-K01–K05, W3-K01–K05, W4-K01–K05, and the conceptual Vertical Slice: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Discovery Language: [DISCOVERY_LIBRARY.md](../libraries/DISCOVERY_LIBRARY.md). Vocabulary: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Do not assign `PAT-001` merely because a room has an exit.
+Knowledge Graphs, W1-K01–K08, W2-K01–K05, W3-K01–K05, W4-K01–K05, W5-K01–K04, and the conceptual Vertical Slice: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Discovery Language: [DISCOVERY_LIBRARY.md](../libraries/DISCOVERY_LIBRARY.md). Vocabulary: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Do not assign `PAT-001` merely because a room has an exit.
 
 A+B-1 / C-1 / D-1 / G-1 / G-3 are the current conceptual slice. They are **not** `LVL-W01-*` IDs. The W1 12-slot index below is a **historical candidate inventory**, not a production count or graduation checklist. Alignment: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Unvalidated. Implementation HOLD.
 
@@ -146,24 +146,24 @@ Historical expression candidates: Bounce Counter (conditional), Timed Gate (usef
 
 ### WLD-05 — historical candidate inventory
 
-IDs and titles preserved. **Not** a protected room count. W5 is a synthesis stage, not Remix / Hard Mode. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
+IDs and titles preserved. **Not** a protected room count. W5 is a synthesis / autonomy stage (`W5-K01`–`W5-K04`), not Remix / Hard Mode and not a fifth mechanic domain. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Historical slots are lineage, not protected scope. No W5 room is `VALIDATED`. New W5 gimmick: **NOT REQUIRED**.
 
-| ID | Title | Purpose |
-| --- | --- | --- |
-| LVL-W05-001 | You Know This | RECALL |
-| LVL-W05-002 | Another Answer | APPLY / ALTERNATE SOLUTION |
-| LVL-W05-003 | Wrong Way | REINTERPRET |
-| LVL-W05-004 | Fall | REINTERPRET |
-| LVL-W05-005 | Give It Up | REINTERPRET |
-| LVL-W05-006 | Close It | REINTERPRET |
-| LVL-W05-007 | Too Early | REINTERPRET / TIME |
-| LVL-W05-008 | Waste a Bounce | REINTERPRET / RESOURCE ALLOCATION |
-| LVL-W05-009 | Three Old Things | COMBINE |
-| LVL-W05-010 | Same Room, New Rules? | REINTERPRET / APPLY / REWARD candidate |
-| LVL-W05-011 | Make Your Own Route | MASTERY / ALTERNATE SOLUTION |
-| LVL-W05-012 | What Do I Really Know? | FINAL MASTERY |
+| ID | Title | Purpose | Current alignment |
+| --- | --- | --- | --- |
+| LVL-W05-001 | You Know This | RECALL | Relation selection / transfer candidate. |
+| LVL-W05-002 | Another Answer | APPLY / ALTERNATE SOLUTION | Relation selection / possible duplicate of 001. |
+| LVL-W05-003 | Wrong Way | REINTERPRET | Likely duplicate earlier planning / unassigned. |
+| LVL-W05-004 | Fall | REINTERPRET | Assumption-audit candidate. TRICK risk if unreadable. |
+| LVL-W05-005 | Give It Up | REINTERPRET | Possible W2 duplicate. |
+| LVL-W05-006 | Close It | REINTERPRET | Possible W3 duplicate. |
+| LVL-W05-007 | Too Early | REINTERPRET / TIME | W4 duplicate. |
+| LVL-W05-008 | Waste a Bounce | REINTERPRET / RESOURCE ALLOCATION | Unassigned resource concept. |
+| LVL-W05-009 | Three Old Things | COMBINE | Recombination candidate **only** if real dependency exists. |
+| LVL-W05-010 | Same Room, New Rules? | REINTERPRET / APPLY / REWARD candidate | Assumption audit / transfer candidate. Rules must actually remain the same. |
+| LVL-W05-011 | Make Your Own Route | MASTERY / ALTERNATE SOLUTION | Relation selection / autonomy candidate. |
+| LVL-W05-012 | What Do I Really Know? | FINAL MASTERY | Mastery / recombination candidate. Do **not** require 4–5 concepts. |
 
-Gimmicks: none new. New Rule target 0.
+Gimmicks: none new. New Rule target 0. New W5 gimmick default **NO-GO**.
 
 ---
 
@@ -1159,9 +1159,9 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 
 ## World 5
 
-Historical candidate inventory. Official status remains `CANDIDATE`. The 12-slot count is **not** protected. W5 is a synthesis / autonomy stage, not Remix / Hard Mode and not a fifth mechanic domain. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W5-GATE-*` fields below are historical IDs.
+Historical candidate inventory. Official status remains `CANDIDATE`. The 12-slot count is **not** protected. Historical slots are lineage, not protected scope. W5 is a synthesis / autonomy stage (`W5-K01`–`W5-K04`), not Remix / Hard Mode and not a fifth mechanic domain. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W5-GATE-*` fields below are historical IDs.
 
-New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from earlier Worlds to fill W5. Adjacent rooms must use different cognitive operations ([WORLD_LIBRARY.md](WORLD_LIBRARY.md)).
+New Rule 0. New Gimmick 0. Hidden mechanic 0. New W5 gimmick: **NOT REQUIRED** (default **NO-GO**). Do not steal reinterpretation from earlier Worlds to fill W5. Do not require all mechanics / all Worlds. Adjacent rooms must use different cognitive operations ([WORLD_LIBRARY.md](WORLD_LIBRARY.md)). No W5 room is `VALIDATED`. W2 / W3 / W4 Human Validation remains **PENDING**.
 
 ### LVL-W05-001 — You Know This
 
@@ -1169,6 +1169,7 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | RECALL |
+| Current alignment | Relation selection / transfer candidate (`W5-K02` / transfer). Lineage only. |
 | Knowledge | Familiar-looking problem. Old answer stays legal; another valid answer is visible through deeper understanding. |
 | Expected feeling | “The old answer wasn't wrong. It just wasn't the only answer.” |
 | Rules Used | Already taught |
@@ -1188,6 +1189,7 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | APPLY / ALTERNATE SOLUTION |
+| Current alignment | Relation selection / possible duplicate of 001. Multiple valid plans are **USEFUL**, not required. |
 | Knowledge | More than one rule-consistent solution. Players need not find every path. Validates system understanding, not memorization. |
 | Rules Used | Already taught |
 | Interactions Used | Existing only |
@@ -1206,6 +1208,7 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET |
+| Current alignment | Likely duplicate earlier planning / unassigned. Do not steal detour into W5 to fill scope. |
 | Cognitive operation | Spatial detour — WHERE to go first (≠ W05-004) |
 | Discovery Target | DSC-007 payoff |
 | Rules Used | Already taught |
@@ -1225,6 +1228,7 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET |
+| Current alignment | Assumption-audit candidate (`W5-K01`). TRICK risk if unreadable. Fair surprise only if the overlooked possibility was always present under known rules. |
 | Cognitive operation | State transformation — WHAT state to create (≠ W05-003) |
 | Discovery Target | DSC-016 payoff (W3-011 was weak seed only) |
 | Fairness | Intentional setup distinguishable from death/failure via existing rules and readable space. No hidden information. |
@@ -1245,6 +1249,7 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET |
+| Current alignment | Possible W2 duplicate. Do not relabel W2 purposeful-loss as W5. |
 | Cognitive operation | State sacrifice — WHAT valuable state to abandon (≠ “touch Rough again”) |
 | Discovery Target | DSC-009 reinforcement |
 | Rules Used | R-MOTION-001; friction only if it serves sacrifice-of-value, not a First-Face rerun |
@@ -1264,6 +1269,7 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET |
+| Current alignment | Possible W3 duplicate. Do not move W3 open/close revaluation exclusively to W5. |
 | Cognitive operation | Object role selection |
 | Discovery Target | DSC-014 reinforcement |
 | Knowledge | OPEN appears beneficial; restore CLOSED because the solid is required. OPEN ≠ GOOD. CLOSED ≠ BAD. |
@@ -1284,6 +1290,7 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET / TIME |
+| Current alignment | W4 duplicate. Do not relabel “earlier is not always better” as W5. |
 | Cognitive operation | Trigger timing — WHEN to cause the future event (≠ W04-009 trigger-now-then-move) |
 | Knowledge | Immediate trigger makes the future state arrive too early. Delay the cause. |
 | Rules Used | R-SIGNAL-002; taught W4 time |
@@ -1303,6 +1310,7 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET / RESOURCE ALLOCATION |
+| Current alignment | Unassigned resource concept. W5 assignment not required. Do not rewrite resource meanings to force W5. |
 | Cognitive operation | Resource spending |
 | Discovery Target | DSC-011 reinforcement |
 | Knowledge | W4: bounce can be counted. W5: bounce count can be deliberately spent/allocated. Not a visible currency unless later justified. |
@@ -1323,6 +1331,7 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | COMBINE |
+| Current alignment | Recombination candidate (`W5-K03`) **only** if RELATION A’s result changes RELATION B’s condition. Mere sequential use / gimmick stacking is **not** recombination. |
 | Discovery Target | DSC-015 |
 | Knowledge | 2–3 well-understood systems, new possibility. Example only (not mandatory): Wind → Momentum → Ice preserves → Closed Door redirects. Avoid Gimmick Flood. |
 | Rules Used | Already taught |
@@ -1341,6 +1350,7 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET / APPLY / REWARD candidate |
+| Current alignment | Assumption audit / transfer candidate (`W5-K01` / transfer). Rules must actually remain the same. Never change rules secretly and call it W5. |
 | Knowledge | Evokes an earlier World structure. Rules do **not** change. Accumulated knowledge reveals a new approach. |
 | Expected feeling | “The game didn't change. I did.” |
 | Rules Used | Already taught — no replacements |
@@ -1359,6 +1369,7 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | MASTERY / ALTERNATE SOLUTION |
+| Current alignment | Relation selection / autonomy candidate (`W5-K02` / `W5-K04`). Multiple valid plans are **USEFUL**, not required. Do not require discovering every path. |
 | Knowledge | Multiple rule-consistent approaches where practical (Momentum, LOW, Door rebound, timing — examples). Solution count not frozen. From following rules to using them. |
 | Rules Used | Already taught |
 | Interactions Used | Existing only |
@@ -1377,7 +1388,8 @@ New Rule 0. New Gimmick 0. Hidden mechanic 0. Do not steal reinterpretation from
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | FINAL MASTERY |
-| Knowledge | No new Rule, Gimmick, or hidden mechanic. No new explanatory concept. Prefer ~4–5 deep concepts, not every gimmick. Combination TBD after prototype/playtest. |
+| Current alignment | Mastery / recombination candidate (`W5-K04`). Do **not** require 4–5 concepts. “All mechanics once” is not a valid mastery requirement. Composition: late optionally three relations only if the third changes the plan. |
+| Knowledge | No new Rule, Gimmick, or hidden mechanic. No new explanatory concept. Prefer a small number of known relations with real dependency, not every gimmick. Combination TBD after prototype/playtest.
 | Final questions | Where? How? What Movement State? What World State? When? What assumptions? What else is possible? |
 | Rules Used | Taught W1–W4 only |
 | Interactions Used | Existing only |

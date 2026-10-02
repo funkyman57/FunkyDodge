@@ -116,6 +116,8 @@ IDs are permanent. If an item is deprecated, do not recycle its ID.
 | `W1-K` | W1 conceptual knowledge nodes (not runtime) | `W1-K01` |
 | `W2-K` | W2 conceptual knowledge nodes (not runtime) | `W2-K01` |
 | `W3-K` | W3 conceptual knowledge nodes (not runtime) | `W3-K01` |
+| `W4-K` | W4 conceptual knowledge nodes (not runtime) | `W4-K01` |
+| `W5-K` | W5 conceptual knowledge nodes (not runtime) | `W5-K01` |
 | `DL-` | Discovery Language guides (not Constitution) | `DL-01` |
 | `ANTI-` | Anti-patterns | `ANTI-001` |
 | `LVL-W##-` | Levels | `LVL-W01-001` |
@@ -160,6 +162,10 @@ W1 CONTROL Knowledge Architecture v1 (`W1-K01`–`W1-K08`) is the **current** W1
 W2 MOMENTUM Knowledge Architecture v1 (`W2-K01`–`W2-K05`) is the **current** W2 planning source (`CANDIDATE`). Role-based carried-motion knowledge, not a Wind / Ice / Rough tutorial and not “go faster.” Movement Validation #3 pending does **not** validate W2-K. W2-PHYS-001 / 002 are physical PASS; W2-PHYS-003 Human Readability is PENDING. Do not treat W2 as fully Human Validated.
 
 W3 POSSIBILITY Knowledge Architecture v1 (`W3-K01`–`W3-K05`) is the **current** W3 planning source (`CANDIDATE`). Role-based World State / possibility-set knowledge, not a Door / Switch tutorial and not “activate everything.” No W3 mechanic is approved for production.
+
+W4 TIME Knowledge Architecture v1 (`W4-K01`–`W4-K05`) is the **current** W4 planning source (`CANDIDATE`). TIME AS A PLANNING VARIABLE, not Timed Gate / Delayed Switch / Counter World.
+
+W5 UNDERSTANDING Knowledge Architecture v1 (`W5-K01`–`W5-K04`) is the **current** W5 planning source (`CANDIDATE`). Synthesis / autonomy stage, not a fifth mechanic domain and not an all-mechanics finale. W5 does **not** own reinterpretation itself. No W5 room is `VALIDATED`. No W5 gimmick is approved.
 
 The DOC-003 12-slot W1 list is a **historical candidate inventory**. It is not the current production plan, not a required room count, and not the graduation checklist. Depth Over Quantity takes precedence over slot preservation.
 
@@ -226,6 +232,30 @@ W4 does **not** require millisecond prediction. Qualitative knowledge (before / 
 
 W4 planning use: [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) (`W4-K01`–`W4-K05`). TIME AS A PLANNING VARIABLE. Expression Audit v1: minimum W4 is the existing W3 World State plus **one** caused delayed persistent relation with a truthful progress cue. Pending is a temporal condition, not a third physics state. Timed Gate / Delayed Switch / Counter are expression candidates, not World identity. No temporal mechanic is approved for production.
 
+### UNDERSTANDING
+
+> 현재 조건에서 어떤 알려진 관계가 유효한지 판단하고, 익숙한 해법의 전제가 맞지 않을 때에도 유효한 지식은 유지하면서 계획을 다시 구성하는 능력.
+
+English: the ability to judge which known relationship is relevant under current conditions, retain the knowledge that remains valid, and reorganize the plan when a familiar solution’s assumptions no longer hold.
+
+UNDERSTANDING does **not** require: verbal explanation; designer terminology; memorized solution replay; every mechanic; high execution difficulty.
+
+W5’s new central demand is: the player chooses **which known relationship should organize the plan**.
+
+W5 does **not** own reinterpretation itself. Earlier Worlds already include: W2 more motion is not always better; W3 state change / opening is not always progress; W4 earlier activation is not always better. Single-variable revaluation is not sufficient for W5.
+
+| Term | Meaning |
+| --- | --- |
+| RULE | Still works the same. |
+| CONDITION | Readable context differs. |
+| SOLUTION | Was useful under those conditions. |
+
+Never change rules secretly and call it W5 reinterpretation.
+
+Supporting processes: assumption audit; relation selection; relation recombination; solution autonomy. Autonomy reduces intended-solution highlighting, not goal clarity. Autonomy ≠ ambiguity. Multiple valid plans are **USEFUL**, not required. New W5 gimmick: **NOT REQUIRED** (default **NO-GO**).
+
+W5 planning use: [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) (`W5-K01`–`W5-K04`). Role arc: CHECK THE CONDITION → CHOOSE THE RELATION → CONNECT THE RELATIONS → OWN THE PLAN. No W5 room is `VALIDATED`. W2 / W3 / W4 Human Validation remains **PENDING**. Do **not** document Human understanding as validated.
+
 ---
 
 ## Progression principles
@@ -246,11 +276,11 @@ High-level world arc (labels are roles; questions stay canonical):
 | WLD-02 | MOMENTUM | How does carried movement change what becomes possible? (historical: What changes my motion?) |
 | WLD-03 | POSSIBILITY | When the world state changes, which actions become possible and which actions disappear? (historical: What can objects become?) |
 | WLD-04 | TIME | When does the needed state appear, how long does it last, and after which event — and how does that change the plan? (historical: When should I act?) |
-| WLD-05 | UNDERSTANDING | Which assumptions behind familiar solutions still apply? (historical: What do I really know?) |
+| WLD-05 | UNDERSTANDING | Under what conditions is the solution I treated as correct actually valid, and what becomes possible when I recombine known relationships differently? (historical: What do I really know?) |
 
 Choose a knowledge question, then the smallest expression. Do **not** choose a gimmick, assign a World, and invent a room.
 
-W1 current planning is role-based, not 12-slot. W2 current planning is `W2-K01`–`W2-K05`. W3 current planning is `W3-K01`–`W3-K05`. W4 current planning is `W4-K01`–`W4-K05` (READ THE FUTURE → REVALUE IMMEDIACY → CHOOSE NOW FOR LATER → OWN THE TEMPORAL PLAN). W1–W5 `LVL-` rows remain **historical candidate inventories** (IDs kept). Official lifecycle status stays `CANDIDATE`. Do not add `PROGRESSION CANDIDATE` to the lifecycle. Documentation is not validation. Do not read “60 slots” as a ship count. W5 is a synthesis stage; its room count is not protected.
+W1 current planning is role-based, not 12-slot. W2 current planning is `W2-K01`–`W2-K05`. W3 current planning is `W3-K01`–`W3-K05`. W4 current planning is `W4-K01`–`W4-K05` (READ THE FUTURE → REVALUE IMMEDIACY → CHOOSE NOW FOR LATER → OWN THE TEMPORAL PLAN). W5 current planning is `W5-K01`–`W5-K04` (CHECK THE CONDITION → CHOOSE THE RELATION → CONNECT THE RELATIONS → OWN THE PLAN). W1–W5 `LVL-` rows remain **historical candidate inventories** (IDs kept). Official lifecycle status stays `CANDIDATE`. Do not add `PROGRESSION CANDIDATE` to the lifecycle. Documentation is not validation. Do not read “60 slots” as a ship count. W5 is a synthesis stage; its room count is not protected. Scope is evidence-driven. Do not preserve World length for symmetry.
 
 ### Cognitive Operation Variety
 
@@ -314,7 +344,7 @@ PLAY-002 remains **LOCKED**. Vertical Slice implementation remains **HOLD**.
 
 Conceptual Vertical Slice candidate (unvalidated): A+B-1 → C-1 → D-1 → G-1. G-3 is backup / comparison. See [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md).
 
-W1 Knowledge Architecture, W2 Knowledge Architecture (`W2-K01`–`W2-K05`), W3 Knowledge Architecture (`W3-K01`–`W3-K05`), W4 Knowledge Architecture (`W4-K01`–`W4-K05`), Discovery Language System, and World Knowledge Architecture are **CANDIDATE**. Do not promote them to `VALIDATED` or `CORE`. Movement Validation #3 pending does **not** validate W2-K. W2-PHYS-003 Human Readability remains **PENDING**. W3 EXP-000 / 001 / 002 are physical **PASS**; EXP-003A harness is **READY**; **W3 Human Validation remains PENDING**. Do **not** document W3 as Human Validated. This documentation pass does **not** validate W2 rooms, W3 rooms, W4 rooms, Wind / Ice / Rough, Door / Switch, Timed Gate / Delayed Switch / Counter, any gimmick, or movement experiments. No temporal mechanic is approved for production.
+W1 Knowledge Architecture, W2 Knowledge Architecture (`W2-K01`–`W2-K05`), W3 Knowledge Architecture (`W3-K01`–`W3-K05`), W4 Knowledge Architecture (`W4-K01`–`W4-K05`), W5 Knowledge Architecture (`W5-K01`–`W5-K04`), Discovery Language System, and World Knowledge Architecture are **CANDIDATE**. Do not promote them to `VALIDATED` or `CORE`. Movement Validation #3 pending does **not** validate W2-K. W2-PHYS-003 Human Readability remains **PENDING**. W3 EXP-000 / 001 / 002 are physical **PASS**; EXP-003A harness is **READY**; **W3 Human Validation remains PENDING**. W4 physical experiments are **PASS** where documented; **W4 Human Validation remains PENDING**. Do **not** document W2 / W3 / W4 Human understanding as validated. This documentation pass does **not** validate W2 rooms, W3 rooms, W4 rooms, W5 rooms, Wind / Ice / Rough, Door / Switch, Timed Gate / Delayed Switch / Counter, any gimmick, or movement experiments. No temporal mechanic is approved for production. No W5 gimmick is approved. No movement technique is promoted because of W5.
 
 Therefore:
 

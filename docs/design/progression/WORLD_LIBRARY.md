@@ -16,6 +16,8 @@ W3 current **physical** evidence (not Human Validation): EXP-000 **PASS** (binar
 
 W4 TIME Knowledge Architecture v1 (`W4-K01`–`W4-K05`) is the **current** W4 planning source. **Status:** `CANDIDATE`. Conceptual only. No W4 room is `VALIDATED`. No temporal mechanic is approved for production. W4 is **not** Timed Gate World, Delayed Switch World, Counter World, or a reaction challenge. Production dependencies on W2 / W3 **human** understanding remain unapproved.
 
+W5 UNDERSTANDING Knowledge Architecture v1 (`W5-K01`–`W5-K04`) is the **current** W5 planning source. **Status:** `CANDIDATE`. Conceptual only. No W5 room is `VALIDATED`. No W5 gimmick is approved. W5 is **not** a fifth mechanic domain, not Remix / Hard Mode, not a harder W4, and not an all-mechanics finale. W5 does **not** own reinterpretation itself. Do **not** treat W2 / W3 / W4 Human understanding as validated. W2 / W3 / W4 physical experiments are **PASS** where documented; Human Validation remains **PENDING**.
+
 The DOC-003 12-slot lists are **historical candidate inventories**. They are not production room counts, shipping sequences, or current graduation checklists. C-05 Depth Over Quantity takes precedence over slot preservation.
 
 Do **not** lock visual themes. Do not implement these worlds. PLAY-002 remains LOCKED. Vertical Slice implementation remains HOLD. Movement foundation is not finalized.
@@ -36,7 +38,7 @@ Choose a knowledge question first. Then find the smallest expression. Do **not**
 | WLD-02 | MOMENTUM | How does carried movement change what becomes possible? | 도착할 때 남아 있는 움직임이 다음 가능성을 어떻게 바꾸는가? |
 | WLD-03 | POSSIBILITY | When the world state changes, which actions become possible and which actions disappear? | 세계의 상태가 바뀌면 어떤 행동이 가능해지고, 어떤 행동이 사라지는가? |
 | WLD-04 | TIME | When does the needed state appear, how long does it last, and after which event — and how does that change the plan? | 필요한 상태가 언제 생기고, 얼마나 유지되며, 어떤 사건 뒤에 생기는지가 계획을 어떻게 바꾸는가? |
-| WLD-05 | UNDERSTANDING | Under what conditions is my familiar solution valid, and what becomes possible if known relationships connect differently? | 내가 정답처럼 쓰던 해법은 어떤 조건에서 유효하며, 알려진 관계를 다르게 연결하면 무엇이 가능한가? |
+| WLD-05 | UNDERSTANDING | Under what conditions is the solution I treated as correct actually valid, and what becomes possible when I recombine known relationships differently? | 내가 정답처럼 쓰던 해법은 어떤 조건에서 유효하며, 이미 아는 관계를 다르게 연결하면 무엇이 가능한가? |
 
 Historical English labels remain: How do I move? / What changes my motion? / What can objects become? / When should I act? / What do I really know?
 
@@ -48,7 +50,7 @@ Historical English labels remain: How do I move? / What changes my motion? / Wha
 | W2 MOMENTUM | Carried motion; preserve / reduce / discard; same position, different movement state | W1 position / direction / next start | “Go faster” as identity; world-state as the lesson; time-state planning. W2 is **not** Wind / Ice / Rough. |
 | W3 POSSIBILITY | World State changes the current possibility set; create **and** remove possibilities; logical order of state choices | W1 action / landing understanding; only W2 relationships that were actually introduced and understood | Gimmick showcase as identity. W3 is **not** Door / Switch. Logical order ≠ TIME. Momentum is **not** required in every W3 problem. |
 | W4 TIME | TIME AS A PLANNING VARIABLE. When a needed state occurs, how long it lasts, or after what known cause it appears — and how that changes the present plan | W1-level preparation already understood; W3 state-possibility conceptually reusable; only W2 relationships that were actually introduced and understood | Reaction speed; frame-perfect timing; rhythm; racing a timer; cycle memorization; waiting for an obvious opening. Timed Gate / Delayed Switch / Counter do **not** define W4. Event-count belongs **only if** it changes future-state planning. |
-| W5 UNDERSTANDING | Check assumptions behind familiar solutions; recombine known relationships; construct a personal plan | W1–W4 known relationships | Hidden new rules; new input grammar; all mechanics / gimmicks; long execution chains; precision escalation. Reinterpretation already exists from W1 onward and is **not** unique to W5. |
+| W5 UNDERSTANDING | The player chooses **which known relationship should organize the plan**. Supporting processes: assumption audit, relation selection, relation recombination, solution autonomy. See W5-K. | W1–W4 known relationships that were actually introduced and understood | Hidden new rules; new input grammar; new gimmick; all mechanics / gimmicks; long execution chains; precision escalation; verbal explanation. Single-variable revaluation already owned by W2 / W3 / W4 is **not** unique to W5. |
 
 ### Graduation evidence
 
@@ -58,7 +60,7 @@ Historical English labels remain: How do I move? / What changes my motion? / Wha
 | W2 | Player intentionally uses differences in carried motion (preserve / reduce / discard / redirect) because the goal demands it. | Maximum-speed clear; accidental slide |
 | W3 | Player prepares / preserves / delays / restores World State because it changes which actions remain possible. See W3-K graduation. | Press every switch; follow every opened path; activate-all; memorized switch sequence |
 | W4 | Player predicts a future World State from a known cause / progression and changes present cause, preparation, or delay so that state exists when it is useful. See W4-K graduation. | Lucky timing; fast reaction; cycle memorization; “you were too slow”; racing a visible cue |
-| W5 | Player detects that a familiar solution’s assumptions no longer hold and reorganizes known relationships into a different plan. | Hard execution of an old solution; using many gimmicks; a longer sequence |
+| W5 | Player judges which known relationship is relevant under current readable conditions, retains still-valid knowledge, and reorganizes the plan when a familiar solution’s assumptions no longer hold. See W5-K graduation. | Hard execution of an old solution; using many gimmicks; a longer sequence; all-mechanics finale; single-variable revaluation already owned by W2 / W3 / W4 |
 
 ### Adjacent transitions
 
@@ -67,7 +69,7 @@ Historical English labels remain: How do I move? / What changes my motion? / Wha
 | W1 → W2 | Where / which direction should I begin? | How does carried movement change what becomes possible? | Position / direction alone no longer explains the result. |
 | W2 → W3 | What movement state should I arrive with? | What world state must exist for the desired action to be possible? | Player state is no longer the only changing condition. |
 | W3 → W4 | Which world state should I create, and in what logical order? Waiting indefinitely does not change the relation. | When will that state exist, how long, after what event — and how does that change the present plan? | State *value* / logical order alone is insufficient. Temporal progression becomes a planning variable. |
-| W4 → W5 | How do I organize present choices so Player State and World State coincide when useful? | Which assumptions behind my familiar solutions still apply? | W5 adds **no** new temporal dimension. Not harder timers, smaller windows, or more cycles. |
+| W4 → W5 | How do I organize present choices so Player State and World State coincide when useful? | Under what conditions is the solution I treated as correct actually valid, and which known relationship should organize the plan now? | W5 adds **no** new temporal dimension and **no** new gimmick. Not harder timers, smaller windows, more cycles, or an all-mechanics finale. |
 
 ### Dangerous boundary leaks
 
@@ -81,6 +83,9 @@ Historical English labels remain: How do I move? / What changes my motion? / Wha
 8. W5 repeating W3’s “same object, different role.”
 9. W5 repeating W4 timing lessons.
 10. W5 hiding new rules inside “reinterpretation.”
+11. W5 becoming a harder earlier World (narrower landing, more exact speed, more state changes, tighter timing).
+12. W5 becoming an all-mechanics / all-discoveries finale.
+13. W5 requiring Charge / Wall Jump / Air Reversal merely because they appear advanced.
 
 ### Unassigned / not yet world-owned
 
@@ -92,7 +97,11 @@ Candidates that remain unassigned unless later justified: BOOST / Spin / Charge;
 
 W5 is **not** a fifth mechanic domain. It is a **synthesis / autonomy** stage.
 
-It may be smaller than other Worlds. Its content count is **not** protected. If strong recombination / assumption-audit problems are scarce, reduce W5 scope. Do **not** steal reinterpretation from earlier Worlds to fill W5. Do **not** preserve the historical 12-room count.
+W5 does **not** own reinterpretation itself. Earlier Worlds already include: W2 more motion is not always better; W3 state change / opening is not always progress; W4 earlier activation is not always better.
+
+W5’s new central demand is: **the player chooses which known relationship should organize the plan.**
+
+It may be intentionally compact. Scope is evidence-driven. Its content count is **not** protected. If a distinct relation-selection ability remains untested, a new dependency adds real synthesis evidence, autonomy transfers to a broader context, or mastery experience improves without repetition, expand. Otherwise reduce. Do **not** steal reinterpretation from earlier Worlds to fill W5. Do **not** preserve World length for symmetry. Do **not** preserve the historical 12-room count. New W5 gimmick: **NOT REQUIRED** (default **NO-GO**).
 
 ### Gimmicks as expression tools
 
@@ -150,10 +159,11 @@ W4 — TIME
 When will the needed state exist, and for how long?
         ↓
 W5 — UNDERSTANDING
-Which assumptions behind familiar solutions still apply?
+Under what conditions is the solution I treated as correct actually valid,
+and what becomes possible when I recombine known relationships differently?
 ```
 
-W5 does not replace prior knowledge. It is a synthesis stage over W1–W4. Canonical questions: World Knowledge Architecture above.
+W5 does not replace prior knowledge. It is a synthesis stage over W1–W4. Canonical questions: World Knowledge Architecture above. W5-K01–K04 is the current planning source.
 
 Historical expression examples (no new INT IDs; not World identities):
 
@@ -179,10 +189,11 @@ Do not lock a DSC to one world. Discovery → Knowledge → Future Tool. Mixed /
 | W3 clear | DSC-014, DSC-018 |
 | W4 clear | DSC-012, DSC-013 |
 | W4 conditional | DSC-011 Bounce Is a Resource — only if event progression changes future-state planning |
-| Mixed / unassigned | DSC-006, DSC-007, DSC-010, DSC-015, DSC-016 |
+| Mixed / unassigned | DSC-006, DSC-007, DSC-010, DSC-016 |
+| W5 strongest candidate | DSC-015 — **only** when known relations form a genuinely new dependency. Combination is not automatically W5. |
 | Historical guidance only | DSC-001 (Door-as-wall seed; expression, not W3 identity); DSC-006 / DSC-010 / DSC-017 as former W1 homes |
 
-Long-range: DSC-017 strongly aligns with **W2-K01**, **not** current W1 graduation evidence and **not** a forced W2 room. Do not assign mixed IDs to W5 to fill a remix quota.
+Long-range: DSC-017 strongly aligns with **W2-K01**, **not** current W1 graduation evidence and **not** a forced W2 room. Do **not** assign mixed IDs or earlier-World discoveries to W5 to fill a remix quota. W5 audit (IDs preserved; meanings unchanged): DSC-002 / 008 / 012 / 013 are possible TRANSFER material if already understood; DSC-001 / 003 / 004 / 005 / 009 / 014 / 017 / 018 remain earlier-World understanding; DSC-006 / 007 / 010 / 011 / 016 remain unassigned / optional — W5 assignment not required.
 
 ---
 
@@ -204,7 +215,7 @@ Do not open a world with mastery. Do not end a world with an untaught new gimmic
 | WLD-02 | MOMENTUM | How does carried movement change what becomes possible? | CANDIDATE | Knowledge domain. 12-slot list = historical inventory. |
 | WLD-03 | POSSIBILITY | When the world state changes, which actions become possible and which actions disappear? | CANDIDATE | Knowledge domain. 12-slot list = historical inventory. |
 | WLD-04 | TIME | When will the needed state exist, and for how long? | CANDIDATE | Knowledge domain. 12-slot list = historical inventory. |
-| WLD-05 | UNDERSTANDING | Which assumptions behind familiar solutions still apply? | CANDIDATE | Synthesis stage. Historical 12-slot count is **not** protected. |
+| WLD-05 | UNDERSTANDING | Under what conditions is the solution I treated as correct actually valid, and what becomes possible when I recombine known relationships differently? | CANDIDATE | Synthesis stage. `W5-K01`–`W5-K04`. Historical 12-slot count is **not** protected. Compact / evidence-driven. |
 
 ---
 
@@ -1130,7 +1141,7 @@ Rooms `LVL-W03-001` … `LVL-W03-012` are a **historical candidate inventory**. 
 | Delayed Switch note | Delayed **causal relation** is a strong expression candidate. This does **not** approve a production Delayed Switch object. Implementation as independent object vs Switch+Delay remains unresolved. |
 | Major Discoveries | W4-clear: DSC-012 (useful application, not mandatory graduation), DSC-013 (strong foundational expression). DSC-011 is **conditional** (future-state planning required). |
 | Mastery Test | Historical: LVL-W04-012. Current: W4-K05 / final-integration evidence, not a required 12th slot. |
-| Transition to Next World | Player / world / time alignment is known. Next: which assumptions behind familiar solutions still apply. W5 adds no new temporal dimension. |
+| Transition to Next World | Player / world / time alignment is known. Next: which known relationship should organize the plan under current conditions. W5 adds no new temporal dimension and no new gimmick. |
 | Visual / Audio Identity | **Not locked.** Durations TBD — after PLAY-001B / relevant prototype validation. |
 
 Current planning model next. Historical 12-slot graph, gates, and slot mapping follow it as lineage.
@@ -1426,14 +1437,16 @@ False positives: memorized input sequence; input spam; accidental waiting; react
 
 | | W4 | W5 |
 | --- | --- | --- |
-| Question | How do I organize present choices so the needed state exists when useful? | Which assumptions behind my familiar solutions still apply? |
-| Adds | One temporal relation as a planning variable | **No** new temporal dimension |
+| Question | How do I organize present choices so the needed state exists when useful? | Under what conditions is the solution I treated as correct actually valid, and which known relationship should organize the plan now? |
+| Adds | One temporal relation as a planning variable | **No** new temporal dimension. **No** new gimmick. |
 
 W4 graduates can reason about: Player State; World State; when those states must coincide; what current action prepares that future.
 
-W5 adds: assumption audit; selecting among known relationships; recombination; autonomy; applying known conditions in unfamiliar contexts.
+W5 adds: assumption audit; selecting among known relationships; meaningful recombination; autonomy; applying known conditions in unfamiliar contexts.
 
-Do **not** make W5: harder timers; smaller windows; more cycles.
+W5’s new demand is **not** another single-variable revaluation. If gameplay is behaviorally identical to “earlier is not always better,” do not relabel it W5.
+
+Do **not** make W5: harder timers; smaller windows; more cycles; all-mechanics finale.
 
 ##### Expression alignments (not mandatory rooms)
 
@@ -1830,24 +1843,403 @@ Rooms `LVL-W04-001` … `LVL-W04-012` are a **historical candidate inventory**. 
 | Name | WHAT DO I REALLY KNOW? |
 | Role | UNDERSTANDING |
 | Status | CANDIDATE |
-| Core Question | Under what conditions is my familiar solution valid, and what becomes possible if known relationships connect differently? (historical label: What do I really know?) |
-| Evolves from | “What is the rule?” → “Which assumptions behind my familiar solutions still apply?” |
-| Identity | **Synthesis / autonomy stage.** Not a fifth mechanic domain. Not Remix / Hard Mode. |
+| Core Question | Under what conditions is the solution I treated as correct actually valid, and what becomes possible when I recombine known relationships differently? / 내가 정답처럼 쓰던 해법은 어떤 조건에서 유효하며, 이미 아는 관계를 다르게 연결하면 무엇이 가능한가? (historical label: What do I really know?) |
+| Evolves from | “What is the rule?” → “Which known relationship should organize the plan under current conditions?” |
+| Identity | **Synthesis / autonomy stage.** Not a fifth mechanic domain. Not Remix / Hard Mode. Not a harder W4. Not an all-mechanics finale. |
 | New Rule target | **0** |
-| New Gimmick target | **0** |
+| New Gimmick target | **0** — new W5 gimmick **NOT REQUIRED** (default **NO-GO**) |
 | Hidden mechanic | **0** |
-| Exists to | Check assumptions; recombine known relationships; construct a personal plan. Reinterpretation is **not** unique to W5. |
-| Graduation | Player detects that a familiar solution’s assumptions no longer hold and reorganizes known relationships. Insufficient: hard execution of an old solution; using many gimmicks; a longer sequence. |
-| Major Discoveries | Do **not** force mixed IDs here. DSC-007 / DSC-016 remain mixed / unassigned unless later justified as assumption-audit / recombination. |
-| Mastery Test | Historical: LVL-W05-012. Current: synthesis evidence. Room count is **not** protected. |
+| Exists to | Judge which known relationship is relevant under current conditions; retain still-valid knowledge; reorganize the plan when a familiar solution’s assumptions no longer hold. Reinterpretation is **not** unique to W5. |
+| Graduation | See W5-K graduation. Insufficient: hard execution of an old solution; using many gimmicks; a longer sequence; all-mechanics finale. |
+| Major Discoveries | Do **not** force mixed IDs here. DSC-015 is the strongest W5 candidate **only** when known relations form a genuinely new dependency. DSC-007 / DSC-016 remain mixed / unassigned. W5 assignment is not required. |
+| Mastery Test | Historical: LVL-W05-012. Current: W5-K04 / autonomous plan + revision evidence. Room count is **not** protected. Do **not** require 4–5 concepts. |
 | Transition to Next World | None recorded. |
 | Visual / Audio Identity | **Not locked.** |
 
-W5 may be smaller than other Worlds. If strong recombination / assumption-audit problems are scarce, **reduce W5 scope**. Do not steal reinterpretation from earlier Worlds. Do not put every gimmick in the finale. Prefer a few deeply interacting known relationships. Exact mix TBD after prototype/playtest.
+W5 may be intentionally compact. Scope is evidence-driven. If a distinct relation-selection ability remains untested, a new dependency adds real synthesis evidence, autonomy transfers, or mastery improves without repetition, expand. Otherwise **reduce W5 scope**. Do not steal reinterpretation from earlier Worlds. Do not put every gimmick in the finale. Prefer a few deeply interacting known relationships. Exact mix TBD after prototype / playtest. Do **not** preserve World length for symmetry.
+
+#### W5 UNDERSTANDING Knowledge Architecture v1
+
+**Status:** `CANDIDATE` — conceptual. Unvalidated. Not runtime objects. Not `VALIDATED` / `CORE`. No W5 room is `VALIDATED`. No W5 gimmick is approved.
+
+This is the **authoritative current W5 planning model**. Role-based. Not slot-count-based. Not Remix / Hard Mode. Not a fifth mechanic tutorial. Not an all-mechanics finale.
+
+**Core question:** Under what conditions is the solution I treated as correct actually valid, and what becomes possible when I recombine known relationships differently? / 내가 정답처럼 쓰던 해법은 어떤 조건에서 유효하며, 이미 아는 관계를 다르게 연결하면 무엇이 가능한가?
+
+**Approved summary:** “현재 조건에서 어떤 알려진 관계가 유효한지 판단하고, 익숙한 해법의 전제가 맞지 않을 때에도 유효한 지식은 유지하면서 계획을 다시 구성하는 능력.”
+
+W5 is **not** primarily: verbal explanation; designer terminology; memorized solution replay; every mechanic; high execution difficulty; a new gimmick; a harder earlier World.
+
+W5 **is** UNDERSTANDING: the player chooses which known relationship should organize the plan.
+
+##### Traceability
+
+| Item | Status |
+| --- | --- |
+| W2-PHYS-001 / 002 | physical **PASS** |
+| W2-PHYS-003 Human Readability | **PENDING** |
+| W2 Human Validation | **PENDING** |
+| W3 EXP-000 / 001 / 002 | physical **PASS** |
+| W3 EXP-003A | Human harness **READY** |
+| W3 Human Validation | **PENDING** |
+| W4 EXP-000–004A | physical **PASS** where documented on the experiment lineage |
+| W4 Human Validation | **PENDING** |
+| W5 room | none `VALIDATED` |
+| W5 gimmick | none approved |
+
+W5 architecture may be documented. Conceptual design of condition-change / relation-selection / recombination hypotheses may proceed. Production dependencies on W2 / W3 / W4 **human** understanding remain unapproved. Do **not** document Human understanding as validated. Do **not** promote any movement technique because of W5.
+
+##### UNDERSTANDING definition
+
+Canonical vocabulary also lives in [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Restated here because W5 owns the planning use.
+
+**UNDERSTANDING** means:
+
+> 현재 조건에서 어떤 알려진 관계가 유효한지 판단하고, 익숙한 해법의 전제가 맞지 않을 때에도 유효한 지식은 유지하면서 계획을 다시 구성하는 능력.
+
+English: the ability to judge which known relationship is relevant under current conditions, retain the knowledge that remains valid, and reorganize the plan when a familiar solution’s assumptions no longer hold.
+
+UNDERSTANDING does **not** require: verbal explanation; designer terminology; memorized solution replay; every mechanic; high execution difficulty.
+
+Behavioral evidence includes: changing a choice because conditions differ; testing the relevant condition; selecting a known relation without tutorial framing; recombining known relations; revising the relevant part of a plan from evidence.
+
+##### New cognitive demand
+
+W5 does **not** own reinterpretation itself.
+
+| World | Already-owned revaluation |
+| --- | --- |
+| W2 | More motion is not always better. |
+| W3 | State change / opening is not always progress. |
+| W4 | Earlier activation is not always better. |
+
+W5’s new central demand is:
+
+> THE PLAYER CHOOSES WHICH KNOWN RELATIONSHIP SHOULD ORGANIZE THE PLAN.
+
+Supporting processes: assumption audit; relation selection; relation recombination; solution autonomy.
+
+If gameplay is behaviorally identical to an earlier World judgment, do **not** relabel it W5.
+
+##### Compact role arc
+
+```text
+CHECK THE CONDITION
+    → CHOOSE THE RELATION
+        → CONNECT THE RELATIONS
+            → OWN THE PLAN
+```
+
+| Role | Knowledge | Planning note |
+| --- | --- | --- |
+| CHECK THE CONDITION | K01 | Familiar solutions are conditional. The player audits whether the known condition still holds. |
+| CHOOSE THE RELATION | K02 | Current readable conditions determine which known relation matters. |
+| CONNECT THE RELATIONS | K03 | One known relation’s result can create or alter another’s condition. Stacking ≠ recombination. |
+| OWN THE PLAN | K04 | Player builds a plan from known relationships and revises the relevant assumption from evidence. |
+
+Roles may merge in actual content. This is **not** a fixed room sequence.
+
+**IDs:** `W5-K01` … `W5-K04`. Permanent conceptual knowledge IDs. Do not recycle. Do not implement as game objects.
+
+**World statement:** “현재 조건에서 어떤 알려진 관계가 유효한지 판단하고, 유효한 지식은 유지하면서 계획을 다시 구성한다.”
+
+##### Knowledge nodes
+
+| ID | Layer | Understanding | Prerequisite | Evidence | Misconception |
+| --- | --- | --- | --- | --- | --- |
+| W5-K01 | FOUNDATION | 이 해법은 그 조건이 있었기 때문에 유효했다. This solution was valid because a particular condition was true. | A known relation + readable conditions | Familiar solution is withheld or revised when its known condition differs. Player tests the relevant condition rather than blindly repeating the old solution. | It worked before, so it must be correct here too. |
+| W5-K02 | DEVELOPMENT | 지금 중요한 관계를 내가 골라야 한다. I need to decide which known relationship matters here. | W5-K01 + multiple known candidate relationships | Player changes variables related to the actual problem and reduces irrelevant repetition. | The most visually prominent object is the answer. The most recently learned mechanic is the answer. Every available mechanic should be used. |
+| W5-K03 | TRANSFER | 한 관계의 결과를 다른 관계의 조건으로 연결할 수 있다. I can use the result of one known relationship to create or alter the condition for another known relationship. | W5-K02 + independent understanding of the relations involved | Player selects an earlier action because of how it changes a later known relation. | Using each known tool one after another is enough. Mere gimmick stacking is **not** recombination. |
+| W5-K04 | MASTERY | 알려진 관계로 계획을 만들고, 실제 결과에서 다시 판단할 수 있다. I can build a plan from known relationships and revise it from what actually happens. | W5-K01–K03 | In a composition not recently rehearsed, player selects relevant relations, forms a plan, and changes the relevant assumption / relation when evidence contradicts it. | The correct solution is a memorized sequence. |
+
+##### Knowledge flow
+
+```text
+W5-K01  SOLUTION SCOPE
+        ↓
+W5-K02  RELATION SELECTION
+        ↓
+W5-K03  RELATION RECOMBINATION
+        ↓
+W5-K04  AUTONOMOUS PLAN + REVISION
+```
+
+This is a knowledge dependency. It is **not**: four mandatory room groups; four mechanic categories; a fixed final-exam sequence.
+
+##### First true W5 Aha
+
+Leading candidate: “전에 쓴 방법이 틀린 게 아니네. 그 방법이 통했던 조건이 여기서는 다르네.”
+
+Then the W5-specific extension: “그러면 지금 중요한 조건에 맞는 내가 이미 아는 다른 관계를 써 볼 수 있겠다.”
+
+English: “The method I used before wasn’t wrong. The condition that made it work is different here.” Then: “So I can try another relationship I already know that matches the condition that matters now.”
+
+The first part alone may overlap with earlier World reinterpretation.
+
+W5 evidence begins when the player: identifies the changed condition **and** selects another known relationship / plan accordingly.
+
+##### Conditional-solution model
+
+Known relation R + condition C + action A → useful result.
+
+In a new context: R remains true, but C may differ. Therefore the usefulness of A may differ.
+
+| Term | Meaning |
+| --- | --- |
+| RULE | Still works the same. |
+| CONDITION | Readable context differs. |
+| SOLUTION | Was useful under those conditions. |
+
+Never change rules secretly and call it W5 reinterpretation.
+
+##### Reinterpretation boundary
+
+Single-variable revaluation is **not** sufficient for W5.
+
+| Earlier World | Already-owned judgment | W5 ask |
+| --- | --- | --- |
+| Harder W1 | Narrower landing / longer path | Player determines whether landing planning is even the relevant relation. |
+| Harder W2 | More exact speed preservation / reduction | Player determines whether motion state is the relevant cause, or another known relation changes the need. |
+| Harder W3 | More state changes / longer logical sequence | Player determines which known possibility relation should organize the plan. |
+| Harder W4 | More delays / tighter timing / more schedules | Player determines whether temporal planning is the relevant relation at all, or how it combines with another known relation. |
+
+If gameplay is behaviorally identical to an earlier World judgment, do **not** relabel it W5.
+
+##### Assumption audit
+
+Process: expected result → compare actual / readable conditions → identify assumption candidate → change the relevant choice.
+
+Failure is **not** required. Valid strong evidence: player observes a changed condition and avoids the familiar solution before failing.
+
+Keeping the old solution when its conditions still hold is **valid** understanding.
+
+##### Relation selection
+
+Player-facing reasoning examples (situation, not World labels):
+
+- Is next position / direction the real issue?
+- Is carried motion the issue?
+- Is World State blocking the action?
+- Is the right state occurring at the wrong time?
+
+Do **not** make this a quiz about W1 / W2 / W3 / W4 labels. The player reasons from the situation.
+
+| Evidence | Meaning |
+| --- | --- |
+| GOOD | Selection changes the relevant variable. |
+| WEAK | Randomly trying every mechanic. |
+
+##### Recombination
+
+Meaningful recombination exists when RELATION A’s result changes RELATION B’s condition / usefulness.
+
+Designer audit:
+
+1. If A changes, does B’s plan change?
+2. If B’s future need is known, does A’s earlier choice change?
+3. If one relation is removed, does the reasoning dependency disappear, or only one action disappear?
+
+Mere sequential use of two mechanics is **not** sufficient. Mere gimmick stacking is **not** recombination.
+
+##### Novelty without new rules
+
+Acceptable W5 novelty: familiar conditions arranged differently; a different known relation becomes relevant; a known result becomes preparation for another known relation; a changed goal changes relation selection; a previously secondary fact becomes central; multiple known possibilities are available.
+
+Reject: secret exception; hidden state; unexplained collision behavior; new input behavior; post-hoc-only surprise.
+
+Novelty must be inferable before success.
+
+Fair surprise rule: “The overlooked possibility was always present under known rules and inferable from readable facts.”
+
+Reject as trick puzzles: hidden collision exception; one-pixel exploit; misleading art; unknown state; undocumented engine behavior; deliberate death-only discovery; arbitrary lateral-thinking gotcha.
+
+##### Autonomy
+
+Autonomy means: “게임이 목표와 사실을 명확히 제공한 상태에서, 플레이어가 적용할 관계와 검증할 가설을 선택하는 것.”
+
+English: with goal and facts clearly provided, the player chooses which relation to apply and which hypothesis to test.
+
+Autonomy reduces: intended-solution highlighting; recent-tutorial steering.
+
+Autonomy does **not** reduce: goal clarity; state readability; causal feedback; recovery quality; rule consistency.
+
+Autonomy ≠ ambiguity.
+
+##### Multiple valid plans
+
+Status: **USEFUL**, **NOT REQUIRED**.
+
+Meaningfully different plans may differ in: what is prepared first; which relation organizes the solution; what is preserved / sacrificed; which condition no longer needs to be created.
+
+Execution variations alone do not count. Do not require discovery of every valid plan.
+
+##### Failure as information
+
+| Kind | Pattern |
+| --- | --- |
+| Informative | Familiar action works mechanically but lacks the condition needed for later success. |
+| Informative | Local success removes a later possibility, revealing dependency. |
+| Uninformative | Reset removes evidence before the player can compare. |
+| Misleading | Knowledge error looks like precision failure. |
+| Accidental success | Randomly changing several variables clears the content. |
+
+Observe what the player changes **next**.
+
+##### Misconception design rules
+
+- The prior solution was genuinely valid before.
+- The prior rule was never false.
+- The changed condition is readable.
+- Physics remains consistent.
+- The revised hypothesis is cheap to test.
+- If the old solution is still valid here, success must be accepted.
+
+Do **not** build W5 as “do the opposite of what earlier Worlds taught.” That simply creates a new overgeneralization.
+
+##### Composition depth
+
+| Stage | Recommendation |
+| --- | --- |
+| EARLY | One familiar relationship whose applicability must be scoped correctly. |
+| DEVELOPMENT | Two known relationships with meaningful selection / dependency. |
+| LATE | Optionally three, only if the third changes the plan. |
+| 4+ actively tracked relationships | Default **HOLD** / warning. |
+
+More relationships ≠ deeper understanding.
+
+##### All-mechanics finale warning
+
+“All mechanics once” is **not** a valid W5 mastery requirement.
+
+It primarily risks testing: memory; long-sequence execution; accumulated motor consistency; fatigue.
+
+A minimal W5 may reach mastery with only a small number of known relations.
+
+##### Movement dependency rule
+
+Any movement technique required by W5 must already have: stable physical behavior; stable input contract; readable result; player understanding evidence.
+
+Do **not** reserve Charge, Wall Jump, or Air Reversal for W5 merely because they appear advanced.
+
+W5 architecture must survive without them.
+
+##### Foundation
+
+Minimal foundation hypothesis: familiar-looking problem → one known relevant condition differs → player notices the difference → familiar solution is re-evaluated → another known relation / choice becomes relevant.
+
+Requirements: no hidden rule; difference observable before action; alternative relation already known; low execution burden; no new gimmick.
+
+##### Development
+
+Smallest development burden: two known relations are plausible, and the player must select which is relevant, or connect them through a real dependency.
+
+Possible increases: farther transfer from recent tutorial; same relation under unfamiliar presentation; one relation’s result changes another’s value.
+
+Do **not** increase primarily through: path length; device count; reset cost; precision.
+
+##### Mastery
+
+“이미 학습하고 읽을 수 있는 관계로 구성된, 실행 부담이 적절한 낯선 상황에서 관련 조건을 선택하고 계획을 구성·수정한다.”
+
+English: in an unfamiliar situation composed of already-learned, readable relationships, with appropriate execution burden, the player selects the relevant conditions and constructs / revises a plan.
+
+| Candidate | Evidence |
+| --- | --- |
+| E2 | Player targets relevant conditions and intentionally reuses known relationships. |
+| E3 | Player selects / combines relationships in a composition not recently rehearsed. |
+| Mastery | Player’s actions show a coherent plan, and evidence causes correction of the relevant assumption / relation. |
+
+No forced failure required.
+
+##### W5 vs solution length
+
+Designer tests:
+
+1. If repeated movement is removed, does the key inference remain?
+2. What assumption changed?
+3. Which relation selection changed?
+4. Is the extra sequence length adding dependency, or just memory burden?
+5. If the intended relationship is told directly, does most difficulty disappear?
+
+If difficulty remains mostly motor execution, it is not W5 knowledge depth.
+
+##### W5 graduation evidence
+
+Use **relation selection / recombination / revision**, not “used every World / mechanic.”
+
+| Class | Items |
+| --- | --- |
+| MUST UNDERSTAND | Familiar solutions are conditional, not universal commands; current readable conditions determine which known relation matters; known relationships can be connected into a plan not previously rehearsed in exactly that form; evidence can justify revising the relevant part of the plan; knowledge can transfer without recent tutorial framing |
+| MAY EXPERIENCE | Multiple valid plans; rejecting an irrelevant mechanic; same object / relation in another strategic role; solving with fewer actions than expected; detecting a bad assumption before failure |
+| MUST NOT REQUIRE | All Worlds simultaneously; all mechanics simultaneously; all alternate solutions; mandatory intentional failure; exact verbal explanation; precision execution; new input grammar; new gimmick; designer-preferred solution only |
+
+Insufficient: hard execution of an old solution; using many gimmicks; a longer sequence; all-mechanics finale; single-variable revaluation already owned by W2 / W3 / W4.
+
+##### Gimmick necessity
+
+| Item | Verdict |
+| --- | --- |
+| NEW W5 GIMMICK | **NOT REQUIRED** |
+| Default | **NO-GO** |
+
+Before any new gimmick, check: is the prerequisite actually learned? Is the current fact readable? Is the relation dependency real? Does the goal give a reason to select the relation?
+
+A new rule should not be used to manufacture W5 novelty.
+
+##### Early W5 information budget
+
+Prefer: clear goal; small set of known relationships; one relevant changed condition; known actions; short recovery.
+
+Avoid simultaneously requiring: unvalidated W2; unvalidated W3; unvalidated W4; new movement tech; new gimmick; ambiguous objective.
+
+##### Validation dependencies
+
+| Can document now | Can design conceptually now | Needs later evidence |
+| --- | --- | --- |
+| W5-K01–K04; graduation; boundaries; historical audit; expression principles | Condition-change hypotheses; relation-selection hypotheses; recombination hypotheses | **W2 Human:** production reliance on carried-motion understanding. **W3 Human:** production reliance on possibility / gain-loss understanding. **W4 Human:** production reliance on temporal prediction / cause timing. **Movement validation:** mandatory movement techniques. **Synthesis prototype:** whether the player independently selects / combines relations rather than following cues. |
+
+##### Scope
+
+| Scope | Record |
+| --- | --- |
+| MINIMUM COMPLETE W5 | Condition audit; relation selection; meaningful recombination; independent transfer / revision |
+| BALANCED W5 | Minimum + another context / useful plan comparison if it adds distinct evidence |
+| OVERBUILT | Re-test every World; every gimmick; long finale; all discoveries; high precision; device checklist; many relationships without new dependency |
+
+##### World size
+
+W5 may be intentionally compact. Scope is evidence-driven.
+
+Expand only if: a distinct relation-selection ability remains untested; a new dependency adds real synthesis evidence; autonomy transfers to a broader context; mastery experience improves without repetition.
+
+Do **not** preserve World length for symmetry.
+
+##### Status lock
+
+| Item | Record |
+| --- | --- |
+| W5 Knowledge Architecture | `CANDIDATE` |
+| W5 room | none `VALIDATED` |
+| W5 gimmick | none approved |
+| W2 / W3 / W4 Human understanding | **not** assumed validated |
+| Movement technique | none promoted because of W5 |
+
+##### Expression alignments (not mandatory rooms)
+
+| Topic | Record |
+| --- | --- |
+| DSC-015 | Strongest W5 candidate **only** when known relations form a genuinely new dependency. Combination is not automatically W5 remix. Meaning unchanged. |
+| DSC-002 / 008 / 012 / 013 | Possible TRANSFER material if already understood. Do not move ownership to fill W5. |
+| DSC-001 / 003 / 004 / 005 / 009 / 014 / 017 / 018 | Primarily earlier-World understanding. Do not move into W5 to fill scope. |
+| DSC-006 / 007 / 010 / 011 / 016 | Remain unassigned / optional. W5 assignment not required. |
+| PAT-009 / 014 / 015 / 016 / 017 / 003 / 020 / 022 | Strong support candidates. Pattern presence does **not** make content W5. |
+| PAT-006 / 007 / 008 / 018 / 019 / 021 | Conditional support. The W5 criterion remains assumption / relation selection / meaningful recombination / autonomy. |
+| New Pattern ID | **Not required now.** |
+| Historical slots 001–012 | Lineage, not protected scope. See [LEVEL_LIBRARY.md](LEVEL_LIBRARY.md). |
 
 #### Knowledge Graph (historical candidate inventory)
 
-This graph is lineage. W5 must not hide new rules inside “reinterpretation,” repeat W3 object-role lessons, or repeat W4 timing lessons.
+This graph is lineage. Current W5 planning is `W5-K01`–`W5-K04` above. W5 must not hide new rules inside “reinterpretation,” repeat W3 object-role lessons, or repeat W4 timing lessons. Do not relabel earlier-World single-variable revaluation as W5.
 
 ```text
 MOVEMENT STATE
@@ -1891,7 +2283,7 @@ Player-understanding gates only. **28** historical gate IDs across W1–W5. W1-G
 | W5-GATE-5 | Plan present actions around a desired future state | LVL-W05-007 / LVL-W05-008 |
 | W5-GATE-6 | Form a valid solution from learned rules; no newly taught behavior | LVL-W05-011 / LVL-W05-012 |
 
-Rooms `LVL-W05-001` … `LVL-W05-012` are a **historical candidate inventory**. The 12-slot count is **not** protected.
+Rooms `LVL-W05-001` … `LVL-W05-012` are a **historical candidate inventory**. The 12-slot count is **not** protected. Historical slots are lineage, not protected scope. Current W5 graduation is the W5-K evidence language above, not “used every World / mechanic.”
 
 ---
 
@@ -1919,7 +2311,7 @@ These groupings do **not** define Worlds. Gimmicks are expression tools for a kn
 | W2 | Wind, Ice, Rough Surface — if the ask is carried motion, not “use the ice world” |
 | W3 | Door, Switch — if the ask is action availability, not gimmick novelty |
 | W4 | Bounce Counter, Timed Gate, Delayed Switch — if the ask is future-state prediction, not counting for its own sake |
-| W5 | no new gimmicks |
+| W5 | no new gimmicks. New W5 gimmick: **NOT REQUIRED** (default **NO-GO**). |
 
 Intentional (C-05). Do not add gimmicks so later worlds “look more complex.”
 
