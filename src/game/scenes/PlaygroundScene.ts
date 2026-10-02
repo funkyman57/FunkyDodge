@@ -20,6 +20,21 @@ import {
 import { agencyHudLines, WorldStateAgencyView } from "../debug/WorldStateAgencyView";
 import { possibilityRow, type TradeoffScenarioId } from "../debug/WorldStateTradeoff";
 import { tradeoffHudLines, WorldStateTradeoffView } from "../debug/WorldStateTradeoffView";
+import {
+  DELAY_CONTACT,
+  DELAY_MS,
+  acknowledgeCause,
+  advanceDelay,
+  createDelaySession,
+  recontactWhilePending,
+  resetDelaySession,
+  restoreDelayImmediately,
+  seekDelayProgress,
+  stepDelay,
+  type DelayScenarioId,
+  type DelaySession,
+} from "../debug/WorldStateDelay";
+import { delayHudLines, WorldStateDelayView } from "../debug/WorldStateDelayView";
 import { InputState } from "../input/InputState";
 import { LowInputExperiment, type ClearReason } from "../input/LowInputExperiment";
 import { sharedRhythmRecognizer } from "../input/RhythmRecognizer";
@@ -62,6 +77,9 @@ export class PlaygroundScene extends Phaser.Scene {
   private probe!: WorldStateProbeView;
   private agency!: WorldStateAgencyView;
   private tradeoff!: WorldStateTradeoffView;
+  private delayView!: WorldStateDelayView;
+  private delaySession: DelaySession = createDelaySession();
+  private delayEnabled = true;
   private visitedX = false;
   private visitedY = false;
   private roomSolids: Solid[] = [];
@@ -80,6 +98,7 @@ export class PlaygroundScene extends Phaser.Scene {
     this.probe = new WorldStateProbeView(this);
     this.agency = new WorldStateAgencyView(this);
     this.tradeoff = new WorldStateTradeoffView(this);
+    this.delayView = new WorldStateDelayView(this);
     platforms.push(this.probe.rect);
     platforms.push(this.agency.activatorRect);
 
@@ -100,10 +119,15 @@ export class PlaygroundScene extends Phaser.Scene {
         onAgencyModel: (model) => this.setAgencyModel(model),
         onAgencyLaunch: (id) => this.launchAgency(id),
         onTradeoffLaunch: (id) => this.launchTradeoff(id),
+        onDelayEnabled: (enabled) => this.setDelayEnabled(enabled),
+        onDelayLaunch: (id) => this.launchDelay(id),
+        onDelayRestore: () => this.restoreDelay(),
       });
       this.physics.world.gravity.y = PhysicsConfig.gravity;
       this.physicsLab.setWorldStateUi(this.probe.model.state);
       this.physicsLab.setAgencyUi(this.agency.session.model);
+      this.physicsLab.setDelayUi(this.delayEnabled, this.delaySession.phase);
+      this.setAgencyModel("B");
     }
 
     window.addEventListener("blur", this.handleFocusLoss);
@@ -141,6 +165,7 @@ export class PlaygroundScene extends Phaser.Scene {
         "M: W3 agency model",
         "7/8/9: cause/avoid/restore",
         "Lab W3 ORDER: X/Y scenarios",
+        `Lab W4 DELAY ${DELAY_MS}ms onset`,
         "LEGACY: fresh tap = LOW",
         "RHYTHM: 따닥 entry, 탁 continue",
         "Hold into land: BOOST",
@@ -154,6 +179,7 @@ export class PlaygroundScene extends Phaser.Scene {
       })
       .setOrigin(1, 0)
       .setDepth(100);
+    this.syncDelayView();
   }
 
   update(time: number, delta: number): void {
@@ -191,7 +217,11 @@ export class PlaygroundScene extends Phaser.Scene {
     }
 
     this.controller.update(time, delta);
-    this.stepAgency();
+    if (this.delayEnabled) {
+      this.stepDelay(delta);
+    } else {
+      this.stepAgency();
+    }
     this.noteTradeoffUse();
     const possible = possibilityRow(this.probe.model.state);
     this.hud.update(
@@ -207,6 +237,7 @@ export class PlaygroundScene extends Phaser.Scene {
           visitedX: this.visitedX,
           visitedY: this.visitedY,
         }),
+        ...(this.delayEnabled ? delayHudLines(this.delaySession) : []),
       ],
     );
     publishDebugState(
@@ -217,6 +248,7 @@ export class PlaygroundScene extends Phaser.Scene {
       this.probe.model.state,
       this.agency.session.model,
       { visitedX: this.visitedX, visitedY: this.visitedY, xPossible: possible.xPossible, yPossible: possible.yPossible },
+      this.delayEnabled ? this.delaySession : null,
     );
   }
 
@@ -231,21 +263,47 @@ export class PlaygroundScene extends Phaser.Scene {
     this.probe.reset(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
     this.agency.applyProbe(this.probe.model);
     this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.delaySession = resetDelaySession(
+      this.delaySession,
+      this.controller.x,
+      this.controller.y,
+      PhysicsConfig.ballRadius,
+    );
+    this.probe.adoptModel(this.delayEnabled ? this.delaySession.probe : this.probe.model);
+    this.syncDelayView();
     this.syncSolids();
     this.physicsLab?.setWorldStateUi(this.probe.model.state);
     this.physicsLab?.setAgencyUi(this.agency.session.model);
+    this.physicsLab?.setDelayUi(this.delayEnabled, this.delaySession.phase);
   }
 
   private setProbeState(state: BinaryWorldState): void {
     this.probe.setState(state, this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
     this.agency.applyProbe(this.probe.model);
+    this.delaySession = {
+      ...this.delaySession,
+      probe: { ...this.probe.model },
+      phase: state === "PASSABLE" ? "SETTLED" : "IDLE",
+      progress: state === "PASSABLE" ? 1 : 0,
+      elapsedMs: state === "PASSABLE" ? this.delaySession.delayMs : 0,
+      causeAcknowledged: false,
+      futureState: null,
+      lastHud: "",
+    };
+    this.syncDelayView();
     this.syncSolids();
     this.physicsLab?.setWorldStateUi(this.probe.model.state);
+    this.physicsLab?.setDelayUi(this.delayEnabled, this.delaySession.phase);
   }
 
   private setAgencyModel(model: AgencyModelId): void {
     this.agency.attachProbe(this.probe.model);
     this.agency.setModel(model, this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    if (model !== "B" && this.delayEnabled) {
+      this.delayEnabled = false;
+      this.physicsLab?.setDelayUi(false, this.delaySession.phase);
+      this.syncDelayView();
+    }
     this.syncSolids();
     this.physicsLab?.setAgencyUi(model);
   }
@@ -274,6 +332,111 @@ export class PlaygroundScene extends Phaser.Scene {
     this.probe.adoptModel(session.probe);
     this.syncSolids();
     this.physicsLab?.setWorldStateUi(this.probe.model.state);
+  }
+
+  private stepDelay(delta: number): void {
+    this.delaySession = {
+      ...this.delaySession,
+      probe: { ...this.probe.model },
+    };
+    this.delaySession = stepDelay(
+      this.delaySession,
+      this.controller.x,
+      this.controller.y,
+      delta,
+      PhysicsConfig.ballRadius,
+    );
+    this.probe.adoptModel(this.delaySession.probe);
+    this.agency.applyProbe(this.probe.model);
+    this.syncDelayView();
+    this.syncSolids();
+    this.physicsLab?.setWorldStateUi(this.probe.model.state);
+    this.physicsLab?.setDelayUi(this.delayEnabled, this.delaySession.phase);
+  }
+
+  private setDelayEnabled(enabled: boolean): void {
+    this.delayEnabled = enabled;
+    if (enabled) {
+      this.setAgencyModel("B");
+      this.delaySession = resetDelaySession(
+        this.delaySession,
+        this.controller.x,
+        this.controller.y,
+        PhysicsConfig.ballRadius,
+      );
+      this.probe.adoptModel(this.delaySession.probe);
+    }
+    this.syncDelayView();
+    this.syncSolids();
+    this.physicsLab?.setDelayUi(this.delayEnabled, this.delaySession.phase);
+  }
+
+  private restoreDelay(): void {
+    this.delaySession = restoreDelayImmediately(
+      this.delaySession,
+      this.controller.x,
+      this.controller.y,
+      PhysicsConfig.ballRadius,
+    );
+    this.probe.adoptModel(this.delaySession.probe);
+    this.agency.applyProbe(this.probe.model);
+    this.syncDelayView();
+    this.syncSolids();
+    this.physicsLab?.setWorldStateUi(this.probe.model.state);
+    this.physicsLab?.setDelayUi(this.delayEnabled, this.delaySession.phase);
+  }
+
+  private launchDelay(id: DelayScenarioId): void {
+    this.setDelayEnabled(true);
+    this.resetPlaySession("RESET");
+    if (id === "A") {
+      this.controller.placeAt(AGENCY_B_CAUSE.startX, AGENCY_B_CAUSE.startY, AGENCY_B_CAUSE.vx, AGENCY_B_CAUSE.vy);
+    } else if (id === "B") {
+      this.delaySession = seekDelayProgress(acknowledgeCause(), 0.5);
+      this.probe.adoptModel(this.delaySession.probe);
+      this.controller.placeAt(
+        WORLD_STATE_SUPPORT.startX,
+        WORLD_STATE_SUPPORT.startY,
+        WORLD_STATE_SUPPORT.vx,
+        WORLD_STATE_SUPPORT.vy,
+      );
+    } else if (id === "C") {
+      this.delaySession = advanceDelay(acknowledgeCause(), 44);
+      this.probe.adoptModel(this.delaySession.probe);
+      this.controller.placeAt(
+        WORLD_STATE_TRAVERSAL.startX,
+        WORLD_STATE_TRAVERSAL.startY,
+        WORLD_STATE_TRAVERSAL.vx,
+        WORLD_STATE_TRAVERSAL.vy,
+      );
+    } else if (id === "D") {
+      this.delaySession = recontactWhilePending(advanceDelay(acknowledgeCause(), 12));
+      this.probe.adoptModel(this.delaySession.probe);
+      this.controller.placeAt(DELAY_CONTACT.x, DELAY_CONTACT.y, -280, 0);
+    } else {
+      this.delaySession = restoreDelayImmediately(
+        advanceDelay(acknowledgeCause(), 44),
+        DELAY_CONTACT.x,
+        DELAY_CONTACT.y,
+      );
+      this.probe.adoptModel(this.delaySession.probe);
+      this.controller.placeAt(
+        WORLD_STATE_SUPPORT.startX,
+        WORLD_STATE_SUPPORT.startY,
+        WORLD_STATE_SUPPORT.vx,
+        WORLD_STATE_SUPPORT.vy,
+      );
+    }
+    this.agency.applyProbe(this.probe.model);
+    this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.syncDelayView();
+    this.syncSolids();
+    this.physicsLab?.setWorldStateUi(this.probe.model.state);
+    this.physicsLab?.setDelayUi(this.delayEnabled, this.delaySession.phase);
+  }
+
+  private syncDelayView(): void {
+    this.delayView.refresh(this.delaySession, this.delayEnabled);
   }
 
   private launchTradeoff(id: TradeoffScenarioId): void {
@@ -472,6 +635,7 @@ function publishDebugState(
   worldState?: BinaryWorldState,
   agencyModel?: AgencyModelId,
   tradeoff?: { visitedX: boolean; visitedY: boolean; xPossible: boolean; yPossible: boolean },
+  delay?: DelaySession | null,
 ): void {
   if (!PhysicsConfig.debug) {
     return;
@@ -515,5 +679,10 @@ function publishDebugState(
     visitedY: tradeoff?.visitedY ?? false,
     xPossible: tradeoff?.xPossible ?? null,
     yPossible: tradeoff?.yPossible ?? null,
+    w4Phase: delay?.phase ?? null,
+    w4Progress: delay?.progress ?? null,
+    w4Future: delay?.futureState ?? null,
+    w4CauseAck: delay?.causeAcknowledged ?? false,
+    w4Ignored: delay?.ignoredReactivations ?? 0,
   };
 }

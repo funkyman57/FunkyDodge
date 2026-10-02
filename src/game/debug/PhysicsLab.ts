@@ -21,6 +21,7 @@ import { PhysicsConfig } from "../physics/PhysicsConfig";
 import type { BinaryWorldState, WorldStateScenarioId } from "./WorldStateProbe";
 import type { AgencyModelId, AgencyScenarioId } from "./WorldStateAgency";
 import type { TradeoffScenarioId } from "./WorldStateTradeoff";
+import type { DelayScenarioId, TemporalPhase } from "./WorldStateDelay";
 import "./physics-lab.css";
 
 type LabField = {
@@ -53,6 +54,7 @@ export type PhysicsLabHandle = {
   destroy: () => void;
   setWorldStateUi: (state: BinaryWorldState) => void;
   setAgencyUi: (model: AgencyModelId) => void;
+  setDelayUi: (enabled: boolean, phase?: TemporalPhase) => void;
 };
 
 export function mountPhysicsLab(options: {
@@ -64,6 +66,9 @@ export function mountPhysicsLab(options: {
   onAgencyModel?: (model: AgencyModelId) => void;
   onAgencyLaunch?: (id: AgencyScenarioId) => void;
   onTradeoffLaunch?: (id: TradeoffScenarioId) => void;
+  onDelayEnabled?: (enabled: boolean) => void;
+  onDelayLaunch?: (id: DelayScenarioId) => void;
+  onDelayRestore?: () => void;
 }): PhysicsLabHandle {
   const root = document.createElement("aside");
   root.className = "physics-lab";
@@ -82,6 +87,9 @@ export function mountPhysicsLab(options: {
     <h3>W3 ORDER</h3>
     <div class="physics-lab-tradeoff"></div>
     <p class="physics-lab-note">X = support. Y = traverse. Diagnostic order only.</p>
+    <h3>W4 DELAY</h3>
+    <div class="physics-lab-delay"></div>
+    <p class="physics-lab-note">720ms diagnostic onset. PENDING is not a third collision state. Immediate restore is recovery, not a second delay.</p>
     <form class="physics-lab-fields"></form>
     <div class="physics-lab-metrics"></div>
     <p class="physics-lab-note">Dev only. Input mode is independent of physics presets. Timing seeds are provisional.</p>
@@ -94,9 +102,12 @@ export function mountPhysicsLab(options: {
   const worldStateRow = root.querySelector(".physics-lab-world-state") as HTMLElement;
   const agencyRow = root.querySelector(".physics-lab-agency") as HTMLElement;
   const tradeoffRow = root.querySelector(".physics-lab-tradeoff") as HTMLElement;
+  const delayRow = root.querySelector(".physics-lab-delay") as HTMLElement;
   const form = root.querySelector(".physics-lab-fields") as HTMLFormElement;
   let worldState: BinaryWorldState = "SOLID";
   let agencyModel: AgencyModelId = "OFF";
+  let delayEnabled = true;
+  let delayPhase: TemporalPhase = "IDLE";
   const metrics = root.querySelector(".physics-lab-metrics") as HTMLElement;
 
   let selectedPreset: PhysicsPresetName = "DYNAMIC";
@@ -253,6 +264,35 @@ export function mountPhysicsLab(options: {
     tradeoffRow.append(button);
   }
 
+  const delayOn = document.createElement("button");
+  delayOn.type = "button";
+  delayOn.textContent = "DELAY ON";
+  delayOn.addEventListener("click", () => options.onDelayEnabled?.(true));
+  const delayOff = document.createElement("button");
+  delayOff.type = "button";
+  delayOff.textContent = "DELAY OFF";
+  delayOff.addEventListener("click", () => options.onDelayEnabled?.(false));
+  delayRow.append(delayOn, delayOff);
+  const delayLaunches: Array<{ id: DelayScenarioId; label: string }> = [
+    { id: "A", label: "A ACK" },
+    { id: "B", label: "B MID" },
+    { id: "C", label: "C DONE" },
+    { id: "D", label: "D REACT" },
+    { id: "E", label: "E RESTORE" },
+  ];
+  for (const launch of delayLaunches) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = launch.label;
+    button.addEventListener("click", () => options.onDelayLaunch?.(launch.id));
+    delayRow.append(button);
+  }
+  const delayRestore = document.createElement("button");
+  delayRestore.type = "button";
+  delayRestore.textContent = "RESTORE NOW";
+  delayRestore.addEventListener("click", () => options.onDelayRestore?.());
+  delayRow.append(delayRestore);
+
   function refreshWorldState(): void {
     for (const entry of worldButtons) {
       entry.button.dataset.active = String(entry.name === worldState);
@@ -263,6 +303,12 @@ export function mountPhysicsLab(options: {
     for (const entry of agencyButtons) {
       entry.button.dataset.active = String(entry.name === agencyModel);
     }
+  }
+
+  function refreshDelay(): void {
+    delayOn.dataset.active = String(delayEnabled);
+    delayOff.dataset.active = String(!delayEnabled);
+    delayOn.textContent = delayEnabled ? `DELAY ON ${delayPhase}` : "DELAY ON";
   }
 
   for (const field of FIELDS) {
@@ -376,6 +422,7 @@ export function mountPhysicsLab(options: {
 
   refreshWorldState();
   refreshAgency();
+  refreshDelay();
 
   return {
     applyPreset,
@@ -391,6 +438,13 @@ export function mountPhysicsLab(options: {
     setAgencyUi(model: AgencyModelId) {
       agencyModel = model;
       refreshAgency();
+    },
+    setDelayUi(enabled: boolean, phase?: TemporalPhase) {
+      delayEnabled = enabled;
+      if (phase) {
+        delayPhase = phase;
+      }
+      refreshDelay();
     },
   };
 }
