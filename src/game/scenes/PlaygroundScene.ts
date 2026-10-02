@@ -2,6 +2,8 @@ import Phaser from "phaser";
 import { DebugHud } from "../debug/DebugHud";
 import { mountPhysicsLab, physicsLabEnabled, type PhysicsLabHandle } from "../debug/PhysicsLab";
 import {
+  WORLD_STATE_PROBE_BOUNDS,
+  WORLD_STATE_SUPPORT,
   WORLD_STATE_TRAVERSAL,
   type BinaryWorldState,
   type WorldStateScenarioId,
@@ -16,6 +18,8 @@ import {
   type AgencyScenarioId,
 } from "../debug/WorldStateAgency";
 import { agencyHudLines, WorldStateAgencyView } from "../debug/WorldStateAgencyView";
+import { possibilityRow, type TradeoffScenarioId } from "../debug/WorldStateTradeoff";
+import { tradeoffHudLines, WorldStateTradeoffView } from "../debug/WorldStateTradeoffView";
 import { InputState } from "../input/InputState";
 import { LowInputExperiment, type ClearReason } from "../input/LowInputExperiment";
 import { sharedRhythmRecognizer } from "../input/RhythmRecognizer";
@@ -57,6 +61,9 @@ export class PlaygroundScene extends Phaser.Scene {
   };
   private probe!: WorldStateProbeView;
   private agency!: WorldStateAgencyView;
+  private tradeoff!: WorldStateTradeoffView;
+  private visitedX = false;
+  private visitedY = false;
   private roomSolids: Solid[] = [];
 
   constructor() {
@@ -72,6 +79,7 @@ export class PlaygroundScene extends Phaser.Scene {
     this.roomSolids = solids;
     this.probe = new WorldStateProbeView(this);
     this.agency = new WorldStateAgencyView(this);
+    this.tradeoff = new WorldStateTradeoffView(this);
     platforms.push(this.probe.rect);
     platforms.push(this.agency.activatorRect);
 
@@ -91,6 +99,7 @@ export class PlaygroundScene extends Phaser.Scene {
         onWorldStateLaunch: (id) => this.launchWorldState(id),
         onAgencyModel: (model) => this.setAgencyModel(model),
         onAgencyLaunch: (id) => this.launchAgency(id),
+        onTradeoffLaunch: (id) => this.launchTradeoff(id),
       });
       this.physics.world.gravity.y = PhysicsConfig.gravity;
       this.physicsLab.setWorldStateUi(this.probe.model.state);
@@ -131,6 +140,7 @@ export class PlaygroundScene extends Phaser.Scene {
         "5/6: W3 SOLID/PASSABLE launch",
         "M: W3 agency model",
         "7/8/9: cause/avoid/restore",
+        "Lab W3 ORDER: X/Y scenarios",
         "LEGACY: fresh tap = LOW",
         "RHYTHM: 따닥 entry, 탁 continue",
         "Hold into land: BOOST",
@@ -182,14 +192,32 @@ export class PlaygroundScene extends Phaser.Scene {
 
     this.controller.update(time, delta);
     this.stepAgency();
+    this.noteTradeoffUse();
+    const possible = possibilityRow(this.probe.model.state);
     this.hud.update(
       this.controller,
       this.inputState,
       time,
       this.probe.model,
-      agencyHudLines(this.agency.session),
+      [
+        ...agencyHudLines(this.agency.session),
+        ...tradeoffHudLines({
+          xPossible: possible.xPossible,
+          yPossible: possible.yPossible,
+          visitedX: this.visitedX,
+          visitedY: this.visitedY,
+        }),
+      ],
     );
-    publishDebugState(this.controller, this.inputState, this.hud, time, this.probe.model.state, this.agency.session.model);
+    publishDebugState(
+      this.controller,
+      this.inputState,
+      this.hud,
+      time,
+      this.probe.model.state,
+      this.agency.session.model,
+      { visitedX: this.visitedX, visitedY: this.visitedY, xPossible: possible.xPossible, yPossible: possible.yPossible },
+    );
   }
 
   private resetPlaySession(reason: Exclude<ClearReason, null>): void {
@@ -198,6 +226,8 @@ export class PlaygroundScene extends Phaser.Scene {
     this.inputState.reset();
     this.inputState.adoptHeld(physical.left, physical.right);
     sharedRhythmRecognizer.reset(reason, physical.left, physical.right);
+    this.visitedX = false;
+    this.visitedY = false;
     this.probe.reset(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
     this.agency.applyProbe(this.probe.model);
     this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
@@ -244,6 +274,54 @@ export class PlaygroundScene extends Phaser.Scene {
     this.probe.adoptModel(session.probe);
     this.syncSolids();
     this.physicsLab?.setWorldStateUi(this.probe.model.state);
+  }
+
+  private launchTradeoff(id: TradeoffScenarioId): void {
+    this.setAgencyModel("B");
+    this.resetPlaySession("RESET");
+    if (id === "CORRECT") {
+      this.setProbeState("SOLID");
+      this.controller.placeAt(
+        WORLD_STATE_SUPPORT.startX,
+        WORLD_STATE_SUPPORT.startY,
+        WORLD_STATE_SUPPORT.vx,
+        WORLD_STATE_SUPPORT.vy,
+      );
+    } else if (id === "EARLY") {
+      this.setProbeState("PASSABLE");
+      this.controller.placeAt(
+        WORLD_STATE_SUPPORT.startX,
+        WORLD_STATE_SUPPORT.startY,
+        WORLD_STATE_SUPPORT.vx,
+        WORLD_STATE_SUPPORT.vy,
+      );
+    } else if (id === "RESTORE") {
+      this.setProbeState("PASSABLE");
+      this.controller.placeAt(AGENCY_B_CAUSE.startX, AGENCY_B_CAUSE.startY, AGENCY_B_CAUSE.vx, AGENCY_B_CAUSE.vy);
+    } else {
+      this.setProbeState("PASSABLE");
+      this.controller.placeAt(
+        WORLD_STATE_TRAVERSAL.startX,
+        WORLD_STATE_TRAVERSAL.startY,
+        WORLD_STATE_TRAVERSAL.vx,
+        WORLD_STATE_TRAVERSAL.vy,
+      );
+    }
+    this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+  }
+
+  private noteTradeoffUse(): void {
+    const bounds = WORLD_STATE_PROBE_BOUNDS;
+    const onTop = this.controller.grounded
+      && this.controller.x >= bounds.left
+      && this.controller.x <= bounds.right
+      && this.controller.y <= bounds.top;
+    if (this.probe.model.state === "SOLID" && onTop) {
+      this.visitedX = true;
+    }
+    if (this.probe.model.state === "PASSABLE" && this.controller.x > bounds.right) {
+      this.visitedY = true;
+    }
   }
 
   private launchWorldState(id: WorldStateScenarioId): void {
@@ -393,6 +471,7 @@ function publishDebugState(
   nowMs: number,
   worldState?: BinaryWorldState,
   agencyModel?: AgencyModelId,
+  tradeoff?: { visitedX: boolean; visitedY: boolean; xPossible: boolean; yPossible: boolean },
 ): void {
   if (!PhysicsConfig.debug) {
     return;
@@ -432,5 +511,9 @@ function publishDebugState(
     y: player.y,
     worldState: worldState ?? null,
     agencyModel: agencyModel ?? null,
+    visitedX: tradeoff?.visitedX ?? false,
+    visitedY: tradeoff?.visitedY ?? false,
+    xPossible: tradeoff?.xPossible ?? null,
+    yPossible: tradeoff?.yPossible ?? null,
   };
 }

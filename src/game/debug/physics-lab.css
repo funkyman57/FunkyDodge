@@ -37,7 +37,8 @@
 .physics-lab-modes,
 .physics-lab-timing,
 .physics-lab-world-state,
-.physics-lab-agency {
+.physics-lab-agency,
+.physics-lab-tradeoff {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
