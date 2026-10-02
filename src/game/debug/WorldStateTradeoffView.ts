@@ -47,6 +47,13 @@ export class WorldStateTradeoffView {
       .setOrigin(0.5, 1)
       .setDepth(7);
   }
+
+  setRevealLabels(reveal: boolean): void {
+    this.xLabel.setVisible(reveal);
+    this.yLabel.setVisible(reveal);
+    this.xMark.setVisible(reveal);
+    this.yMark.setVisible(reveal);
+  }
 }
 
 export function tradeoffHudLines(input: {

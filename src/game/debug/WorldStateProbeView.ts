@@ -19,7 +19,11 @@ export class WorldStateProbeView {
   readonly outline: Phaser.GameObjects.Rectangle;
   readonly label: Phaser.GameObjects.Text;
   readonly body: Phaser.Physics.Arcade.StaticBody;
+  readonly ghost: Phaser.GameObjects.Rectangle;
   model: WorldStateProbeModel;
+  private revealLabels = true;
+  private ghostEnabled = false;
+  private flashUntil = 0;
 
   constructor(scene: Phaser.Scene) {
     this.model = createWorldStateProbe("SOLID");
@@ -43,6 +47,12 @@ export class WorldStateProbeView {
       })
       .setOrigin(0.5, 1)
       .setDepth(5);
+    this.ghost = scene.add
+      .rectangle(cx, cy, width + 8, height + 8)
+      .setStrokeStyle(2, 0xffffff, 0.35)
+      .setFillStyle(0x000000, 0)
+      .setDepth(3)
+      .setVisible(false);
 
     this.applyBody();
     this.refreshVisual();
@@ -53,16 +63,54 @@ export class WorldStateProbeView {
   }
 
   adoptModel(model: WorldStateProbeModel): void {
+    const changed = model.state !== this.model.state;
     this.model = model;
+    if (changed) {
+      this.flashUntil = this.rect.scene.time.now + 280;
+      if (this.ghostEnabled) {
+        this.ghost.setVisible(true);
+      }
+    }
     this.applyBody();
     this.refreshVisual();
   }
 
+  setRevealLabels(reveal: boolean): void {
+    this.revealLabels = reveal;
+    this.refreshVisual();
+  }
+
+  setGhostEnabled(enabled: boolean): void {
+    this.ghostEnabled = enabled;
+    if (!enabled) {
+      this.ghost.setVisible(false);
+    }
+  }
+
+  pulse(now: number): void {
+    const flashing = now < this.flashUntil;
+    this.outline.setStrokeStyle(
+      this.model.state === "SOLID" ? 3 : 2,
+      flashing ? 0xffffff : 0xf4e3a7,
+      flashing ? 1 : this.model.state === "SOLID" ? 1 : 0.7,
+    );
+    if (this.ghostEnabled && !flashing && now > this.flashUntil + 900) {
+      this.ghost.setVisible(false);
+    }
+  }
+
   setState(next: BinaryWorldState, playerX: number, playerY: number, radius: number): boolean {
+    const previous = this.model.state;
     this.model = setWorldState(this.model, next, playerAabb(playerX, playerY, radius));
     if (this.model.lastReason === "REFUSED_OVERLAP") {
       this.refreshVisual();
       return false;
+    }
+    if (this.model.state !== previous) {
+      this.flashUntil = this.rect.scene.time.now + 280;
+      if (this.ghostEnabled) {
+        this.ghost.setVisible(true);
+      }
     }
     this.applyBody();
     this.refreshVisual();
@@ -96,5 +144,6 @@ export class WorldStateProbeView {
     const refused = this.model.lastReason === "REFUSED_OVERLAP" ? " REFUSED" : "";
     this.label.setText(`PROBE ${this.model.state}${refused}`);
     this.label.setColor(solid ? "#f4e3a7" : "#b7c4d8");
+    this.label.setVisible(this.revealLabels);
   }
 }
