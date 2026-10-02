@@ -66,6 +66,7 @@ export type PhysicsLabHandle = {
   setWorldStateUi: (state: BinaryWorldState) => void;
   setAgencyUi: (model: AgencyModelId) => void;
   setReadabilityUi: (state: ReadabilityLabUiState) => void;
+  setHidden: (hidden: boolean) => void;
 };
 
 export function mountPhysicsLab(options: {
@@ -461,6 +462,9 @@ export function mountPhysicsLab(options: {
     setReadabilityUi(state: ReadabilityLabUiState) {
       readabilityState = state;
       refreshReadability();
+    },
+    setHidden(hidden: boolean) {
+      root.hidden = hidden;
     },
   };
 }

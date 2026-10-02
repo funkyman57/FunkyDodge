@@ -120,6 +120,8 @@ Hides:
 
 The tester may see the scenario letter **A / B / C / D / E** only. World behavior is unchanged. The player should infer from actual collision, support, and passage.
 
+Perception automatically hides the Physics Lab so SOLID / PASSABLE / X / Y operator copy cannot leak. `L` can show it again if the operator needs it.
+
 ---
 
 ## State visual language
@@ -171,7 +173,7 @@ Scenario E start is on the floor between the post and the probe. Going right whi
 
 ## Future Human protocol
 
-**Do not run this as part of 003A.** Hide the Physics Lab (`L`) before asking. Stay in Perception until after the spoken response.
+**Do not run this as part of 003A.** Perception hides the Physics Lab. Stay in Perception until after the spoken response.
 
 Suggested sequence:
 

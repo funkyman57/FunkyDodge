@@ -482,6 +482,7 @@ export class PlaygroundScene extends Phaser.Scene {
         ? PERCEPTION_HELP
         : PLAYGROUND_HELP,
     );
+    this.physicsLab?.setHidden(this.readabilityActive && this.readabilityMode === "PERCEPTION");
     this.physicsLab?.setReadabilityUi({
       mode: this.readabilityMode,
       scenario: this.readabilityActive ? this.readabilityScenario : null,
