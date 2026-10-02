@@ -1447,7 +1447,7 @@ Do **not** make W5: harder timers; smaller windows; more cycles.
 
 ##### Minimal expression hypothesis
 
-Current leading candidate: **ONE DELAYED PERSISTENT STATE.**
+Current leading candidate: **ONE DELAYED PERSISTENT STATE** on the existing W3 probe + separate activator.
 
 Meaning: player causes state change → result is pending → after readable delay / progression → known World State changes → state remains until another explicit rule changes it.
 
@@ -1456,6 +1456,275 @@ Why preferred: introduces onset without also requiring expiry.
 This is **not** sufficient if gameplay is only: activate → wait → continue.
 
 A valid W4 expression must create a meaningful difference in: when the cause is created; **or** what the player prepares during the delay; **or** what state should still exist before the result.
+
+Expression Audit v1 (below) recommends the smallest *viable* set as **W3 state + delayed onset + explicit progress cue**. Duration / Timed Gate / Counter / cycle are **not** required for minimum W4.
+
+##### W4 Knowledge Expression Audit v1
+
+**Status:** `CANDIDATE` — Creative Director review. Not implementation. Not room geometry. Not Human Validation. No temporal mechanic approved.
+
+**Core question:** Can W4 emerge by adding **only one temporal relation** to the existing W3 SOLID/PASSABLE + separate-activator relation?
+
+**Verdict:** **YES**, if and only if delayed onset is more than waiting time.
+
+W3 physical foundation (not Human Validated): EXP-000 / 001 / 002 **PASS**. EXP-003A harness **READY**. **W3 Human Validation: PENDING.**
+
+###### Minimum temporal requirement
+
+| Candidate | Future fact | Present choice | New vs W3 | Reaction required? | New mechanic family? | Verdict |
+| --- | --- | --- | --- | --- | --- | --- |
+| A. Delayed onset | Known World State will change after this cause finishes progressing | When to activate; what to do while current state still holds | Same trade-off, **not immediate** | No, if delay is a planning band | No. Delay the existing activator→probe write | **MINIMUM** |
+| B. Limited duration | New state will expire | Rush / repeat | Adds a second temporal fact (expiry) | High risk | Timed Gate identity | Not minimum |
+| C. Event-based onset | Change after a known next event | Prepare before that event | Onset by event instead of elapsed progress | No | Event definition / Counter risk | Plan B |
+| D. Periodic state | Phase will return | Wait for opening | World-driven; weak agency | Cue-reaction risk | Cycle | Later only |
+| E. Smaller | — | — | “It happens later” is already A | — | — | No smaller relation |
+
+Reject any temporal effect that only inserts idle wait between W3 cause and W3 result.
+
+###### Delayed persistent-state audit
+
+Candidate: SOLID → cause → PENDING → later PASSABLE → PASSABLE persists (or the reverse).
+
+| Q | Answer |
+| --- | --- |
+| 1. Does PENDING create a real planning interval? | **Only if** the current state still has a use, or the future state must be met by a prepared Player State. Otherwise it is a loading bar. |
+| 2. Meaningful action before result? | **Yes, required.** Use remaining SOLID support (X), or move to the Y approach. |
+| 3. Can cause timing matter? | **Yes, if** starting the delay leaves too little remaining SOLID to still do X. Spatial / phase separation, not a race. |
+| 4. Can preparation during delay matter? | **Yes** for getting to Y. **Not** if Y remains freely available forever *and* the player can prepare after arrival with no loss. For minimum W4, pair prepare-during-delay with a reason early cause is worse (lost X). |
+| 5. Does activate-and-wait solve it? | **Yes → K01/K02 only.** That is W3 + waiting. **Not** sufficient for K03/K04. |
+
+**Critical leak:** persistent PASSABLE after an instant-feeling delay makes “activate first” equal or *better* than W3 (X still exists during pending). Delayed persistent state **fails K03** unless remaining SOLID after the cause is not always enough to do unused X.
+
+The delay is remaining duration of the **old** state after a known cause. That is **not** Timed Gate (expiry of the new state).
+
+###### Per-knowledge expressions
+
+**K01 — smallest.** NOW: SOLID (support, no traversal). KNOWN FUTURE: PASSABLE pending. Player sees current possibility ≠ later action possibility. Credibility: same W3 filled/hollow language plus a truthful pending/progress cue on the **same probe**. Distinguish pending from failed activation: contact ack + ongoing progress. Do not invent a third fill style that looks like a new physics state.
+
+**K02 — prediction contract.** Activator contact → visible pending on the affected probe → known SOLID→PASSABLE after readable progression. No exact seconds.
+
+| Progress class | Sufficient? |
+| --- | --- |
+| Continuous visual progress on the target | **Sufficient** (preferred first) |
+| Discrete stages (2–3 truthful steps) | **Sufficient** |
+| Known event marker | Sufficient as Plan B; Counter-risk |
+| Audio / animation only | Supportive, not sufficient alone |
+| Hidden elapsed time | **Rejected** |
+
+**K03 — earlier is not always better.** Persistent result **can** do this. Expiry is **not** necessary.
+
+Structure: SOLID support (X) is useful **now**. Scheduling PASSABLE will end X. Activating too early (from the separated activator, before X is used) spends the remaining SOLID on travel instead of support. Right plan: use X → activate → prepare Y during pending → PASSABLE → traverse.
+
+**K04 — cleaner than W3 order.**
+
+| | Sequence |
+| --- | --- |
+| W3-K04 | X → instant change → Y |
+| Weaker W4 | cause → prepare during pending → Y (activate-and-wait at Y often still works) |
+| **Cleaner W4** | **use X → cause delayed change → prepare Y during pending → future PASSABLE → Y** |
+
+The W4 increment is not the X-before-change logic (that is W3). It is: after the cause, Y is **not yet** available, so present travel/prep happens under a known future; and causing too early removes X. Future need changes **when** to trigger and **what** to do while pending.
+
+**K05 — no second temporal mechanic.** Same delayed-state relation in a new layout. Player diagnoses: wrong state (changed when they still needed SOLID, or never changed); wrong timing (cause too early / too late relative to X); wrong preparation (activated correctly but waited at the post instead of moving to Y). Timed Gate / Counter / Cycle not required unless a later gap is proven.
+
+###### Pending model
+
+**Pending is not a third World State and has no new physics law.**
+
+```text
+CURRENT WORLD STATE:  SOLID  (support still real)
+TEMPORAL CONDITION:   PASSABLE is scheduled
+FUTURE WORLD STATE:   PASSABLE
+```
+
+Keep **World State + Temporal Relation**. Reject SOLID / PENDING / PASSABLE as three equivalent collision states. Ontology inflation would force a new possibility table for “pending.”
+
+###### Cause timing vs preparation timing
+
+| | Question | K03 | K04 | Minimum W4 |
+| --- | --- | --- | --- | --- |
+| A. Cause timing | When should I activate the future change? | **Stronger** | Needed | Needed so earlier can be worse |
+| B. Preparation timing | What should I do while it is pending? | Weaker alone if Y waits forever | **Stronger** with A | Needed so pending is not idle |
+
+Both arise from **one** delayed persistent relation. They do **not** need dedicated devices or a two-lesson gimmick path.
+
+###### Delay-length semantics (no production numbers)
+
+| Band | Effect |
+| --- | --- |
+| Too short | Player only reacts. Hidden countdown. |
+| Too long | Activate and wait. Cause/effect disconnects. X still always completable after activate. |
+| **Useful** | Long enough to finish **one** already-understood preparation (leave activator → reach Y approach, or finish X if already on it). Short enough that a **farther unused** action (travel from activator to unused X, use it, then reach Y) is the wrong plan, not a tight race. |
+
+**Readable useful delay:** the player can tell “I have time for this next known action, not for that farther unused one,” from progress + space, without milliseconds.
+
+###### Delay readability
+
+| Fact | Source |
+| --- | --- |
+| Current SOLID / PASSABLE | Inherit W3 |
+| Activator contact succeeded | Inherit W3 contact flash / click |
+| Affected target | Inherit W3 probe |
+| Direction of future change | Temporal addition (pending toward hollow / filled) |
+| Result is pending | **Temporal addition** |
+| Progression toward result | **Temporal addition** |
+| Result persists | Temporal addition (no expiry cue) |
+| Reactivation while pending | Temporal addition (experiment: ignored) |
+
+###### Hidden-countdown safeguards
+
+Forbidden first expression: touch → nothing visible → sudden change.
+
+Minimum truthful signals: activation ack; pending on the **target**; monotonic progress; W3 state language at completion. Numeric countdown is **not** required unless those cues still leave pending vs failed ambiguous.
+
+###### Experiment contracts (not production rules)
+
+**Reactivation while pending:** **IGNORE.** Lowest complexity. Survives Auto Bounce / contact spam. Restart invites stall-spam. Cancel / reverse / queue are second rules.
+
+**Recovery after settle:** **same activator, immediate restore** (existing W3 TOGGLE once no longer pending) plus a diagnostic reset. Same delayed reverse is the same temporal relation in the other direction but slows the hypothesis loop. Do not add a second delay law. Immediate-only restore is experiment isolation, not a production commitment.
+
+###### Alternatives
+
+**Event-progression (Plan B):** “next bounce / one known event.” Strength: discrete, no invisible clock. Risk: Auto Bounce turns wait-in-place into a counter; quota reading; event-definition load. Prefer continuous/stage progress on the probe first.
+
+**Scheduled / cycle:** can show K01/K02 (the world will change). Weak K03/K04 (player did not cause the future). **Later expression only.** Do not elevate because it is easy to implement.
+
+###### Duration necessity
+
+**K01–K04 can be expressed with delayed persistent state only**, using remaining SOLID after cause + coarse spatial phases.
+
+Timed Gate / PASSABLE expiry is **not** needed for minimum W4. “More challenge” is not a reason to add it.
+
+###### W3 trade-off reuse
+
+Reuse SOLID = SUPPORT (X), PASSABLE = TRAVERSAL (Y).
+
+| | Meaning |
+| --- | --- |
+| W3 + waiting | Activate, stand, then traverse. Order is still X-optional; delay adds no choice. |
+| Genuine W4 | While pending, SOLID remains usable; **when** the cause starts determines whether X can still be used; during pending the player prepares Y. |
+
+Present choice that must change: **not yet** vs **now** for the activator, because the future loss of support is already scheduled.
+
+###### First Aha / earlier-is-not-always-better
+
+Smallest Aha experience: cause → readable pending → player starts a useful preparation → result arrives. Failure first is **not** required. Anticipation is stronger evidence.
+
+Physical reason earlier can be worse (known relations only): X needs SOLID; cause schedules SOLID’s end; activator is separated from X; early cause spends remaining SOLID on return travel. Conceptual middle: **planning phases**, not an execution race. If the delay always fits unused X after activate, timing does not matter. If it never fits a correct post-X walk to Y, it is reaction pressure.
+
+###### Generous-window design
+
+WRONG PLAN fails the option (X never used; Y approached while still SOLID). RIGHT PLAN survives ordinary Auto Bounce / travel variance.
+
+Methods: coarse phases (X, activator, Y approach); qualitative delay bands; large spatial margins. Do **not** tune microseconds.
+
+###### Information burden (first exposure)
+
+**Budget: one new temporal fact** — this already-known change is **pending / progressing**.
+
+Reuse W3 probe + Model B activator. Do **not** first-ship: new activator, new state object, countdown digits, expiry, event counter, new movement.
+
+Pending should live on the existing probe (progress in the known form), not a new icon language.
+
+###### Failure loop
+
+Good: choose trigger timing → watch pending → see future state → compare → restore / reset → retry.
+
+Reject: mistime → instant reset; mistime → long idle; mistime → high-execution replay.
+
+###### Historical slot survival (delayed-persistent hypothesis)
+
+IDs / titles preserved. Not a production count.
+
+| Slot | Title | Classes |
+| --- | --- | --- |
+| 001 | One, Two, Three | COUNTER-DEPENDENT. **CUT CANDIDATE.** Counting alone is not W4. |
+| 002 | Count Your Steps | COUNTER-DEPENDENT. **CUT CANDIDATE** unless rewritten as future-state prediction (then REPURPOSE). |
+| 003 | One More Bounce | COUNTER-DEPENDENT. **CUT CANDIDATE.** |
+| 004 | Don't Move | DELAY-DEPENDENT / REPURPOSE as **withhold activation** (intentional wait). Not a cycle lesson. Optional depth. |
+| 005 | Open for a While | DURATION-DEPENDENT. **CUT CANDIDATE** for minimum W4. |
+| 006 | Which Bounce? | DUPLICATE / REPURPOSE without BOOST. Not required. |
+| 007 | Wait for the Window | CYCLE-DEPENDENT / DURATION-DEPENDENT. **CUT CANDIDATE** if cue-reaction. RISKY. |
+| 008 | Not Yet | DELAY-DEPENDENT. **REUSABLE.** Foundational K01/K02 / DSC-013. |
+| 009 | Leave Before It Happens | DELAY-DEPENDENT. **REUSABLE** preparation-during-pending. |
+| 010 | Set the Future | COUNTER-DEPENDENT or W3 logical prereq. **CUT** if only “do these first.” REPURPOSE only if delayed progression is predicted. |
+| 011 | Meet Me There | **REUSABLE** as K05 (same relation, new context). Carried motion optional only. |
+| 012 | The Right Time | DUPLICATE if it stacks Counter+Delay+Duration+Waiting. **REPURPOSE** as K05 diagnosis, one relation only. |
+
+###### Discovery minimums
+
+**DSC-013:** existing activator contact → readable pending → existing World State changes later. **Sufficient** for the Discovery. No Delayed Switch object.
+
+**DSC-012:** same relation supports **withholding** the cause while X is still needed. No separate cycle or timer. Optional W4 depth, not a graduation checklist.
+
+###### Expression dependency matrix
+
+Device names are not sufficient. Rows evaluate the **relation**.
+
+| | Delayed Persistent State | Limited Duration | Event Progression | Cycle | Timed Gate | Counter | Other / None |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| W4-K01 | **SUFFICIENT** (with pending cue) | SUPPORTIVE | SUPPORTIVE | SUPPORTIVE | REDUNDANT | RISKY | — |
+| W4-K02 | **SUFFICIENT** (with progress cue) | SUPPORTIVE | SUPPORTIVE | SUPPORTIVE | REDUNDANT | RISKY | Hidden time: **NOT NEEDED** / rejected |
+| W4-K03 | **SUFFICIENT** if remaining old-state use can be lost | SUPPORTIVE (expiry path) | SUPPORTIVE | **RISKY** (wait-for-opening) | **RISKY** | RISKY | Activate-and-wait: **NOT NEEDED** |
+| W4-K04 | **SUFFICIENT** as X → cause → prep Y → Y | SUPPORTIVE | SUPPORTIVE | RISKY | RISKY | RISKY | Instant W3 order: **NOT NEEDED** |
+| W4-K05 | **SUFFICIENT** in a new context | NOT NEEDED | NOT NEEDED | NOT NEEDED | NOT NEEDED | NOT NEEDED | Second mechanic: **NOT NEEDED** |
+
+###### Recommended minimal set
+
+| Option | Verdict |
+| --- | --- |
+| A. W3 state + delayed onset, no progress cue | **NO-GO** (hidden countdown) |
+| **B. W3 state + delayed onset + explicit progress cue** | **YES — smallest viable** |
+| C. B + expiry | Not needed for K01–K04 |
+| D. Counter / event progression | Plan B, not first |
+| E. Cycle | Later / risky |
+| F. Multiple temporal devices | Bloat |
+
+###### Future prototype hypothesis order
+
+No implementation prompts. No geometry.
+
+| ID | Hypothesis | Why this order |
+| --- | --- | --- |
+| W4-EXP-000 | Can one caused readable delay produce a deterministic future World State? | Physical existence of the relation |
+| W4-EXP-001 | Can the player use the pending interval to prepare before the result? | K01/K02 / first Aha. If this is only wait-then-walk, it is not yet W4 |
+| W4-EXP-002 | Can activation timing change success without reaction pressure? | **Critical.** K03/K04. If activate-and-wait still clears, FAIL this hypothesis |
+| W4-EXP-003 | Can the player distinguish wrong state vs wrong timing vs wrong preparation? | K05; same relation |
+| W4-EXP-004 | Readability harness | After the physical relation is isolated |
+
+Do not start EXP-002 until 000 shows a truthful pending→change. Do not treat 001 PASS as W4 complete.
+
+###### Temporal-mechanic GO / NO-GO
+
+**GO (relation, not object):** one caused, readable, delayed persistent write to the existing W3 probe.
+
+**NO-GO now:** Timed Gate, Counter, cycle, Delayed Switch object, hidden countdown, shorter-timer-as-depth, input-spam solutions.
+
+GO tests: predicts future change; pending readable; present choice changes; generous margin; planning not reaction; more than one useful application (X-before-cause, prep-during-pending, withhold).
+
+###### Validation dependencies
+
+| Class | Items |
+| --- | --- |
+| CAN DECIDE NOW | Pending ≠ third physics state; delay relation ≠ Delayed Switch object; duration not required for minimum W4; cycle later; experiment reactivation = ignore; experiment restore = immediate after settle + reset |
+| NEEDS PHYSICAL TEMPORAL PROTOTYPE | Whether a qualitative delay band + activator/probe separation actually makes early cause lose X; whether pending reads; whether activate-and-wait fails EXP-002 |
+| NEEDS HUMAN READABILITY | Pending vs failed; progress without numbers; K01–K04 understanding |
+| NEEDS W3 HUMAN RESULT | Production rooms that assume humans already read SOLID/PASSABLE trade-off. Does **not** block W4 physical prototypes |
+| NEEDS W2 HUMAN RESULT | **None** for minimum W4. Carried motion stays optional |
+
+Unrelated company work (W3 Human Validation queue, W2 readability, movement validation) is **not** blocked.
+
+###### Unassigned / Creative Director
+
+**Unassigned:** exact progress representation (continuous vs 2–3 stages); production reactivation after EXP; whether settled reverse stays immediate; any numbers; any room.
+
+**CD decisions requested:**
+
+1. Accept delayed persistent + progress cue as the only first W4 relation?
+2. Accept “remaining SOLID after cause” as K03, not Timed Gate?
+3. Accept IGNORE-while-pending for first experiment?
+4. Keep Counter / cycle / duration off the minimum path?
+5. Allow W4-EXP-000…002 to proceed without waiting for W3 Human Validation?
 
 ##### Bloat warnings
 
@@ -1479,18 +1748,18 @@ IDs and titles preserved. **Not** a production count, mandatory sequence, or gra
 
 | Slot | Title | Current alignment |
 | --- | --- | --- |
-| 001 | One, Two, Three | Gimmick-dependent / unassigned. Counting alone is not W4. |
-| 002 | Count Your Steps | Conditional useful application. W4 only if future-state prediction changes the current plan. |
-| 003 | One More Bounce | Conditional useful application. |
-| 004 | Don't Move | Intentional delay / waiting application. Not a mandatory dedicated lesson. |
-| 005 | Open for a While | Duration application. Not required. |
-| 006 | Which Bounce? | Transfer / test candidate. Remove historical BOOST dependency from current requirements. |
-| 007 | Wait for the Window | Transfer / test if planning ahead. Cut candidate if cue reaction only. |
-| 008 | Not Yet | Strong foundational expression candidate. Aligns with caused future / delayed result. |
-| 009 | Leave Before It Happens | Transfer / preparation application. |
-| 010 | Set the Future | W4 if future progression is predicted. W3-like if only a logical prerequisite. |
-| 011 | Meet Me There | Integration candidate. Carried motion optional only. |
-| 012 | The Right Time | Transfer / test. Do **not** require Counter + Delay + Duration + Waiting all together. |
+| 001 | One, Two, Three | COUNTER-DEPENDENT. **CUT CANDIDATE.** Counting alone is not W4. |
+| 002 | Count Your Steps | COUNTER-DEPENDENT. **CUT CANDIDATE** unless REPURPOSE as future-state prediction. |
+| 003 | One More Bounce | COUNTER-DEPENDENT. **CUT CANDIDATE.** |
+| 004 | Don't Move | DELAY-DEPENDENT. REPURPOSE as withhold-activation. Optional DSC-012 depth. |
+| 005 | Open for a While | DURATION-DEPENDENT. **CUT CANDIDATE** for minimum W4. |
+| 006 | Which Bounce? | DUPLICATE / REPURPOSE without BOOST. Not required. |
+| 007 | Wait for the Window | CYCLE / DURATION-DEPENDENT. **CUT CANDIDATE** if cue-reaction. |
+| 008 | Not Yet | DELAY-DEPENDENT. **REUSABLE.** Foundational K01/K02 / DSC-013. |
+| 009 | Leave Before It Happens | DELAY-DEPENDENT. **REUSABLE** preparation-during-pending. |
+| 010 | Set the Future | COUNTER-DEPENDENT or W3 prereq. **CUT** if only logical order. |
+| 011 | Meet Me There | **REUSABLE** K05 (same relation, new context). Carried motion optional only. |
+| 012 | The Right Time | DUPLICATE if device-stack. **REPURPOSE** as K05, one relation only. |
 
 Historical slots remain lineage, not production count or teaching order.
 

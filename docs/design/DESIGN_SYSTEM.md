@@ -224,7 +224,7 @@ Distinguish Temporal State from: ordinary elapsed simulation time; movement exec
 
 W4 does **not** require millisecond prediction. Qualitative knowledge (before / after, soon / later, next event, enough time to prepare) is enough when it changes a meaningful choice.
 
-W4 planning use: [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) (`W4-K01`–`W4-K05`). TIME AS A PLANNING VARIABLE. Timed Gate / Delayed Switch / Counter are expression candidates, not World identity. No temporal mechanic is approved for production.
+W4 planning use: [progression/WORLD_LIBRARY.md](progression/WORLD_LIBRARY.md) (`W4-K01`–`W4-K05`). TIME AS A PLANNING VARIABLE. Expression Audit v1: minimum W4 is the existing W3 World State plus **one** caused delayed persistent relation with a truthful progress cue. Pending is a temporal condition, not a third physics state. Timed Gate / Delayed Switch / Counter are expression candidates, not World identity. No temporal mechanic is approved for production.
 
 ---
 
