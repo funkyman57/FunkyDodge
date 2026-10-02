@@ -12,6 +12,10 @@ W2 MOMENTUM Knowledge Architecture v1 (`W2-K01`–`W2-K05`) is the **current** W
 
 W3 POSSIBILITY Knowledge Architecture v1 (`W3-K01`–`W3-K05`) is the **current** W3 planning source. **Status:** `CANDIDATE`. Conceptual only. No W3 room is `VALIDATED`. No Door / Switch (or other W3) mechanic is approved for production by this documentation. W3 is **not** Door World, Switch World, or a gimmick showcase.
 
+W3 current **physical** evidence (not Human Validation): EXP-000 **PASS** (binary World State changes real possibilities); EXP-001 **PASS** (player can intentionally cause / avoid / restore); EXP-002 **PASS** (one binary state supports possibility trade-off and logical order without timing); EXP-003A **READY** (Human readability harness prepared). **W3 Human Validation: PENDING.** Do **not** document W3 as Human Validated.
+
+W4 TIME Knowledge Architecture v1 (`W4-K01`–`W4-K05`) is the **current** W4 planning source. **Status:** `CANDIDATE`. Conceptual only. No W4 room is `VALIDATED`. No temporal mechanic is approved for production. W4 is **not** Timed Gate World, Delayed Switch World, Counter World, or a reaction challenge. Production dependencies on W2 / W3 **human** understanding remain unapproved.
+
 The DOC-003 12-slot lists are **historical candidate inventories**. They are not production room counts, shipping sequences, or current graduation checklists. C-05 Depth Over Quantity takes precedence over slot preservation.
 
 Do **not** lock visual themes. Do not implement these worlds. PLAY-002 remains LOCKED. Vertical Slice implementation remains HOLD. Movement foundation is not finalized.
@@ -43,7 +47,7 @@ Historical English labels remain: How do I move? / What changes my motion? / Wha
 | W1 CONTROL | Trajectory, landing, next starting position, starting direction | — | Deliberate speed accumulation; momentum preservation; velocity optimization; world-state manipulation; time-state planning; BOOST / Air Reversal / Wall Jump mastery |
 | W2 MOMENTUM | Carried motion; preserve / reduce / discard; same position, different movement state | W1 position / direction / next start | “Go faster” as identity; world-state as the lesson; time-state planning. W2 is **not** Wind / Ice / Rough. |
 | W3 POSSIBILITY | World State changes the current possibility set; create **and** remove possibilities; logical order of state choices | W1 action / landing understanding; only W2 relationships that were actually introduced and understood | Gimmick showcase as identity. W3 is **not** Door / Switch. Logical order ≠ TIME. Momentum is **not** required in every W3 problem. |
-| W4 TIME | Occurrence, duration, delay, event progression, future-state prediction | W1 + W2 + W3 state *value* / order | Reaction challenge; frame-perfect timing; hidden-cycle memorization. Event-count belongs **only if** it changes future-state planning. Pure counting / resource allocation is not automatically TIME. |
+| W4 TIME | TIME AS A PLANNING VARIABLE. When a needed state occurs, how long it lasts, or after what known cause it appears — and how that changes the present plan | W1-level preparation already understood; W3 state-possibility conceptually reusable; only W2 relationships that were actually introduced and understood | Reaction speed; frame-perfect timing; rhythm; racing a timer; cycle memorization; waiting for an obvious opening. Timed Gate / Delayed Switch / Counter do **not** define W4. Event-count belongs **only if** it changes future-state planning. |
 | W5 UNDERSTANDING | Check assumptions behind familiar solutions; recombine known relationships; construct a personal plan | W1–W4 known relationships | Hidden new rules; new input grammar; all mechanics / gimmicks; long execution chains; precision escalation. Reinterpretation already exists from W1 onward and is **not** unique to W5. |
 
 ### Graduation evidence
@@ -53,7 +57,7 @@ Historical English labels remain: How do I move? / What changes my motion? / Wha
 | W1 | Player changes earlier trajectory / landing / approach based on the next starting position needed. | LOW usage alone; room clear; memorized sequence |
 | W2 | Player intentionally uses differences in carried motion (preserve / reduce / discard / redirect) because the goal demands it. | Maximum-speed clear; accidental slide |
 | W3 | Player prepares / preserves / delays / restores World State because it changes which actions remain possible. See W3-K graduation. | Press every switch; follow every opened path; activate-all; memorized switch sequence |
-| W4 | Player adjusts cause timing / order / waiting because a useful state must exist at a future moment or event. | Lucky timing; fast reaction; cycle memorization without understanding |
+| W4 | Player predicts a future World State from a known cause / progression and changes present cause, preparation, or delay so that state exists when it is useful. See W4-K graduation. | Lucky timing; fast reaction; cycle memorization; “you were too slow”; racing a visible cue |
 | W5 | Player detects that a familiar solution’s assumptions no longer hold and reorganizes known relationships into a different plan. | Hard execution of an old solution; using many gimmicks; a longer sequence |
 
 ### Adjacent transitions
@@ -62,8 +66,8 @@ Historical English labels remain: How do I move? / What changes my motion? / Wha
 | --- | --- | --- | --- |
 | W1 → W2 | Where / which direction should I begin? | How does carried movement change what becomes possible? | Position / direction alone no longer explains the result. |
 | W2 → W3 | What movement state should I arrive with? | What world state must exist for the desired action to be possible? | Player state is no longer the only changing condition. |
-| W3 → W4 | Which world state should I create, and in what logical order? | When will that state exist, and for how long? | State *value* alone is insufficient; occurrence / duration / event progression matters. |
-| W4 → W5 | How do I align player state, world state, and time? | Which assumptions behind my familiar solutions still apply? | Not a new physical dimension. Greater autonomy in selecting and recombining known relationships. |
+| W3 → W4 | Which world state should I create, and in what logical order? Waiting indefinitely does not change the relation. | When will that state exist, how long, after what event — and how does that change the present plan? | State *value* / logical order alone is insufficient. Temporal progression becomes a planning variable. |
+| W4 → W5 | How do I organize present choices so Player State and World State coincide when useful? | Which assumptions behind my familiar solutions still apply? | W5 adds **no** new temporal dimension. Not harder timers, smaller windows, or more cycles. |
 
 ### Dangerous boundary leaks
 
@@ -1115,18 +1119,380 @@ Rooms `LVL-W03-001` … `LVL-W03-012` are a **historical candidate inventory**. 
 | Role | TIME |
 | Status | CANDIDATE |
 | Core Question | When does the needed state appear, how long does it last, and after which event — and how does that change the plan? (historical label: When should I act?) |
-| Core understanding | Reason about *when* a future state will exist, not only the current state. |
-| Time principle | Time is reasoned about, not reacted to. A timing window creates a planning decision before an execution challenge. |
-| Knowledge focus | Occurrence, duration, delay, event progression, future-state prediction. |
-| Graduation | Player adjusts cause timing / order / waiting because a useful state must exist later. Insufficient: lucky timing; fast reaction; cycle memorization. |
-| Avoid | Frame-perfect windows; unexplained timers; sudden state changes; arbitrary timing; reaction-only gates; invisible countdown (ANTI-003, ANTI-004, ANTI-012). W4 is **not** a reaction challenge. |
+| Approved summary | 미래에 필요한 상태가 유용한 때 존재하도록, 지금의 선택을 조직한다. |
+| Core understanding | TIME AS A PLANNING VARIABLE. Reason about *when* a future state will exist, not only the current state. |
+| Time principle | Time is reasoned about, not reacted to. W4 is **not** primarily reaction speed, frame-perfect timing, rhythm, racing a timer, cycle memorization, or waiting for an obvious opening. |
+| Knowledge focus | Predicting a future World State; preparing before it appears; delaying or advancing a cause; distinguishing state error from timing error; revising a temporal plan from actual progress. |
+| Graduation | See W4-K graduation. Insufficient: lucky timing; fast reaction; cycle memorization; “you were too slow.” |
+| Avoid | Frame-perfect windows; unexplained timers; sudden state changes; arbitrary timing; reaction-only gates; invisible countdown (ANTI-003, ANTI-004, ANTI-012). |
 | Rules Emphasized | R-STATE-003; R-STATE-002; R-SIGNAL-002; R-INFO-001 |
-| New Rule Budget | Historical expression candidates: Bounce Counter, Timed Gate, Delayed Switch (or Switch+Delay). **These do not define W4.** Event-count belongs here **only if** it changes future-state planning. Pure counting / resource allocation is not automatically TIME. |
-| Delayed Switch note | May later be a Switch variation, not a separate object family. **Do not resolve in DOC-003.** |
-| Major Discoveries | W4-clear: DSC-012, DSC-013. DSC-011 is **conditional** (future-state planning required). |
-| Mastery Test | Historical: LVL-W04-012. Current: future-state planning evidence, not a required 12th slot. |
-| Transition to Next World | Player / world / time alignment is known. Next: which assumptions behind familiar solutions still apply. |
+| New Rule Budget | Historical expression candidates: Bounce Counter, Timed Gate, Delayed Switch (or Switch+Delay). **These do not define W4.** Event-count belongs here **only if** it changes future-state planning. Pure counting / resource allocation is not automatically TIME. No temporal mechanic is approved for production. |
+| Delayed Switch note | Delayed **causal relation** is a strong expression candidate. This does **not** approve a production Delayed Switch object. Implementation as independent object vs Switch+Delay remains unresolved. |
+| Major Discoveries | W4-clear: DSC-012 (useful application, not mandatory graduation), DSC-013 (strong foundational expression). DSC-011 is **conditional** (future-state planning required). |
+| Mastery Test | Historical: LVL-W04-012. Current: W4-K05 / final-integration evidence, not a required 12th slot. |
+| Transition to Next World | Player / world / time alignment is known. Next: which assumptions behind familiar solutions still apply. W5 adds no new temporal dimension. |
 | Visual / Audio Identity | **Not locked.** Durations TBD — after PLAY-001B / relevant prototype validation. |
+
+Current planning model next. Historical 12-slot graph, gates, and slot mapping follow it as lineage.
+
+#### W4 TIME Knowledge Architecture v1
+
+**Status:** `CANDIDATE` — conceptual. Unvalidated. Not runtime objects. Not `VALIDATED` / `CORE`. No W4 room is `VALIDATED`. No temporal mechanic is approved for production.
+
+This is the **authoritative current W4 planning model**. Role-based. Not slot-count-based. Not a Timed Gate / Delayed Switch / Counter tutorial. Not a reaction challenge.
+
+**Core question:** How does when a needed state occurs, how long it lasts, or what causes it to occur later change the plan? / 필요한 상태가 언제 생기고, 얼마나 유지되며, 어떤 사건 뒤에 생기는지가 계획을 어떻게 바꾸는가?
+
+**Approved summary:** “미래에 필요한 상태가 유용한 때 존재하도록, 지금의 선택을 조직한다.”
+
+W4 is **not** primarily: reaction speed; frame-perfect timing; rhythm; racing a timer; cycle memorization; waiting for an obvious opening.
+
+W4 **is** TIME AS A PLANNING VARIABLE.
+
+Player reasoning should involve: predicting a future state; preparing before it appears; delaying or advancing a cause; distinguishing state error from timing error; revising a temporal plan from actual progress.
+
+##### Traceability
+
+| Item | Status |
+| --- | --- |
+| W3 EXP-000 / 001 / 002 | physical **PASS** |
+| W3 EXP-003A | Human harness **READY** |
+| W3 Human Validation | **PENDING** |
+| W2 Human readability | **PENDING** |
+
+W4 architecture may be documented. Production dependencies on W2 / W3 **human** understanding remain unapproved. Do **not** document W3 as Human Validated.
+
+##### Temporal State definition
+
+Canonical vocabulary also lives in [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Restated here because W4 owns the planning use.
+
+**Temporal State** is the relationship between:
+
+- the current World State
+- a future World State
+- and the known temporal / event relation by which that future state will occur
+
+when that relationship affects player planning.
+
+| Term | Meaning |
+| --- | --- |
+| CURRENT WORLD STATE | What is true now? |
+| FUTURE WORLD STATE | What will become true later if known conditions continue? |
+| TEMPORAL RELATION | When / for how long / after what event does that future change occur? |
+
+Distinguish Temporal State from: ordinary elapsed simulation time; movement execution timing; landing-input timing; animation duration with no gameplay consequence; W3 logical ordering; hidden timer implementation.
+
+##### WHEN / HOW LONG / AFTER WHAT
+
+These are **dimensions of one temporal principle**, not separate knowledge IDs.
+
+| Dimension | Role |
+| --- | --- |
+| WHEN | When does the useful state exist relative to player action? **Core.** |
+| HOW LONG | How long does it remain useful? **Optional expression.** |
+| AFTER WHAT | What known cause / event progression makes the future state occur? Predictable causal basis is **core**; Counter / event-count expression is **optional**. |
+
+Do **not** create W4-K06 Duration, W4-K07 Counter, etc. unless future evidence proves genuinely independent knowledge.
+
+```text
+READ THE FUTURE
+    → REVALUE IMMEDIACY
+        → CHOOSE NOW FOR LATER
+            → OWN THE TEMPORAL PLAN
+```
+
+| Role | Knowledge | Planning note |
+| --- | --- | --- |
+| READ THE FUTURE | K01 + K02 | Current state and future state are distinguished; future change is linked to a known cause. |
+| REVALUE IMMEDIACY | K03 | Acting immediately is not always optimal. Waiting is **not** automatically the answer. |
+| CHOOSE NOW FOR LATER | K04 | Future need changes current cause timing / preparation. |
+| OWN THE TEMPORAL PLAN | K05 | Player organizes known Player / World / Time relations and revises from actual progress. |
+
+Roles may merge. This is **not** a fixed room sequence.
+
+**IDs:** `W4-K01` … `W4-K05`. Permanent conceptual knowledge IDs. Do not recycle. Do not implement as game objects.
+
+**World statement:** “미래에 필요한 상태가 유용한 때 존재하도록, 지금의 선택을 조직한다.”
+
+##### Knowledge nodes
+
+| ID | Layer | Understanding | Prerequisite | Evidence | Misconception |
+| --- | --- | --- | --- | --- | --- |
+| W4-K01 | FOUNDATION | 지금 보이는 상태가 내가 행동할 때의 상태와 같지는 않을 수 있다. The state I see now may not be the state that exists when I act later. | W3-K01: World State affects action possibility | Player stops treating the current state as permanently representative and begins considering a known future change. | 현재 닫혀 있으면 계속 불가능하다. |
+| W4-K02 | DEVELOPMENT | 미래 상태는 알려진 원인과 시간·사건 진행으로 예상할 수 있다. Future World State can be predicted from known causes and temporal / event progression. | K01; readable temporal cause | Player prepares before the visible result occurs and links the later change to an earlier known cause. | The activator failed. The change is random. |
+| W4-K03 | REINTERPRETATION | 즉시 행동하거나 최대한 빨리 상태를 만드는 것이 항상 유리하지는 않다. Acting immediately or creating the state as early as possible is not always better. | K02; W3 understanding that state value depends on plan | Player advances or delays an action based on when the future state will be useful. Waiting is **not** automatically the answer. | Faster is always better. Waiting is always safer. |
+| W4-K04 | TRANSFER | 나중에 필요한 상태가 지금 원인을 만들 시점과 준비 순서를 바꾼다. What I will need later can change when I cause the state change and what I prepare now. | K02 + K03 + W1 future-oriented planning | In a new context, player changes an earlier cause or preparation because of a later temporal need. | 변화가 보인 다음 대응하면 된다. |
+| W4-K05 | MASTERY | Player State와 World State가 유용하게 만나는 시점을 계획하고, 실제 진행에 맞춰 수정할 수 있다. I can plan when my Player State and the needed World State should coincide, then revise the plan from actual progress. | K01–K04, and only previously understood Player / World State relationships | Player forms a temporal plan, executes it, identifies timing mismatch, and changes the relevant earlier choice. | The solution is the memorized input sequence. |
+
+##### Knowledge flow
+
+```text
+W3: World State determines possibility
+        ↓
+W4-K01: current state may differ from future action state
+        ↓
+W4-K02: future change is predictable from known cause / progress
+        ↓
+W4-K03: immediate action is not always optimal
+        ↓
+W4-K04: future need changes current cause / preparation
+        ↓
+W4-K05: Player State + World State + temporal relation
+        are integrated into a plan
+```
+
+This is a knowledge dependency graph. It is **not** a room count, required device order, or Counter → Gate → Delay tutorial sequence.
+
+##### First true W4 Aha
+
+Leading candidate: “작동은 이미 됐다. 결과가 아직 오지 않았을 뿐이다. 그러면 결과가 오기 전에 내가 준비할 수 있겠네.”
+
+English: “The action already worked. The result just hasn't happened yet. That means I can prepare before it arrives.”
+
+Prefer this over: “I was too slow.” The first W4 discovery should introduce **future-state planning**, not timer pressure.
+
+| Evidence | Meaning |
+| --- | --- |
+| WEAK | Player notices / waits for a delayed result. |
+| STRONGER | Player prepares before the result appears. |
+| STRONG | Player changes the cause timing based on when the result will be useful. |
+
+##### W3 order vs W4 order
+
+Record this boundary explicitly.
+
+**W3:** X first → change state → Y because state change removes X. Waiting indefinitely does **not** change the relation.
+
+**W4:** Cause future change now → prepare → future state appears → act; **or** prepare first → trigger temporal change → use temporary future state. Temporal progression changes which state exists later.
+
+Designer boundary tests:
+
+1. Does waiting change the relevant state?
+2. Does spacing between otherwise identical actions matter because of a known temporal relation?
+3. Does a future event need to be anticipated?
+4. If temporal progression is removed, does the problem collapse back into W3?
+
+##### DSC-012 — Waiting Is an Action
+
+Useful W4 application. **Not** a mandatory separate graduation skill.
+
+| Kind | Meaning |
+| --- | --- |
+| PASSIVE WAIT | Player has no meaningful choice except waiting for the world. |
+| INTENTIONAL WAIT | Player delays an action because acting now would make future Player / World State alignment worse. |
+
+Auto Bounce note: waiting does **not** necessarily mean standing still. Do not redefine all non-progress as waiting.
+
+##### DSC-013 — Action Now, Result Later
+
+Strong candidate for **foundational W4 expression**.
+
+Core relation: cause now → result pending → future World State → preparation before result.
+
+Must read: cause occurred successfully; result is pending; affected target; future change; temporal progression.
+
+Do **not** allow arbitrary hidden delay.
+
+##### Event-progression boundary
+
+Event count belongs to W4 **only when** the predicted future state changes what the player prepares before the relevant event occurs.
+
+Diagnostic: “Besides knowing how many events remain, does knowing WHEN the next event changes the world alter the player's current plan?”
+
+If **NO**, it may instead be: quota; resource; repetition; execution count; W3 logical prerequisite.
+
+| W4 | Not automatically W4 |
+| --- | --- |
+| Next bounce will change the World State, so the player prepares beforehand. | Touch a trigger twice to unlock. |
+
+Do **not** rewrite resource meanings to force W4 ownership.
+
+##### Duration
+
+Limited duration is **not** required for W4 completion.
+
+Duration adds useful temporal depth only when: starting the state too early can be bad; preparation before activation matters; remaining opportunity changes the plan.
+
+Reject as W4 core: open briefly → run faster, when no planning distinction remains.
+
+##### Cycles
+
+**OPTIONAL / RISKY** expression.
+
+Useful when: phase predicts future possibility; player prepares before a future phase; skipping one opportunity can be intentional; next opportunity can be planned.
+
+Risky when: wait for opening; memorize period; react to cue; rhythm / timing execution dominates.
+
+Do **not** make cycles mandatory W4 content.
+
+##### Delay
+
+Readable delayed consequence is the **leading first W4 expression candidate**.
+
+| | Record |
+| --- | --- |
+| DELAY RELATION | Strong candidate. |
+| DELAYED SWITCH OBJECT | **Not approved.** |
+
+Required information: cause succeeded; result pending; affected target; relative progress; persistence / expiry contract; effect of reactivation when relevant.
+
+If removing the delay does not change any planning decision, the expression may be only W3 + waiting.
+
+##### Scheduled vs caused future
+
+Expression priority for initial W4 exploration (not a production content list):
+
+1. **CAUSED FUTURE**
+2. **EVENT-PROGRESSION FUTURE**
+3. **SCHEDULED / CYCLIC FUTURE**
+
+Reason: caused future most directly expresses current player action → predictable future World State → current preparation changes.
+
+##### Temporal prediction model
+
+W4 does **not** require exact millisecond prediction.
+
+Valid qualitative temporal knowledge may include: before / after; soon / later; next event; one more event; enough time to prepare; not enough time if activated now; state will persist; state will expire.
+
+Temporal information is sufficient when it reliably changes a meaningful choice.
+
+##### Readability
+
+Facts that may need to be readable: current World State; future change is pending; what caused it; affected world element; temporal progression basis; relative occurrence timing; persistence / expiry; effect of another action on the pending result.
+
+Do **not** require exact numbers by default. Do **not** hide temporal facts and call surprise “discovery.”
+
+Apply Discovery Language: facts visible, strategy discoverable.
+
+##### Failure as information
+
+| Kind | Pattern |
+| --- | --- |
+| Informative | Player arrives before the future state exists and can infer the cause should happen earlier, or preparation should happen later. |
+| Informative | Useful state expires before action and the player can identify which preparation was mistimed. |
+| Uninformative | Failure resets before Temporal State can be inspected. |
+| Misleading | Movement error appears to be temporal failure, or temporal failure appears to be movement error. |
+| Accidental clear | Input spam / arbitrary waiting happens to line up with the future state. |
+
+“You were too slow” alone is **weak** W4 feedback.
+
+##### Generous-timing principle
+
+Candidate principle: “Once the temporal relation is understood, ordinary execution variance should usually still allow the plan to succeed.”
+
+Design target: large difference between wrong plan vs right plan; small penalty for minor execution variance within the right plan.
+
+Do **not** create depth by shrinking windows alone.
+
+##### Player / World / Time integration
+
+First-W4 burden target:
+
+| Variable | Target |
+| --- | --- |
+| PLAYER STATE | Already understood W1-level preparation. |
+| WORLD STATE | Already understood state-possibility relation. |
+| NEW VARIABLE | One temporal relation. |
+
+Avoid first exposure with a new movement technique, a new World-State rule, a new activator, and a new temporal rule **all together**.
+
+Until Human Validation: W3 knowledge may be conceptually reused, but production content must **not** assume human understanding is proven. W2 carried motion remains optional until W2 Human readability evidence exists.
+
+##### W4 graduation evidence
+
+Use **planning supported / adaptation unobserved**, not “used every temporal device.”
+
+| Class | Items |
+| --- | --- |
+| MUST UNDERSTAND | Current state alone may not determine future possibility; future state can be predicted from readable causes / progression; a future need can change present action; immediate / earliest action is not always best; player can distinguish wrong state from wrong timing / progression; player can transfer the relation to a new context |
+| MAY EXPERIENCE | Limited duration; intentional waiting; event-count progression; recurring cycles; multiple temporal relationships; understood carried-motion reuse |
+| MUST NOT REQUIRE | Every temporal device; exact seconds; frame-perfect reaction; narrow windows; rhythm execution; unvalidated movement techniques; unvalidated W2/W3 knowledge; verbal explanation; memorized cycles |
+
+Insufficient: lucky timing; fast reaction; cycle memorization; racing a visible cue; “you were too slow.”
+
+##### Final integration
+
+Candidate: “필요한 상태가 내 행동에 유용한 때 존재하도록 현재 선택을 조직하고, 실제 진행이 다르면 계획을 수정한다.”
+
+English: “I can organize my present choices so the needed state exists when it becomes useful, then revise the plan from actual progress.”
+
+E3 candidate: in a new context, player changes an earlier cause / preparation because of a future temporal need.
+
+Mastery: player distinguishes wrong state / wrong timing / wrong preparation and modifies the relevant cause.
+
+False positives: memorized input sequence; input spam; accidental waiting; reaction to visible cue; cycle memorization.
+
+##### W4 → W5 handoff
+
+| | W4 | W5 |
+| --- | --- | --- |
+| Question | How do I organize present choices so the needed state exists when useful? | Which assumptions behind my familiar solutions still apply? |
+| Adds | One temporal relation as a planning variable | **No** new temporal dimension |
+
+W4 graduates can reason about: Player State; World State; when those states must coincide; what current action prepares that future.
+
+W5 adds: assumption audit; selecting among known relationships; recombination; autonomy; applying known conditions in unfamiliar contexts.
+
+Do **not** make W5: harder timers; smaller windows; more cycles.
+
+##### Expression alignments (not mandatory rooms)
+
+| Topic | Record |
+| --- | --- |
+| Timed Gate | **USEFUL expression candidate.** Not required. Risk: reaction / race challenge. Existing lifecycle (`CANDIDATE`) preserved. |
+| Delayed Switch | **STRONG CANDIDATE EXPRESSION** for the delayed **causal relation**. Does **not** approve a production Delayed Switch object. Existing lifecycle (`CANDIDATE`) preserved. |
+| Counter | **USEFUL / CONDITIONAL.** Only W4 when event progression is used to predict future World State. Do not rewrite resource meanings to force W4 ownership. Existing lifecycle (`CANDIDATE`) preserved. |
+| DSC-012 | Useful W4 application. Not a mandatory dedicated lesson. Intentional wait ≠ passive wait. |
+| DSC-013 | Strong foundational expression candidate. Aligns with caused future / delayed result. |
+
+##### Minimal expression hypothesis
+
+Current leading candidate: **ONE DELAYED PERSISTENT STATE.**
+
+Meaning: player causes state change → result is pending → after readable delay / progression → known World State changes → state remains until another explicit rule changes it.
+
+Why preferred: introduces onset without also requiring expiry.
+
+This is **not** sufficient if gameplay is only: activate → wait → continue.
+
+A valid W4 expression must create a meaningful difference in: when the cause is created; **or** what the player prepares during the delay; **or** what state should still exist before the result.
+
+##### Bloat warnings
+
+Depth Over Quantity applies.
+
+- Counter tutorial sequence
+- Timed Gate tutorial sequence
+- Delay tutorial sequence
+- Cycle tutorial sequence
+- All temporal devices combined
+- Shorter timer = progression
+- More exact timing = mastery
+- Reaction cues replacing prediction
+- Hidden countdown
+- Multiple pending events before one is understood
+- W2 / W3 / W4 novelty introduced simultaneously
+
+##### Historical slot → current role
+
+IDs and titles preserved. **Not** a production count, mandatory sequence, or graduation checklist.
+
+| Slot | Title | Current alignment |
+| --- | --- | --- |
+| 001 | One, Two, Three | Gimmick-dependent / unassigned. Counting alone is not W4. |
+| 002 | Count Your Steps | Conditional useful application. W4 only if future-state prediction changes the current plan. |
+| 003 | One More Bounce | Conditional useful application. |
+| 004 | Don't Move | Intentional delay / waiting application. Not a mandatory dedicated lesson. |
+| 005 | Open for a While | Duration application. Not required. |
+| 006 | Which Bounce? | Transfer / test candidate. Remove historical BOOST dependency from current requirements. |
+| 007 | Wait for the Window | Transfer / test if planning ahead. Cut candidate if cue reaction only. |
+| 008 | Not Yet | Strong foundational expression candidate. Aligns with caused future / delayed result. |
+| 009 | Leave Before It Happens | Transfer / preparation application. |
+| 010 | Set the Future | W4 if future progression is predicted. W3-like if only a logical prerequisite. |
+| 011 | Meet Me There | Integration candidate. Carried motion optional only. |
+| 012 | The Right Time | Transfer / test. Do **not** require Counter + Delay + Duration + Waiting all together. |
+
+Historical slots remain lineage, not production count or teaching order.
 
 #### Knowledge Graph (historical candidate inventory)
 
@@ -1172,7 +1538,7 @@ COUNTER   STATE     CONSEQUENCE
 
 #### Knowledge Gates (historical — not current World identity)
 
-IDs retained. Current W4 graduation is future-state planning evidence above. W4-GATE-1 is TIME only if the count changes a predicted future state.
+IDs retained. Current W4 graduation is the W4-K evidence language above, not “used Counter / Gate / Delay.” W4-GATE-1 is TIME only if the count changes a predicted future state.
 
 | Gate | Historical requirement | May be satisfied in |
 | --- | --- | --- |

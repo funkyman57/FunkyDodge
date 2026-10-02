@@ -721,6 +721,17 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Spoiler Risk | Do not become a reaction test (ANTI-004). |
 | Validated Level | none |
 
+**World alignment:** useful W4 application (`W4-K03`). **Not** a mandatory separate graduation skill.
+
+Distinguish:
+
+| Kind | Meaning |
+| --- | --- |
+| PASSIVE WAIT | Player has no meaningful choice except waiting for the world. |
+| INTENTIONAL WAIT | Player delays an action because acting now would make future Player / World State alignment worse. |
+
+Auto Bounce note: waiting does **not** necessarily mean standing still. Do not redefine all non-progress as waiting. Do not rewrite this Discovery’s meaning.
+
 ---
 
 ### DSC-013 — Action Now, Result Later
@@ -747,6 +758,12 @@ PLAY-002 has not started. Do not implement GIM-007 from this entry.
 | Future Reuse | Later delay rooms. |
 | Spoiler Risk | Hidden delay is ANTI-012. |
 | Validated Level | none |
+
+**World alignment:** strong candidate for foundational W4 expression (`W4-K01` / `W4-K02` / first Aha). Core relation: cause now → result pending → future World State → preparation before result.
+
+Must read: cause occurred successfully; result is pending; affected target; future change; temporal progression.
+
+Do **not** allow arbitrary hidden delay. Delayed **causal relation** is the candidate — this does **not** approve a production Delayed Switch object. Do not rewrite this Discovery’s meaning.
 
 ---
 

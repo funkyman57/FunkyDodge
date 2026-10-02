@@ -8,7 +8,7 @@ All W1–W5 rows are **historical candidate inventories** (60 slots, not a ship 
 
 Geometry, spacing, force strength, friction coefficients, velocities, bounce heights, counts, and timing windows: `TBD — after PLAY-001B / relevant prototype validation`.
 
-Knowledge Graphs, W1-K01–K08, W2-K01–K05, and the conceptual Vertical Slice: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Discovery Language: [DISCOVERY_LIBRARY.md](../libraries/DISCOVERY_LIBRARY.md). Vocabulary: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Do not assign `PAT-001` merely because a room has an exit.
+Knowledge Graphs, W1-K01–K08, W2-K01–K05, W3-K01–K05, W4-K01–K05, and the conceptual Vertical Slice: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Discovery Language: [DISCOVERY_LIBRARY.md](../libraries/DISCOVERY_LIBRARY.md). Vocabulary: [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md). Do not assign `PAT-001` merely because a room has an exit.
 
 A+B-1 / C-1 / D-1 / G-1 / G-3 are the current conceptual slice. They are **not** `LVL-W01-*` IDs. The W1 12-slot index below is a **historical candidate inventory**, not a production count or graduation checklist. Alignment: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). Unvalidated. Implementation HOLD.
 
@@ -125,24 +125,24 @@ Historical expression candidates: Door (strong), Switch (useful). No Moving Bloc
 
 ### WLD-04 — historical candidate inventory
 
-IDs and titles preserved. **Not** a production count. W4 identity is future-state planning, not Counter / Gate / Delay. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md).
+IDs and titles preserved. **Not** a production count. W4 identity is TIME AS A PLANNING VARIABLE (`W4-K01`–`W4-K05`), not Counter / Gate / Delay. Current domain: [WORLD_LIBRARY.md](WORLD_LIBRARY.md). No W4 room is `VALIDATED`. No temporal mechanic is approved for production.
 
-| ID | Title | Purpose |
-| --- | --- | --- |
-| LVL-W04-001 | One, Two, Three | TEACH |
-| LVL-W04-002 | Count Your Steps | APPLY |
-| LVL-W04-003 | One More Bounce | REINTERPRET / APPLY / REWARD candidate |
-| LVL-W04-004 | Don't Move | REINTERPRET |
-| LVL-W04-005 | Open for a While | TEACH |
-| LVL-W04-006 | Which Bounce? | TEST |
-| LVL-W04-007 | Wait for the Window | REINTERPRET / SYNCHRONIZATION |
-| LVL-W04-008 | Not Yet | TEACH |
-| LVL-W04-009 | Leave Before It Happens | APPLY |
-| LVL-W04-010 | Set the Future | COMBINE |
-| LVL-W04-011 | Meet Me There | SYNCHRONIZATION / TEST |
-| LVL-W04-012 | The Right Time | MASTERY |
+| ID | Title | Purpose | Current alignment |
+| --- | --- | --- | --- |
+| LVL-W04-001 | One, Two, Three | TEACH | Gimmick-dependent / unassigned. Counting alone is not W4. |
+| LVL-W04-002 | Count Your Steps | APPLY | Conditional useful application. W4 only if future-state prediction changes the current plan. |
+| LVL-W04-003 | One More Bounce | REINTERPRET / APPLY / REWARD candidate | Conditional useful application. |
+| LVL-W04-004 | Don't Move | REINTERPRET | Intentional delay / waiting application. Not a mandatory dedicated lesson. |
+| LVL-W04-005 | Open for a While | TEACH | Duration application. Not required. |
+| LVL-W04-006 | Which Bounce? | TEST | Transfer / test. Remove historical BOOST dependency from current requirements. |
+| LVL-W04-007 | Wait for the Window | REINTERPRET / SYNCHRONIZATION | Transfer / test if planning ahead. Cut candidate if cue reaction only. |
+| LVL-W04-008 | Not Yet | TEACH | Strong foundational expression candidate. Caused future / delayed result. |
+| LVL-W04-009 | Leave Before It Happens | APPLY | Transfer / preparation application. |
+| LVL-W04-010 | Set the Future | COMBINE | W4 if future progression is predicted. W3-like if only a logical prerequisite. |
+| LVL-W04-011 | Meet Me There | SYNCHRONIZATION / TEST | Integration candidate. Carried motion optional only. |
+| LVL-W04-012 | The Right Time | MASTERY | Transfer / test. Do **not** require Counter + Delay + Duration + Waiting all together. |
 
-Historical expression candidates: Bounce Counter, Timed Gate, Delayed Switch (or Switch+Delay). Planning, not twitch. Event-count is TIME only if it changes future-state prediction.
+Historical expression candidates: Bounce Counter (conditional), Timed Gate (useful, not required), Delayed Switch (strong delayed-relation candidate; object not approved). Planning, not twitch. Event-count is TIME only if it changes future-state prediction.
 
 ### WLD-05 — historical candidate inventory
 
@@ -917,9 +917,9 @@ Pairs with LVL-W03-008 (STATE→MOVE vs MOVE→STATE).
 
 ## World 4
 
-Historical candidate inventory. Official status remains `CANDIDATE`. Historical World assignment ≠ current production commitment. Current W4 domain (future-state planning, not Counter / Gate / Delay; not reaction): [WORLD_LIBRARY.md](WORLD_LIBRARY.md). `W4-GATE-*` fields below are historical IDs.
+Historical candidate inventory. Official status remains `CANDIDATE`. Historical World assignment ≠ current production commitment. Current W4-K roles: [WORLD_LIBRARY.md](WORLD_LIBRARY.md) (`W4-K01`–`W4-K05`). `W4-GATE-*` fields below are historical IDs.
 
-Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY-001B / relevant prototype validation. Numeric counts in titles are illustrative, not canonical. Event-count is TIME only if it changes future-state prediction.
+Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY-001B / relevant prototype validation. Numeric counts in titles are illustrative, not canonical. Event-count is TIME only if it changes future-state prediction. No temporal mechanic is approved for production.
 
 ### LVL-W04-001 — One, Two, Three
 
@@ -927,6 +927,7 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | TEACH |
+| Current alignment | Gimmick-dependent / unassigned. Counting alone is not W4. |
 | Knowledge | Bounce can be counted; Counter |
 | Discovery Target | opens DSC-011 |
 | Rules Used | R-PLAYER-001; R-STATE-003; R-INFO-001 |
@@ -947,6 +948,7 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | APPLY |
+| Current alignment | Conditional useful application. W4 only if future-state prediction changes the current plan. |
 | Knowledge | Count while moving. A direct route may produce the wrong future count/state. |
 | Rules Used | R-STATE-003; W1 movement |
 | Interactions Used | INT-005 |
@@ -965,6 +967,7 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET / APPLY / REWARD candidate |
+| Current alignment | Conditional useful application. |
 | Knowledge | An apparently extra Bounce is useful |
 | Discovery Target | DSC-011 (strong payoff candidate) |
 | Rules Used | R-STATE-003; R-PLAYER-001 |
@@ -984,6 +987,7 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET |
+| Current alignment | Intentional delay / waiting application. Not a mandatory dedicated lesson. |
 | Knowledge | Waiting is an intentional choice. Auto Bounce means “wait” can be remaining in a safe/local cycle while World State approaches — not standing perfectly still. |
 | Discovery Target | DSC-012 |
 | Cognitive operation | Waiting (≠ W04-007 synchronization) |
@@ -1004,6 +1008,7 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | TEACH |
+| Current alignment | Duration application. Not required. |
 | Knowledge | Some World States are temporary. Learning goal: “This state does not last forever.” Not: “React quickly.” |
 | Rules Used | R-STATE-002; R-CONTACT-001; R-INFO-001 |
 | Interactions Used | INT-023 |
@@ -1022,7 +1027,8 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | TEST |
-| Knowledge | Timed State + LOW / NORMAL / BOOST. Planning, not input precision. |
+| Current alignment | Transfer / test. Remove historical BOOST dependency from current requirements. |
+| Knowledge | Timed State + already-understood bounce choice. Planning, not input precision. Historical BOOST pairing is not a current requirement. |
 | Rules Used | R-STATE-002; R-PLAYER-003; R-PLAYER-004 |
 | Interactions Used | INT-023 |
 | Gimmicks Used | GIM-008 |
@@ -1040,6 +1046,7 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | REINTERPRET / SYNCHRONIZATION |
+| Current alignment | Transfer / test if planning ahead. Cut candidate if cue reaction only. |
 | Knowledge | Align Movement State with a predictable World State window |
 | Cognitive operation | Synchronization (≠ W04-004 waiting-as-action) |
 | Rules Used | R-STATE-002; W1/W2 movement |
@@ -1059,6 +1066,7 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | TEACH |
+| Current alignment | Strong foundational expression candidate. Caused future / delayed result. |
 | Knowledge | Trigger → clear activation cue → predictable delay → state change |
 | Rules Used | R-SIGNAL-001; R-SIGNAL-002; R-INFO-001 |
 | Interactions Used | INT-027 |
@@ -1077,6 +1085,7 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | APPLY |
+| Current alignment | Transfer / preparation application. |
 | Knowledge | Trigger now; occupy the predicted future World State (≠ W05-007 choose-when-to-trigger) |
 | Discovery Target | DSC-013 |
 | Rules Used | R-SIGNAL-002; W1 movement |
@@ -1096,6 +1105,7 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | COMBINE |
+| Current alignment | W4 if future progression is predicted. W3-like if only a logical prerequisite. |
 | Knowledge | After several future events, what state will exist? |
 | Rules Used | R-STATE-003; R-SIGNAL-001; R-STATE-001 |
 | Interactions Used | INT-025; INT-026 |
@@ -1113,6 +1123,7 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | SYNCHRONIZATION / TEST |
+| Current alignment | Integration candidate. Carried motion optional only. |
 | Knowledge | Future Movement State (position, velocity, trajectory, bounce) meets future World State (gate/door, counter, delay) |
 | Rules Used | Taught W1–W4 only |
 | Interactions Used | Existing INT-023 / INT-027 / INT-005 as needed. No new INT. |
@@ -1131,7 +1142,8 @@ Planning-first. No reaction-only gates. Counts and durations: TBD — after PLAY
 | --- | --- |
 | Status | CANDIDATE |
 | Purpose | MASTERY |
-| Knowledge | No new Rule. No new Gimmick. Movement State, World State, count, timed state, delay, waiting, sync. |
+| Current alignment | Transfer / test. Do **not** require Counter + Delay + Duration + Waiting all together. |
+| Knowledge | No new Rule. No new Gimmick. Do not treat combining every temporal device as mastery. |
 | Discovery Target | DSC-011; DSC-012; DSC-013 |
 | Core question | When should I act so that the desired future states meet? |
 | Rules Used | Taught W1–W4 only |
