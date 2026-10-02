@@ -20,6 +20,14 @@ import {
 import { agencyHudLines, WorldStateAgencyView } from "../debug/WorldStateAgencyView";
 import { possibilityRow, type TradeoffScenarioId } from "../debug/WorldStateTradeoff";
 import { tradeoffHudLines, WorldStateTradeoffView } from "../debug/WorldStateTradeoffView";
+import {
+  agencyModelForScenario,
+  readabilityHudLines,
+  scenarioPose,
+  type ReadabilityMode,
+  type ReadabilityPhase,
+  type ReadabilityScenarioId,
+} from "../debug/WorldStateReadability";
 import { InputState } from "../input/InputState";
 import { LowInputExperiment, type ClearReason } from "../input/LowInputExperiment";
 import { sharedRhythmRecognizer } from "../input/RhythmRecognizer";
@@ -58,12 +66,28 @@ export class PlaygroundScene extends Phaser.Scene {
     eight: Phaser.Input.Keyboard.Key;
     nine: Phaser.Input.Keyboard.Key;
     m: Phaser.Input.Keyboard.Key;
+    p: Phaser.Input.Keyboard.Key;
+    one: Phaser.Input.Keyboard.Key;
+    two: Phaser.Input.Keyboard.Key;
+    three: Phaser.Input.Keyboard.Key;
+    four: Phaser.Input.Keyboard.Key;
+    zero: Phaser.Input.Keyboard.Key;
+    openBracket: Phaser.Input.Keyboard.Key;
+    closedBracket: Phaser.Input.Keyboard.Key;
   };
   private probe!: WorldStateProbeView;
   private agency!: WorldStateAgencyView;
   private tradeoff!: WorldStateTradeoffView;
+  private helpText!: Phaser.GameObjects.Text;
+  private perceptionTag!: Phaser.GameObjects.Text;
   private visitedX = false;
   private visitedY = false;
+  private lastTransition = "";
+  private overlapRefusedThisRun = false;
+  private readabilityActive = false;
+  private readabilityMode: ReadabilityMode = "INSTRUMENTED";
+  private readabilityScenario: ReadabilityScenarioId = "A";
+  private readabilityPhase: ReadabilityPhase = "BEFORE";
   private roomSolids: Solid[] = [];
 
   constructor() {
@@ -100,10 +124,19 @@ export class PlaygroundScene extends Phaser.Scene {
         onAgencyModel: (model) => this.setAgencyModel(model),
         onAgencyLaunch: (id) => this.launchAgency(id),
         onTradeoffLaunch: (id) => this.launchTradeoff(id),
+        onReadabilityLaunch: (id) => this.launchReadability(id),
+        onReadabilityMode: (mode) => this.setReadabilityMode(mode),
+        onReadabilityPhase: (phase) => this.setReadabilityPhase(phase),
       });
       this.physics.world.gravity.y = PhysicsConfig.gravity;
       this.physicsLab.setWorldStateUi(this.probe.model.state);
       this.physicsLab.setAgencyUi(this.agency.session.model);
+      this.physicsLab.setReadabilityUi({
+        mode: this.readabilityMode,
+        scenario: null,
+        phase: this.readabilityPhase,
+        active: false,
+      });
     }
 
     window.addEventListener("blur", this.handleFocusLoss);
@@ -127,25 +160,18 @@ export class PlaygroundScene extends Phaser.Scene {
       eight: Phaser.Input.Keyboard.KeyCodes.EIGHT,
       nine: Phaser.Input.Keyboard.KeyCodes.NINE,
       m: Phaser.Input.Keyboard.KeyCodes.M,
+      p: Phaser.Input.Keyboard.KeyCodes.P,
+      one: Phaser.Input.Keyboard.KeyCodes.ONE,
+      two: Phaser.Input.Keyboard.KeyCodes.TWO,
+      three: Phaser.Input.Keyboard.KeyCodes.THREE,
+      four: Phaser.Input.Keyboard.KeyCodes.FOUR,
+      zero: Phaser.Input.Keyboard.KeyCodes.ZERO,
+      openBracket: Phaser.Input.Keyboard.KeyCodes.OPEN_BRACKET,
+      closedBracket: Phaser.Input.Keyboard.KeyCodes.CLOSED_BRACKET,
     }) as typeof this.keys;
 
-    this.add
-      .text(PhysicsConfig.width - 16, 12, [
-        "PHYSICS PLAYGROUND",
-        "LOW input experiment",
-        "A/D or arrows: move",
-        "R: restart",
-        "L: toggle Physics Lab",
-        "T: W3 state toggle",
-        "5/6: W3 SOLID/PASSABLE launch",
-        "M: W3 agency model",
-        "7/8/9: cause/avoid/restore",
-        "Lab W3 ORDER: X/Y scenarios",
-        "LEGACY: fresh tap = LOW",
-        "RHYTHM: 따닥 entry, 탁 continue",
-        "Hold into land: BOOST",
-        "Opposite on wall: WALL JUMP",
-      ].join("\n"), {
+    this.helpText = this.add
+      .text(PhysicsConfig.width - 16, 12, PLAYGROUND_HELP, {
         fontFamily: "DejaVu Sans Mono, JetBrains Mono, monospace",
         fontSize: "12px",
         color: "#c9d6f0",
@@ -154,6 +180,15 @@ export class PlaygroundScene extends Phaser.Scene {
       })
       .setOrigin(1, 0)
       .setDepth(100);
+
+    this.perceptionTag = this.add
+      .text(16, 12, "", {
+        fontFamily: "DejaVu Sans Mono, JetBrains Mono, monospace",
+        fontSize: "28px",
+        color: "#c9d6f0",
+      })
+      .setDepth(100)
+      .setVisible(false);
   }
 
   update(time: number, delta: number): void {
@@ -173,6 +208,22 @@ export class PlaygroundScene extends Phaser.Scene {
         this.launchAgency("AVOID");
       } else if (Phaser.Input.Keyboard.JustDown(this.keys.nine)) {
         this.launchAgency("RESTORE");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.p)) {
+        this.setReadabilityMode(this.readabilityMode === "PERCEPTION" ? "INSTRUMENTED" : "PERCEPTION");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.one)) {
+        this.launchReadability("A");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.two)) {
+        this.launchReadability("B");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.three)) {
+        this.launchReadability("C");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.four)) {
+        this.launchReadability("D");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.zero)) {
+        this.launchReadability("E");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.openBracket)) {
+        this.setReadabilityPhase("BEFORE");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.closedBracket)) {
+        this.setReadabilityPhase("AFTER");
       }
     }
 
@@ -187,27 +238,50 @@ export class PlaygroundScene extends Phaser.Scene {
     }
 
     if (this.inputState.restartJustPressed) {
-      this.resetPlaySession("RESET");
+      if (this.readabilityActive) {
+        this.launchReadability(this.readabilityScenario, this.readabilityPhase);
+      } else {
+        this.resetPlaySession("RESET");
+      }
     }
 
     this.controller.update(time, delta);
     this.stepAgency();
     this.noteTradeoffUse();
+    this.probe.pulse(time);
+    this.agency.pulse(time);
     const possible = possibilityRow(this.probe.model.state);
-    this.hud.update(
-      this.controller,
-      this.inputState,
-      time,
-      this.probe.model,
-      [
-        ...agencyHudLines(this.agency.session),
-        ...tradeoffHudLines({
+    const revealAnswers = !this.readabilityActive || this.readabilityMode === "INSTRUMENTED";
+    const readabilityLines = this.readabilityActive
+      ? readabilityHudLines(this.readabilityMode, {
+          scenario: this.readabilityScenario,
+          phase: this.readabilityPhase,
+          state: this.probe.model.state,
           xPossible: possible.xPossible,
           yPossible: possible.yPossible,
           visitedX: this.visitedX,
           visitedY: this.visitedY,
-        }),
-      ],
+          lastTransition: this.lastTransition,
+          overlapRefused: this.overlapRefusedThisRun,
+        })
+      : [];
+    this.hud.update(
+      this.controller,
+      this.inputState,
+      time,
+      revealAnswers ? this.probe.model : undefined,
+      revealAnswers
+        ? [
+            ...readabilityLines,
+            ...agencyHudLines(this.agency.session),
+            ...tradeoffHudLines({
+              xPossible: possible.xPossible,
+              yPossible: possible.yPossible,
+              visitedX: this.visitedX,
+              visitedY: this.visitedY,
+            }),
+          ]
+        : [],
     );
     publishDebugState(
       this.controller,
@@ -217,6 +291,14 @@ export class PlaygroundScene extends Phaser.Scene {
       this.probe.model.state,
       this.agency.session.model,
       { visitedX: this.visitedX, visitedY: this.visitedY, xPossible: possible.xPossible, yPossible: possible.yPossible },
+      {
+        active: this.readabilityActive,
+        mode: this.readabilityMode,
+        scenario: this.readabilityScenario,
+        phase: this.readabilityPhase,
+        lastTransition: this.lastTransition,
+        overlapRefused: this.overlapRefusedThisRun,
+      },
     );
   }
 
@@ -237,7 +319,14 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   private setProbeState(state: BinaryWorldState): void {
-    this.probe.setState(state, this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    const previous = this.probe.model.state;
+    const changed = this.probe.setState(state, this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    if (this.probe.model.lastReason === "REFUSED_OVERLAP") {
+      this.overlapRefusedThisRun = true;
+    } else if (changed && previous !== this.probe.model.state) {
+      this.lastTransition = `${previous} → ${this.probe.model.state}`;
+      playDiagnosticClick();
+    }
     this.agency.applyProbe(this.probe.model);
     this.syncSolids();
     this.physicsLab?.setWorldStateUi(this.probe.model.state);
@@ -251,6 +340,7 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   private launchAgency(id: AgencyScenarioId): void {
+    this.leaveReadability();
     if (this.agency.session.model === "OFF") {
       this.setAgencyModel("B");
     }
@@ -266,17 +356,26 @@ export class PlaygroundScene extends Phaser.Scene {
 
   private stepAgency(): void {
     this.agency.attachProbe(this.probe.model);
+    const before = this.probe.model.state;
     const session = this.agency.step(
       this.controller.x,
       this.controller.y,
       PhysicsConfig.ballRadius,
     );
     this.probe.adoptModel(session.probe);
+    if (session.lastHud.includes("REFUSED") || session.probe.lastReason === "REFUSED_OVERLAP") {
+      this.overlapRefusedThisRun = true;
+    }
+    if (session.lastFrom && session.lastTo && session.probe.state !== before) {
+      this.lastTransition = `${session.lastFrom} → ${session.lastTo}`;
+      playDiagnosticClick();
+    }
     this.syncSolids();
     this.physicsLab?.setWorldStateUi(this.probe.model.state);
   }
 
   private launchTradeoff(id: TradeoffScenarioId): void {
+    this.leaveReadability();
     this.setAgencyModel("B");
     this.resetPlaySession("RESET");
     if (id === "CORRECT") {
@@ -325,6 +424,7 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   private launchWorldState(id: WorldStateScenarioId): void {
+    this.leaveReadability();
     this.resetPlaySession("RESET");
     this.setProbeState(id === "A" ? "SOLID" : "PASSABLE");
     this.controller.placeAt(
@@ -333,6 +433,62 @@ export class PlaygroundScene extends Phaser.Scene {
       WORLD_STATE_TRAVERSAL.vx,
       WORLD_STATE_TRAVERSAL.vy,
     );
+  }
+
+  private launchReadability(id: ReadabilityScenarioId, phase?: ReadabilityPhase): void {
+    this.readabilityActive = true;
+    this.readabilityScenario = id;
+    this.readabilityPhase = phase ?? this.readabilityPhase;
+    this.setAgencyModel(agencyModelForScenario(id));
+    this.resetPlaySession("RESET");
+    const pose = scenarioPose(id, this.readabilityPhase);
+    this.lastTransition = "";
+    this.overlapRefusedThisRun = false;
+    this.setProbeState(pose.state);
+    this.controller.placeAt(pose.startX, pose.startY, pose.vx, pose.vy);
+    this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.lastTransition = "";
+    this.overlapRefusedThisRun = false;
+    this.visitedX = false;
+    this.visitedY = false;
+    this.applyReadabilityDisplay();
+  }
+
+  private setReadabilityMode(mode: ReadabilityMode): void {
+    this.readabilityMode = mode;
+    this.applyReadabilityDisplay();
+  }
+
+  private setReadabilityPhase(phase: ReadabilityPhase): void {
+    this.launchReadability(this.readabilityScenario, phase);
+  }
+
+  private leaveReadability(): void {
+    this.readabilityActive = false;
+    this.applyReadabilityDisplay();
+  }
+
+  private applyReadabilityDisplay(): void {
+    const reveal = !this.readabilityActive || this.readabilityMode === "INSTRUMENTED";
+    this.probe.setRevealLabels(reveal);
+    this.agency.setRevealLabels(reveal);
+    this.tradeoff.setRevealLabels(reveal);
+    this.probe.setGhostEnabled(this.readabilityActive && this.readabilityMode === "INSTRUMENTED");
+    this.hud.setSuppressed(this.readabilityActive && this.readabilityMode === "PERCEPTION");
+    this.perceptionTag.setVisible(this.readabilityActive && this.readabilityMode === "PERCEPTION");
+    this.perceptionTag.setText(this.readabilityScenario);
+    this.helpText.setText(
+      this.readabilityActive && this.readabilityMode === "PERCEPTION"
+        ? PERCEPTION_HELP
+        : PLAYGROUND_HELP,
+    );
+    this.physicsLab?.setHidden(this.readabilityActive && this.readabilityMode === "PERCEPTION");
+    this.physicsLab?.setReadabilityUi({
+      mode: this.readabilityMode,
+      scenario: this.readabilityActive ? this.readabilityScenario : null,
+      phase: this.readabilityPhase,
+      active: this.readabilityActive,
+    });
   }
 
   private syncSolids(): void {
@@ -384,6 +540,61 @@ export class PlaygroundScene extends Phaser.Scene {
     label(this, jumpWall.x, jumpWall.y - 18, "WALL JUMP");
 
     return { solids, platforms };
+  }
+}
+
+const PLAYGROUND_HELP = [
+  "PHYSICS PLAYGROUND",
+  "LOW input experiment",
+  "A/D or arrows: move",
+  "R: restart",
+  "L: toggle Physics Lab",
+  "T: W3 state toggle",
+  "5/6: W3 SOLID/PASSABLE launch",
+  "M: W3 agency model",
+  "7/8/9: cause/avoid/restore",
+  "Lab W3 ORDER: X/Y scenarios",
+  "1-4/0: W3 READ A-E",
+  "P: W3 READ mode",
+  "[ / ]: before / after",
+  "LEGACY: fresh tap = LOW",
+  "RHYTHM: 따닥 entry, 탁 continue",
+  "Hold into land: BOOST",
+  "Opposite on wall: WALL JUMP",
+].join("\n");
+
+const PERCEPTION_HELP = [
+  "W3 READ",
+  "A/D or arrows: move",
+  "R: reset this setup",
+  "L: lab",
+  "1-4/0: A-E",
+  "P: mode",
+  "[ / ]: before / after",
+].join("\n");
+
+function playDiagnosticClick(): void {
+  try {
+    const AudioCtor = window.AudioContext;
+    if (!AudioCtor) {
+      return;
+    }
+    const ctx = new AudioCtor();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "square";
+    osc.frequency.value = 520;
+    gain.gain.setValueAtTime(0.06, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.09);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.09);
+    osc.onended = () => {
+      void ctx.close();
+    };
+  } catch {
+    // Diagnostic click is optional.
   }
 }
 
@@ -472,6 +683,14 @@ function publishDebugState(
   worldState?: BinaryWorldState,
   agencyModel?: AgencyModelId,
   tradeoff?: { visitedX: boolean; visitedY: boolean; xPossible: boolean; yPossible: boolean },
+  readability?: {
+    active: boolean;
+    mode: ReadabilityMode;
+    scenario: ReadabilityScenarioId;
+    phase: ReadabilityPhase;
+    lastTransition: string;
+    overlapRefused: boolean;
+  },
 ): void {
   if (!PhysicsConfig.debug) {
     return;
@@ -515,5 +734,11 @@ function publishDebugState(
     visitedY: tradeoff?.visitedY ?? false,
     xPossible: tradeoff?.xPossible ?? null,
     yPossible: tradeoff?.yPossible ?? null,
+    readabilityActive: readability?.active ?? false,
+    readabilityMode: readability?.mode ?? null,
+    readabilityScenario: readability?.scenario ?? null,
+    readabilityPhase: readability?.phase ?? null,
+    lastTransition: readability?.lastTransition ?? "",
+    overlapRefused: readability?.overlapRefused ?? false,
   };
 }

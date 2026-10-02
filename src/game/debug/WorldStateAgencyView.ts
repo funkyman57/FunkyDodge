@@ -25,6 +25,8 @@ export class WorldStateAgencyView {
   readonly activatorLabel: Phaser.GameObjects.Text;
   readonly activatorBody: Phaser.Physics.Arcade.StaticBody;
   session: AgencySession;
+  private revealLabels = true;
+  private flashUntil = 0;
 
   constructor(scene: Phaser.Scene) {
     this.session = createAgencySession("OFF");
@@ -97,9 +99,25 @@ export class WorldStateAgencyView {
   }
 
   step(playerX: number, playerY: number, radius: number): AgencySession {
+    const before = this.session.transitions;
     this.session = stepAgency(this.session, playerX, playerY, radius);
+    if (this.session.transitions > before) {
+      this.flashUntil = this.activatorRect.scene.time.now + 280;
+    }
     this.applyVisual();
     return this.session;
+  }
+
+  setRevealLabels(reveal: boolean): void {
+    this.revealLabels = reveal;
+    this.applyVisual();
+  }
+
+  pulse(now: number): void {
+    const flashing = now < this.flashUntil;
+    if (this.session.model === "B") {
+      this.activatorOutline.setStrokeStyle(flashing ? 5 : 3, flashing ? 0xffffff : 0xf4c2d4, 1);
+    }
   }
 
   resetLatch(playerX: number, playerY: number, radius: number): void {
@@ -133,10 +151,10 @@ export class WorldStateAgencyView {
     const modelB = this.session.model === "B";
     this.causeRect.setVisible(modelA);
     this.causeOutline.setVisible(modelA);
-    this.causeLabel.setVisible(modelA);
+    this.causeLabel.setVisible(modelA && this.revealLabels);
     this.activatorRect.setVisible(modelB);
     this.activatorOutline.setVisible(modelB);
-    this.activatorLabel.setVisible(modelB);
+    this.activatorLabel.setVisible(modelB && this.revealLabels);
     this.activatorBody.enable = modelB;
     if (this.session.lastHud) {
       const label = modelA ? this.causeLabel : this.activatorLabel;

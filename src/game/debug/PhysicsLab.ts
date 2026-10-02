@@ -21,6 +21,11 @@ import { PhysicsConfig } from "../physics/PhysicsConfig";
 import type { BinaryWorldState, WorldStateScenarioId } from "./WorldStateProbe";
 import type { AgencyModelId, AgencyScenarioId } from "./WorldStateAgency";
 import type { TradeoffScenarioId } from "./WorldStateTradeoff";
+import type {
+  ReadabilityMode,
+  ReadabilityPhase,
+  ReadabilityScenarioId,
+} from "./WorldStateReadability";
 import "./physics-lab.css";
 
 type LabField = {
@@ -48,11 +53,20 @@ const FIELDS: LabField[] = [
   { key: "lowBounceFreshPressWindowMs", label: "lowBounceFreshPressWindowMs", min: 80, max: 220, step: 5 },
 ];
 
+export type ReadabilityLabUiState = {
+  mode: ReadabilityMode;
+  scenario: ReadabilityScenarioId | null;
+  phase: ReadabilityPhase;
+  active: boolean;
+};
+
 export type PhysicsLabHandle = {
   applyPreset: (name: PhysicsPresetName) => void;
   destroy: () => void;
   setWorldStateUi: (state: BinaryWorldState) => void;
   setAgencyUi: (model: AgencyModelId) => void;
+  setReadabilityUi: (state: ReadabilityLabUiState) => void;
+  setHidden: (hidden: boolean) => void;
 };
 
 export function mountPhysicsLab(options: {
@@ -64,6 +78,9 @@ export function mountPhysicsLab(options: {
   onAgencyModel?: (model: AgencyModelId) => void;
   onAgencyLaunch?: (id: AgencyScenarioId) => void;
   onTradeoffLaunch?: (id: TradeoffScenarioId) => void;
+  onReadabilityLaunch?: (id: ReadabilityScenarioId) => void;
+  onReadabilityMode?: (mode: ReadabilityMode) => void;
+  onReadabilityPhase?: (phase: ReadabilityPhase) => void;
 }): PhysicsLabHandle {
   const root = document.createElement("aside");
   root.className = "physics-lab";
@@ -82,6 +99,9 @@ export function mountPhysicsLab(options: {
     <h3>W3 ORDER</h3>
     <div class="physics-lab-tradeoff"></div>
     <p class="physics-lab-note">X = support. Y = traverse. Diagnostic order only.</p>
+    <h3>W3 READ</h3>
+    <div class="physics-lab-readability"></div>
+    <p class="physics-lab-note">1–4/0 A–E · P mode · [ ] before/after. Perception hides answers.</p>
     <form class="physics-lab-fields"></form>
     <div class="physics-lab-metrics"></div>
     <p class="physics-lab-note">Dev only. Input mode is independent of physics presets. Timing seeds are provisional.</p>
@@ -94,9 +114,16 @@ export function mountPhysicsLab(options: {
   const worldStateRow = root.querySelector(".physics-lab-world-state") as HTMLElement;
   const agencyRow = root.querySelector(".physics-lab-agency") as HTMLElement;
   const tradeoffRow = root.querySelector(".physics-lab-tradeoff") as HTMLElement;
+  const readabilityRow = root.querySelector(".physics-lab-readability") as HTMLElement;
   const form = root.querySelector(".physics-lab-fields") as HTMLFormElement;
   let worldState: BinaryWorldState = "SOLID";
   let agencyModel: AgencyModelId = "OFF";
+  let readabilityState: ReadabilityLabUiState = {
+    mode: "INSTRUMENTED",
+    scenario: null,
+    phase: "BEFORE",
+    active: false,
+  };
   const metrics = root.querySelector(".physics-lab-metrics") as HTMLElement;
 
   let selectedPreset: PhysicsPresetName = "DYNAMIC";
@@ -253,6 +280,45 @@ export function mountPhysicsLab(options: {
     tradeoffRow.append(button);
   }
 
+  const readabilityButtons = (["A", "B", "C", "D", "E"] as const).map((id) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = id;
+    button.addEventListener("click", () => options.onReadabilityLaunch?.(id));
+    readabilityRow.append(button);
+    return { id, button };
+  });
+  const readabilityModes = (["INSTRUMENTED", "PERCEPTION"] as const).map((mode) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = mode === "INSTRUMENTED" ? "INSTR" : "PERC";
+    button.addEventListener("click", () => options.onReadabilityMode?.(mode));
+    readabilityRow.append(button);
+    return { mode, button };
+  });
+  const readabilityPhases = (["BEFORE", "AFTER"] as const).map((phase) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = phase;
+    button.addEventListener("click", () => options.onReadabilityPhase?.(phase));
+    readabilityRow.append(button);
+    return { phase, button };
+  });
+
+  function refreshReadability(): void {
+    for (const entry of readabilityButtons) {
+      entry.button.dataset.active = String(
+        readabilityState.active && readabilityState.scenario === entry.id,
+      );
+    }
+    for (const entry of readabilityModes) {
+      entry.button.dataset.active = String(readabilityState.mode === entry.mode);
+    }
+    for (const entry of readabilityPhases) {
+      entry.button.dataset.active = String(readabilityState.phase === entry.phase);
+    }
+  }
+
   function refreshWorldState(): void {
     for (const entry of worldButtons) {
       entry.button.dataset.active = String(entry.name === worldState);
@@ -376,6 +442,7 @@ export function mountPhysicsLab(options: {
 
   refreshWorldState();
   refreshAgency();
+  refreshReadability();
 
   return {
     applyPreset,
@@ -391,6 +458,13 @@ export function mountPhysicsLab(options: {
     setAgencyUi(model: AgencyModelId) {
       agencyModel = model;
       refreshAgency();
+    },
+    setReadabilityUi(state: ReadabilityLabUiState) {
+      readabilityState = state;
+      refreshReadability();
+    },
+    setHidden(hidden: boolean) {
+      root.hidden = hidden;
     },
   };
 }
