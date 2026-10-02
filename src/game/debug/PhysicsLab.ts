@@ -22,6 +22,7 @@ import type { BinaryWorldState, WorldStateScenarioId } from "./WorldStateProbe";
 import type { AgencyModelId, AgencyScenarioId } from "./WorldStateAgency";
 import type { TradeoffScenarioId } from "./WorldStateTradeoff";
 import type { DelayScenarioId, TemporalPhase } from "./WorldStateDelay";
+import type { PrepScenarioId } from "./WorldStatePrep";
 import "./physics-lab.css";
 
 type LabField = {
@@ -69,6 +70,7 @@ export function mountPhysicsLab(options: {
   onDelayEnabled?: (enabled: boolean) => void;
   onDelayLaunch?: (id: DelayScenarioId) => void;
   onDelayRestore?: () => void;
+  onPrepLaunch?: (id: PrepScenarioId) => void;
 }): PhysicsLabHandle {
   const root = document.createElement("aside");
   root.className = "physics-lab";
@@ -90,6 +92,9 @@ export function mountPhysicsLab(options: {
     <h3>W4 DELAY</h3>
     <div class="physics-lab-delay"></div>
     <p class="physics-lab-note">720ms diagnostic onset. PENDING is not a third collision state. Immediate restore is recovery, not a second delay.</p>
+    <h3>W4 PREP</h3>
+    <div class="physics-lab-prep"></div>
+    <p class="physics-lab-note">Prepare during PENDING for future Y. Not K03. Diagnostic only.</p>
     <form class="physics-lab-fields"></form>
     <div class="physics-lab-metrics"></div>
     <p class="physics-lab-note">Dev only. Input mode is independent of physics presets. Timing seeds are provisional.</p>
@@ -103,6 +108,7 @@ export function mountPhysicsLab(options: {
   const agencyRow = root.querySelector(".physics-lab-agency") as HTMLElement;
   const tradeoffRow = root.querySelector(".physics-lab-tradeoff") as HTMLElement;
   const delayRow = root.querySelector(".physics-lab-delay") as HTMLElement;
+  const prepRow = root.querySelector(".physics-lab-prep") as HTMLElement;
   const form = root.querySelector(".physics-lab-fields") as HTMLFormElement;
   let worldState: BinaryWorldState = "SOLID";
   let agencyModel: AgencyModelId = "OFF";
@@ -292,6 +298,20 @@ export function mountPhysicsLab(options: {
   delayRestore.textContent = "RESTORE NOW";
   delayRestore.addEventListener("click", () => options.onDelayRestore?.());
   delayRow.append(delayRestore);
+
+  const prepLaunches: Array<{ id: PrepScenarioId; label: string }> = [
+    { id: "A", label: "A PREP" },
+    { id: "B", label: "B WAIT" },
+    { id: "C", label: "C PARTIAL" },
+    { id: "D", label: "D REPEAT" },
+  ];
+  for (const launch of prepLaunches) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = launch.label;
+    button.addEventListener("click", () => options.onPrepLaunch?.(launch.id));
+    prepRow.append(button);
+  }
 
   function refreshWorldState(): void {
     for (const entry of worldButtons) {

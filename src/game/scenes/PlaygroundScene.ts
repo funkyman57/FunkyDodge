@@ -35,6 +35,13 @@ import {
   type DelaySession,
 } from "../debug/WorldStateDelay";
 import { delayHudLines, WorldStateDelayView } from "../debug/WorldStateDelayView";
+import {
+  PREP_PARTIAL_WAIT_FRAMES,
+  PREP_VX,
+  PREP_WAIT,
+  type PrepScenarioId,
+} from "../debug/WorldStatePrep";
+import { prepHudLines, WorldStatePrepView } from "../debug/WorldStatePrepView";
 import { InputState } from "../input/InputState";
 import { LowInputExperiment, type ClearReason } from "../input/LowInputExperiment";
 import { sharedRhythmRecognizer } from "../input/RhythmRecognizer";
@@ -78,6 +85,7 @@ export class PlaygroundScene extends Phaser.Scene {
   private agency!: WorldStateAgencyView;
   private tradeoff!: WorldStateTradeoffView;
   private delayView!: WorldStateDelayView;
+  private prepView!: WorldStatePrepView;
   private delaySession: DelaySession = createDelaySession();
   private delayEnabled = true;
   private visitedX = false;
@@ -99,6 +107,7 @@ export class PlaygroundScene extends Phaser.Scene {
     this.agency = new WorldStateAgencyView(this);
     this.tradeoff = new WorldStateTradeoffView(this);
     this.delayView = new WorldStateDelayView(this);
+    this.prepView = new WorldStatePrepView(this);
     platforms.push(this.probe.rect);
     platforms.push(this.agency.activatorRect);
 
@@ -122,6 +131,7 @@ export class PlaygroundScene extends Phaser.Scene {
         onDelayEnabled: (enabled) => this.setDelayEnabled(enabled),
         onDelayLaunch: (id) => this.launchDelay(id),
         onDelayRestore: () => this.restoreDelay(),
+        onPrepLaunch: (id) => this.launchPrep(id),
       });
       this.physics.world.gravity.y = PhysicsConfig.gravity;
       this.physicsLab.setWorldStateUi(this.probe.model.state);
@@ -166,6 +176,7 @@ export class PlaygroundScene extends Phaser.Scene {
         "7/8/9: cause/avoid/restore",
         "Lab W3 ORDER: X/Y scenarios",
         `Lab W4 DELAY ${DELAY_MS}ms onset`,
+        "Lab W4 PREP: pending preparation",
         "LEGACY: fresh tap = LOW",
         "RHYTHM: 따닥 entry, 탁 continue",
         "Hold into land: BOOST",
@@ -238,8 +249,14 @@ export class PlaygroundScene extends Phaser.Scene {
           visitedY: this.visitedY,
         }),
         ...(this.delayEnabled ? delayHudLines(this.delaySession) : []),
+        ...(this.delayEnabled ? prepHudLines({
+          x: this.controller.x,
+          y: this.controller.y,
+          session: this.delaySession,
+        }) : []),
       ],
     );
+    this.prepView.refresh(this.delayEnabled, this.controller.x, this.controller.y);
     publishDebugState(
       this.controller,
       this.inputState,
@@ -437,6 +454,29 @@ export class PlaygroundScene extends Phaser.Scene {
 
   private syncDelayView(): void {
     this.delayView.refresh(this.delaySession, this.delayEnabled);
+    this.prepView?.refresh(this.delayEnabled, this.controller?.x ?? PREP_WAIT.x, this.controller?.y ?? PREP_WAIT.y);
+  }
+
+  private launchPrep(id: PrepScenarioId): void {
+    this.setDelayEnabled(true);
+    this.resetPlaySession("RESET");
+    if (id === "B") {
+      this.delaySession = acknowledgeCause();
+      this.controller.placeAt(PREP_WAIT.x, PREP_WAIT.y, 0, 0);
+    } else if (id === "C") {
+      this.delaySession = advanceDelay(acknowledgeCause(), PREP_PARTIAL_WAIT_FRAMES);
+      this.controller.placeAt(PREP_WAIT.x, PREP_WAIT.y, PREP_VX, 0);
+    } else {
+      this.delaySession = acknowledgeCause();
+      this.controller.placeAt(PREP_WAIT.x, PREP_WAIT.y, PREP_VX, 0);
+    }
+    this.probe.adoptModel(this.delaySession.probe);
+    this.agency.applyProbe(this.probe.model);
+    this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.syncDelayView();
+    this.syncSolids();
+    this.physicsLab?.setWorldStateUi(this.probe.model.state);
+    this.physicsLab?.setDelayUi(this.delayEnabled, this.delaySession.phase);
   }
 
   private launchTradeoff(id: TradeoffScenarioId): void {
