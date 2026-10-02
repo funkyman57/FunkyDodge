@@ -8,6 +8,7 @@ import {
   DELAY_CONTACT,
   DELAY_DT_MS,
   DELAY_MS,
+  delayHudLines,
   acknowledgeCause,
   advanceDelay,
   createDelaySession,
@@ -282,6 +283,17 @@ test("W4-EXP-000: pending is not a third collision state", () => {
   assert.equal(pending.probe.state, "SOLID");
   assert.equal(createWorldStateProbe("SOLID").state === pending.probe.state, true);
   assert.notEqual(pending.phase, pending.probe.state);
+});
+
+test("W4-EXP-000: HUD cause ack is pending-only and progress is on the session", () => {
+  const pending = acknowledgeCause();
+  const hud = delayHudLines(pending);
+  assert.ok(hud.includes("CAUSE ACK"));
+  assert.ok(hud.some((line) => line.startsWith("W4 PHASE PENDING")));
+  const settled = advanceDelay(pending, 44);
+  const settledHud = delayHudLines(settled);
+  assert.equal(settledHud.includes("CAUSE ACK"), false);
+  assert.ok(settledHud.some((line) => line.includes("SETTLED")));
 });
 
 test("W4-EXP-000: contact pose is away from the probe", () => {

@@ -439,7 +439,7 @@ export function delayHudLines(session: DelaySession): string[] {
     `CURRENT ${session.probe.state}`,
     `FUTURE ${session.futureState ?? "—"}`,
     `PROGRESS ${Math.round(session.progress * 100)}% ${progressBand(session.progress)}`,
-    session.causeAcknowledged ? "CAUSE ACK" : "",
+    session.causeAcknowledged && session.phase === "PENDING" ? "CAUSE ACK" : "",
     session.ignoredReactivations > 0 ? `IGNORED REACTIVATION ${session.ignoredReactivations}` : "",
   ].filter(Boolean);
 }
