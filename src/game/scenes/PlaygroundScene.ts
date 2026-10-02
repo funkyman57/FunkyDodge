@@ -42,6 +42,14 @@ import {
   type PrepScenarioId,
 } from "../debug/WorldStatePrep";
 import { prepHudLines, WorldStatePrepView } from "../debug/WorldStatePrepView";
+import {
+  TIMING_ACTIVATE,
+  TIMING_NOMINAL_SPEED,
+  TIMING_X_POSE,
+  timingHudLines,
+  type TimingPlanId,
+  type TimingScenarioId,
+} from "../debug/WorldStateTiming";
 import { InputState } from "../input/InputState";
 import { LowInputExperiment, type ClearReason } from "../input/LowInputExperiment";
 import { sharedRhythmRecognizer } from "../input/RhythmRecognizer";
@@ -88,6 +96,8 @@ export class PlaygroundScene extends Phaser.Scene {
   private prepView!: WorldStatePrepView;
   private delaySession: DelaySession = createDelaySession();
   private delayEnabled = true;
+  private timingPlan: TimingPlanId | null = null;
+  private timingXUsed = false;
   private visitedX = false;
   private visitedY = false;
   private roomSolids: Solid[] = [];
@@ -132,6 +142,7 @@ export class PlaygroundScene extends Phaser.Scene {
         onDelayLaunch: (id) => this.launchDelay(id),
         onDelayRestore: () => this.restoreDelay(),
         onPrepLaunch: (id) => this.launchPrep(id),
+        onTimingLaunch: (id) => this.launchTiming(id),
       });
       this.physics.world.gravity.y = PhysicsConfig.gravity;
       this.physicsLab.setWorldStateUi(this.probe.model.state);
@@ -177,6 +188,7 @@ export class PlaygroundScene extends Phaser.Scene {
         "Lab W3 ORDER: X/Y scenarios",
         `Lab W4 DELAY ${DELAY_MS}ms onset`,
         "Lab W4 PREP: pending preparation",
+        "Lab W4 TIMING: early vs X-first",
         "LEGACY: fresh tap = LOW",
         "RHYTHM: 따닥 entry, 탁 continue",
         "Hold into land: BOOST",
@@ -254,6 +266,11 @@ export class PlaygroundScene extends Phaser.Scene {
           y: this.controller.y,
           session: this.delaySession,
         }) : []),
+        ...timingHudLines({
+          plan: this.timingPlan,
+          xUsed: this.timingXUsed,
+          combined: this.timingXUsed && this.visitedY,
+        }),
       ],
     );
     this.prepView.refresh(this.delayEnabled, this.controller.x, this.controller.y);
@@ -277,6 +294,8 @@ export class PlaygroundScene extends Phaser.Scene {
     sharedRhythmRecognizer.reset(reason, physical.left, physical.right);
     this.visitedX = false;
     this.visitedY = false;
+    this.timingPlan = null;
+    this.timingXUsed = false;
     this.probe.reset(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
     this.agency.applyProbe(this.probe.model);
     this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
@@ -479,6 +498,47 @@ export class PlaygroundScene extends Phaser.Scene {
     this.physicsLab?.setDelayUi(this.delayEnabled, this.delaySession.phase);
   }
 
+  private launchTiming(id: TimingScenarioId): void {
+    this.setDelayEnabled(true);
+    this.resetPlaySession("RESET");
+    if (id === "A") {
+      this.timingPlan = "EARLY";
+      this.delaySession = acknowledgeCause();
+      const travel = { x: TIMING_X_POSE.x - TIMING_ACTIVATE.x, y: TIMING_X_POSE.y - TIMING_ACTIVATE.y };
+      const dist = Math.hypot(travel.x, travel.y);
+      this.controller.placeAt(
+        TIMING_ACTIVATE.x,
+        TIMING_ACTIVATE.y,
+        (travel.x / dist) * TIMING_NOMINAL_SPEED,
+        (travel.y / dist) * TIMING_NOMINAL_SPEED,
+      );
+    } else if (id === "B") {
+      this.timingPlan = "CORRECT";
+      this.controller.placeAt(
+        WORLD_STATE_SUPPORT.startX,
+        WORLD_STATE_SUPPORT.startY,
+        WORLD_STATE_SUPPORT.vx,
+        WORLD_STATE_SUPPORT.vy,
+      );
+    } else if (id === "C") {
+      this.timingPlan = "CORRECT";
+      this.timingXUsed = true;
+      this.visitedX = true;
+      this.delaySession = acknowledgeCause();
+      this.controller.placeAt(PREP_WAIT.x, PREP_WAIT.y, PREP_VX, 0);
+    } else {
+      this.timingPlan = null;
+      this.delaySession = resetDelaySession(this.delaySession, PREP_WAIT.x, PREP_WAIT.y);
+    }
+    this.probe.adoptModel(this.delaySession.probe);
+    this.agency.applyProbe(this.probe.model);
+    this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.syncDelayView();
+    this.syncSolids();
+    this.physicsLab?.setWorldStateUi(this.probe.model.state);
+    this.physicsLab?.setDelayUi(this.delayEnabled, this.delaySession.phase);
+  }
+
   private launchTradeoff(id: TradeoffScenarioId): void {
     this.setAgencyModel("B");
     this.resetPlaySession("RESET");
@@ -521,6 +581,7 @@ export class PlaygroundScene extends Phaser.Scene {
       && this.controller.y <= bounds.top;
     if (this.probe.model.state === "SOLID" && onTop) {
       this.visitedX = true;
+      this.timingXUsed = true;
     }
     if (this.probe.model.state === "PASSABLE" && this.controller.x > bounds.right) {
       this.visitedY = true;

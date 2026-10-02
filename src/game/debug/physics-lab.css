@@ -40,7 +40,8 @@
 .physics-lab-agency,
 .physics-lab-tradeoff,
 .physics-lab-delay,
-.physics-lab-prep {
+.physics-lab-prep,
+.physics-lab-timing-plan {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;

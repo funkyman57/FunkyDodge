@@ -23,6 +23,7 @@ import type { AgencyModelId, AgencyScenarioId } from "./WorldStateAgency";
 import type { TradeoffScenarioId } from "./WorldStateTradeoff";
 import type { DelayScenarioId, TemporalPhase } from "./WorldStateDelay";
 import type { PrepScenarioId } from "./WorldStatePrep";
+import type { TimingScenarioId } from "./WorldStateTiming";
 import "./physics-lab.css";
 
 type LabField = {
@@ -71,6 +72,7 @@ export function mountPhysicsLab(options: {
   onDelayLaunch?: (id: DelayScenarioId) => void;
   onDelayRestore?: () => void;
   onPrepLaunch?: (id: PrepScenarioId) => void;
+  onTimingLaunch?: (id: TimingScenarioId) => void;
 }): PhysicsLabHandle {
   const root = document.createElement("aside");
   root.className = "physics-lab";
@@ -95,6 +97,9 @@ export function mountPhysicsLab(options: {
     <h3>W4 PREP</h3>
     <div class="physics-lab-prep"></div>
     <p class="physics-lab-note">Prepare during PENDING for future Y. Not K03. Diagnostic only.</p>
+    <h3>W4 TIMING</h3>
+    <div class="physics-lab-timing-plan"></div>
+    <p class="physics-lab-note">Earlier is not always better. Diagnostic plan only. No Timed Gate.</p>
     <form class="physics-lab-fields"></form>
     <div class="physics-lab-metrics"></div>
     <p class="physics-lab-note">Dev only. Input mode is independent of physics presets. Timing seeds are provisional.</p>
@@ -109,6 +114,7 @@ export function mountPhysicsLab(options: {
   const tradeoffRow = root.querySelector(".physics-lab-tradeoff") as HTMLElement;
   const delayRow = root.querySelector(".physics-lab-delay") as HTMLElement;
   const prepRow = root.querySelector(".physics-lab-prep") as HTMLElement;
+  const timingPlanRow = root.querySelector(".physics-lab-timing-plan") as HTMLElement;
   const form = root.querySelector(".physics-lab-fields") as HTMLFormElement;
   let worldState: BinaryWorldState = "SOLID";
   let agencyModel: AgencyModelId = "OFF";
@@ -311,6 +317,20 @@ export function mountPhysicsLab(options: {
     button.textContent = launch.label;
     button.addEventListener("click", () => options.onPrepLaunch?.(launch.id));
     prepRow.append(button);
+  }
+
+  const timingLaunches: Array<{ id: TimingScenarioId; label: string }> = [
+    { id: "A", label: "A EARLY" },
+    { id: "B", label: "B CORRECT X" },
+    { id: "C", label: "C PREP Y" },
+    { id: "D", label: "D RETRY" },
+  ];
+  for (const launch of timingLaunches) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = launch.label;
+    button.addEventListener("click", () => options.onTimingLaunch?.(launch.id));
+    timingPlanRow.append(button);
   }
 
   function refreshWorldState(): void {
