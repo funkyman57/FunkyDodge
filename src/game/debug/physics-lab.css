@@ -41,7 +41,8 @@
 .physics-lab-tradeoff,
 .physics-lab-delay,
 .physics-lab-prep,
-.physics-lab-timing-plan {
+.physics-lab-timing-plan,
+.physics-lab-diagnosis {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;

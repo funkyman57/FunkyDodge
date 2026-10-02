@@ -37,6 +37,7 @@ import {
 import { delayHudLines, WorldStateDelayView } from "../debug/WorldStateDelayView";
 import {
   PREP_PARTIAL_WAIT_FRAMES,
+  PREP_STAGING,
   PREP_VX,
   PREP_WAIT,
   type PrepScenarioId,
@@ -50,6 +51,10 @@ import {
   type TimingPlanId,
   type TimingScenarioId,
 } from "../debug/WorldStateTiming";
+import {
+  diagnosisHudLines,
+  type DiagnosisScenarioId,
+} from "../debug/WorldStateDiagnosis";
 import { InputState } from "../input/InputState";
 import { LowInputExperiment, type ClearReason } from "../input/LowInputExperiment";
 import { sharedRhythmRecognizer } from "../input/RhythmRecognizer";
@@ -98,6 +103,7 @@ export class PlaygroundScene extends Phaser.Scene {
   private delayEnabled = true;
   private timingPlan: TimingPlanId | null = null;
   private timingXUsed = false;
+  private diagnosisScenario: DiagnosisScenarioId | null = null;
   private visitedX = false;
   private visitedY = false;
   private roomSolids: Solid[] = [];
@@ -143,6 +149,7 @@ export class PlaygroundScene extends Phaser.Scene {
         onDelayRestore: () => this.restoreDelay(),
         onPrepLaunch: (id) => this.launchPrep(id),
         onTimingLaunch: (id) => this.launchTiming(id),
+        onDiagnosisLaunch: (id) => this.launchDiagnosis(id),
       });
       this.physics.world.gravity.y = PhysicsConfig.gravity;
       this.physicsLab.setWorldStateUi(this.probe.model.state);
@@ -189,6 +196,7 @@ export class PlaygroundScene extends Phaser.Scene {
         `Lab W4 DELAY ${DELAY_MS}ms onset`,
         "Lab W4 PREP: pending preparation",
         "Lab W4 TIMING: early vs X-first",
+        "Lab W4 DX: state / timing / prep",
         "LEGACY: fresh tap = LOW",
         "RHYTHM: 따닥 entry, 탁 continue",
         "Hold into land: BOOST",
@@ -271,6 +279,13 @@ export class PlaygroundScene extends Phaser.Scene {
           xUsed: this.timingXUsed,
           combined: this.timingXUsed && this.visitedY,
         }),
+        ...diagnosisHudLines({
+          scenario: this.diagnosisScenario,
+          session: this.delaySession,
+          x: this.controller.x,
+          y: this.controller.y,
+          xUsed: this.timingXUsed,
+        }),
       ],
     );
     this.prepView.refresh(this.delayEnabled, this.controller.x, this.controller.y);
@@ -296,6 +311,7 @@ export class PlaygroundScene extends Phaser.Scene {
     this.visitedY = false;
     this.timingPlan = null;
     this.timingXUsed = false;
+    this.diagnosisScenario = null;
     this.probe.reset(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
     this.agency.applyProbe(this.probe.model);
     this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
@@ -529,6 +545,49 @@ export class PlaygroundScene extends Phaser.Scene {
     } else {
       this.timingPlan = null;
       this.delaySession = resetDelaySession(this.delaySession, PREP_WAIT.x, PREP_WAIT.y);
+    }
+    this.probe.adoptModel(this.delaySession.probe);
+    this.agency.applyProbe(this.probe.model);
+    this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.syncDelayView();
+    this.syncSolids();
+    this.physicsLab?.setWorldStateUi(this.probe.model.state);
+    this.physicsLab?.setDelayUi(this.delayEnabled, this.delaySession.phase);
+  }
+
+  private launchDiagnosis(id: DiagnosisScenarioId): void {
+    this.setDelayEnabled(true);
+    this.resetPlaySession("RESET");
+    this.diagnosisScenario = id;
+    if (id === "A") {
+      this.timingXUsed = true;
+      this.visitedX = true;
+      this.delaySession = acknowledgeCause();
+      this.controller.placeAt(PREP_STAGING.x, PREP_STAGING.y, WORLD_STATE_TRAVERSAL.vx, 0);
+    } else if (id === "B") {
+      this.delaySession = acknowledgeCause();
+      const travel = { x: TIMING_X_POSE.x - TIMING_ACTIVATE.x, y: TIMING_X_POSE.y - TIMING_ACTIVATE.y };
+      const dist = Math.hypot(travel.x, travel.y);
+      this.controller.placeAt(
+        TIMING_ACTIVATE.x,
+        TIMING_ACTIVATE.y,
+        (travel.x / dist) * TIMING_NOMINAL_SPEED,
+        (travel.y / dist) * TIMING_NOMINAL_SPEED,
+      );
+    } else if (id === "C") {
+      this.timingXUsed = true;
+      this.visitedX = true;
+      this.delaySession = acknowledgeCause();
+      this.controller.placeAt(PREP_WAIT.x, PREP_WAIT.y, 0, 0);
+    } else if (id === "D") {
+      this.timingXUsed = true;
+      this.visitedX = true;
+      this.delaySession = acknowledgeCause();
+      this.controller.placeAt(PREP_WAIT.x, PREP_WAIT.y, PREP_VX, 0);
+    } else {
+      this.diagnosisScenario = null;
+      this.delaySession = resetDelaySession(this.delaySession, PREP_WAIT.x, PREP_WAIT.y);
+      this.controller.placeAt(PREP_WAIT.x, PREP_WAIT.y, 0, 0);
     }
     this.probe.adoptModel(this.delaySession.probe);
     this.agency.applyProbe(this.probe.model);
