@@ -79,15 +79,15 @@ export class WorldStateDelayView {
       .setDepth(10);
   }
 
-  refresh(session: DelaySession, visible: boolean): void {
+  refresh(session: DelaySession, visible: boolean, perceptionSafe = false): void {
     this.meterBack.setVisible(visible);
     this.meterFill.setVisible(visible);
     this.tickEarly.setVisible(visible);
     this.tickMid.setVisible(visible);
-    this.hatch.setVisible(visible);
-    this.phaseLabel.setVisible(visible);
-    this.futureLabel.setVisible(visible);
-    this.ackLabel.setVisible(visible);
+    this.hatch.setVisible(visible && !perceptionSafe);
+    this.phaseLabel.setVisible(visible && !perceptionSafe);
+    this.futureLabel.setVisible(visible && !perceptionSafe);
+    this.ackLabel.setVisible(visible && !perceptionSafe);
     if (!visible) {
       return;
     }

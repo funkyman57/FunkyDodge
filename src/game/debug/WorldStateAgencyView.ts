@@ -25,6 +25,8 @@ export class WorldStateAgencyView {
   readonly activatorLabel: Phaser.GameObjects.Text;
   readonly activatorBody: Phaser.Physics.Arcade.StaticBody;
   session: AgencySession;
+  private revealLabels = true;
+  private flashUntilMs = 0;
 
   constructor(scene: Phaser.Scene) {
     this.session = createAgencySession("OFF");
@@ -133,10 +135,10 @@ export class WorldStateAgencyView {
     const modelB = this.session.model === "B";
     this.causeRect.setVisible(modelA);
     this.causeOutline.setVisible(modelA);
-    this.causeLabel.setVisible(modelA);
+    this.causeLabel.setVisible(modelA && this.revealLabels);
     this.activatorRect.setVisible(modelB);
     this.activatorOutline.setVisible(modelB);
-    this.activatorLabel.setVisible(modelB);
+    this.activatorLabel.setVisible(modelB && this.revealLabels);
     this.activatorBody.enable = modelB;
     if (this.session.lastHud) {
       const label = modelA ? this.causeLabel : this.activatorLabel;
@@ -149,6 +151,20 @@ export class WorldStateAgencyView {
       this.causeLabel.setText("CAUSE");
       this.activatorLabel.setText("ACTIVATOR");
     }
+  }
+
+  setRevealLabels(reveal: boolean): void {
+    this.revealLabels = reveal;
+    this.applyVisual();
+  }
+
+  flashCause(nowMs: number): void {
+    this.flashUntilMs = nowMs + 180;
+  }
+
+  pulse(nowMs: number): void {
+    const flashing = nowMs < this.flashUntilMs;
+    this.activatorOutline.setStrokeStyle(flashing ? 6 : 3, 0xf4c2d4, flashing ? 1 : 0.95);
   }
 }
 

@@ -24,6 +24,7 @@ export class DebugHud {
   lastWallPhase: WallContactPhase = "—";
   lastWallNewFlash = false;
   lastWallJumpHud = false;
+  private suppressed = false;
 
   constructor(scene: Phaser.Scene) {
     this.text = scene.add
@@ -39,6 +40,13 @@ export class DebugHud {
       .setScrollFactor(0);
   }
 
+  setSuppressed(suppressed: boolean): void {
+    this.suppressed = suppressed;
+    if (suppressed) {
+      this.text.setVisible(false);
+    }
+  }
+
   update(
     player: PlayerController,
     input: InputState,
@@ -46,6 +54,10 @@ export class DebugHud {
     worldState?: { state: BinaryWorldState; lastReason: WorldStateChangeReason },
     agencyLines: string[] = [],
   ): void {
+    if (this.suppressed) {
+      this.text.setVisible(false);
+      return;
+    }
     this.text.setVisible(PhysicsConfig.debug);
     if (!PhysicsConfig.debug) {
       return;

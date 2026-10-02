@@ -20,6 +20,7 @@ export class WorldStateProbeView {
   readonly label: Phaser.GameObjects.Text;
   readonly body: Phaser.Physics.Arcade.StaticBody;
   model: WorldStateProbeModel;
+  private revealLabels = true;
 
   constructor(scene: Phaser.Scene) {
     this.model = createWorldStateProbe("SOLID");
@@ -80,6 +81,11 @@ export class WorldStateProbeView {
     this.refreshVisual();
   }
 
+  setRevealLabels(reveal: boolean): void {
+    this.revealLabels = reveal;
+    this.label.setVisible(reveal);
+  }
+
   overlapsPlayer(playerX: number, playerY: number, radius: number): boolean {
     return aabbOverlap(playerAabb(playerX, playerY, radius), this.model.bounds);
   }
@@ -96,5 +102,6 @@ export class WorldStateProbeView {
     const refused = this.model.lastReason === "REFUSED_OVERLAP" ? " REFUSED" : "";
     this.label.setText(`PROBE ${this.model.state}${refused}`);
     this.label.setColor(solid ? "#f4e3a7" : "#b7c4d8");
+    this.label.setVisible(this.revealLabels);
   }
 }

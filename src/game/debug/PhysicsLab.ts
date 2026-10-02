@@ -25,6 +25,11 @@ import type { DelayScenarioId, TemporalPhase } from "./WorldStateDelay";
 import type { PrepScenarioId } from "./WorldStatePrep";
 import type { TimingScenarioId } from "./WorldStateTiming";
 import type { DiagnosisScenarioId } from "./WorldStateDiagnosis";
+import type {
+  TemporalDiagnosisCase,
+  TemporalReadabilityMode,
+  TemporalScenarioId,
+} from "./WorldStateTemporalReadability";
 import "./physics-lab.css";
 
 type LabField = {
@@ -58,6 +63,7 @@ export type PhysicsLabHandle = {
   setWorldStateUi: (state: BinaryWorldState) => void;
   setAgencyUi: (model: AgencyModelId) => void;
   setDelayUi: (enabled: boolean, phase?: TemporalPhase) => void;
+  setHidden: (hidden: boolean) => void;
 };
 
 export function mountPhysicsLab(options: {
@@ -75,6 +81,9 @@ export function mountPhysicsLab(options: {
   onPrepLaunch?: (id: PrepScenarioId) => void;
   onTimingLaunch?: (id: TimingScenarioId) => void;
   onDiagnosisLaunch?: (id: DiagnosisScenarioId) => void;
+  onTemporalLaunch?: (id: TemporalScenarioId) => void;
+  onTemporalMode?: (mode: TemporalReadabilityMode) => void;
+  onTemporalDiagnosis?: (id: TemporalDiagnosisCase) => void;
 }): PhysicsLabHandle {
   const root = document.createElement("aside");
   root.className = "physics-lab";
@@ -105,6 +114,9 @@ export function mountPhysicsLab(options: {
     <h3>W4 DX</h3>
     <div class="physics-lab-diagnosis"></div>
     <p class="physics-lab-note">State / timing / prep failures. Same 720ms relation. Diagnostic only.</p>
+    <h3>W4 READ</h3>
+    <div class="physics-lab-temporal"></div>
+    <p class="physics-lab-note">T1–T5 harness. Perception hides answers. Not Human Validation.</p>
     <form class="physics-lab-fields"></form>
     <div class="physics-lab-metrics"></div>
     <p class="physics-lab-note">Dev only. Input mode is independent of physics presets. Timing seeds are provisional.</p>
@@ -121,6 +133,7 @@ export function mountPhysicsLab(options: {
   const prepRow = root.querySelector(".physics-lab-prep") as HTMLElement;
   const timingPlanRow = root.querySelector(".physics-lab-timing-plan") as HTMLElement;
   const diagnosisRow = root.querySelector(".physics-lab-diagnosis") as HTMLElement;
+  const temporalRow = root.querySelector(".physics-lab-temporal") as HTMLElement;
   const form = root.querySelector(".physics-lab-fields") as HTMLFormElement;
   let worldState: BinaryWorldState = "SOLID";
   let agencyModel: AgencyModelId = "OFF";
@@ -354,6 +367,41 @@ export function mountPhysicsLab(options: {
     diagnosisRow.append(button);
   }
 
+  const temporalModes = (["INSTRUMENTED", "PERCEPTION"] as const).map((mode) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = mode === "INSTRUMENTED" ? "INSTR" : "PERC";
+    button.addEventListener("click", () => options.onTemporalMode?.(mode));
+    temporalRow.append(button);
+    return { mode, button };
+  });
+  const temporalLaunches: Array<{ id: TemporalScenarioId; label: string }> = [
+    { id: "A", label: "A" },
+    { id: "B", label: "B" },
+    { id: "C", label: "C" },
+    { id: "D", label: "D" },
+    { id: "E", label: "E" },
+  ];
+  for (const launch of temporalLaunches) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = launch.label;
+    button.addEventListener("click", () => options.onTemporalLaunch?.(launch.id));
+    temporalRow.append(button);
+  }
+  const temporalCases: Array<{ id: TemporalDiagnosisCase; label: string }> = [
+    { id: "E1", label: "E1" },
+    { id: "E2", label: "E2" },
+    { id: "E3", label: "E3" },
+  ];
+  for (const launch of temporalCases) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = launch.label;
+    button.addEventListener("click", () => options.onTemporalDiagnosis?.(launch.id));
+    temporalRow.append(button);
+  }
+
   function refreshWorldState(): void {
     for (const entry of worldButtons) {
       entry.button.dataset.active = String(entry.name === worldState);
@@ -464,11 +512,16 @@ export function mountPhysicsLab(options: {
     }
   }
 
+  let forceHidden = false;
+
   const onKeyDown = (event: KeyboardEvent): void => {
     if (event.repeat || event.target instanceof HTMLInputElement) {
       return;
     }
     if (event.key === "l" || event.key === "L") {
+      if (forceHidden) {
+        return;
+      }
       root.hidden = !root.hidden;
     }
   };
@@ -506,6 +559,10 @@ export function mountPhysicsLab(options: {
         delayPhase = phase;
       }
       refreshDelay();
+    },
+    setHidden(hidden: boolean) {
+      forceHidden = hidden;
+      root.hidden = hidden;
     },
   };
 }

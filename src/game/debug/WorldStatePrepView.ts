@@ -8,6 +8,7 @@ import {
 } from "./WorldStatePrep";
 
 export class WorldStatePrepView {
+  private revealLabels = true;
   readonly mark: Phaser.GameObjects.Rectangle;
   readonly label: Phaser.GameObjects.Text;
   readonly waitMark: Phaser.GameObjects.Rectangle;
@@ -49,15 +50,26 @@ export class WorldStatePrepView {
   }
 
   refresh(visible: boolean, x = PREP_WAIT.x, y = PREP_WAIT.y): void {
-    this.mark.setVisible(visible);
-    this.label.setVisible(visible);
-    this.waitMark.setVisible(visible);
-    this.waitLabel.setVisible(visible);
-    if (!visible) {
+    const show = visible && this.revealLabels;
+    this.mark.setVisible(show);
+    this.label.setVisible(show);
+    this.waitMark.setVisible(show);
+    this.waitLabel.setVisible(show);
+    if (!show) {
       return;
     }
     const ready = prepReadiness(x, y);
     this.label.setText(`PREP Y ${ready === "READY AT SETTLE" ? "READY" : ready === "NEARLY READY" ? "NEAR" : "—"}`);
+  }
+
+  setRevealLabels(reveal: boolean): void {
+    this.revealLabels = reveal;
+    if (!reveal) {
+      this.mark.setVisible(false);
+      this.label.setVisible(false);
+      this.waitMark.setVisible(false);
+      this.waitLabel.setVisible(false);
+    }
   }
 }
 

@@ -7,7 +7,7 @@
     "dev": "vite --host 0.0.0.0 --port 5173",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 0.0.0.0 --port 5173",
-    "test": "tsx --test src/game/physics/BounceController.test.ts src/game/physics/PhysicsTuning.test.ts src/game/input/InputState.test.ts src/game/input/RhythmRecognizer.test.ts src/game/debug/MovementDiagnostics.test.ts src/game/debug/WorldStateProbe.test.ts src/game/debug/WorldStateAgency.test.ts src/game/debug/WorldStateTradeoff.test.ts src/game/debug/WorldStateDelay.test.ts src/game/debug/WorldStatePrep.test.ts src/game/debug/WorldStateTiming.test.ts src/game/debug/WorldStateDiagnosis.test.ts"
+    "test": "tsx --test src/game/physics/BounceController.test.ts src/game/physics/PhysicsTuning.test.ts src/game/input/InputState.test.ts src/game/input/RhythmRecognizer.test.ts src/game/debug/MovementDiagnostics.test.ts src/game/debug/WorldStateProbe.test.ts src/game/debug/WorldStateAgency.test.ts src/game/debug/WorldStateTradeoff.test.ts src/game/debug/WorldStateDelay.test.ts src/game/debug/WorldStatePrep.test.ts src/game/debug/WorldStateTiming.test.ts src/game/debug/WorldStateDiagnosis.test.ts src/game/debug/WorldStateTemporalReadability.test.ts"
   },
   "dependencies": {
     "phaser": "^3.88.2"

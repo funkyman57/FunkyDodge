@@ -55,6 +55,16 @@ import {
   diagnosisHudLines,
   type DiagnosisScenarioId,
 } from "../debug/WorldStateDiagnosis";
+import {
+  playCauseClick,
+  scenarioPose,
+  seedSession,
+  temporalHudLines,
+  type ConfoundFlag,
+  type TemporalDiagnosisCase,
+  type TemporalReadabilityMode,
+  type TemporalScenarioId,
+} from "../debug/WorldStateTemporalReadability";
 import { InputState } from "../input/InputState";
 import { LowInputExperiment, type ClearReason } from "../input/LowInputExperiment";
 import { sharedRhythmRecognizer } from "../input/RhythmRecognizer";
@@ -93,6 +103,12 @@ export class PlaygroundScene extends Phaser.Scene {
     eight: Phaser.Input.Keyboard.Key;
     nine: Phaser.Input.Keyboard.Key;
     m: Phaser.Input.Keyboard.Key;
+    p: Phaser.Input.Keyboard.Key;
+    one: Phaser.Input.Keyboard.Key;
+    two: Phaser.Input.Keyboard.Key;
+    three: Phaser.Input.Keyboard.Key;
+    four: Phaser.Input.Keyboard.Key;
+    zero: Phaser.Input.Keyboard.Key;
   };
   private probe!: WorldStateProbeView;
   private agency!: WorldStateAgencyView;
@@ -104,6 +120,14 @@ export class PlaygroundScene extends Phaser.Scene {
   private timingPlan: TimingPlanId | null = null;
   private timingXUsed = false;
   private diagnosisScenario: DiagnosisScenarioId | null = null;
+  private temporalActive = false;
+  private temporalMode: TemporalReadabilityMode = "INSTRUMENTED";
+  private temporalScenario: TemporalScenarioId = "A";
+  private temporalDiagnosis: TemporalDiagnosisCase = "E1";
+  private temporalConfound: ConfoundFlag | null = null;
+  private lastCauseAck = false;
+  private helpText!: Phaser.GameObjects.Text;
+  private perceptionTag!: Phaser.GameObjects.Text;
   private visitedX = false;
   private visitedY = false;
   private roomSolids: Solid[] = [];
@@ -150,6 +174,9 @@ export class PlaygroundScene extends Phaser.Scene {
         onPrepLaunch: (id) => this.launchPrep(id),
         onTimingLaunch: (id) => this.launchTiming(id),
         onDiagnosisLaunch: (id) => this.launchDiagnosis(id),
+        onTemporalLaunch: (id) => this.launchTemporal(id),
+        onTemporalMode: (mode) => this.setTemporalMode(mode),
+        onTemporalDiagnosis: (id) => this.launchTemporal("E", id),
       });
       this.physics.world.gravity.y = PhysicsConfig.gravity;
       this.physicsLab.setWorldStateUi(this.probe.model.state);
@@ -179,29 +206,16 @@ export class PlaygroundScene extends Phaser.Scene {
       eight: Phaser.Input.Keyboard.KeyCodes.EIGHT,
       nine: Phaser.Input.Keyboard.KeyCodes.NINE,
       m: Phaser.Input.Keyboard.KeyCodes.M,
+      p: Phaser.Input.Keyboard.KeyCodes.P,
+      one: Phaser.Input.Keyboard.KeyCodes.ONE,
+      two: Phaser.Input.Keyboard.KeyCodes.TWO,
+      three: Phaser.Input.Keyboard.KeyCodes.THREE,
+      four: Phaser.Input.Keyboard.KeyCodes.FOUR,
+      zero: Phaser.Input.Keyboard.KeyCodes.ZERO,
     }) as typeof this.keys;
 
-    this.add
-      .text(PhysicsConfig.width - 16, 12, [
-        "PHYSICS PLAYGROUND",
-        "LOW input experiment",
-        "A/D or arrows: move",
-        "R: restart",
-        "L: toggle Physics Lab",
-        "T: W3 state toggle",
-        "5/6: W3 SOLID/PASSABLE launch",
-        "M: W3 agency model",
-        "7/8/9: cause/avoid/restore",
-        "Lab W3 ORDER: X/Y scenarios",
-        `Lab W4 DELAY ${DELAY_MS}ms onset`,
-        "Lab W4 PREP: pending preparation",
-        "Lab W4 TIMING: early vs X-first",
-        "Lab W4 DX: state / timing / prep",
-        "LEGACY: fresh tap = LOW",
-        "RHYTHM: 따닥 entry, 탁 continue",
-        "Hold into land: BOOST",
-        "Opposite on wall: WALL JUMP",
-      ].join("\n"), {
+    this.helpText = this.add
+      .text(PhysicsConfig.width - 16, 12, this.playgroundHelp(), {
         fontFamily: "DejaVu Sans Mono, JetBrains Mono, monospace",
         fontSize: "12px",
         color: "#c9d6f0",
@@ -210,6 +224,14 @@ export class PlaygroundScene extends Phaser.Scene {
       })
       .setOrigin(1, 0)
       .setDepth(100);
+    this.perceptionTag = this.add
+      .text(16, 12, "", {
+        fontFamily: "DejaVu Sans Mono, JetBrains Mono, monospace",
+        fontSize: "28px",
+        color: "#c9d6f0",
+      })
+      .setDepth(100)
+      .setVisible(false);
     this.syncDelayView();
   }
 
@@ -230,6 +252,18 @@ export class PlaygroundScene extends Phaser.Scene {
         this.launchAgency("AVOID");
       } else if (Phaser.Input.Keyboard.JustDown(this.keys.nine)) {
         this.launchAgency("RESTORE");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.p)) {
+        this.setTemporalMode(this.temporalMode === "PERCEPTION" ? "INSTRUMENTED" : "PERCEPTION");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.one)) {
+        this.launchTemporal("A");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.two)) {
+        this.launchTemporal("B");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.three)) {
+        this.launchTemporal("C");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.four)) {
+        this.launchTemporal("D");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keys.zero)) {
+        this.launchTemporal("E");
       }
     }
 
@@ -244,7 +278,11 @@ export class PlaygroundScene extends Phaser.Scene {
     }
 
     if (this.inputState.restartJustPressed) {
-      this.resetPlaySession("RESET");
+      if (this.temporalActive) {
+        this.launchTemporal(this.temporalScenario, this.temporalDiagnosis);
+      } else {
+        this.resetPlaySession("RESET");
+      }
     }
 
     this.controller.update(time, delta);
@@ -253,40 +291,57 @@ export class PlaygroundScene extends Phaser.Scene {
     } else {
       this.stepAgency();
     }
+    this.noteCauseFlash(time);
+    this.agency.pulse(time);
     this.noteTradeoffUse();
     const possible = possibilityRow(this.probe.model.state);
+    const reveal = !this.temporalActive || this.temporalMode === "INSTRUMENTED";
+    const temporalLines = this.temporalActive
+      ? temporalHudLines(this.temporalMode, {
+          scenario: this.temporalScenario,
+          diagnosis: this.temporalScenario === "E" ? this.temporalDiagnosis : undefined,
+          session: this.delaySession,
+          x: this.controller.x,
+          y: this.controller.y,
+          xUsed: this.timingXUsed,
+          confound: this.temporalConfound,
+        })
+      : [];
     this.hud.update(
       this.controller,
       this.inputState,
       time,
-      this.probe.model,
-      [
-        ...agencyHudLines(this.agency.session),
-        ...tradeoffHudLines({
-          xPossible: possible.xPossible,
-          yPossible: possible.yPossible,
-          visitedX: this.visitedX,
-          visitedY: this.visitedY,
-        }),
-        ...(this.delayEnabled ? delayHudLines(this.delaySession) : []),
-        ...(this.delayEnabled ? prepHudLines({
-          x: this.controller.x,
-          y: this.controller.y,
-          session: this.delaySession,
-        }) : []),
-        ...timingHudLines({
-          plan: this.timingPlan,
-          xUsed: this.timingXUsed,
-          combined: this.timingXUsed && this.visitedY,
-        }),
-        ...diagnosisHudLines({
-          scenario: this.diagnosisScenario,
-          session: this.delaySession,
-          x: this.controller.x,
-          y: this.controller.y,
-          xUsed: this.timingXUsed,
-        }),
-      ],
+      reveal ? this.probe.model : undefined,
+      reveal
+        ? [
+            ...temporalLines,
+            ...agencyHudLines(this.agency.session),
+            ...tradeoffHudLines({
+              xPossible: possible.xPossible,
+              yPossible: possible.yPossible,
+              visitedX: this.visitedX,
+              visitedY: this.visitedY,
+            }),
+            ...(this.delayEnabled ? delayHudLines(this.delaySession) : []),
+            ...(this.delayEnabled ? prepHudLines({
+              x: this.controller.x,
+              y: this.controller.y,
+              session: this.delaySession,
+            }) : []),
+            ...timingHudLines({
+              plan: this.timingPlan,
+              xUsed: this.timingXUsed,
+              combined: this.timingXUsed && this.visitedY,
+            }),
+            ...diagnosisHudLines({
+              scenario: this.diagnosisScenario,
+              session: this.delaySession,
+              x: this.controller.x,
+              y: this.controller.y,
+              xUsed: this.timingXUsed,
+            }),
+          ]
+        : temporalLines,
     );
     this.prepView.refresh(this.delayEnabled, this.controller.x, this.controller.y);
     publishDebugState(
@@ -361,6 +416,7 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   private launchAgency(id: AgencyScenarioId): void {
+    this.leaveTemporal();
     if (this.agency.session.model === "OFF") {
       this.setAgencyModel("B");
     }
@@ -400,6 +456,9 @@ export class PlaygroundScene extends Phaser.Scene {
     );
     this.probe.adoptModel(this.delaySession.probe);
     this.agency.applyProbe(this.probe.model);
+    if (this.delaySession.probe.lastReason === "REFUSED_OVERLAP" || this.delaySession.lastHud.includes("REFUSED")) {
+      this.temporalConfound = "OVERLAP REFUSE";
+    }
     this.syncDelayView();
     this.syncSolids();
     this.physicsLab?.setWorldStateUi(this.probe.model.state);
@@ -439,6 +498,7 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   private launchDelay(id: DelayScenarioId): void {
+    this.leaveTemporal();
     this.setDelayEnabled(true);
     this.resetPlaySession("RESET");
     if (id === "A") {
@@ -488,11 +548,13 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   private syncDelayView(): void {
-    this.delayView.refresh(this.delaySession, this.delayEnabled);
+    const perceptionSafe = this.temporalActive && this.temporalMode === "PERCEPTION";
+    this.delayView.refresh(this.delaySession, this.delayEnabled, perceptionSafe);
     this.prepView?.refresh(this.delayEnabled, this.controller?.x ?? PREP_WAIT.x, this.controller?.y ?? PREP_WAIT.y);
   }
 
   private launchPrep(id: PrepScenarioId): void {
+    this.leaveTemporal();
     this.setDelayEnabled(true);
     this.resetPlaySession("RESET");
     if (id === "B") {
@@ -515,6 +577,7 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   private launchTiming(id: TimingScenarioId): void {
+    this.leaveTemporal();
     this.setDelayEnabled(true);
     this.resetPlaySession("RESET");
     if (id === "A") {
@@ -556,6 +619,7 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   private launchDiagnosis(id: DiagnosisScenarioId): void {
+    this.leaveTemporal();
     this.setDelayEnabled(true);
     this.resetPlaySession("RESET");
     this.diagnosisScenario = id;
@@ -599,6 +663,7 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   private launchTradeoff(id: TradeoffScenarioId): void {
+    this.leaveTemporal();
     this.setAgencyModel("B");
     this.resetPlaySession("RESET");
     if (id === "CORRECT") {
@@ -648,6 +713,7 @@ export class PlaygroundScene extends Phaser.Scene {
   }
 
   private launchWorldState(id: WorldStateScenarioId): void {
+    this.leaveTemporal();
     this.resetPlaySession("RESET");
     this.setProbeState(id === "A" ? "SOLID" : "PASSABLE");
     this.controller.placeAt(
@@ -684,6 +750,112 @@ export class PlaygroundScene extends Phaser.Scene {
       this.handleFocusLoss();
     }
   };
+
+  private launchTemporal(id: TemporalScenarioId, diagnosis: TemporalDiagnosisCase = this.temporalDiagnosis): void {
+    this.temporalActive = true;
+    this.temporalScenario = id;
+    this.temporalDiagnosis = id === "E" ? diagnosis : this.temporalDiagnosis;
+    this.temporalConfound = null;
+    this.lastCauseAck = false;
+    this.setDelayEnabled(true);
+    this.resetPlaySession("RESET");
+    this.delaySession = seedSession(id, this.temporalDiagnosis);
+    const pose = scenarioPose(id, this.temporalDiagnosis);
+    if (id === "E" && this.temporalDiagnosis === "E1") {
+      this.timingXUsed = true;
+      this.visitedX = true;
+    }
+    if (id === "E" && this.temporalDiagnosis === "E2") {
+      const travel = { x: TIMING_X_POSE.x - TIMING_ACTIVATE.x, y: TIMING_X_POSE.y - TIMING_ACTIVATE.y };
+      const dist = Math.hypot(travel.x, travel.y);
+      this.controller.placeAt(
+        TIMING_ACTIVATE.x,
+        TIMING_ACTIVATE.y,
+        (travel.x / dist) * TIMING_NOMINAL_SPEED,
+        (travel.y / dist) * TIMING_NOMINAL_SPEED,
+      );
+    } else if (id === "E" && this.temporalDiagnosis === "E3") {
+      this.timingXUsed = true;
+      this.visitedX = true;
+      this.controller.placeAt(pose.x, pose.y, pose.vx, pose.vy);
+    } else {
+      this.controller.placeAt(pose.x, pose.y, pose.vx, pose.vy);
+    }
+    this.probe.adoptModel(this.delaySession.probe);
+    this.agency.applyProbe(this.probe.model);
+    this.agency.resetLatch(this.controller.x, this.controller.y, PhysicsConfig.ballRadius);
+    this.syncDelayView();
+    this.syncSolids();
+    this.physicsLab?.setWorldStateUi(this.probe.model.state);
+    this.physicsLab?.setDelayUi(this.delayEnabled, this.delaySession.phase);
+    this.applyTemporalDisplay();
+  }
+
+  private setTemporalMode(mode: TemporalReadabilityMode): void {
+    this.temporalMode = mode;
+    if (!this.temporalActive) {
+      this.temporalActive = true;
+    }
+    this.applyTemporalDisplay();
+  }
+
+  private leaveTemporal(): void {
+    this.temporalActive = false;
+    this.applyTemporalDisplay();
+  }
+
+  private applyTemporalDisplay(): void {
+    const reveal = !this.temporalActive || this.temporalMode === "INSTRUMENTED";
+    this.probe.setRevealLabels(reveal);
+    this.agency.setRevealLabels(reveal);
+    this.tradeoff.setRevealLabels(reveal);
+    this.prepView.setRevealLabels(reveal);
+    this.hud.setSuppressed(this.temporalActive && this.temporalMode === "PERCEPTION");
+    this.perceptionTag.setVisible(this.temporalActive && this.temporalMode === "PERCEPTION");
+    this.perceptionTag.setText(this.temporalScenario);
+    this.helpText.setText(
+      this.temporalActive && this.temporalMode === "PERCEPTION"
+        ? ["move", "R", "P"].join("\n")
+        : this.playgroundHelp(),
+    );
+    this.physicsLab?.setHidden(this.temporalActive && this.temporalMode === "PERCEPTION");
+    this.syncDelayView();
+  }
+
+  private playgroundHelp(): string {
+    return [
+      "PHYSICS PLAYGROUND",
+      "LOW input experiment",
+      "A/D or arrows: move",
+      "R: restart",
+      "L: toggle Physics Lab",
+      "P: W4 READ mode",
+      "1/2/3/4/0: W4 READ A–E",
+      "T: W3 state toggle",
+      "5/6: W3 SOLID/PASSABLE launch",
+      "M: W3 agency model",
+      "7/8/9: cause/avoid/restore",
+      "Lab W3 ORDER: X/Y scenarios",
+      `Lab W4 DELAY ${DELAY_MS}ms onset`,
+      "Lab W4 PREP: pending preparation",
+      "Lab W4 TIMING: early vs X-first",
+      "Lab W4 DX: state / timing / prep",
+      "Lab W4 READ: T1–T5 harness",
+      "LEGACY: fresh tap = LOW",
+      "RHYTHM: 따닥 entry, 탁 continue",
+      "Hold into land: BOOST",
+      "Opposite on wall: WALL JUMP",
+    ].join("\n");
+  }
+
+  private noteCauseFlash(time: number): void {
+    const acked = this.delaySession.causeAcknowledged && this.delaySession.phase === "PENDING";
+    if (acked && !this.lastCauseAck) {
+      this.agency.flashCause(time);
+      playCauseClick();
+    }
+    this.lastCauseAck = acked;
+  }
 
   private createTestRoom(): { solids: Solid[]; platforms: Phaser.GameObjects.Rectangle[] } {
     const t = 24;
